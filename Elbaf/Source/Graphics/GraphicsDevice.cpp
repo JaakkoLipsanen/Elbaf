@@ -3,7 +3,7 @@
 #include "GameWindow.h"
 #include <Core\Math\FlaiMath.h>
 #include <Core\Game.h>
-
+ 
 static int GetClearMask(ClearOptions clearOptions)
 {
 #define BIT(X)  GL_##X##_BUFFER_BIT
