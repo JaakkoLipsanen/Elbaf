@@ -1,5 +1,7 @@
 #include "Color.h"
 #include <Core\Math\FlaiMath.h>
+#include <glm\glm.hpp>
+
 
 inline static uint8 ClampToByte(float value)
 {

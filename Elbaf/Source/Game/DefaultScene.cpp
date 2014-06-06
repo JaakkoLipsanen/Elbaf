@@ -1,6 +1,9 @@
 #include "DefaultScene.h"
 #include <Core\Game.h>
 #include <Core\Input.h>
+#include "Core\Common.h"
+
+#include <glm/gtc/matrix_transform.hpp>
 
 DefaultScene::DefaultScene()
 {

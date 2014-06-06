@@ -43,9 +43,6 @@
     <Filter Include="Source Files\Game">
       <UniqueIdentifier>{c23e8a0c-8ec2-4b36-a3b5-445d60525136}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Core\Input">
-      <UniqueIdentifier>{ae10bfa9-123d-4e8f-95b5-93ef5a49a0ed}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Source\Core\Math\FlaiMath.h">
@@ -102,6 +99,9 @@
     <ClInclude Include="..\Source\Core\Input.h">
       <Filter>Header Files\Core</Filter>
     </ClInclude>
+    <ClInclude Include="..\Source\Core\Math\Matrix.h">
+      <Filter>Header Files\Core\Math</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Source\Core\Game.cpp">
@@ -114,9 +114,6 @@
       <Filter>Source Files\Core\Math</Filter>
     </ClCompile>
     <ClCompile Include="..\Source\Core\Math\SizeF.cpp">
-      <Filter>Source Files\Core\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Source\Core\Math\FlaiMath.cpp">
       <Filter>Source Files\Core\Math</Filter>
     </ClCompile>
     <ClCompile Include="..\Source\Graphics\GraphicsDevice.cpp">

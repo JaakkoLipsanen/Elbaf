@@ -9,6 +9,7 @@ void Logger::LogMessage(std::string const& message, bool addNewLine)
 		std::cout << "\n";
 }
 
+
 void Logger::LogError(std::string const& message, bool addNewLine)
 {
 	std::cerr << message;
