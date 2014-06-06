@@ -11,11 +11,17 @@ const static int MouseButtonCount = 8;
 static bool* OldMouseButtons = new bool[MouseButtonCount]();
 static bool* MouseButtons = new bool[MouseButtonCount]();
 
-const static int KeyCount = static_cast<int>(KeyCode::RightSuper) + 1;
+const static int KeyCount = static_cast<int>(KeyCode::RightSuper) + 1; // RightSuper is the last key in GLFW
 static bool* OldKeys = new bool[KeyCount]();
 static bool* Keys = new bool[KeyCount]();
 
 static bool IsMouseInsideWindow = true;
+
+static float ScrollXOffset = 0;
+static float ScrollYOffset = 0;
+
+static Vector2f MousePosition(0, 0);
+static Vector2f PreviousMousePosition(0, 0);
 
 static int KeyCodeToGLFWKey(KeyCode keyCode)
 {
@@ -51,12 +57,12 @@ static void GLFWKeyCallback(GLFWwindow* window, int key, int scanCode, int actio
 
 static void GLFWMouseButtonCallback(GLFWwindow* window, int button, int action, int mods)
 {
-	//bool isPressed = (action == GLFW_PRESS);
-//	MouseButtons[button] = isPressed;
 }
 
 static void GLFWCursorPositionCallback(GLFWwindow* window, double x, double y)
 {
+	MousePosition.x = x;
+	MousePosition.y = y;
 }
 
 static void GLFWCursorEnteredCallback(GLFWwindow* window, int entered)
@@ -66,6 +72,8 @@ static void GLFWCursorEnteredCallback(GLFWwindow* window, int entered)
 
 static void GLFWScrollCallback(GLFWwindow* window, double xOffset, double yOffset)
 {
+	ScrollXOffset = xOffset;
+	ScrollYOffset = yOffset;
 }
 
 InputManager::InputManager()
@@ -101,6 +109,15 @@ void InputManager::Update()
 	{
 		Keys[i] = glfwGetKey(window, KeyCodeToGLFWKey(static_cast<KeyCode>(i))) == GLFW_PRESS;
 	}
+}
+
+// reset all the states here
+// okay, exceptions are the mouse buttons & keys. those swaps are good to be in the Update, it's clearer :P
+void InputManager::OnFrameEnded()
+{
+	PreviousMousePosition = MousePosition;
+	ScrollXOffset = 0;
+	ScrollYOffset = 0;
 }
 
 InputManager::~InputManager()
@@ -142,5 +159,25 @@ namespace Input
 	bool IsMouseInsideWindow()
 	{
 		return IsMouseInsideWindow;
+	}
+
+	float GetScrollWheelDelta()
+	{
+		return ScrollYOffset;
+	}
+
+	Vector2f GetMousePosition()
+	{
+		return MousePosition;
+	}
+
+	Vector2f GetPreviousMousePosition()
+	{
+		return PreviousMousePosition;
+	}
+
+	Vector2f GetMousePositionDelta()
+	{
+		return MousePosition - PreviousMousePosition;
 	}
 }

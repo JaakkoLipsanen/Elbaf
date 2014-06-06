@@ -1,7 +1,9 @@
 #include "Game.h"
 #include <Diagnostics\Ensure.h>
 #include <Graphics\GraphicsDevice.h>
-
+#include <Diagnostics\Logger.h>
+#include "Graphics\Graphics.h"
+#include "Graphics\GameWindow.h"
 static Game* Instance;
 
 // meh!!
@@ -54,7 +56,11 @@ void Game::Tick()
 	this->PostRender();
 
 	_graphicsDevice->SwapBuffers();
+	_inputManager.OnFrameEnded();
 }
+
+
+Game::~Game() { }
 
 void Game::Exit()
 {

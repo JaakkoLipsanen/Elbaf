@@ -140,6 +140,7 @@
   <ItemGroup>
     <ClInclude Include="..\Source\Core\Common.h" />
     <ClInclude Include="..\Source\Core\Event.h" />
+    <ClInclude Include="..\Source\Core\Extensions\GLM.Extensions.h" />
     <ClInclude Include="..\Source\Core\Game.h" />
     <ClInclude Include="..\Source\Core\Input.h" />
     <ClInclude Include="..\Source\Core\Math\FlaiMath.h" />

@@ -46,14 +46,14 @@
 #if(defined(GLM_MESSAGES) && !defined(glm_ext))
 #	pragma message("GLM: GLM_VIRTREV_xstream extension included")
 #endif
-/*
+
 namespace glm{
 namespace detail
 {
-	template<typename T>
+	template<typename T, precision P>
 	std::ostream & operator << (std::ostream & stream, glm::detail::tvec2<T, P> const & vec)
 	{
-		stream << "<glm_vec2 ";
+		stream << "<vec2 ";
 		stream << "x=\"" << vec.x << "\" ";
 		stream << "y=\"" << vec.y << "\" ";
 		stream << "/>";
@@ -61,10 +61,10 @@ namespace detail
 		return stream;
 	}
 
-	template<typename T>
+	template<typename T, precision P>
 	std::ostream & operator << (std::ostream & stream, glm::detail::tvec3<T, P> const & vec)
 	{
-		stream << "<glm_vec3 ";
+		stream << "<vec3 ";
 		stream << "x=\"" << vec.x << "\" ";
 		stream << "y=\"" << vec.y << "\" ";
 		stream << "z=\"" << vec.z << "\" ";
@@ -73,10 +73,10 @@ namespace detail
 		return stream;
 	}
 
-	template<typename T>
+	template<typename T, precision P>
 	std::ostream & operator << (std::ostream & stream, glm::detail::tvec4<T, P> const & vec)
 	{
-		stream << "<glm_vec4 ";
+		stream << "<vec4 ";
 		stream << "x=\"" << vec.x << "\" ";
 		stream << "y=\"" << vec.y << "\" ";
 		stream << "z=\"" << vec.z << "\" ";
@@ -86,10 +86,10 @@ namespace detail
 		return stream;
 	}
 
-	template<typename T>
+	template<typename T, precision P>
 	std::ostream & operator << (std::ostream & stream, glm::detail::tmat2x2<T, P> const & mat)
 	{
-		stream << "<glm_mat2>" << std::endl;
+		stream << "<mat2>" << std::endl;
 		stream << "<row ";
 		stream << "x=\"" << glm::row(mat, 0)[0] << "\" ";
 		stream << "y=\"" << glm::row(mat, 0)[1] << "\" ";
@@ -103,10 +103,10 @@ namespace detail
 		return stream;
 	}
 
-	template<typename T>
+	template<typename T, precision P>
 	std::ostream & operator << (std::ostream & stream, glm::detail::tmat3x3<T, P> const & mat)
 	{
-		stream << "<glm_mat3>" << std::endl;
+		stream << "<mat3>" << std::endl;
 		stream << "<row ";
 		stream << "x=\"" << glm::row(mat, 0)[0] << "\" ";
 		stream << "y=\"" << glm::row(mat, 0)[1] << "\" ";
@@ -127,10 +127,10 @@ namespace detail
 		return stream;
 	}
 
-	template<typename T>
+	template<typename T, precision P>
 	std::ostream & operator << (std::ostream & stream, glm::detail::tmat4x4<T, P> const & mat)
 	{
-		stream << "<glm_mat4>" << std::endl;
+		stream << "<mat4>" << std::endl;
 		stream << "<row ";
 		stream << "x=\"" << glm::row(mat, 0)[0] << "\" ";
 		stream << "y=\"" << glm::row(mat, 0)[1] << "\" ";
@@ -162,5 +162,4 @@ namespace detail
 
 }//namespace detail
 }//namespace glm
-*/
 #endif//GLM_VIRTREV_xstream

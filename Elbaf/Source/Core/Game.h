@@ -1,13 +1,13 @@
 #pragma once
 #include <memory>
 #include "Event.h"
-#include "Scene.h"
-#include <Graphics\GameWindow.h>
 #include <Graphics\Color.h>
 #include <Graphics\GraphicsDevice.h>
 #include <Core\SceneManager.h>
 #include "Core\Input.h"
 
+class Scene;
+class GameWindow;
 class Game
 {
 	bool _hasStarted = false;
@@ -43,7 +43,7 @@ protected:
 
 public:
 	Game();
-	virtual ~Game() = default;
+	virtual ~Game();
 
 	void Run();
 	void Exit();

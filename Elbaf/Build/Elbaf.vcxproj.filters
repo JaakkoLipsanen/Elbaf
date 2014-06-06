@@ -43,6 +43,9 @@
     <Filter Include="Source Files\Game">
       <UniqueIdentifier>{c23e8a0c-8ec2-4b36-a3b5-445d60525136}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Core\Extensions">
+      <UniqueIdentifier>{b388d5e1-459f-4e55-8f43-28f3a663aadf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Source\Core\Math\FlaiMath.h">
@@ -101,6 +104,9 @@
     </ClInclude>
     <ClInclude Include="..\Source\Core\Math\Matrix.h">
       <Filter>Header Files\Core\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Core\Extensions\GLM.Extensions.h">
+      <Filter>Header Files\Core\Extensions</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -1,4 +1,5 @@
 #pragma once
+#include <Core\Common.h>
 class Game;
 
 class InputManager
@@ -8,6 +9,7 @@ class InputManager
 
 	void Initialize();
 	void Update();
+	void OnFrameEnded();
 public:
 	~InputManager();
 };
@@ -120,5 +122,10 @@ namespace Input
 
 	bool IsMouseInsideWindow();
 
+	float GetScrollWheelDelta();
+
+	Vector2f GetMousePosition();
+	Vector2f GetPreviousMousePosition();
+	Vector2f GetMousePositionDelta();
 	// todo: scroll delta
 }
