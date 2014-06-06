@@ -16,4 +16,13 @@ typedef double double64;
 
 typedef uint8_t byte;
 
+typedef unsigned char uchar;
+typedef unsigned short ushort;
+typedef unsigned int uint;
+typedef unsigned long ulong; // most likely same as uint
+typedef unsigned long long ulonglong;
+
 // todo: include and typedef other useful stuff as well. maybe string?
+
+template<class T, size_t N>
+size_t length(T(&)[N]) { return N; }

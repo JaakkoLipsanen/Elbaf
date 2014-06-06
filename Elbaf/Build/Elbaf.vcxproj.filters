@@ -37,6 +37,15 @@
     <Filter Include="Source Files\Diagnostics">
       <UniqueIdentifier>{333f94a0-4b47-44a1-af9a-04d2f7e3c4f7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Game">
+      <UniqueIdentifier>{ae144d7f-771e-4845-b825-2eaba534de27}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Game">
+      <UniqueIdentifier>{c23e8a0c-8ec2-4b36-a3b5-445d60525136}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Core\Input">
+      <UniqueIdentifier>{ae10bfa9-123d-4e8f-95b5-93ef5a49a0ed}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Source\Core\Math\FlaiMath.h">
@@ -60,9 +69,6 @@
     <ClInclude Include="..\Source\Core\Scene.h">
       <Filter>Header Files\Core</Filter>
     </ClInclude>
-    <ClInclude Include="..\Source\TestGame.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\Source\Graphics\Color.h">
       <Filter>Header Files\Graphics</Filter>
     </ClInclude>
@@ -81,6 +87,21 @@
     <ClInclude Include="..\Source\Diagnostics\Logger.h">
       <Filter>Header Files\Diagnostics</Filter>
     </ClInclude>
+    <ClInclude Include="..\Source\Game\TestGame.h">
+      <Filter>Header Files\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Core\SceneManager.h">
+      <Filter>Header Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Game\DefaultScene.h">
+      <Filter>Header Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="InputManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Core\Input.h">
+      <Filter>Header Files\Core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Source\Core\Game.cpp">
@@ -98,12 +119,6 @@
     <ClCompile Include="..\Source\Core\Math\FlaiMath.cpp">
       <Filter>Source Files\Core\Math</Filter>
     </ClCompile>
-    <ClCompile Include="..\Source\TestGame.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Source\main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\Source\Graphics\GraphicsDevice.cpp">
       <Filter>Source Files\Graphics</Filter>
     </ClCompile>
@@ -118,6 +133,21 @@
     </ClCompile>
     <ClCompile Include="..\Source\Diagnostics\Logger.cpp">
       <Filter>Source Files\Diagnostics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Game\main.cpp">
+      <Filter>Source Files\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Game\TestGame.cpp">
+      <Filter>Source Files\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Core\SceneManager.cpp">
+      <Filter>Source Files\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Game\DefaultScene.cpp">
+      <Filter>Source Files\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Core\Input.cpp">
+      <Filter>Source Files\Core</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -141,31 +141,38 @@
     <ClInclude Include="..\Source\Core\Common.h" />
     <ClInclude Include="..\Source\Core\Event.h" />
     <ClInclude Include="..\Source\Core\Game.h" />
+    <ClInclude Include="..\Source\Core\Input.h" />
     <ClInclude Include="..\Source\Core\Math\FlaiMath.h" />
     <ClInclude Include="..\Source\Core\Math\Size.h" />
     <ClInclude Include="..\Source\Core\Math\SizeF.h" />
     <ClInclude Include="..\Source\Core\Scene.h" />
+    <ClInclude Include="..\Source\Core\SceneManager.h" />
     <ClInclude Include="..\Source\Diagnostics\Ensure.h" />
     <ClInclude Include="..\Source\Diagnostics\Logger.h" />
+    <ClInclude Include="..\Source\Game\DefaultScene.h" />
+    <ClInclude Include="..\Source\Game\TestGame.h" />
     <ClInclude Include="..\Source\Graphics\Color.h" />
     <ClInclude Include="..\Source\Graphics\GameWindow.h" />
     <ClInclude Include="..\Source\Graphics\Graphics.h" />
     <ClInclude Include="..\Source\Graphics\GraphicsDevice.h" />
-    <ClInclude Include="..\Source\TestGame.h" />
+    <ClInclude Include="InputManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Source\Core\Game.cpp" />
+    <ClCompile Include="..\Source\Core\Input.cpp" />
     <ClCompile Include="..\Source\Core\Math\FlaiMath.cpp" />
     <ClCompile Include="..\Source\Core\Math\Size.cpp" />
     <ClCompile Include="..\Source\Core\Math\SizeF.cpp" />
     <ClCompile Include="..\Source\Core\Scene.cpp" />
+    <ClCompile Include="..\Source\Core\SceneManager.cpp" />
     <ClCompile Include="..\Source\Diagnostics\Ensure.cpp" />
     <ClCompile Include="..\Source\Diagnostics\Logger.cpp" />
+    <ClCompile Include="..\Source\Game\DefaultScene.cpp" />
+    <ClCompile Include="..\Source\Game\main.cpp" />
+    <ClCompile Include="..\Source\Game\TestGame.cpp" />
     <ClCompile Include="..\Source\Graphics\Color.cpp" />
     <ClCompile Include="..\Source\Graphics\GameWindow.cpp" />
     <ClCompile Include="..\Source\Graphics\GraphicsDevice.cpp" />
-    <ClCompile Include="..\Source\main.cpp" />
-    <ClCompile Include="..\Source\TestGame.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

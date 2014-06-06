@@ -4,11 +4,14 @@
 #include <Diagnostics\Logger.h>
 #include <Core\Math\Size.h>
 
-
 class GraphicsDevice;
+class InputManager;
 class GameWindow
 {
+	// these require access to GLFWwindow
 	friend GraphicsDevice;
+	friend InputManager;
+
 	struct WindowDeleter {
 		void operator ()(GLFWwindow *window) {
 			// do nothing. at the moment, only way the window is destroyed is when GLFW is terminating (= exiting application). In that case, glfwTerminate will destroy the window.
