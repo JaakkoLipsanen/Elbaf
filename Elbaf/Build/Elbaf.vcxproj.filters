@@ -57,9 +57,6 @@
     <ClInclude Include="..\Source\Core\Math\Size.h">
       <Filter>Header Files\Core\Math</Filter>
     </ClInclude>
-    <ClInclude Include="..\Source\Core\Common.h">
-      <Filter>Header Files\Core</Filter>
-    </ClInclude>
     <ClInclude Include="..\Source\Core\Event.h">
       <Filter>Header Files\Core</Filter>
     </ClInclude>

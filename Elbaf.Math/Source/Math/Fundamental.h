@@ -1,7 +1,5 @@
 #pragma once
-
 #include <stdint.h>
-#include <glm\glm.hpp>
 
 /* common numeric types  */
 typedef uint8_t uint8;
@@ -25,18 +23,3 @@ typedef unsigned long ulong; // most likely same as uint
 typedef unsigned long long ulonglong;
 
 typedef wchar_t wchar;
-
-/* vectors and matrices */
-typedef glm::vec2 Vector2f;
-typedef glm::ivec2 Vector2i;
-typedef glm::vec3 Vector3f;
-typedef glm::ivec3 Vector3i;
-typedef glm::vec4 Vector4f;
-typedef glm::ivec4 Vector4i;
-
-typedef glm::mat4 Matrix4x4;
-
-// todo: include and typedef other useful stuff as well. maybe string?
-
-template<class T, size_t N>
-size_t length(T(&)[N]) { return N; }

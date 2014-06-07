@@ -20,3 +20,6 @@
 - Resource (?). Loadaa kaikkia jne. Tota... Tää kyl vähän paha. Tää linkkaa kaikkiin (taino, Core/Graphics/Audio jne?), mut mikään muu paitsi Engine ei linkkaa tähän?
 - Engine = Engineen ei linkkaa mikään muu. Engine linkkaa kaikkeen. Tääl kans definitaan high-level layerit muihin systeemeihin (ehkä?). Esim Input:: namespace, Time:: namespace jne).
 - CBES/Scene...?: Totas noin... Tän täytyy tietää fyssistä ja graffoista ja audiosta sun muista... Mut pitäskö tän tietää niist vaan interfacen kautta? No ehkä ei.
+
+
+Pitäskö tehä Elbaf.Math?? Mieti!

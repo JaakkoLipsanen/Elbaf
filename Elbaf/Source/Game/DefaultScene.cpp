@@ -21,6 +21,7 @@ void DefaultScene::Initialize()
 
 void DefaultScene::Render()
 {
+	std::cout << Input::GetMousePosition();
 	Logger::LogMessage(Input::GetMousePosition());
 	_graphicsDevice.Clear(Color::RoyalBlue);
 	if (Input::IsKeyPressed(KeyCode::LeftShift))
