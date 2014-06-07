@@ -22,4 +22,12 @@
 - CBES/Scene...?: Totas noin... T‰n t‰ytyy tiet‰‰ fyssist‰ ja graffoista ja audiosta sun muista... Mut pit‰skˆ t‰n tiet‰‰ niist vaan interfacen kautta? No ehk‰ ei.
 
 
-Pit‰skˆ teh‰ Elbaf.Math?? Mieti!
+
+- Okei.. Kaikki luokat, jotka riippuu jostain ei-cross-platform kirjastosta (OpenGL, Direct3D, GLFW jne) omaan namespaceen! 
+	- OpenGL -> namespace OGL
+	- Direct3D -> namespace D3D
+	- GLFW (input jne?) -> namespace OGL(? tai sit ehk joku muu, 'GLFW' ei vaan oikeen voi k‰ytt‰‰ kun se v‰h‰n ep‰selv‰ et onks se mun namespace vs GLFW:n oma namespace);
+	
+	
+
+- High level helper classes: Input, Screen, Time, (Game?), (Resources/Content?)

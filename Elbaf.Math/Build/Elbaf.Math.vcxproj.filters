@@ -27,5 +27,8 @@
     <ClInclude Include="..\Source\Math\Vector.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\Source\Math\FlaiMath.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

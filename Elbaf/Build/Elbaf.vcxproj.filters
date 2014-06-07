@@ -22,17 +22,11 @@
     <Filter Include="Header Files\Core">
       <UniqueIdentifier>{d6872f65-451f-4beb-bdf3-d4257cbba30a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Core\Math">
-      <UniqueIdentifier>{01a73cb3-e7b0-4c32-8365-19153741202b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Graphics">
       <UniqueIdentifier>{2ef7bd45-ab13-4edd-b26d-16a9918a4443}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\Graphics">
       <UniqueIdentifier>{ee158ae0-78e4-4001-ae0a-c4b84e67afc9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Diagnostics">
-      <UniqueIdentifier>{d408ffca-fa74-45ec-a00b-e62b03a8917a}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\Diagnostics">
       <UniqueIdentifier>{333f94a0-4b47-44a1-af9a-04d2f7e3c4f7}</UniqueIdentifier>
@@ -43,31 +37,13 @@
     <Filter Include="Source Files\Game">
       <UniqueIdentifier>{c23e8a0c-8ec2-4b36-a3b5-445d60525136}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Core\Extensions">
-      <UniqueIdentifier>{b388d5e1-459f-4e55-8f43-28f3a663aadf}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Source\Core\Math\FlaiMath.h">
-      <Filter>Header Files\Core\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Source\Core\Math\SizeF.h">
-      <Filter>Header Files\Core\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Source\Core\Math\Size.h">
-      <Filter>Header Files\Core\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Source\Core\Event.h">
-      <Filter>Header Files\Core</Filter>
-    </ClInclude>
     <ClInclude Include="..\Source\Core\Game.h">
       <Filter>Header Files\Core</Filter>
     </ClInclude>
     <ClInclude Include="..\Source\Core\Scene.h">
       <Filter>Header Files\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Source\Graphics\Color.h">
-      <Filter>Header Files\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="..\Source\Graphics\GameWindow.h">
       <Filter>Header Files\Graphics</Filter>
@@ -78,19 +54,10 @@
     <ClInclude Include="..\Source\Graphics\GraphicsDevice.h">
       <Filter>Header Files\Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="..\Source\Diagnostics\Ensure.h">
-      <Filter>Header Files\Diagnostics</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Source\Diagnostics\Logger.h">
-      <Filter>Header Files\Diagnostics</Filter>
-    </ClInclude>
     <ClInclude Include="..\Source\Game\TestGame.h">
       <Filter>Header Files\Game</Filter>
     </ClInclude>
     <ClInclude Include="..\Source\Core\SceneManager.h">
-      <Filter>Header Files\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Source\Game\DefaultScene.h">
       <Filter>Header Files\Core</Filter>
     </ClInclude>
     <ClInclude Include="InputManager.h">
@@ -99,11 +66,8 @@
     <ClInclude Include="..\Source\Core\Input.h">
       <Filter>Header Files\Core</Filter>
     </ClInclude>
-    <ClInclude Include="..\Source\Core\Math\Matrix.h">
-      <Filter>Header Files\Core\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Source\Core\Extensions\GLM.Extensions.h">
-      <Filter>Header Files\Core\Extensions</Filter>
+    <ClInclude Include="..\Source\Game\DefaultScene.h">
+      <Filter>Header Files\Game</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -120,9 +84,6 @@
       <Filter>Source Files\Core\Math</Filter>
     </ClCompile>
     <ClCompile Include="..\Source\Graphics\GraphicsDevice.cpp">
-      <Filter>Source Files\Graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Source\Graphics\Color.cpp">
       <Filter>Source Files\Graphics</Filter>
     </ClCompile>
     <ClCompile Include="..\Source\Graphics\GameWindow.cpp">

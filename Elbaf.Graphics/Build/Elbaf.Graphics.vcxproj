@@ -19,8 +19,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{7D558637-BCC3-4428-9AA5-5B8F10B05EF9}</ProjectGuid>
-    <RootNamespace>ElbafTesting</RootNamespace>
+    <ProjectGuid>{AA1B9A1B-70D7-4A2A-8631-CF60F6109180}</ProjectGuid>
+    <RootNamespace>ElbafGraphics</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -30,7 +30,7 @@
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v120</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
@@ -43,7 +43,7 @@
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v120</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -65,15 +65,28 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <IncludePath>C:\Koodaus\OpenGL\Elbaf\Libraries\glm\include;C:\Koodaus\OpenGL\Elbaf\Libraries\glfw\include;C:\Koodaus\OpenGL\Elbaf\Libraries\glew\include;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <IncludePath>C:\Koodaus\OpenGL\Elbaf\Libraries\glm\include;C:\Koodaus\OpenGL\Elbaf\Libraries\glfw\include;C:\Koodaus\OpenGL\Elbaf\Libraries\glew\include;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <IncludePath>C:\Koodaus\OpenGL\Elbaf\Libraries\glm\include;C:\Koodaus\OpenGL\Elbaf\Libraries\glfw\include;C:\Koodaus\OpenGL\Elbaf\Libraries\glew\include;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <IncludePath>C:\Koodaus\OpenGL\Elbaf\Libraries\glm\include;C:\Koodaus\OpenGL\Elbaf\Libraries\glfw\include;C:\Koodaus\OpenGL\Elbaf\Libraries\glew\include;$(IncludePath)</IncludePath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>C:\Koodaus\OpenGL\Elbaf\Elbaf.Math\Source;C:\Koodaus\OpenGL\Elbaf\Elbaf.Core\Source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>$(TargetDir)\Elbaf.Core.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -81,7 +94,8 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\Koodaus\OpenGL\Elbaf\Elbaf.Math\Source;C:\Koodaus\OpenGL\Elbaf\Elbaf.Graphics\Source;C:\Koodaus\OpenGL\Elbaf\Elbaf.Core\Source;C:\Koodaus\OpenGL\Elbaf\Libraries\glm\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Koodaus\OpenGL\Elbaf\Elbaf.Math\Source;C:\Koodaus\OpenGL\Elbaf\Elbaf.Graphics\Source;C:\Koodaus\OpenGL\Elbaf\Elbaf.Core\Source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>OPENGL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -95,11 +109,13 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>C:\Koodaus\OpenGL\Elbaf\Elbaf.Math\Source;C:\Koodaus\OpenGL\Elbaf\Elbaf.Core\Source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>$(TargetDir)\Elbaf.Core.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -109,7 +125,8 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\Koodaus\OpenGL\Elbaf\Elbaf.Math\Source;C:\Koodaus\OpenGL\Elbaf\Elbaf.Graphics\Source;C:\Koodaus\OpenGL\Elbaf\Elbaf.Core\Source;C:\Koodaus\OpenGL\Elbaf\Libraries\glm\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Koodaus\OpenGL\Elbaf\Elbaf.Math\Source;C:\Koodaus\OpenGL\Elbaf\Elbaf.Core\Source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>OPENGL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -119,7 +136,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\Source\main.cpp" />
+    <ClInclude Include="..\Source\Graphics\ClearOptions.h" />
+    <ClInclude Include="..\Source\Graphics\IGraphicsDevice.h" />
+    <ClInclude Include="..\Source\Graphics\IGraphicsModule.h" />
+    <ClInclude Include="..\Source\Graphics\OpenGL\GameWindow.h" />
+    <ClInclude Include="..\Source\Graphics\OpenGL\OGL.h" />
+    <ClInclude Include="..\Source\Graphics\OpenGL\GraphicsDevice.h" />
+    <ClInclude Include="..\Source\Graphics\OpenGL\GraphicsModule.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\Source\Graphics\OpenGL\GameWindow.cpp" />
+    <ClCompile Include="..\Source\Graphics\OpenGL\GraphicsDevice.cpp" />
+    <ClCompile Include="..\Source\Graphics\OpenGL\GraphicsModule.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

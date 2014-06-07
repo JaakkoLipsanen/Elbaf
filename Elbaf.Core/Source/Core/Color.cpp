@@ -1,11 +1,9 @@
 #include "Color.h"
-#include <Core\Math\FlaiMath.h>
-#include <glm\glm.hpp>
-
+#include <Math\FlaiMath.h>
 
 inline static uint8 ClampToByte(float value)
 {
-	return uint8(FlaiMath::Clamp(value, 0.0f, 255.0f));
+	return static_cast<uint8>(FlaiMath::Clamp(value, 0.0f, 255.0f));
 }
 
 Color::Color(uint32 packedValue)

@@ -117,6 +117,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\Source\Math\FlaiMath.h" />
     <ClInclude Include="..\Source\Math\Fundamental.h" />
     <ClInclude Include="..\Source\Math\Matrix.h" />
     <ClInclude Include="..\Source\Math\Noise.h" />

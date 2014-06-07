@@ -1,38 +1,22 @@
-#include "Event.h"
-/*
-Event& Event::operator +=(FunctionPointer f)
-{
-	_functionPointers.push_back(f);
-	return *this;
-}
+#pragma once
+#include <deque> // would it be possible to remove this? not sure..
 
 template <typename TFunc>
-Event<TFunc>& Event<TFunc>::operator+=(FunctionPointer f)
-{
-
-}
-*/
-
-/*
-
-template <typename TFunc>
-class Event
+class Event final
 {
 	typedef typename std::add_pointer<TFunc>::type FunctionPointer;
 	typedef std::deque<FunctionPointer> FunctionPointerSequence;
 
-	FunctionPointerSequence _functionPointers;
 public:
-	Event& operator +=(FunctionPointer f)
-	{
-		_functionPointers.push_back(f);
-		return *this;
-	}
+	Event& operator +=(FunctionPointer f);
+	Event& operator -=(FunctionPointer f);
 
-	Event& operator -=(FunctionPointer f)
+	void operator()()
 	{
-		_functionPointers.erase(std::remove(_functionPointers.begin(), _functionPointers.end(), f), _functionPointers.end());
-		return *this;
+		for (typename FunctionPointerSequence::iterator it(_functionPointers.begin()); it != _functionPointers.end(); ++it)
+		{
+			(*it)();
+		}
 	}
 
 	template <typename TArg0>
@@ -52,4 +36,8 @@ public:
 	}
 
 	// todo: make more operator() overloads
-};*/
+
+private:
+	FunctionPointerSequence _functionPointers;
+};
+

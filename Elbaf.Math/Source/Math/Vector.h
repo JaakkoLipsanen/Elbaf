@@ -1,5 +1,6 @@
 #pragma once
 #include <glm\glm.hpp>
+#include <ostream>
 
 typedef glm::vec2 Vector2f;
 typedef glm::ivec2 Vector2i;
@@ -102,7 +103,6 @@ namespace Vector
 	}
 }
 
-#include <ostream>
 template<typename T, glm::precision P>
 std::ostream & operator << (std::ostream & stream, TPVector2<T, P> const & vec)
 {

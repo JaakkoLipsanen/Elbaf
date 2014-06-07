@@ -1,6 +1,5 @@
 #pragma once
-
-#include "Core\Common.h"
+#include <Math\Fundamental.h>
 
 struct Color
 {
