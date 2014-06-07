@@ -1,0 +1,22 @@
+- Separate the solution into multiple sub-projects. "Core", "Graphics", "Physics", "Audio", "Runtime" etc.
+- Refactor the existing code.
+	- Maybe rename "Game" to "Engine"
+	- Separate game-specific code to own project immediately
+	- Then! No statics or globals whatsoever at the "base-layer"
+	- Implement multiple "layers". For example, "InputManager" is at the base-level, and "Input::" namespace (possibly class? Don't want any globals!) is one layer higher.
+	- Wrap all platform/library specific stuff into interfaces. For example, "IGameWindow" which is platform independent (no GLFW etc dependency), of which "GameWindowGLFW" inherits from.
+	- Wrap all platform specific stuff creation into their own functions/factories. For example, "IGameWindow::CreateWindow(string title)" returns, depending on platform, GameWindowGLFW or something else
+	- ?? Use some pre-processor defines. Or, basically just "OPENGL" ?? (might be overkill)
+	- Implement PIMPL if necessary (http://en.wikibooks.org/wiki/C%2B%2B_Programming/Idioms#Pointer_To_Implementation_.28pImpl.29). Not on every class obviously, but on some (bigger) classes if needed
+	- Modules!
+	
+	
+- Core = Ei linkkaa mihink‰‰n. T‰‰ll‰ on Math, muut yleiset tyypit/jutut ja mahollisesti kanssa muitten sub-systeemien "p‰‰" interfacet (IGraphicsModule/IGraphicsDevice, IAudioModule/IAudioSystem, IInputSystem etc). T‰‰l kans vois olla jotain pienii moduuleita, kuten GameTime/Time (tosin t‰‰kin tarttee ehk GLFW:‰‰... Ehk tee "Platform" projekti joka wrappaa
+  > Timen/Inputin/FileSysteemin/kaikki t‰ll‰set yleiset jutut? Vois olla jees).
+- Graphics = Linkkaa Coreen ja mahollisesti muihininkin "perus-projekteihin". T‰‰ wrappaa t‰ydellisesti OpenGL:n/Direct3D:n, eli muut projektit ei tartte referenssej‰ OpenGL, GLFW tai GLEW:iin. T‰‰ll‰ mahollisesti myˆs GameWindow... Taino v‰h‰n pakko olla.
+- Input
+- Physics = todo (Bullet varmaan? Ehk myˆs box2d)
+- Audio = todo (OpenAL tms?)
+- Resource (?). Loadaa kaikkia jne. Tota... T‰‰ kyl v‰h‰n paha. T‰‰ linkkaa kaikkiin (taino, Core/Graphics/Audio jne?), mut mik‰‰n muu paitsi Engine ei linkkaa t‰h‰n?
+- Engine = Engineen ei linkkaa mik‰‰n muu. Engine linkkaa kaikkeen. T‰‰l kans definitaan high-level layerit muihin systeemeihin (ehk‰?). Esim Input:: namespace, Time:: namespace jne).
+- CBES/Scene...?: Totas noin... T‰n t‰ytyy tiet‰‰ fyssist‰ ja graffoista ja audiosta sun muista... Mut pit‰skˆ t‰n tiet‰‰ niist vaan interfacen kautta? No ehk‰ ei.
