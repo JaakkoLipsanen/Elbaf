@@ -11,7 +11,7 @@ public:
 	Event& operator +=(FunctionPointer f);
 	Event& operator -=(FunctionPointer f);
 
-	void operator()()
+	void Invoke()
 	{
 		for (typename FunctionPointerSequence::iterator it(_functionPointers.begin()); it != _functionPointers.end(); ++it)
 		{
@@ -20,7 +20,7 @@ public:
 	}
 
 	template <typename TArg0>
-	void operator()(TArg0 a1)
+	void Invoke(TArg0 a1)
 	{
 		for (typename FunctionPointerSequence::iterator it(_functionPointers.begin()); it != _functionPointers.end(); ++it)
 		{
@@ -29,7 +29,7 @@ public:
 	}
 
 	template <typename TArg0, typename TArg1>
-	void operator()(const TArg0& a1, const TArg1& a2)
+	void Invoke(const TArg0& a1, const TArg1& a2)
 	{
 		for (typename FunctionPointerSequence::iterator it(_functionPointers.begin()); it != _functionPointers.end(); ++it)
 			(*it)(a1, a2);

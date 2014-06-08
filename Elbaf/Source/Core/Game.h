@@ -10,7 +10,7 @@ class Scene;
 class GameWindow;
 class Game
 {
-	bool _hasStarted = false;
+	bool _isRunning = false;
 	bool _isExiting = false;
 
 	std::unique_ptr<GameWindow> _window; // pointer because window isn't created immediately

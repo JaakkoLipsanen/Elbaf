@@ -21,8 +21,8 @@ Game::Game() : _sceneManager(), _inputManager()
 
 void Game::Run()
 {
-	Ensure::False(_hasStarted);
-	_hasStarted = true;
+	Ensure::False(_isRunning);
+	_isRunning = true;
 
 	this->InitializeGraphics();
 	this->InitializeSystems();

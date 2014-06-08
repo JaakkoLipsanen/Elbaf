@@ -10,7 +10,6 @@ static int GetClearMask(ClearOptions clearOptions);
 Size OGL::GraphicsDevice::ChangeResolution(Size const& newSize)
 {
 	throw std::logic_error("Not Implemented");
-	return Size(0, 0);
 }
 
 OGL::GraphicsDevice::~GraphicsDevice()

@@ -15,6 +15,7 @@ struct OGL::GraphicsModule::GraphicsModuleImpl
 	void Initialize()
 	{
 		this->InitializeGLFW();
+		this->Device.reset(new OGL::GraphicsDevice);
 	}
 
 	void OpenWindow(Size const& size, std::string const& title, bool isFullScreen)
@@ -48,35 +49,46 @@ private:
 	{
 		if (glewInit() != GLEW_OK)
 		{
-			Logger::LogError("GraphicsModule: Failed to initialize GLEW");
+			Logger::LogError("GraphicsModule: Failed to initialize GLEW: ");
 			throw std::logic_error("Couldn't initialize GLEW");
 		}
 	}
 };
 
-OGL::GraphicsModule::GraphicsModule() : _pimpl(new GraphicsModuleImpl)
+OGL::GraphicsModule::GraphicsModule() : _pImpl(new GraphicsModuleImpl)
 {
 }
 
 void OGL::GraphicsModule::Initialize()
 {	
-	Ensure::NotNull(_pimpl.get(), "GraphicsModule has been terminated.");
-	_pimpl->Initialize();
+	Ensure::NotNull(_pImpl.get(), "GraphicsModule has been terminated.");
+	_pImpl->Initialize();
 }
 
 void OGL::GraphicsModule::Terminate()
 {
-	Ensure::NotNull(_pimpl.get(), "GraphicsModule has been terminated.");
-	_pimpl->Window->Destroy();
-	_pimpl.reset(nullptr);
+	Ensure::NotNull(_pImpl.get(), "GraphicsModule has been terminated.");
+	_pImpl->Window->Destroy();
+	_pImpl.reset(nullptr);
+}
+
+IGameWindow* OGL::GraphicsModule::GetGameWindow() const
+{
+	return _pImpl->Window.get();
+}
+
+void OGL::GraphicsModule::EndFrame()
+{
+	// _pImpl->Window->SwapBuffers(); ?
+	glfwSwapBuffers(_pImpl->Window->GetGLFWwindow());
 }
 
 IGraphicsDevice* OGL::GraphicsModule::GetGraphicsDevice() const
 {
-	return _pimpl->Device.get();
+	return _pImpl->Device.get();
 }
 
 void OGL::GraphicsModule::OpenWindow(Size const& size, std::string const& title, bool isFullScreen)
 {
-	_pimpl->OpenWindow(size, title, isFullScreen);
+	_pImpl->OpenWindow(size, title, isFullScreen);
 }

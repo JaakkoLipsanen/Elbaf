@@ -1,6 +1,5 @@
 #pragma once
 #include "Event.h"
-#include <glm\detail\precision.hpp>
 #include <ostream>
 
 struct Size
@@ -10,6 +9,8 @@ struct Size
 
 	Size(int width, int height);
 	float GetAspectRatio();
+
+	Size& operator=(const Size&) = delete;
 };
 
 inline std::ostream & operator << (std::ostream & stream, Size const& size)
