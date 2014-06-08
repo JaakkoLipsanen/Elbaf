@@ -147,6 +147,7 @@
     <ClInclude Include="..\Source\Graphics\RendererAPI.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\Source\Graphics\IGraphicsModule.cpp" />
     <ClCompile Include="..\Source\Graphics\OpenGL\GameWindow.cpp" />
     <ClCompile Include="..\Source\Graphics\OpenGL\GraphicsDevice.cpp" />
     <ClCompile Include="..\Source\Graphics\OpenGL\GraphicsModule.cpp" />

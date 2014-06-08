@@ -39,6 +39,9 @@
     <ClCompile Include="..\Source\Core\Diagnostics\Logger.cpp">
       <Filter>Source Files\Diagnostics</Filter>
     </ClCompile>
+    <ClCompile Include="..\Source\Core\IModule.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Source\Core\Size.h">
@@ -69,6 +72,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\Source\Core\CursorType.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Core\Array.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Core\Engine.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

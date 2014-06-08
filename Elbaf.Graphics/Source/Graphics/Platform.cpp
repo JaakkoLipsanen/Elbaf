@@ -5,9 +5,9 @@
 #include "OpenGL\OGL.h"
 #include "OpenGL\GraphicsModule.h"
 
-std::unique_ptr<IGraphicsModule> Platform::Graphics::CreateDefaultGraphicsModule()
+std::unique_ptr<IGraphicsModule> Platform::Graphics::CreateDefaultGraphicsModule(Engine& engine)
 {
-	return std::unique_ptr<IGraphicsModule>(new OGL::GraphicsModule);
+	return std::unique_ptr<IGraphicsModule>(new OGL::GraphicsModule(engine));
 }
 
 void Platform::Graphics::RunMessagePump()

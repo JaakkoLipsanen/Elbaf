@@ -55,7 +55,7 @@ private:
 	}
 };
 
-OGL::GraphicsModule::GraphicsModule() : _pImpl(new GraphicsModuleImpl)
+OGL::GraphicsModule::GraphicsModule(Engine& engine) : IGraphicsModule(engine), _pImpl(new GraphicsModuleImpl)
 {
 }
 

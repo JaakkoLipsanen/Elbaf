@@ -7,7 +7,7 @@
 
 struct Game::GameImpl
 {
-	GameImpl(Game& game) : _owner(game) { }
+	GameImpl(Game& game) : _game(game) { }
 
 	bool IsRunning = false;
 	bool IsExiting = false;
@@ -19,27 +19,27 @@ struct Game::GameImpl
 		this->IsRunning = true;
 
 		this->InitializeModules();
-		_owner.Initialize();
+		_game.Initialize();
 		Logger::LogMessage("Running Game..");
 		while (!this->GraphicsModule->GetGameWindow()->IsExiting() || this->IsExiting)
 		{
 			this->Tick();
 		}
 
-		_owner.OnExiting();
-		_owner.Exiting.Invoke();
+		_game.OnExiting();
+		_game.Exiting.Invoke();
 		this->GraphicsModule->Terminate();
 		Logger::LogMessage("Exiting Game");
 	}
 
 	void InitializeModules()
 	{
-		this->GraphicsModule = Platform::Graphics::CreateDefaultGraphicsModule();
+		this->GraphicsModule = Platform::Graphics::CreateDefaultGraphicsModule(_game);
 		this->GraphicsModule->Initialize();
 
 		int screenWidth = 1280, screenHeight = 720;
 		bool isFullScreen = false;
-		_owner.SetupGraphics(&screenWidth, &screenHeight, &isFullScreen);
+		_game.SetupGraphics(&screenWidth, &screenHeight, &isFullScreen);
 
 		Ensure::True(screenWidth > 0 && screenHeight > 0);
 		this->GraphicsModule->OpenWindow(Size(screenWidth, screenHeight), "Game", isFullScreen);
@@ -50,10 +50,10 @@ struct Game::GameImpl
 		Platform::Graphics::RunMessagePump();
 
 		this->BeginFrame();
-		_owner.PreUpdate();
+		_game.PreUpdate();
 		this->GraphicsModule->Update();
 		
-		_owner.PreRender();
+		_game.PreRender();
 		this->EndFrame();
 	}
 
@@ -68,7 +68,7 @@ struct Game::GameImpl
 	}
 
 private:
-	Game& _owner;
+	Game& _game;
 };
 
 Game::Game() : _pImpl(new GameImpl(*this)) { }
@@ -92,4 +92,15 @@ IGameWindow* Game::GetWindow() const
 IGraphicsDevice* Game::GetGraphicsDevice() const
 {
 	return _pImpl->GraphicsModule->GetGraphicsDevice();
+}
+
+// TODO: instead of this, implementing only specific template stuff's could be better (though not sure if possible, since virtual etc)
+IModule* Game::GetModule(type_info typeInfo) const
+{
+	if (typeInfo == typeid(IGraphicsModule))
+	{
+		return _pImpl->GraphicsModule.get();
+	}
+
+	throw std::logic_error("Not implemented yet/invalid type");
 }

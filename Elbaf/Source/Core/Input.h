@@ -14,7 +14,6 @@ public:
 	~InputManager();
 };
 
-// Okay.. I decided to map the values directly to GLFW values... Not very clean etc but whatever
 enum class KeyCode
 {
 	Space = 0,
@@ -121,7 +120,6 @@ namespace Input
 	bool IsNewMouseButtonPress(MouseButton mouseButton);
 
 	bool IsMouseInsideWindow();
-
 	float GetScrollWheelDelta();
 
 	Vector2f GetMousePosition();

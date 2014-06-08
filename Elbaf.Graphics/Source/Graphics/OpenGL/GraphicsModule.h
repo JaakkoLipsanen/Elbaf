@@ -8,13 +8,14 @@ namespace OGL
 	class GraphicsModule : public IGraphicsModule
 	{
 	public:
-		GraphicsModule();
+		GraphicsModule(Engine& engine);
 		virtual void Initialize() override;
 		virtual void Terminate() override;
 		virtual void EndFrame() override;
 		virtual IGraphicsDevice* GetGraphicsDevice() const;
 		virtual IGameWindow* GetGameWindow() const;
 		virtual void OpenWindow(const Size& size = Size(1280, 720), const std::string& title = "Game", bool isFullScreen = false);
+
 
 	private:
 		struct GraphicsModuleImpl;

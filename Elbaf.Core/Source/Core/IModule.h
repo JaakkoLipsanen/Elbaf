@@ -1,8 +1,10 @@
 #pragma once
+
+class Engine;
 class IModule
 {
 public:
-	IModule() = default; // Game& in the constructor? 
+	explicit IModule(Engine& engine); // Game& in the constructor? 
 	virtual ~IModule() = default;
 
 	virtual void Initialize() = 0;
@@ -13,4 +15,7 @@ public:
 	virtual void EndFrame() { }
 
 	virtual void OnClosing() { }
+
+protected:
+	Engine& _engine;
 };

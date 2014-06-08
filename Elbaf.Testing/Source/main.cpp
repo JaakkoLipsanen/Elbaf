@@ -7,6 +7,9 @@
 #include <Engine\Platform.h>
 #include <Graphics\IGraphicsDevice.h>
 #include <Core\CursorType.h>
+#include <Input\IInputModule.h>
+#include <Input\IInputSystem.h>
+
 class MyGame : public Game
 {
 public:
@@ -26,11 +29,16 @@ public:
 	}
 };
 
+class MyInput : public IInputSystem { };
 int main()
 {
 	MyGame game;
 	game.Run();
 
+	IInputModule* module = nullptr;
+
+	MyInput input;
+	module->AddInputSystem(std::unique_ptr<MyInput>(new MyInput));
 	/*Engine engine;
 	engine.SetClearColor(Color::Red);
 	engine.GetWindow().SetTitle("My Game");
