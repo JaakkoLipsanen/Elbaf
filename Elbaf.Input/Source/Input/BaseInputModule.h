@@ -2,7 +2,7 @@
 #include "IInputModule.h"
 #include "IInputSystem.h"
 
-class BaseInputModule : IInputModule
+class BaseInputModule : public IInputModule
 {
 public:
 	virtual ~BaseInputModule() = 0;

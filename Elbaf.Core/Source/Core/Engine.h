@@ -2,18 +2,21 @@
 #include <Core\IModule.h>
 #include <type_traits>
 
+class IGameWindow;
 class Engine
 {
 public:
 	virtual ~Engine() = default;
 
 	template<typename TModule>
-	TModule GetModule()
+	TModule* GetModule()
 	{
 		static_assert(std::is_base_of<IModule, TModule>::value, "Type must inherit from IInputSystem!");
-		return this->GetModule(typeid(TModule));
+		return dynamic_cast<TModule*>(this->GetModuleInner(typeid(TModule)));
 	}
 
+	virtual IGameWindow* GetWindow() const = 0;
+
 protected:
-	virtual IModule* GetModule(type_info typeInfo) const = 0;
+	virtual IModule* GetModuleInner(const type_info& typeInfo) const = 0;
 };

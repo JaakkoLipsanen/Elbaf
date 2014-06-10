@@ -24,9 +24,6 @@
     <ClCompile Include="..\Source\Core\Color.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\Source\Core\Event.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\Source\Core\Size.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

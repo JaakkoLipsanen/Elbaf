@@ -27,12 +27,13 @@
     <ClInclude Include="..\Source\Input\KeyCode.h" />
     <ClInclude Include="..\Source\Input\MouseButton.h" />
     <ClInclude Include="..\Source\Input\MouseState.h" />
+    <ClInclude Include="..\Source\Input\Platform.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Source\Input\BaseInputModule.cpp" />
     <ClCompile Include="..\Source\Input\GLFW\InputModule.cpp" />
     <ClCompile Include="..\Source\Input\IInputModule.cpp" />
-    <ClCompile Include="..\Source\Input\KeyboardState.cpp" />
+    <ClCompile Include="..\Source\Input\Platform.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{8764A34E-84A7-4633-8529-94B255B1DE01}</ProjectGuid>
@@ -102,7 +103,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\Koodaus\OpenGL\Elbaf\Elbaf.Core\Source;C:\Koodaus\OpenGL\Elbaf\Elbaf.Input\Source;C:\Koodaus\OpenGL\Elbaf\Elbaf.Math\Source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Koodaus\OpenGL\Elbaf\Libraries\glfw\include;C:\Koodaus\OpenGL\Elbaf\Elbaf.Core\Source;C:\Koodaus\OpenGL\Elbaf\Elbaf.Input\Source;C:\Koodaus\OpenGL\Elbaf\Elbaf.Math\Source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -129,7 +130,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\Koodaus\OpenGL\Elbaf\Elbaf.Core\Source;C:\Koodaus\OpenGL\Elbaf\Elbaf.Input\Source;C:\Koodaus\OpenGL\Elbaf\Elbaf.Math\Source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Koodaus\OpenGL\Elbaf\Libraries\glfw\include;C:\Koodaus\OpenGL\Elbaf\Elbaf.Core\Source;C:\Koodaus\OpenGL\Elbaf\Elbaf.Input\Source;C:\Koodaus\OpenGL\Elbaf\Elbaf.Math\Source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>

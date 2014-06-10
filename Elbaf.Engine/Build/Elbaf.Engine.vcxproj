@@ -82,7 +82,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\Koodaus\OpenGL\Elbaf\Elbaf.Math\Source;C:\Koodaus\OpenGL\Elbaf\Elbaf.Graphics\Source;C:\Koodaus\OpenGL\Elbaf\Elbaf.Core\Source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Koodaus\OpenGL\Elbaf\Libraries\glm\include;C:\Koodaus\OpenGL\Elbaf\Elbaf.Math\Source;C:\Koodaus\OpenGL\Elbaf\Elbaf.Input\Source;C:\Koodaus\OpenGL\Elbaf\Elbaf.Graphics\Source;C:\Koodaus\OpenGL\Elbaf\Elbaf.Core\Source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>OPENGL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
@@ -111,7 +111,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\Koodaus\OpenGL\Elbaf\Elbaf.Math\Source;C:\Koodaus\OpenGL\Elbaf\Elbaf.Graphics\Source;C:\Koodaus\OpenGL\Elbaf\Elbaf.Core\Source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Koodaus\OpenGL\Elbaf\Libraries\glm\include;C:\Koodaus\OpenGL\Elbaf\Elbaf.Math\Source;C:\Koodaus\OpenGL\Elbaf\Elbaf.Input\Source;C:\Koodaus\OpenGL\Elbaf\Elbaf.Graphics\Source;C:\Koodaus\OpenGL\Elbaf\Elbaf.Core\Source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>OPENGL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>

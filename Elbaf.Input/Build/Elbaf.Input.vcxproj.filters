@@ -45,18 +45,21 @@
     <ClInclude Include="..\Source\Input\MouseState.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\Source\Input\Platform.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Source\Input\BaseInputModule.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Source\Input\KeyboardState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\Source\Input\GLFW\InputModule.cpp">
       <Filter>Source Files\GLFW</Filter>
     </ClCompile>
     <ClCompile Include="..\Source\Input\IInputModule.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Input\Platform.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

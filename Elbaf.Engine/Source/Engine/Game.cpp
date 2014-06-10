@@ -4,20 +4,24 @@
 #include <Graphics\IGraphicsModule.h>
 #include <Graphics\IGraphicsDevice.h>
 #include <Graphics\Platform.h>
+#include <Input\IInputModule.h>
+#include <Input\KeyCode.h>
+#include <Input\Platform.h>
 
 struct Game::GameImpl
 {
-	GameImpl(Game& game) : _game(game) { }
+	GameImpl(Game& game) : _game(game), GraphicsModule(nullptr), InputModule(nullptr) { }
 
 	bool IsRunning = false;
 	bool IsExiting = false;
 	std::unique_ptr<IGraphicsModule> GraphicsModule;
+	std::unique_ptr<IInputModule> InputModule;
 
 	void Run()
 	{
+		Logger::LogMessage("Once");
 		Ensure::False(this->IsRunning);
 		this->IsRunning = true;
-
 		this->InitializeModules();
 		_game.Initialize();
 		Logger::LogMessage("Running Game..");
@@ -36,7 +40,14 @@ struct Game::GameImpl
 	{
 		this->GraphicsModule = Platform::Graphics::CreateDefaultGraphicsModule(_game);
 		this->GraphicsModule->Initialize();
+		this->OpenWindow();	 // okay open window in this point. basically so that other modules can access it (at least Input needs it when using GLFW)
 
+		this->InputModule = Platform::Input::CreateDefaultInputModule(_game);
+		this->InputModule->Initialize();
+	}
+
+	void OpenWindow()
+	{
 		int screenWidth = 1280, screenHeight = 720;
 		bool isFullScreen = false;
 		_game.SetupGraphics(&screenWidth, &screenHeight, &isFullScreen);
@@ -52,6 +63,7 @@ struct Game::GameImpl
 		this->BeginFrame();
 		_game.PreUpdate();
 		this->GraphicsModule->Update();
+		this->InputModule->Update();
 		
 		_game.PreRender();
 		this->EndFrame();
@@ -60,18 +72,20 @@ struct Game::GameImpl
 	void BeginFrame()
 	{
 		this->GraphicsModule->BeginFrame();
+		this->InputModule->BeginFrame();
 	}
 
 	void EndFrame()
 	{
 		this->GraphicsModule->EndFrame();
+		this->InputModule->EndFrame();
 	}
 
 private:
 	Game& _game;
 };
 
-Game::Game() : _pImpl(new GameImpl(*this)) { }
+Game::Game() : _pImpl(new Game::GameImpl(*this)) { }
 Game::~Game() = default;
 
 void Game::Run()
@@ -95,11 +109,15 @@ IGraphicsDevice* Game::GetGraphicsDevice() const
 }
 
 // TODO: instead of this, implementing only specific template stuff's could be better (though not sure if possible, since virtual etc)
-IModule* Game::GetModule(type_info typeInfo) const
+IModule* Game::GetModuleInner(const type_info& typeInfo) const
 {
 	if (typeInfo == typeid(IGraphicsModule))
 	{
 		return _pImpl->GraphicsModule.get();
+	}
+	else if (typeInfo == typeid(IInputModule))
+	{
+		return _pImpl->InputModule.get();
 	}
 
 	throw std::logic_error("Not implemented yet/invalid type");

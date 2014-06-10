@@ -6,15 +6,15 @@
 #include <algorithm>
 #include <Core\Array.h>
 #include <Input\BaseInputModule.h>
+#include <Core\Engine.h>
+#include <GLFW\glfw3.h>
+#include <Core\IGameWindow.h>
+#include <Math\Vector.h>
+#include <Input\MouseButton.h>
+#include <Input\MouseState.h>
+#include <Math\Vector.h>
 
-struct CustomKeyboardState : public KeyboardState
-{
-	void SetValue(KeyCode keyCode, bool value)
-	{
-		_isPressed[static_cast<int>(keyCode)] = value;
-	}
-};
-
+static int LatestScrollWheelValue = 0;
 static int KeyCodeToGLFWKey(KeyCode keyCode)
 {
 	struct Temp { KeyCode Key; int Value; bool operator <(const Temp& rhs) const { return Key < rhs.Key; } };
@@ -40,20 +40,40 @@ static int KeyCodeToGLFWKey(KeyCode keyCode)
 
 struct GLFW::InputModule::Impl
 {
-	std::unique_ptr<CustomKeyboardState> CurrentKeyboardState;
-	std::unique_ptr<CustomKeyboardState> PreviousKeyboardState;
+	GLFWwindow* GlfwWindow;
+	std::unique_ptr<KeyboardState> CurrentKeyboardState;
+	std::unique_ptr<KeyboardState> PreviousKeyboardState;
 
-	Impl() : CurrentKeyboardState(new CustomKeyboardState), PreviousKeyboardState(new CustomKeyboardState) { }
+	std::unique_ptr<MouseState> CurrentMouseState;
+	std::unique_ptr<MouseState> PreviousMouseState;
+
+	Impl() : CurrentKeyboardState(new KeyboardState), PreviousKeyboardState(new KeyboardState), CurrentMouseState(new MouseState), PreviousMouseState(new MouseState) { }
+
+	void GLFWScrollWheelCallback(GLFWwindow* window, double xOffset, double yOffset)
+	{
+		this->CurrentMouseState->ScrollWheelDelta = (int)yOffset;
+	}
 };
 
-
-GLFW::InputModule::InputModule(Engine& engine) : BaseInputModule(engine), _pImpl()
+GLFW::InputModule::InputModule(Engine& engine) : BaseInputModule(engine), _pImpl(new GLFW::InputModule::Impl())
 {
 	for (int i = 0; i < KeyboardState::KeyCount; i++)
 	{
-		_pImpl->PreviousKeyboardState->SetValue(static_cast<KeyCode>(i), false);
-		_pImpl->CurrentKeyboardState->SetValue(static_cast<KeyCode>(i), false);
+		_pImpl->PreviousKeyboardState->IsPressed[i] = false; // SetValue(static_cast<KeyCode>(i), false);
+		_pImpl->CurrentKeyboardState->IsPressed[i] = false; //  SetValue(static_cast<KeyCode>(i), false);
 	}
+
+	for (int i = 0; i < MouseState::ButtonCount; i++)
+	{
+		_pImpl->CurrentMouseState->IsPressed[0] = false;
+		_pImpl->PreviousMouseState->IsPressed[0] = false;
+	}
+
+	_pImpl->CurrentMouseState->ScrollWheelDelta = 0;
+	_pImpl->CurrentMouseState->MousePosition = Vector2f(0, 0);
+
+	_pImpl->PreviousMouseState->ScrollWheelDelta = 0;
+	_pImpl->PreviousMouseState->MousePosition = Vector2f(0, 0);
 }
 
 KeyboardState const& GLFW::InputModule::GetKeyboardState()
@@ -68,25 +88,64 @@ KeyboardState const& GLFW::InputModule::GetPreviousKeyboardState()
 
 void GLFW::InputModule::BeginFrame()
 {
+	GLFWwindow* window = _pImpl->GlfwWindow;
+
 	// Mouse Buttons
-/*	std::swap(OldMouseButtons, MouseButtons);
-	for (int i = 0; i < MouseButtonCount; i++)
+	std::swap(_pImpl->PreviousMouseState, _pImpl->CurrentMouseState);
+	
+	double x, y; 
+	glfwGetCursorPos(window, &x, &y);
+	_pImpl->CurrentMouseState->MousePosition = Vector2f(x, y);
+	_pImpl->CurrentMouseState->ScrollWheelDelta = LatestScrollWheelValue;
+	LatestScrollWheelValue = 0;
+	for (int i = 0; i < MouseState::ButtonCount; i++)
 	{
-		MouseButtons[i] = glfwGetMouseButton(window, i) == GLFW_PRESS;
-	} */
+		_pImpl->CurrentMouseState->IsPressed[i] = (glfwGetMouseButton(window, i) == GLFW_PRESS);
+	} 
 
 	std::swap(_pImpl->PreviousKeyboardState, _pImpl->CurrentKeyboardState);
 	for (int i = 0; i < KeyboardState::KeyCount; i++)
 	{
-		_pImpl->CurrentKeyboardState->SetValue(static_cast<KeyCode>(i), true);
+		_pImpl->CurrentKeyboardState->IsPressed[i] = glfwGetKey(window, KeyCodeToGLFWKey(static_cast<KeyCode>(i)));
 	}
 
-	// Keys
+
+	// Mouse Buttons
 	//std::swap(OldKeys, Keys);
 	//for (int i = 0; i < KeyCount; i++)
 	{
 	//	Keys[i] = glfwGetKey(window, KeyCodeToGLFWKey(static_cast<KeyCode>(i))) == GLFW_PRESS;
 	}
+}
+
+MouseState const& GLFW::InputModule::GetMouseState()
+{
+	return *_pImpl->CurrentMouseState;
+}
+
+MouseState const& GLFW::InputModule::GetPreviousMouseState()
+{
+	return *_pImpl->PreviousMouseState;
+}
+
+static void OnScrollWheelCallback(GLFWwindow* window, double xOffset, double yOffset)
+{
+	LatestScrollWheelValue = (int)yOffset;
+}
+
+void GLFW::InputModule::Initialize()
+{
+	_pImpl->GlfwWindow = static_cast<GLFWwindow*>(_engine.GetWindow()->GetInternalHandle());
+	glfwSetScrollCallback(_pImpl->GlfwWindow, OnScrollWheelCallback);
+	/*ScrollWheelInput += Event<void(int)>::FunctionPointer([this](int x)
+	{
+		this->
+	}); */
+}
+
+void GLFW::InputModule::Terminate()
+{
+	glfwSetScrollCallback(_pImpl->GlfwWindow, nullptr);
 }
 
 void GLFW::InputModule::EndFrame()

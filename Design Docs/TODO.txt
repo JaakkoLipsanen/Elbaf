@@ -31,3 +31,8 @@
 	
 
 - High level helper classes: Input, Screen, Time, (Game?), (Resources/Content?)
+
+
+
+-- HAPPENED BEFORE: --
+- I really fucking over-engineered the Input module

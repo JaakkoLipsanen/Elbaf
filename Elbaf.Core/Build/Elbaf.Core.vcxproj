@@ -85,7 +85,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <SDLCheck>true</SDLCheck>
+      <SDLCheck>false</SDLCheck>
       <AdditionalIncludeDirectories>C:\Koodaus\OpenGL\Elbaf\Elbaf.Core\Source;C:\Koodaus\OpenGL\Elbaf\Elbaf.Math\Source\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
@@ -112,7 +112,7 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <SDLCheck>true</SDLCheck>
+      <SDLCheck>false</SDLCheck>
       <AdditionalIncludeDirectories>C:\Koodaus\OpenGL\Elbaf\Elbaf.Core\Source;C:\Koodaus\OpenGL\Elbaf\Elbaf.Math\Source\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
@@ -139,7 +139,6 @@
     <ClCompile Include="..\Source\Core\Color.cpp" />
     <ClCompile Include="..\Source\Core\Diagnostics\Ensure.cpp" />
     <ClCompile Include="..\Source\Core\Diagnostics\Logger.cpp" />
-    <ClCompile Include="..\Source\Core\Event.cpp" />
     <ClCompile Include="..\Source\Core\IModule.cpp" />
     <ClCompile Include="..\Source\Core\Size.cpp" />
     <ClCompile Include="..\Source\Core\SizeF.cpp" />

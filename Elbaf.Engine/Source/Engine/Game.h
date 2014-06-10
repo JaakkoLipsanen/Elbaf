@@ -9,6 +9,8 @@ class IGraphicsDevice;
 class Game : public Engine
 {
 public:
+	Event<void()> BeginFrame = Event<void()>();
+	Event<void()> EndFrame = Event<void()>();
 	Event<void()> Exiting = Event<void()>();
 
 	Game();
@@ -27,7 +29,7 @@ protected:
 	virtual void OnExiting() { }
 	virtual std::unique_ptr<Scene> CreateDefaultScene() = 0;
 	virtual void SetupGraphics(int* width, int* height, bool* isFullScreen) { } // should this be forced to be implemented (pure virtual)?
-	virtual IModule* GetModule(type_info typeInfo) const override;
+	virtual IModule* GetModuleInner(const type_info& typeInfo) const override;
 
 private:
 	struct GameImpl;

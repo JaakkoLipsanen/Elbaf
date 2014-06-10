@@ -4,12 +4,23 @@
 template <typename TFunc>
 class Event final
 {
-	typedef typename std::add_pointer<TFunc>::type FunctionPointer;
-	typedef std::deque<FunctionPointer> FunctionPointerSequence;
-
 public:
-	Event& operator +=(FunctionPointer f);
-	Event& operator -=(FunctionPointer f);
+	typedef typename std::add_pointer<TFunc>::type FunctionPointer;
+private:
+	typedef std::deque<FunctionPointer> FunctionPointerSequence;
+public:
+
+	Event<TFunc>& operator +=(FunctionPointer f)
+	{
+		_functionPointers.push_back(f);
+		return *this;
+	}
+
+	Event<TFunc>& operator-= (FunctionPointer f)
+	{
+		_functionPointers.erase(std::remove(_functionPointers.begin(), _functionPointers.end(), f), _functionPointers.end());
+		return *this;
+	}
 
 	void Invoke()
 	{
