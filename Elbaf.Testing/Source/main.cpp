@@ -8,11 +8,11 @@
 #include <Graphics\IGraphicsDevice.h>
 #include <Core\CursorType.h>
 #include <Input\IInputModule.h>
-#include <Input\IInputSystem.h>
 #include <Graphics\IGraphicsModule.h>
 #include <type_traits>
 #include <Input\KeyboardState.h>
 #include <Core\Diagnostics\Logger.h>
+#include <Input\Input.h>
 
 class MyGame : public Game
 {
@@ -30,24 +30,18 @@ public:
 	virtual void PreRender() override
 	{
 		this->GetGraphicsDevice()->Clear(Color::RoyalBlue);
-	//	Engine::GetModule<typename IInputModule>();
-		Engine* e = this;
-
-		auto module = this->GetModule<IInputModule>();
-		if (module->GetMouseState().IsMouseButtonPressed(MouseButton::Left))
+		if (Input::IsMouseButtonPressed(MouseButton::Left))
 		{
 			this->GetGraphicsDevice()->Clear(Color::Red);
 		}
 
-		if (module->GetMouseState().ScrollWheelDelta != 0)
+		if (Input::GetScrollWheelDelta() != 0)
 		{
-			Logger::LogMessage(module->GetMouseState().ScrollWheelDelta);
+			Logger::LogMessage(Input::GetScrollWheelDelta());
 		}
-	
 	}
 };
 
-class MyInput : public IInputSystem { };
 int main()
 {
 	MyGame game;

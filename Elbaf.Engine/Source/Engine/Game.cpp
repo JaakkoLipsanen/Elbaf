@@ -71,6 +71,7 @@ struct Game::GameImpl
 
 	void BeginFrame()
 	{
+		_game.BeginFrame.Invoke();
 		this->GraphicsModule->BeginFrame();
 		this->InputModule->BeginFrame();
 	}
@@ -79,6 +80,7 @@ struct Game::GameImpl
 	{
 		this->GraphicsModule->EndFrame();
 		this->InputModule->EndFrame();
+		_game.EndFrame.Invoke();
 	}
 
 private:

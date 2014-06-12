@@ -33,12 +33,6 @@
     <ClInclude Include="..\Source\Input\GLFW\InputModule.h">
       <Filter>Header Files\GLFW</Filter>
     </ClInclude>
-    <ClInclude Include="..\Source\Input\BaseInputModule.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Source\Input\IInputSystem.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\Source\Input\KeyboardState.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -48,11 +42,11 @@
     <ClInclude Include="..\Source\Input\Platform.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\Source\Input\Input.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\Source\Input\BaseInputModule.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\Source\Input\GLFW\InputModule.cpp">
       <Filter>Source Files\GLFW</Filter>
     </ClCompile>
@@ -60,6 +54,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\Source\Input\Platform.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Input\Input.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

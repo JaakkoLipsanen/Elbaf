@@ -19,10 +19,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Source\Input\BaseInputModule.h" />
     <ClInclude Include="..\Source\Input\GLFW\InputModule.h" />
     <ClInclude Include="..\Source\Input\IInputModule.h" />
-    <ClInclude Include="..\Source\Input\IInputSystem.h" />
+    <ClInclude Include="..\Source\Input\Input.h" />
     <ClInclude Include="..\Source\Input\KeyboardState.h" />
     <ClInclude Include="..\Source\Input\KeyCode.h" />
     <ClInclude Include="..\Source\Input\MouseButton.h" />
@@ -30,9 +29,9 @@
     <ClInclude Include="..\Source\Input\Platform.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\Source\Input\BaseInputModule.cpp" />
     <ClCompile Include="..\Source\Input\GLFW\InputModule.cpp" />
     <ClCompile Include="..\Source\Input\IInputModule.cpp" />
+    <ClCompile Include="..\Source\Input\Input.cpp" />
     <ClCompile Include="..\Source\Input\Platform.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

@@ -1,15 +1,14 @@
 #pragma once
 #include "..\IInputModule.h"
 #include <Input\KeyCode.h>
-#include <Input\BaseInputModule.h>
 
 namespace GLFW
 {
 	// okay fuck, it was a mistake making this use PIMPL. I really over-engineered this whole Input module.....
-	class InputModule : public BaseInputModule
+	class InputModule : public IInputModule
 	{
 	public:
-		InputModule(Engine& engine);
+		explicit InputModule(Engine& engine);
 		virtual const KeyboardState& GetKeyboardState() override;
 		virtual const KeyboardState& GetPreviousKeyboardState() override;
 		virtual const MouseState& GetMouseState() override;

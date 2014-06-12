@@ -18,13 +18,15 @@ public:
 
 	void Run();
 	void Exit();
-	IGameWindow* GetWindow() const;
+	IGameWindow* GetWindow() const override;
 	IGraphicsDevice* GetGraphicsDevice() const;
 
 protected:
 	virtual void Initialize() { }
 	virtual void PreUpdate() { }
+	virtual void PostUpdate() { }
 	virtual void PreRender() { }
+	virtual void PostRender() { }
 
 	virtual void OnExiting() { }
 	virtual std::unique_ptr<Scene> CreateDefaultScene() = 0;

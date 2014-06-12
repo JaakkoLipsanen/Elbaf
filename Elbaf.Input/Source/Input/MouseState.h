@@ -4,19 +4,14 @@
 
 struct MouseState
 {
-	bool IsMouseButtonPressed(MouseButton mouseButton) const
+	bool IsButtonPressed(MouseButton mouseButton) const
 	{
 		return IsPressed[static_cast<int>(mouseButton)];
 	}
 
-	float GetScrollWheelDelta() const
+	void SetValue(int index, bool value)
 	{
-		return ScrollWheelDelta;
-	}
-
-	Vector2f GetMousePosition() const
-	{
-		return MousePosition;
+		this->IsPressed[index] = value;
 	}
 
 	static const int ButtonCount = 3; // middle, left & right. not supporting other mouse buttons for now (GLFW supports up to 8)
