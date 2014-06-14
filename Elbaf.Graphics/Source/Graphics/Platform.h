@@ -8,7 +8,7 @@ namespace Platform
 {
 	namespace Graphics
 	{
-		std::unique_ptr<IGraphicsModule> CreateDefaultGraphicsModule(Engine& engine);
+		std::unique_ptr<IGraphicsModule> CreateDefaultGraphicsModule(IEngine& engine);
 		RendererAPI GetCurrentRendererAPI();
 		void RunMessagePump(); // this sucks. this belongs to Engine or Core, but I don't want them to access OpenGL/GLFW stuff.. damn!! 
 	}

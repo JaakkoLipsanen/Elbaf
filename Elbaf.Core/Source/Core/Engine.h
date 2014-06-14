@@ -3,10 +3,11 @@
 #include <type_traits>
 
 class IGameWindow;
-class Engine
+class IEngine
 {
 public:
-	virtual ~Engine() = default;
+	IEngine();
+	virtual ~IEngine() = default;
 
 	template<typename TModule>
 	TModule* GetModule()
@@ -16,6 +17,7 @@ public:
 	}
 
 	virtual IGameWindow* GetWindow() const = 0;
+	static IEngine& GetInstance();
 
 protected:
 	virtual IModule* GetModuleInner(const type_info& typeInfo) const = 0;

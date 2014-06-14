@@ -124,12 +124,13 @@
   <ItemGroup>
     <ClInclude Include="..\Source\Core\Array.h" />
     <ClInclude Include="..\Source\Core\Color.h" />
-    <ClInclude Include="..\Source\Core\CursorType.h" />
+    <ClInclude Include="..\Source\Core\CursorVisibility.h" />
     <ClInclude Include="..\Source\Core\Diagnostics.h" />
     <ClInclude Include="..\Source\Core\Diagnostics\Ensure.h" />
     <ClInclude Include="..\Source\Core\Diagnostics\Logger.h" />
     <ClInclude Include="..\Source\Core\Engine.h" />
     <ClInclude Include="..\Source\Core\Event.h" />
+    <ClInclude Include="..\Source\Core\File.h" />
     <ClInclude Include="..\Source\Core\IGameWindow.h" />
     <ClInclude Include="..\Source\Core\IModule.h" />
     <ClInclude Include="..\Source\Core\Size.h" />
@@ -139,6 +140,8 @@
     <ClCompile Include="..\Source\Core\Color.cpp" />
     <ClCompile Include="..\Source\Core\Diagnostics\Ensure.cpp" />
     <ClCompile Include="..\Source\Core\Diagnostics\Logger.cpp" />
+    <ClCompile Include="..\Source\Core\Engine.cpp" />
+    <ClCompile Include="..\Source\Core\File.cpp" />
     <ClCompile Include="..\Source\Core\IModule.cpp" />
     <ClCompile Include="..\Source\Core\Size.cpp" />
     <ClCompile Include="..\Source\Core\SizeF.cpp" />

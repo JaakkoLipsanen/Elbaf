@@ -22,6 +22,7 @@ namespace Input
 	Vector2f GetPreviousMousePosition();
 	Vector2f GetMousePositionDelta();
 
+	// todo: make 'Input' use IEngine::GetModule<IInputModule> instead?
 	void RegisterInputModule(IInputModule* inputModule);
 	void UnregisterInputModule();
 }

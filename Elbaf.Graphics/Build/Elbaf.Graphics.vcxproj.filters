@@ -48,6 +48,12 @@
     <ClInclude Include="..\Source\Graphics\RendererAPI.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\Source\Graphics\CompareFunction.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Graphics\OpenGL\OGL-Helper.h">
+      <Filter>Header Files\OpenGL</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Source\Graphics\OpenGL\GraphicsModule.cpp">
@@ -64,6 +70,9 @@
     </ClCompile>
     <ClCompile Include="..\Source\Graphics\IGraphicsModule.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Graphics\OpenGL\OGL-Helper.cpp">
+      <Filter>Source Files\OpenGL</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

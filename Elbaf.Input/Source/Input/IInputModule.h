@@ -10,7 +10,7 @@ struct KeyboardState;
 class IInputModule : public IModule
 {
 public:
-	explicit IInputModule(Engine& engine);
+	explicit IInputModule(IEngine& engine);
 	virtual ~IInputModule();
 
 	virtual const KeyboardState& GetKeyboardState() = 0;

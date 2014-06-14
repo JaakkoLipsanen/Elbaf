@@ -3,6 +3,7 @@
 #include <Input\IInputModule.h>
 #include <Core\Diagnostics\Ensure.h>
 
+// todo: make 'Input' use IEngine::GetModule<IInputModule> instead?
 static IInputModule* _inputModule = nullptr;
 void Input::RegisterInputModule(IInputModule* inputModule)
 {

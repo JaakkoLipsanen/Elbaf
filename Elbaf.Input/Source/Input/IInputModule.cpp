@@ -1,6 +1,6 @@
 #include "IInputModule.h"
 #include <Input\Input.h>
-IInputModule::IInputModule(Engine& engine) : IModule(engine)
+IInputModule::IInputModule(IEngine& engine) : IModule(engine)
 {
 	Input::RegisterInputModule(this);
 }

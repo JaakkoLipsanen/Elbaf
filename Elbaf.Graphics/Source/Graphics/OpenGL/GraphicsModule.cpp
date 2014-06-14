@@ -6,6 +6,7 @@
 #include <Core\Size.h>
 #include <Graphics\OpenGL\GameWindow.h>
 #include <Core\Diagnostics\Ensure.h>
+#include <Graphics\CompareFunction.h>
 
 struct OGL::GraphicsModule::GraphicsModuleImpl
 {
@@ -15,13 +16,21 @@ struct OGL::GraphicsModule::GraphicsModuleImpl
 	void Initialize()
 	{
 		this->InitializeGLFW();
-		this->Device.reset(new OGL::GraphicsDevice);
 	}
 
 	void OpenWindow(Size const& size, std::string const& title, bool isFullScreen)
 	{
 		this->CreateWindow(size, title, isFullScreen);
 		this->InitializeGLEW(); // meh.. test if this is possible to initialize in Initialize(). In tutorials, this was always after window creating so I dont know..
+
+		this->Device.reset(new OGL::GraphicsDevice(this->Window->GetGLFWwindow()));
+
+		// okay.. it'd be great if I could put this code out of the platform dependent code. One way would be to make GraphicsModule non-inheritable, and instead make it to have platform dependent "IGraphicsModuleImpl" or something.
+		// and then this kind of stuff could be put in the non-inheritable graphics module!
+		this->Device->SetDepthTestEnabled(true);
+		this->Device->SetDepthFunction(CompareFunction::Less);
+		this->Device->SetCullFace(CullFace::Back);
+		this->Device->SetCullMode(CullMode::CounterClockwise);
 	}
 
 private:
@@ -47,6 +56,7 @@ private:
 
 	void InitializeGLEW()
 	{
+		glewExperimental = GL_TRUE; // 
 		if (glewInit() != GLEW_OK)
 		{
 			Logger::LogError("GraphicsModule: Failed to initialize GLEW: ");
@@ -55,7 +65,7 @@ private:
 	}
 };
 
-OGL::GraphicsModule::GraphicsModule(Engine& engine) : IGraphicsModule(engine), _pImpl(new GraphicsModuleImpl)
+OGL::GraphicsModule::GraphicsModule(IEngine& engine) : IGraphicsModule(engine), _pImpl(new GraphicsModuleImpl)
 {
 }
 

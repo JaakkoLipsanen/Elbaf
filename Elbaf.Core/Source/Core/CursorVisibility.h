@@ -1,6 +1,6 @@
 #pragma once
 
-enum class CursorType
+enum class CursorVisibility
 {
 	Visible,
 	Hidden,

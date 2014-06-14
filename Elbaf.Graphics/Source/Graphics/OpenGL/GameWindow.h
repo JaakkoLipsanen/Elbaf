@@ -8,7 +8,6 @@ namespace OGL
 	{
 	public:
 		virtual void SetTitle(const std::string& title) override;
-		virtual void SetCursorType(const CursorType& cursorType) override;
 		virtual bool IsOpen() const override;
 		virtual void* GetInternalHandle() const override; // returns internal window handle. In OpenGL/GLFW, it should return GLFWwindow*
 		virtual bool IsExiting() const override;

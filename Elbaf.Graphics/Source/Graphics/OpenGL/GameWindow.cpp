@@ -2,7 +2,6 @@
 #include <Core\Diagnostics\Ensure.h>
 #include "OGL.h"
 #include <iostream>
-#include <Core\CursorType.h>
 
 void OGL::GameWindow::SetTitle(std::string const& title)
 {
@@ -31,13 +30,7 @@ void OGL::GameWindow::Open(const Size& size, const std::string& title, bool full
 bool OGL::GameWindow::IsExiting() const
 {
 	Ensure::NotNull(_window, "Window is not open!");
-	return glfwWindowShouldClose(_window) == true;
-}
-
-void OGL::GameWindow::SetCursorType(CursorType const& cursorType)
-{
-	auto value = (cursorType == CursorType::Visible ? GLFW_CURSOR_NORMAL : (cursorType == CursorType::Hidden ? GLFW_CURSOR_HIDDEN : GLFW_CURSOR_DISABLED));
-	glfwSetInputMode(_window, GLFW_CURSOR, value);
+	return glfwWindowShouldClose(_window) == GL_TRUE;
 }
 
 void OGL::GameWindow::Destroy()

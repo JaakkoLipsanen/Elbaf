@@ -8,7 +8,7 @@ namespace OGL
 	class GraphicsModule : public IGraphicsModule
 	{
 	public:
-		GraphicsModule(Engine& engine);
+		GraphicsModule(IEngine& engine);
 		virtual void Initialize() override;
 		virtual void Terminate() override;
 		virtual void EndFrame() override;

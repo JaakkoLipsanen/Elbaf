@@ -8,7 +8,7 @@ namespace GLFW
 	class InputModule : public IInputModule
 	{
 	public:
-		explicit InputModule(Engine& engine);
+		explicit InputModule(IEngine& engine);
 		virtual const KeyboardState& GetKeyboardState() override;
 		virtual const KeyboardState& GetPreviousKeyboardState() override;
 		virtual const MouseState& GetMouseState() override;

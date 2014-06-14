@@ -1,5 +1,5 @@
 #include "IGraphicsModule.h"
 
-IGraphicsModule::IGraphicsModule(Engine& engine) : IModule(engine)
+IGraphicsModule::IGraphicsModule(IEngine& engine) : IModule(engine)
 {
 }

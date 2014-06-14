@@ -1,11 +1,12 @@
 #pragma once
 
-class Engine;
+class IEngine;
 class IModule
 {
 public:
-	explicit IModule(Engine& engine); // Game& in the constructor? 
+	explicit IModule(IEngine& engine); // Game& in the constructor? 
 	virtual ~IModule() = default;
+	IModule& operator=(const IModule& other) = delete; // to not show an warning
 
 	virtual void Initialize() = 0;
 	virtual void Terminate() = 0;
@@ -17,5 +18,5 @@ public:
 	virtual void OnClosing() { }
 
 protected:
-	Engine& _engine;
+	IEngine& _engine;
 };

@@ -6,7 +6,7 @@
 class Scene { };
 class IGameWindow;
 class IGraphicsDevice;
-class Game : public Engine
+class Game : public IEngine
 {
 public:
 	Event<void()> BeginFrame = Event<void()>();
@@ -30,7 +30,7 @@ protected:
 
 	virtual void OnExiting() { }
 	virtual std::unique_ptr<Scene> CreateDefaultScene() = 0;
-	virtual void SetupGraphics(int* width, int* height, bool* isFullScreen) { } // should this be forced to be implemented (pure virtual)?
+	virtual void SetupGraphics(int* width, int* height, bool* isFullScreen) { *width = 1280; *height = 720; *isFullScreen = false; } // should this be forced to be implemented (pure virtual)?
 	virtual IModule* GetModuleInner(const type_info& typeInfo) const override;
 
 private:

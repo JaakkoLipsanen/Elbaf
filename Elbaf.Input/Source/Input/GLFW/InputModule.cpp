@@ -49,7 +49,7 @@ struct GLFW::InputModule::Impl
 	}
 };
 
-GLFW::InputModule::InputModule(Engine& engine) : IInputModule(engine), _pImpl(new GLFW::InputModule::Impl())
+GLFW::InputModule::InputModule(IEngine& engine) : IInputModule(engine), _pImpl(new GLFW::InputModule::Impl())
 {
 	for (int i = 0; i < KeyboardState::KeyCount; i++)
 	{
@@ -69,8 +69,6 @@ GLFW::InputModule::InputModule(Engine& engine) : IInputModule(engine), _pImpl(ne
 	_pImpl->PreviousMouseState->ScrollWheelDelta = 0;
 	_pImpl->PreviousMouseState->MousePosition = Vector2f(0, 0);
 }
-
-
 
 KeyboardState const& GLFW::InputModule::GetKeyboardState()
 {
@@ -104,6 +102,10 @@ void GLFW::InputModule::Initialize()
 {
 	_pImpl->GlfwWindow = static_cast<GLFWwindow*>(_engine.GetWindow()->GetInternalHandle());
 	glfwSetScrollCallback(_pImpl->GlfwWindow, OnScrollWheelCallback);
+
+	// enable sticky keys. sticky keys means, that key press will be registered even if key has been pressed & released between frames. todo: make this into options?
+	glfwSetInputMode(_pImpl->GlfwWindow, GLFW_STICKY_KEYS, GL_TRUE);
+	glfwSetInputMode(_pImpl->GlfwWindow, GLFW_STICKY_MOUSE_BUTTONS, GL_TRUE); // same for mouse buttons
 }
 
 void GLFW::InputModule::Terminate()

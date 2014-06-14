@@ -1,14 +1,9 @@
-
-class TimeManager
-{
-	float _deltaTime;
-	float _totalTime;
-};
+#include <Core\IModule.h>
+#include <Core\Engine.h>
+#include "TimeModule.h"
 
 namespace Time
 {
 	float GetDeltaTime();
 	float GetTotalTime();
-
-	// todo: time scale, 'real' delta/total time, smoothed delta time etc
-}
+};

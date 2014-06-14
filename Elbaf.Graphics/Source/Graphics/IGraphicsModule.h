@@ -15,5 +15,5 @@ public:
 	virtual void OpenWindow(const Size& size = Size(1280, 720), const std::string& title = "Game", bool isFullScreen = false) = 0;
 
 protected:
-	explicit IGraphicsModule(Engine& engine);
+	explicit IGraphicsModule(IEngine& engine);
 };

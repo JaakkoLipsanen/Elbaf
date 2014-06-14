@@ -6,6 +6,6 @@ namespace Platform
 {
 	namespace Input
 	{
-		std::unique_ptr<IInputModule> CreateDefaultInputModule(Engine& engine);
+		std::unique_ptr<IInputModule> CreateDefaultInputModule(IEngine& engine);
 	}
 }

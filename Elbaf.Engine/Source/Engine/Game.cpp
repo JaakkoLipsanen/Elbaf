@@ -7,6 +7,7 @@
 #include <Input\IInputModule.h>
 #include <Input\KeyCode.h>
 #include <Input\Platform.h>
+#include <Engine\Platform.h>
 
 struct Game::GameImpl
 {
@@ -16,20 +17,26 @@ struct Game::GameImpl
 	bool IsExiting = false;
 	std::unique_ptr<IGraphicsModule> GraphicsModule;
 	std::unique_ptr<IInputModule> InputModule;
+	std::unique_ptr<TimeModule> TimeModule;
 
 	void Run()
 	{
-		Logger::LogMessage("Once");
 		Ensure::False(this->IsRunning);
 		this->IsRunning = true;
+
+		// initialize
 		this->InitializeModules();
 		_game.Initialize();
+
+		// run!
 		Logger::LogMessage("Running Game..");
 		while (!this->GraphicsModule->GetGameWindow()->IsExiting() || this->IsExiting)
 		{
+			// todo: fps limiting or something? i mean 60fps lock etc. and fixedupdate?
 			this->Tick();
 		}
 
+		// exit :( !
 		_game.OnExiting();
 		_game.Exiting.Invoke();
 		this->GraphicsModule->Terminate();
@@ -44,6 +51,9 @@ struct Game::GameImpl
 
 		this->InputModule = Platform::Input::CreateDefaultInputModule(_game);
 		this->InputModule->Initialize();
+
+		this->TimeModule = Platform::Engine::CreateTimeModule(_game);
+		this->TimeModule->Initialize();
 	}
 
 	void OpenWindow()
@@ -62,6 +72,7 @@ struct Game::GameImpl
 
 		this->BeginFrame();
 		_game.PreUpdate();
+		this->TimeModule->Update();
 		this->GraphicsModule->Update();
 		this->InputModule->Update();
 		
@@ -74,12 +85,14 @@ struct Game::GameImpl
 		_game.BeginFrame.Invoke();
 		this->GraphicsModule->BeginFrame();
 		this->InputModule->BeginFrame();
+		this->TimeModule->BeginFrame();
 	}
 
 	void EndFrame()
 	{
 		this->GraphicsModule->EndFrame();
 		this->InputModule->EndFrame();
+		this->TimeModule->EndFrame();
 		_game.EndFrame.Invoke();
 	}
 
@@ -120,6 +133,10 @@ IModule* Game::GetModuleInner(const type_info& typeInfo) const
 	else if (typeInfo == typeid(IInputModule))
 	{
 		return _pImpl->InputModule.get();
+	}
+	else if (typeInfo == typeid(TimeModule))
+	{
+		return _pImpl->TimeModule.get();
 	}
 
 	throw std::logic_error("Not implemented yet/invalid type");

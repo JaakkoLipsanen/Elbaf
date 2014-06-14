@@ -91,7 +91,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <WarningLevel>Level4</WarningLevel>
+      <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>C:\Koodaus\OpenGL\Elbaf\Elbaf.Math\Source;C:\Koodaus\OpenGL\Elbaf\Elbaf.Graphics\Source;C:\Koodaus\OpenGL\Elbaf\Elbaf.Core\Source</AdditionalIncludeDirectories>
@@ -137,9 +137,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\Source\Graphics\ClearOptions.h" />
+    <ClInclude Include="..\Source\Graphics\CompareFunction.h" />
     <ClInclude Include="..\Source\Graphics\IGraphicsDevice.h" />
     <ClInclude Include="..\Source\Graphics\IGraphicsModule.h" />
     <ClInclude Include="..\Source\Graphics\OpenGL\GameWindow.h" />
+    <ClInclude Include="..\Source\Graphics\OpenGL\OGL-Helper.h" />
     <ClInclude Include="..\Source\Graphics\OpenGL\OGL.h" />
     <ClInclude Include="..\Source\Graphics\OpenGL\GraphicsDevice.h" />
     <ClInclude Include="..\Source\Graphics\OpenGL\GraphicsModule.h" />
@@ -151,6 +153,7 @@
     <ClCompile Include="..\Source\Graphics\OpenGL\GameWindow.cpp" />
     <ClCompile Include="..\Source\Graphics\OpenGL\GraphicsDevice.cpp" />
     <ClCompile Include="..\Source\Graphics\OpenGL\GraphicsModule.cpp" />
+    <ClCompile Include="..\Source\Graphics\OpenGL\OGL-Helper.cpp" />
     <ClCompile Include="..\Source\Graphics\Platform.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

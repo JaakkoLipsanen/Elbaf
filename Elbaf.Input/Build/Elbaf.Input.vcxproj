@@ -19,6 +19,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\Source\Input\Cursor.h" />
+    <ClInclude Include="..\Source\Input\CursorVisibility.h" />
     <ClInclude Include="..\Source\Input\GLFW\InputModule.h" />
     <ClInclude Include="..\Source\Input\IInputModule.h" />
     <ClInclude Include="..\Source\Input\Input.h" />
@@ -32,6 +34,7 @@
     <ClCompile Include="..\Source\Input\GLFW\InputModule.cpp" />
     <ClCompile Include="..\Source\Input\IInputModule.cpp" />
     <ClCompile Include="..\Source\Input\Input.cpp" />
+    <ClCompile Include="..\Source\Input\Mouse.cpp" />
     <ClCompile Include="..\Source\Input\Platform.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
@@ -103,6 +106,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>C:\Koodaus\OpenGL\Elbaf\Libraries\glfw\include;C:\Koodaus\OpenGL\Elbaf\Elbaf.Core\Source;C:\Koodaus\OpenGL\Elbaf\Elbaf.Input\Source;C:\Koodaus\OpenGL\Elbaf\Elbaf.Math\Source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>OPENGL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -130,6 +134,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>C:\Koodaus\OpenGL\Elbaf\Libraries\glfw\include;C:\Koodaus\OpenGL\Elbaf\Elbaf.Core\Source;C:\Koodaus\OpenGL\Elbaf\Elbaf.Input\Source;C:\Koodaus\OpenGL\Elbaf\Elbaf.Math\Source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>OPENGL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
