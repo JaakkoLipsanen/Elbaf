@@ -1,7 +1,6 @@
 #include "Platform.h"
 
 #if OPENGL
-
 #include "OpenGL\OGL.h"
 #include "OpenGL\GraphicsModule.h"
 

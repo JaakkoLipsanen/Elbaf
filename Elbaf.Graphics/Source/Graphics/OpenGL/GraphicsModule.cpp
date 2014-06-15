@@ -7,6 +7,28 @@
 #include <Graphics\OpenGL\GameWindow.h>
 #include <Core\Diagnostics\Ensure.h>
 #include <Graphics\CompareFunction.h>
+#include <vector>
+
+namespace OGL
+{
+	namespace GLFW
+	{
+		Event<void(int, int)> WindowResized;
+		void InitializeCallbacks(GLFWwindow* window)
+		{
+			glfwSetWindowSizeCallback(window, [](GLFWwindow* window, int width, int height)
+			{
+				OGL::GLFW::WindowResized.Invoke(width, height);
+			});
+		}
+
+		void UninitializeCallbacks(GLFWwindow* window)
+		{
+			glfwSetWindowSizeCallback(window, nullptr);
+			OGL::GLFW::WindowResized.Clear();
+		}
+	}
+}
 
 struct OGL::GraphicsModule::GraphicsModuleImpl
 {
@@ -21,6 +43,7 @@ struct OGL::GraphicsModule::GraphicsModuleImpl
 	void OpenWindow(Size const& size, std::string const& title, bool isFullScreen)
 	{
 		this->CreateWindow(size, title, isFullScreen);
+		OGL::GLFW::InitializeCallbacks(this->Window->GetGLFWwindow());
 		this->InitializeGLEW(); // meh.. test if this is possible to initialize in Initialize(). In tutorials, this was always after window creating so I dont know..
 
 		this->Device.reset(new OGL::GraphicsDevice(this->Window->GetGLFWwindow()));
@@ -31,6 +54,13 @@ struct OGL::GraphicsModule::GraphicsModuleImpl
 		this->Device->SetDepthFunction(CompareFunction::Less);
 		this->Device->SetCullFace(CullFace::Back);
 		this->Device->SetCullMode(CullMode::CounterClockwise);
+
+		OGL::GLFW::WindowResized += CreateFunction(this, &GraphicsModuleImpl::Resized);
+	}
+
+	void Resized(int w, int h)
+	{
+		this->Device->ResetViewport();
 	}
 
 private:
@@ -78,6 +108,7 @@ void OGL::GraphicsModule::Initialize()
 void OGL::GraphicsModule::Terminate()
 {
 	Ensure::NotNull(_pImpl.get(), "GraphicsModule has been terminated.");
+	OGL::GLFW::UninitializeCallbacks(_pImpl->Window->GetGLFWwindow());
 	_pImpl->Window->Destroy();
 	_pImpl.reset(nullptr);
 }

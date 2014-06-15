@@ -7,16 +7,26 @@
 #include <Core\Color.h>
 #include <Graphics\OpenGL\OGL-Helper.h>
 
+OGL::GraphicsDevice::GraphicsDevice(GLFWwindow* window) : _window(window)
+{
+}
+
+OGL::GraphicsDevice::~GraphicsDevice()
+{
+}
+
 void OGL::GraphicsDevice::ChangeResolution(Size const& newSize)
 {
 	glfwSetWindowSize(_window, newSize.Width, newSize.Height);
 
 	// this call could mess up state a bit. basically, if you have a custom viewport, then resize the screen. after the viewport will be fullscreen.. not a huge problem though
-	glViewport(0, 0, newSize.Width, newSize.Height); // update the viewport
+	this->ResetViewport(); // glViewport(0, 0, newSize.Width, newSize.Height);  would be a bit faster but meh
 }
 
-OGL::GraphicsDevice::~GraphicsDevice()
+void OGL::GraphicsDevice::ResetViewport() const
 {
+	auto size = this->GetResolution();
+	glViewport(0, 0, size.Width, size.Height); // update the viewport
 }
 
 bool OGL::GraphicsDevice::IsDepthTestEnabled() const
@@ -101,8 +111,4 @@ void OGL::GraphicsDevice::Clear(ClearOptions const& clearOptions, Color const& c
 	glClearStencil(stencilValue);
 
 	glClear(OGL::GetClearMask(clearOptions));
-}
-
-OGL::GraphicsDevice::GraphicsDevice(GLFWwindow* window) : _window(window)
-{
 }

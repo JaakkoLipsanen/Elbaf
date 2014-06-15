@@ -4,6 +4,7 @@
 #include <Graphics\RendererAPI.h>
 
 class IGraphicsModule;
+class IVertexBuffer;
 namespace Platform
 {
 	namespace Graphics

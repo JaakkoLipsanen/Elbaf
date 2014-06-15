@@ -25,6 +25,7 @@ void OGL::GameWindow::Open(const Size& size, const std::string& title, bool full
 	
 	_window = glfwCreateWindow(size.Width, size.Height, title.c_str(), fullScreen ? glfwGetPrimaryMonitor() : nullptr, nullptr);
 	glfwMakeContextCurrent(_window);
+
 }
 
 bool OGL::GameWindow::IsExiting() const

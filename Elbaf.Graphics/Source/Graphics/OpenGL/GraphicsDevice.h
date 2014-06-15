@@ -9,8 +9,6 @@ namespace OGL
 	{
 	
 	public:
-		GraphicsDevice(GLFWwindow* window);
-		virtual ~GraphicsDevice() override;
 
 		// depth stuff
 		virtual bool IsDepthTestEnabled() const override;
@@ -32,6 +30,11 @@ namespace OGL
 		virtual Size GetResolution() const override;
 		virtual void ChangeResolution(const Size& newSize) override;
 
+		// implementation specific
+		GraphicsDevice(GLFWwindow* window);
+		virtual ~GraphicsDevice() override;
+
+		void ResetViewport() const;
 	private:
 
 		// okay.. these default values are not good since if the user (or more like, me, the engine coder) forgets to set the values when constructing GraphicsModule, then these won't be the actual values

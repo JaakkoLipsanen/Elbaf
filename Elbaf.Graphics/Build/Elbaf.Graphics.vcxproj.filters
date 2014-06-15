@@ -54,6 +54,30 @@
     <ClInclude Include="..\Source\Graphics\OpenGL\OGL-Helper.h">
       <Filter>Header Files\OpenGL</Filter>
     </ClInclude>
+    <ClInclude Include="..\Source\Graphics\VertexFormats.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Graphics\VertexElement.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Graphics\VertexDeclaration.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Graphics\IVertexBuffer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Graphics\OpenGL\VertexBuffer.h">
+      <Filter>Header Files\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Graphics\IShader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Graphics\OpenGL\Shader.h">
+      <Filter>Header Files\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Graphics\OpenGL\OGL-ShaderLoader.h">
+      <Filter>Header Files\OpenGL</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Source\Graphics\OpenGL\GraphicsModule.cpp">
@@ -72,6 +96,21 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\Source\Graphics\OpenGL\OGL-Helper.cpp">
+      <Filter>Source Files\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Graphics\VertexFormats.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Graphics\IVertexBuffer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Graphics\OpenGL\Shader.cpp">
+      <Filter>Source Files\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Graphics\OpenGL\OGL-ShaderLoader.cpp">
+      <Filter>Source Files\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Graphics\IShader.cpp">
       <Filter>Source Files\OpenGL</Filter>
     </ClCompile>
   </ItemGroup>

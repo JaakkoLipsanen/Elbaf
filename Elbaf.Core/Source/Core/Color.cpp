@@ -1,5 +1,6 @@
 #include "Color.h"
 #include <Math\FlaiMath.h>
+#include <Math\Vector.h>
 
 inline static uint8 ClampToByte(float value)
 {
@@ -14,8 +15,19 @@ Color::Color(uint32 packedValue)
 	this->A = packedValue % 256; /* dwColor /= 256; */
 }
 
+
 Color::Color(uint8 r, uint8 g, uint8 b) : R(r), G(g), B(b), A(255)
 {
+}
+
+Vector3f Color::ToVector3f() const
+{
+	return Vector3f(this->R / 255.0f, this->G / 255.0f, this->B / 255.0f);
+}
+
+Vector4f Color::ToVector4f() const
+{
+	return Vector4f(this->R / 255.0f, this->G / 255.0f, this->B / 255.0f, this->A / 255.0f);
 }
 
 Color::Color(uint8 r, uint8 g, uint8 b, uint8 a) : R(r), G(g), B(b), A(a)

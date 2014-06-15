@@ -1,14 +1,12 @@
 #pragma once
 #include <iostream>
+#include <Core\Diagnostics\LogStream.h>
 
+
+class LogStream;
 // todo: this should be made into a singleton (which, however, still has static public API :P)
-class Logger
+namespace Logger
 {
-	Logger() = delete;
-public:
-	static void LogMessage(const std::string& message, bool addNewLine = true);
-	static void LogError(const std::string& message , bool addNewLine = true);
-
 	template<typename T>
 	static void LogMessage(const T& value, bool addNewLine = true)
 	{
@@ -24,4 +22,6 @@ public:
 		if (addNewLine)
 			std::cerr << "\n";
 	}
+
+	static LogStream MessageStream = LogStream(LogType::Message);;
 };

@@ -33,9 +33,6 @@
     <ClCompile Include="..\Source\Core\Diagnostics\Ensure.cpp">
       <Filter>Source Files\Diagnostics</Filter>
     </ClCompile>
-    <ClCompile Include="..\Source\Core\Diagnostics\Logger.cpp">
-      <Filter>Source Files\Diagnostics</Filter>
-    </ClCompile>
     <ClCompile Include="..\Source\Core\IModule.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -85,6 +82,9 @@
     </ClInclude>
     <ClInclude Include="..\Source\Core\CursorVisibility.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Core\Diagnostics\LogStream.h">
+      <Filter>Header Files\Diagnostics</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -128,6 +128,7 @@
     <ClInclude Include="..\Source\Core\Diagnostics.h" />
     <ClInclude Include="..\Source\Core\Diagnostics\Ensure.h" />
     <ClInclude Include="..\Source\Core\Diagnostics\Logger.h" />
+    <ClInclude Include="..\Source\Core\Diagnostics\LogStream.h" />
     <ClInclude Include="..\Source\Core\Engine.h" />
     <ClInclude Include="..\Source\Core\Event.h" />
     <ClInclude Include="..\Source\Core\File.h" />
@@ -139,7 +140,6 @@
   <ItemGroup>
     <ClCompile Include="..\Source\Core\Color.cpp" />
     <ClCompile Include="..\Source\Core\Diagnostics\Ensure.cpp" />
-    <ClCompile Include="..\Source\Core\Diagnostics\Logger.cpp" />
     <ClCompile Include="..\Source\Core\Engine.cpp" />
     <ClCompile Include="..\Source\Core\File.cpp" />
     <ClCompile Include="..\Source\Core\IModule.cpp" />

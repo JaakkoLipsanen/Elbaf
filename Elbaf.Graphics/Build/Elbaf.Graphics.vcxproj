@@ -140,21 +140,34 @@
     <ClInclude Include="..\Source\Graphics\CompareFunction.h" />
     <ClInclude Include="..\Source\Graphics\IGraphicsDevice.h" />
     <ClInclude Include="..\Source\Graphics\IGraphicsModule.h" />
+    <ClInclude Include="..\Source\Graphics\IShader.h" />
+    <ClInclude Include="..\Source\Graphics\IVertexBuffer.h" />
     <ClInclude Include="..\Source\Graphics\OpenGL\GameWindow.h" />
     <ClInclude Include="..\Source\Graphics\OpenGL\OGL-Helper.h" />
+    <ClInclude Include="..\Source\Graphics\OpenGL\OGL-ShaderLoader.h" />
     <ClInclude Include="..\Source\Graphics\OpenGL\OGL.h" />
     <ClInclude Include="..\Source\Graphics\OpenGL\GraphicsDevice.h" />
     <ClInclude Include="..\Source\Graphics\OpenGL\GraphicsModule.h" />
+    <ClInclude Include="..\Source\Graphics\OpenGL\Shader.h" />
+    <ClInclude Include="..\Source\Graphics\OpenGL\VertexBuffer.h" />
     <ClInclude Include="..\Source\Graphics\Platform.h" />
     <ClInclude Include="..\Source\Graphics\RendererAPI.h" />
+    <ClInclude Include="..\Source\Graphics\VertexDeclaration.h" />
+    <ClInclude Include="..\Source\Graphics\VertexElement.h" />
+    <ClInclude Include="..\Source\Graphics\VertexFormats.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Source\Graphics\IGraphicsModule.cpp" />
+    <ClCompile Include="..\Source\Graphics\IShader.cpp" />
+    <ClCompile Include="..\Source\Graphics\IVertexBuffer.cpp" />
     <ClCompile Include="..\Source\Graphics\OpenGL\GameWindow.cpp" />
     <ClCompile Include="..\Source\Graphics\OpenGL\GraphicsDevice.cpp" />
     <ClCompile Include="..\Source\Graphics\OpenGL\GraphicsModule.cpp" />
     <ClCompile Include="..\Source\Graphics\OpenGL\OGL-Helper.cpp" />
+    <ClCompile Include="..\Source\Graphics\OpenGL\OGL-ShaderLoader.cpp" />
+    <ClCompile Include="..\Source\Graphics\OpenGL\Shader.cpp" />
     <ClCompile Include="..\Source\Graphics\Platform.cpp" />
+    <ClCompile Include="..\Source\Graphics\VertexFormats.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,5 +1,6 @@
 #pragma once
 #include <Math\Fundamental.h>
+#include <Math\Vector.h>
 
 struct Color
 {
@@ -13,6 +14,8 @@ struct Color
 	Color(uint8 r, uint8 g, uint8 b, uint8 a);
 	Color operator *(float multiplier);
 
+	Vector3f ToVector3f() const;
+	Vector4f ToVector4f() const;
 	static Color Lerp(const Color& from, const Color& to, float value);
 
 	// from XNA. Wrote a nice script that converted C# to C++ :)
