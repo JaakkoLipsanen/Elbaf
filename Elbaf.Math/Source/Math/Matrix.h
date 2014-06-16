@@ -3,7 +3,9 @@
 #include "Vector.h"
 #include <glm\gtc\matrix_access.inl>
 
-// todo: typedef others?
+// todo: typedef others (2x4, 2x3 etc)
+typedef glm::mat2 Matrix2x2;
+typedef glm::mat3 Matrix3x3;
 typedef glm::mat4 Matrix4x4;
 
 namespace Matrix

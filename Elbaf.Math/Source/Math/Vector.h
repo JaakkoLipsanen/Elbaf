@@ -3,11 +3,17 @@
 #include <ostream>
 
 typedef glm::vec2 Vector2f;
-typedef glm::ivec2 Vector2i;
 typedef glm::vec3 Vector3f;
-typedef glm::ivec3 Vector3i;
 typedef glm::vec4 Vector4f;
+
+typedef glm::ivec2 Vector2i;
+typedef glm::ivec3 Vector3i;
 typedef glm::ivec4 Vector4i;
+
+
+typedef glm::uvec2 Vector2u;
+typedef glm::uvec3 Vector3u;
+typedef glm::uvec4 Vector4u;
 
 template<typename T>
 using TVector2 = glm::detail::tvec2<T, glm::precision::defaultp>;

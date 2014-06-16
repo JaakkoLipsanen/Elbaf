@@ -115,11 +115,13 @@ void Game::Exit()
 
 IGameWindow* Game::GetWindow() const
 {
+	Ensure::True(_pImpl->IsRunning);
 	return _pImpl->GraphicsModule->GetGameWindow();
 }
 
 IGraphicsDevice* Game::GetGraphicsDevice() const
 {
+	Ensure::True(_pImpl->IsRunning);
 	return _pImpl->GraphicsModule->GetGraphicsDevice();
 }
 

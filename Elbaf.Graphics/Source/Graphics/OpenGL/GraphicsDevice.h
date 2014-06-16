@@ -7,7 +7,6 @@ namespace OGL
 	// okay I'm having a bit of a "fuck that" feelings atm.. So basically, don't focus so much on the portability/abstractness, just get it done!
 	class GraphicsDevice : public IGraphicsDevice
 	{
-	
 	public:
 
 		// depth stuff
@@ -29,6 +28,9 @@ namespace OGL
 		// miscp
 		virtual Size GetResolution() const override;
 		virtual void ChangeResolution(const Size& newSize) override;
+
+		// draw
+		virtual void DrawPrimitives(PrimitiveType primitiveType, int firstIndex, int count) override;
 
 		// implementation specific
 		GraphicsDevice(GLFWwindow* window);

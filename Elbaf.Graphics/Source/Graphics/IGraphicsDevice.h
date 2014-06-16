@@ -16,6 +16,7 @@ enum class CullFace
 struct Size;
 enum class ClearOptions;
 enum class CompareFunction;
+enum class PrimitiveType;
 struct Color;
 class IGraphicsModule;
 
@@ -46,4 +47,7 @@ public:
 	virtual void SetCullFace(CullFace cullFace) = 0;
 
 	// todo: render targets, vertexbuffers, stencil, scissor, depth states, textures(?) etc etc etc
+
+	// DRAW
+	virtual void DrawPrimitives(PrimitiveType primitiveType, int firstIndex, int count) = 0;
 };

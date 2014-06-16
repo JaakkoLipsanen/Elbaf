@@ -7,10 +7,11 @@
 
 namespace OGL
 {
+	// blahh.. just make the .cpp file :P
 	class VertexBuffer : public IVertexBuffer
 	{
 	public:
-		static std::unique_ptr<IVertexBuffer> CreateVertexBuffer(const VertexDeclaration& vertexDeclaration, const void * vertexData, int vertexCount, int sizeOfVertex)
+		static std::unique_ptr<IVertexBuffer> CreateVertexBuffer(const VertexDeclaration& vertexDeclaration, const void* vertexData, int vertexCount, int sizeOfVertex)
 		{
 			GLuint vertexArrayID;
 			glGenVertexArrays(1, &vertexArrayID);
@@ -35,12 +36,17 @@ namespace OGL
 			}
 
 			glBindVertexArray(0);
-			return std::unique_ptr<IVertexBuffer>(new VertexBuffer(vertexArrayID, vertexBufferID));
+			return std::unique_ptr<IVertexBuffer>(new VertexBuffer(vertexArrayID, vertexBufferID, vertexCount));
 		}
 
 		virtual void Bind() 
 		{
 			glBindVertexArray(_vertexArrayID);
+		}
+
+		virtual int GetVertexCount() const override
+		{
+			return _vertexCount;
 		}
 
 		virtual ~VertexBuffer()
@@ -50,8 +56,9 @@ namespace OGL
 		}
 
 	private:
-		VertexBuffer(GLuint vertexArrayID, GLuint vertexBufferID) : _vertexArrayID(vertexArrayID), _vertexBufferID(vertexBufferID) { }
+		VertexBuffer(GLuint vertexArrayID, GLuint vertexBufferID, int vertexCount) : _vertexArrayID(vertexArrayID), _vertexBufferID(vertexBufferID), _vertexCount(vertexCount) { }
 		GLuint _vertexArrayID;
 		GLuint _vertexBufferID;
+		int _vertexCount;
 	};
 }

@@ -3,6 +3,7 @@
 #include <Graphics\CompareFunction.h>
 #include <Graphics\IGraphicsDevice.h>
 #include <Graphics\VertexElement.h>
+#include <Graphics\PrimitiveType.h>
 #include <system_error>
 
 GLbitfield OGL::GetClearMask(ClearOptions const& clearOptions)
@@ -57,5 +58,26 @@ GLenum OGL::VertexElementTypeToGLenum(VertexElementType elementType)
 
 	default:
 		throw std::logic_error("Unknown element type");
+	}
+}
+
+GLenum OGL::PrimitiveTypeToGLenum(PrimitiveType primitiveType)
+{
+	switch (primitiveType)
+	{
+	case PrimitiveType::TriangleList:
+		return GL_TRIANGLES;
+
+	case PrimitiveType::TriangleStrip:
+		return GL_TRIANGLE_STRIP;
+
+	case PrimitiveType::LineList:
+		return GL_LINES;
+
+	case PrimitiveType::LineStrip:
+		return GL_LINE_STRIP;
+
+	case PrimitiveType::Points:
+		return GL_POINTS;
 	}
 }

@@ -151,6 +151,7 @@
     <ClInclude Include="..\Source\Graphics\OpenGL\Shader.h" />
     <ClInclude Include="..\Source\Graphics\OpenGL\VertexBuffer.h" />
     <ClInclude Include="..\Source\Graphics\Platform.h" />
+    <ClInclude Include="..\Source\Graphics\PrimitiveType.h" />
     <ClInclude Include="..\Source\Graphics\RendererAPI.h" />
     <ClInclude Include="..\Source\Graphics\VertexDeclaration.h" />
     <ClInclude Include="..\Source\Graphics\VertexElement.h" />

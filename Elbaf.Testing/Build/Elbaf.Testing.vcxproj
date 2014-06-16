@@ -127,6 +127,10 @@
   <ItemGroup>
     <ClInclude Include="..\Source\ShaderLoader.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="BasicShader-fs.glsl" />
+    <None Include="BasicShader-vs.glsl" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

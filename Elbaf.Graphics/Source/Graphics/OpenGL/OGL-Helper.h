@@ -5,6 +5,7 @@ enum class ClearOptions;
 enum class CompareFunction;
 enum class CullFace;
 enum class VertexElementType;
+enum class PrimitiveType;
 
 namespace OGL
 {
@@ -13,4 +14,5 @@ namespace OGL
 	GLenum CullFaceToGLenum(const CullFace& cullFace);
 
 	GLenum VertexElementTypeToGLenum(VertexElementType elementType);
+	GLenum PrimitiveTypeToGLenum(PrimitiveType primitiveType);
 }

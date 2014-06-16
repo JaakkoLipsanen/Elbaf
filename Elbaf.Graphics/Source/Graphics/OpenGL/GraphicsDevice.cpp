@@ -112,3 +112,8 @@ void OGL::GraphicsDevice::Clear(ClearOptions const& clearOptions, Color const& c
 
 	glClear(OGL::GetClearMask(clearOptions));
 }
+
+void OGL::GraphicsDevice::DrawPrimitives(PrimitiveType primitiveType, int firstIndex, int count)
+{
+	glDrawArrays(OGL::PrimitiveTypeToGLenum(primitiveType), firstIndex, count);
+}
