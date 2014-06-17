@@ -47,6 +47,13 @@ namespace detail
 	template <typename T, precision P>
 	struct tvec4
 	{
+		static const tvec4<T, P> Zero;
+		static const tvec4<T, P> One;
+		static const tvec4<T, P> UnitY;
+		static const tvec4<T, P> UnitX;
+		static const tvec4<T, P> UnitZ;
+		static const tvec4<T, P> UnitW;
+
 		//////////////////////////////////////
 		// Implementation detail
 

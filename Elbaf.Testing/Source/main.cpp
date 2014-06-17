@@ -11,6 +11,7 @@
 #include <Graphics\OpenGL\OGL.h>
 #include <Graphics\PrimitiveType.h>
 #include <glm\gtc\matrix_transform.hpp>
+
 class MyGame : public Game
 {
 public:
@@ -21,6 +22,9 @@ public:
 
 	virtual void Initialize() override
 	{
+		Logger::MessageStream << "Holy fuck? " << (Vector4f::UnitY + Vector4f::UnitX * 5) << "\n";
+
+		auto x = Vector2i::UnitX * 2;
 		Logger::LogMessage(Screen::GetSize());
 		Mouse::SetCursorVisibility(CursorVisibility::Visible);
 		Mouse::SetPosition({ Screen::GetWidth() / 2, Screen::GetHeight() / 2 });
@@ -36,6 +40,8 @@ public:
 			VertexPositionColor({ 0, 1.0f, 0 }, Color::Green),
 			VertexPositionColor({ 1, 0, 0.0f }, Color::Blue) };
 
+
+
 		_buffer = IVertexBuffer::CreateVertexBuffer(vertexData, 3);
 		_buffer2 = IVertexBuffer::CreateVertexBuffer<VertexPositionColor>(vertexData2, 3);
 		_shader = IShader::Load("BasicShader-vs.glsl", "BasicShader-fs.glsl");
@@ -44,6 +50,7 @@ public:
 		_shader->ApplyShader();
 		// Projection matrix : 45° Field of View, 4:3 ratio, display range : 0.1 unit <-> 100 units
 		glm::mat4 Projection = glm::ortho(-5.0f, 5.0f, -5.0f, 5.0f, 0.1f, 100.0f);
+
 		// Or, for an ortho camera :
 		//glm::mat4 Projection = glm::ortho(-10.0f,10.0f,-10.0f,10.0f,0.0f,100.0f); // In world coordinates
 

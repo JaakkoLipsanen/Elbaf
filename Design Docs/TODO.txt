@@ -1,8 +1,16 @@
-- Separate the solution into multiple sub-projects. "Core", "Graphics", "Physics", "Audio", "Runtime" etc.
+
+-- MODULES --
+- Audio (FMod or something?)
+- Physics (Havok/Bullet/box2D? Should I separate Physics2D and Physics to different modules?)
+- AI(??)
+- FSL (Flai Shader Language - language that compiles into both GLSL and HLSL. Not supposed to be feature-complete or uber performant. This should be very interesting).
+
+
+-- GENERAL --
+- The engine is "multi-layered", there is first the library layer (OpenGL, D3D, GLFW etc), then is the 'low-level module' -layer (GraphicsModule, InputModule) and then high-level wrapper classes/namespaces (Input, Screen, Cursor etc)
+
+
 - Refactor the existing code.
-	- Maybe rename "Game" to "Engine"
-	- Separate game-specific code to own project immediately
-	- Then! No statics or globals whatsoever at the "base-layer"
 	- Implement multiple "layers". For example, "InputManager" is at the base-level, and "Input::" namespace (possibly class? Don't want any globals!) is one layer higher.
 	- Wrap all platform/library specific stuff into interfaces. For example, "IGameWindow" which is platform independent (no GLFW etc dependency), of which "GameWindowGLFW" inherits from.
 	- Wrap all platform specific stuff creation into their own functions/factories. For example, "IGameWindow::CreateWindow(string title)" returns, depending on platform, GameWindowGLFW or something else

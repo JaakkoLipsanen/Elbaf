@@ -29,6 +29,36 @@
 namespace glm{
 namespace detail
 {
+	template<> const tvec4<float, precision::highp> tvec4<float, precision::highp>::One(1, 1, 1, 1);
+	template<> const tvec4<int, precision::highp> tvec4<int, precision::highp>::One(1, 1, 1, 1);
+	template<> const tvec4<unsigned int, precision::highp> tvec4<unsigned int, precision::highp>::One(1, 1, 1, 1);
+	template<> const tvec4<double, precision::highp> tvec4<double, precision::highp>::One(1, 1, 1, 1);
+
+	template<> const tvec4<float, precision::highp> tvec4<float, precision::highp>::UnitX(1, 0, 0, 0);
+	template<> const tvec4<int, precision::highp> tvec4<int, precision::highp>::UnitX(1, 0, 0, 0);
+	template<> const tvec4<unsigned int, precision::highp> tvec4<unsigned int, precision::highp>::UnitX(1, 0, 0, 0);
+	template<> const tvec4<double, precision::highp> tvec4<double, precision::highp>::UnitX(1, 0, 0, 0);
+
+	template<> const tvec4<float, precision::highp> tvec4<float, precision::highp>::UnitY(0, 1, 0, 0);
+	template<> const tvec4<int, precision::highp> tvec4<int, precision::highp>::UnitY(0, 1, 0, 0);
+	template<> const tvec4<unsigned int, precision::highp> tvec4<unsigned int, precision::highp>::UnitY(0, 1, 0, 0);
+	template<> const tvec4<double, precision::highp> tvec4<double, precision::highp>::UnitY(0, 1, 0, 0);
+
+	template<> const tvec4<float, precision::highp> tvec4<float, precision::highp>::UnitZ(0, 0, 1, 0);
+	template<> const tvec4<int, precision::highp> tvec4<int, precision::highp>::UnitZ(0, 0, 1, 0);
+	template<> const tvec4<unsigned int, precision::highp> tvec4<unsigned int, precision::highp>::UnitZ(0, 0, 1, 0);
+	template<> const tvec4<double, precision::highp> tvec4<double, precision::highp>::UnitZ(0, 0, 1, 0);
+
+	template<> const tvec4<float, precision::highp> tvec4<float, precision::highp>::UnitW(0, 0, 0, 1);
+	template<> const tvec4<int, precision::highp> tvec4<int, precision::highp>::UnitW(0, 0, 0, 1);
+	template<> const tvec4<unsigned int, precision::highp> tvec4<unsigned int, precision::highp>::UnitW(0, 0, 0, 1);
+	template<> const tvec4<double, precision::highp> tvec4<double, precision::highp>::UnitW(0, 0, 0, 1);
+
+	template<> const tvec4<float, precision::highp> tvec4<float, precision::highp>::Zero(0, 0, 0, 0);
+	template<> const tvec4<int, precision::highp> tvec4<int, precision::highp>::Zero(0, 0, 0, 0);
+	template<> const tvec4<unsigned int, precision::highp> tvec4<unsigned int, precision::highp>::Zero(0, 0, 0, 0);
+	template<> const tvec4<double, precision::highp> tvec4<double, precision::highp>::Zero(0, 0, 0, 0);
+
 	template <typename T, precision P>
 	GLM_FUNC_QUALIFIER GLM_CONSTEXPR length_t tvec4<T, P>::length() const
 	{

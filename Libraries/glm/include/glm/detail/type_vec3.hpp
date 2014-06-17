@@ -46,6 +46,12 @@ namespace detail
 	template <typename T, precision P>
 	struct tvec3
 	{	
+		static const tvec3<T, P> Zero;
+		static const tvec3<T, P> One;
+		static const tvec3<T, P> UnitY;
+		static const tvec3<T, P> UnitX;
+		static const tvec3<T, P> UnitZ;
+
 		//////////////////////////////////////
 		// Implementation detail
 
@@ -226,6 +232,27 @@ namespace detail
 		template <typename U>
 		GLM_FUNC_DECL tvec3<T, P> & operator>>=(tvec3<U, P> const & v);
 	};
+
+
+/* brilliant idea, but unfortunately even #undef'ed macros will stay in Intellisense. and since this is in header, that's not really acceptable
+#define FUNC(type, implType, prec, func, arg1, arg2, arg3) template<> const tvec3<##implType, ##prec> tvec3<##implType, ##prec>::##func(##arg1, ##arg2, ##arg3);
+#define FUNC_ALL(type, prec, func, arg1, arg2, arg3)  \
+	FUNC( tvec3, float, prec, func, arg1, arg2, arg3) \
+	FUNC(tvec3, int, prec, func, arg1, arg2, arg3) \
+	FUNC(tvec3, double, prec, func, arg1, arg2, arg3) \
+	FUNC(tvec3, unsigned int, prec, func, arg1, arg2, arg3) \
+
+	FUNC_ALL(tvec3, precision::highp, One, 1, 1, 1) 
+	FUNC_ALL(tvec3, precision::highp, UnitX, 1, 0, 0)
+	FUNC_ALL(tvec3, precision::highp, UnitY, 0, 1, 0)
+	FUNC_ALL(tvec3, precision::highp, UnitZ, 0, 0, 1)
+	FUNC_ALL(tvec3, precision::highp, Zero, 0, 0, 0)
+
+#undef FUNC_ALL
+#undef FUNC
+*/ 
+
+
 
 	template <typename T, precision P>
 	GLM_FUNC_DECL tvec3<T, P> operator+(tvec3<T, P> const & v, T const & s);

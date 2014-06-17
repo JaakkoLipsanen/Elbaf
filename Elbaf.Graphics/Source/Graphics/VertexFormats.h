@@ -32,3 +32,21 @@ struct VertexPositionColor
 		return Declaration;
 	}
 };
+
+// okay... right now this takes 32-bits. But if I make the color into Vector4f, then it will take 36bits :(  I think that might mess things ups
+struct VertexPositionColorTexture
+{	
+	Vector3f Position;
+	Vector3f Color; // todo: just use Color and send the data to gpu as 3x Byte (normalized)? also, this should be 4-element (alpha)....
+	Vector2f TextureCoordinate;
+	/* -|- !!!! */
+	VertexPositionColorTexture(Vector3f position, ::Color color, Vector2f textureCoordinate) : Position(position), Color(color.ToVector3f()), TextureCoordinate(textureCoordinate)
+	{
+	}
+
+	static const VertexDeclaration Declaration; // = VertexDeclaration({ VertexElement(), VertexElement() }); // VertexDeclaration({ VertexElement() });
+	static const VertexDeclaration& GetVertexDeclaration()
+	{
+		return Declaration;
+	}
+};

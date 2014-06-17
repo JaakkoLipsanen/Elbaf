@@ -40,12 +40,31 @@
 #endif //GLM_SWIZZLE
 #include <cstddef>
 
+/*
+template<typename T>
+T GetOne();
+
+template<> inline int GetOne<int>() { return 1; }
+template<> inline float GetOne<float>() { return 1; }
+template<> inline double GetOne<double>() { return 1; }
+template<> inline unsigned int GetOne<unsigned int>() { return 1; }
+template<> inline char GetOne<char>() { return 1; }
+template<> inline short GetOne<short>() { return 1; }
+template<> inline unsigned short GetOne<unsigned short>() { return 1; }
+*/
+
 namespace glm{
 namespace detail
 {
+
 	template <typename T, precision P>
 	struct tvec2
 	{
+		static const tvec2<T, P> Zero;
+		static const tvec2<T, P> One;
+		static const tvec2<T, P> UnitY;
+		static const tvec2<T, P> UnitX;
+
 		//////////////////////////////////////
 		// Implementation detail
 
