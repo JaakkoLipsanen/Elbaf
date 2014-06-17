@@ -10,8 +10,25 @@ typedef glm::mat4 Matrix4x4;
 
 namespace Matrix
 {
-	Matrix4x4 CreateLookAt(Vector3f eye, Vector3f target, Vector3f up);
-	// CreatePerspective, CreateOrthogonal, Translate, Scale, Rotate etc etc
+	Matrix4x4 CreateLookAt(const Vector3f& eye, const Vector3f& target, const Vector3f& up);
+	Matrix4x4 CreateOrtographic(const float& left, const float& right, const float& bottom, const float& top);
+	Matrix4x4 CreateOrtographic(const float& left, const float& right, const float& bottom, const float& top, const float& zNear, const float& zFar);
+	Matrix4x4 CreatePerspective(const float& verticalFov, const float& aspectRatio, const float& zNear, const float& zFar);
+
+	Matrix4x4 Scale(const Vector3f& scale);
+	Matrix4x4 Scale(const float& x, const float& y, const float& z);
+	Matrix4x4 Scale(const float& scale);
+
+	Matrix4x4 Translate(const Vector3f& translateAmount);
+	Matrix4x4 Translate(const float& x, const float& y, const float& z);
+
+	Matrix4x4 RotateAroundAxis(const float& angle, const Vector3f& rotateAxis);
+	// TODO: MORE ROTATE STUFF.
+	// RotateEuler at least!!
+	// also look stuff from XNA!
+
+	Matrix4x4 Inverse(const Matrix4x4& input);
+	Matrix4x4 Transpose(const Matrix4x4& input);
 }
 
 template<typename T, glm::precision P>

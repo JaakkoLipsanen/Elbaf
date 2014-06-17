@@ -41,6 +41,8 @@ namespace detail
 	template <typename T, precision P>
 	struct tmat4x4
 	{
+		const static tmat4x4<T, P> Identity;
+
 		enum ctor{_null};
 		typedef T value_type;
 		typedef std::size_t size_type;
@@ -149,6 +151,10 @@ namespace detail
 		GLM_FUNC_DECL tmat4x4<T, P> operator++(int);
 		GLM_FUNC_DECL tmat4x4<T, P> operator--(int);
 	};
+
+	template<> const tmat4x4<float, precision::highp> tmat4x4<float, precision::highp>::Identity(1);
+	template<> const tmat4x4<double, precision::highp> tmat4x4<double, precision::highp>::Identity(1);
+	template<> const tmat4x4<int, precision::highp> tmat4x4<int, precision::highp>::Identity(1);
 
 	template <typename T, precision P>
 	GLM_FUNC_DECL tmat4x4<T, P> compute_inverse_mat4(tmat4x4<T, P> const & m);
