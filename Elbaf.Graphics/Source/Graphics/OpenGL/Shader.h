@@ -15,17 +15,21 @@ namespace OGL
 		virtual ~Shader() override;
 
 		// parameter setters
-		virtual void SetValue(std::string const& valueName, float const& value) override;
-		virtual void SetValue(std::string const& valueName, Vector2f const& value) override;
-		virtual void SetValue(std::string const& valueName, Vector3f const& value) override;
-		virtual void SetValue(std::string const& valueName, Vector4f const& value) override;
-		virtual void SetValue(std::string const& valueName, int const& value) override;
-		virtual void SetValue(std::string const& valueName, Vector2i const& value) override;
-		virtual void SetValue(std::string const& valueName, Vector3i const& value) override;
-		virtual void SetValue(std::string const& valueName, Vector4i const& value) override;
-		virtual void SetValue(std::string const& valueName, Matrix2x2 const& value) override;
-		virtual void SetValue(std::string const& valueName, Matrix3x3 const& value) override;
-		virtual void SetValue(std::string const& valueName, Matrix4x4 const& value) override;
+		virtual void SetParameter(std::string const& valueName, float const& value) override;
+		virtual void SetParameter(std::string const& valueName, Vector2f const& value) override;
+		virtual void SetParameter(std::string const& valueName, Vector3f const& value) override;
+		virtual void SetParameter(std::string const& valueName, Vector4f const& value) override;
+		virtual void SetParameter(std::string const& valueName, int const& value) override;
+		virtual void SetParameter(std::string const& valueName, Vector2i const& value) override;
+		virtual void SetParameter(std::string const& valueName, Vector3i const& value) override;
+		virtual void SetParameter(std::string const& valueName, Vector4i const& value) override;
+		virtual void SetParameter(std::string const& valueName, Matrix2x2 const& value) override;
+		virtual void SetParameter(std::string const& valueName, Matrix3x3 const& value) override;
+		virtual void SetParameter(std::string const& valueName, Matrix4x4 const& value) override;
+
+	protected:
+		virtual float GetFloat(std::string const& valueName) const override;
+		virtual Matrix4x4 GetMatrix4x4(std::string const& valueName) const override;
 
 	private:
 		class PImpl;

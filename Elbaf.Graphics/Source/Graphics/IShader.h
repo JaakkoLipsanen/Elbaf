@@ -13,19 +13,19 @@ struct IShader
 	virtual void ApplyShader() = 0;
 	virtual ~IShader() { }
 
-	virtual void SetValue(const std::string& valueName, const float& value) = 0;
-	virtual void SetValue(const std::string& valueName, const Vector2f& value) = 0;
-	virtual void SetValue(const std::string& valueName, const Vector3f& value) = 0;
-	virtual void SetValue(const std::string& valueName, const Vector4f& value) = 0;
+	virtual void SetParameter(const std::string& valueName, const float& value) = 0;
+	virtual void SetParameter(const std::string& valueName, const Vector2f& value) = 0;
+	virtual void SetParameter(const std::string& valueName, const Vector3f& value) = 0;
+	virtual void SetParameter(const std::string& valueName, const Vector4f& value) = 0;
 
-	virtual void SetValue(const std::string& valueName, const int& value) = 0;
-	virtual void SetValue(const std::string& valueName, const Vector2i& value) = 0;
-	virtual void SetValue(const std::string& valueName, const Vector3i& value) = 0;
-	virtual void SetValue(const std::string& valueName, const Vector4i& value) = 0;
+	virtual void SetParameter(const std::string& valueName, const int& value) = 0;
+	virtual void SetParameter(const std::string& valueName, const Vector2i& value) = 0;
+	virtual void SetParameter(const std::string& valueName, const Vector3i& value) = 0;
+	virtual void SetParameter(const std::string& valueName, const Vector4i& value) = 0;
 
-	virtual void SetValue(const std::string& valueName, const  Matrix2x2& value) = 0; // bool transpose
-	virtual void SetValue(const std::string& valueName, const Matrix3x3& value) = 0; // bool transpose
-	virtual void SetValue(const std::string& valueName, const Matrix4x4& value) = 0; // bool transpose
+	virtual void SetParameter(const std::string& valueName, const  Matrix2x2& value) = 0; // bool transpose
+	virtual void SetParameter(const std::string& valueName, const Matrix3x3& value) = 0; // bool transpose
+	virtual void SetParameter(const std::string& valueName, const Matrix4x4& value) = 0; // bool transpose
 
 	/*
 	virtual void SetValue(const std::string& valueName, uint32 value) = 0;
@@ -37,4 +37,25 @@ struct IShader
 	/*
 	todo: array variants (glUniform1fv, glUniform2fv, glUniform3iv etc etc)
 	*/
+
+	// todo: implement a lot more! At least Vector2f, Vector3f, Vector4f, int
+	template<typename T>
+	T GetParameter(const std::string& valueName) const; // todo: could make static_assert or enable_if? could be clearer and better error message
+
+	template<>
+	float GetParameter<float>(const std::string& valueName) const
+	{
+		return this->GetFloat(valueName);
+	}
+
+	template<>
+	Matrix4x4 GetParameter<Matrix4x4>(const std::string& valueName) const
+	{
+		return this->GetMatrix4x4(valueName);
+	}
+
+protected:
+	// todo: implement a lot more! At least Vector2f, Vector3f, Vector4f, int
+	virtual float GetFloat(const std::string& valueName) const = 0;
+	virtual Matrix4x4 GetMatrix4x4(const std::string& valueName) const = 0;
 };

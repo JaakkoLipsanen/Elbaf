@@ -56,11 +56,16 @@ public:
 			Vector3f(4, 3, 3),
 			Vector3f::Zero,
 			Vector3f::UnitY);
-
+		
 		auto Model = Matrix4x4::Identity;
 		auto MVP = Projection * View * Model; // Remember, matrix multiplication is the other way around
 
-		_shader->SetValue("MVP", MVP);
+		_shader->SetParameter("MVP", MVP);
+
+		auto value = _shader->GetValue<Matrix4x4>("MVP");
+		Logger::MessageStream << value << "\n\n" << MVP << "\n";
+
+
 	}
 
 	virtual void PreRender() override
@@ -69,6 +74,7 @@ public:
 		if (Input::IsMouseButtonPressed(MouseButton::Left) || true)
 		{
 			_shader->ApplyShader();
+			
 			_buffer->Bind(); // GraphicsDevice.SetVertexBuffer?
 			this->GetGraphicsDevice()->DrawPrimitives(PrimitiveType::TriangleList, 0, _buffer->GetVertexCount());
 

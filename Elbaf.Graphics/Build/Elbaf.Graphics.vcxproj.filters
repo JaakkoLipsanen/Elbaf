@@ -114,7 +114,7 @@
       <Filter>Source Files\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="..\Source\Graphics\IShader.cpp">
-      <Filter>Source Files\OpenGL</Filter>
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
