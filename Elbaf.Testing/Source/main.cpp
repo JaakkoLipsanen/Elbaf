@@ -1,17 +1,17 @@
 #include <iostream>
+
+#include "DefaultCamera.h"
 #include <Engine\Game.h>
-#include <Graphics\IVertexBuffer.h>
 #include <Core\Diagnostics\Logger.h>
 #include <Engine\Screen.h>
 #include <Input\Mouse.h>
 #include <Graphics\IGraphicsDevice.h>
 #include <Graphics\VertexFormats.h>
+#include <Graphics\IVertexBuffer.h>
 #include <Graphics\IShader.h>
+#include <Engine\Time.h>
 #include <Input\Input.h>
 #include <Graphics\OpenGL\OGL.h>
-#include <Graphics\PrimitiveType.h>
-#include <glm\gtc\matrix_transform.hpp>
-#include <Engine\Time.h>
 
 class MyGame : public Game
 {
@@ -24,9 +24,9 @@ public:
 	virtual void Initialize() override
 	{
 		Logger::LogMessage(Screen::GetSize());
-		Mouse::SetCursorVisibility(CursorVisibility::Visible);
+		Mouse::SetCursorVisibility(CursorVisibility::Disabled);
 		Mouse::SetPosition({ Screen::GetWidth() / 2, Screen::GetHeight() / 2 });
-		this->GetGraphicsDevice()->SetCullMode(CullMode::Clockwise);
+
 
 		static const VertexPosition vertexData[] = {
 			VertexPosition({ 0.5f, -0.5f, 0 }),
@@ -38,38 +38,67 @@ public:
 			VertexPositionColor({ 0, 1.0f, 0 }, Color::Green),
 			VertexPositionColor({ 1, 0, 0.0f }, Color::Blue) };
 
+		std::vector<VertexPositionColor> vertexDataNew;
 
-		_buffer = IVertexBuffer::CreateVertexBuffer(vertexData, 3);
-		_buffer2 = IVertexBuffer::CreateVertexBuffer<VertexPositionColor>(vertexData2, 3);
+		const int Size = 300;
+		float grid[(Size + 1) * (Size + 1)];
+
+		for (int y = 0; y < Size + 1; y++)
+		{
+			for (int x = 0; x < Size + 1; x++)
+			{
+				grid[x + y * Size] = RandomFloat(0, 1);
+			}
+		}
+
+		for (int y = 0; y < Size; y++)
+		{
+			for (int x = 0; x < Size; x++)
+			{
+				VertexPositionColor bl({ x, grid[x + y * Size], y }, Color::Brown);
+				VertexPositionColor br({ x + 1, grid[x + 1 + y * Size], y }, Color::RosyBrown);
+				VertexPositionColor tl({ x, grid[x + (y + 1) * Size], y + 1 }, Color::SaddleBrown);
+				VertexPositionColor tr({ x + 1, grid[x + 1 + (y + 1) * Size], y + 1 }, Color::SandyBrown);
+
+				vertexDataNew.push_back(bl);
+				vertexDataNew.push_back(tl);
+				vertexDataNew.push_back(br);
+
+				vertexDataNew.push_back(tl);
+				vertexDataNew.push_back(tr);
+				vertexDataNew.push_back(br);
+			}
+		}
+
+		_buffer2 = IVertexBuffer::CreateVertexBuffer(vertexDataNew.data(), vertexDataNew.size());
+		_buffer2->SetVertexData(vertexDataNew.data(), vertexDataNew.size());
+
+		_buffer = IVertexBuffer::CreateVertexBuffer(vertexDataNew.data(), 3);
 		_shader = IShader::Load("BasicShader-vs.glsl", "BasicShader-fs.glsl");
+		_camera = std::unique_ptr<DefaultCamera>(new DefaultCamera);
+	}
 
-		// better name for "ApplyShader"? Bind? BindShader? Use? UseShader? SetActive?
-		_shader->ApplyShader();
-		// Projection matrix : 45° Field of View, 4:3 ratio, display range : 0.1 unit <-> 100 units
-		//auto Projection =  Matrix::CreateOrtographic(-5.0f, 5.0f, -5.0f, 5.0f, 0.1f, 100.0f);
-
-		// Or, for an ortho camera :
-		auto Projection = Matrix::CreatePerspective(50 + Time::GetTotalTime() * 10.0f, 16.0f / 9, 0.1f, 100);
-
-		// Camera matrix
-		Matrix4x4 View = Matrix::CreateLookAt(
-			Vector3f(4, 3, 3),
-			Vector3f::Zero,
-			Vector3f::UnitY);
-		
-		auto Model = Matrix4x4::Identity;
-		auto MVP = Projection * View * Model; // Remember, matrix multiplication is the other way around
-
-		_shader->SetParameter("MVP", MVP);
-
-		auto value = _shader->GetValue<Matrix4x4>("MVP");
-		Logger::MessageStream << value << "\n\n" << MVP << "\n";
-
-
+	float RandomFloat(float a, float b) {
+		float random = ((float)rand()) / (float)RAND_MAX;
+		float diff = b - a;
+		float r = random * diff;
+		return a + r;
 	}
 
 	virtual void PreRender() override
 	{
+		_camera->Update();
+		_shader->SetParameter("MVP", _camera->GetProjection() * _camera->GetView());
+		if (Input::IsMouseButtonPressed(MouseButton::Right))
+		{
+			static const VertexPosition vertexData[] = {
+				VertexPosition({ 0.5f, -0.5f, 0 }),
+				VertexPosition({ 0.1f, -0.5f, 0 }),
+				VertexPosition({ 0, 0, 0.0f }) };
+
+			_buffer2->SetVertexData(vertexData, 3);
+		}
+
 		this->GetGraphicsDevice()->Clear(Color::RoyalBlue);
 		if (Input::IsMouseButtonPressed(MouseButton::Left) || true)
 		{
@@ -86,19 +115,13 @@ public:
 		{
 			Logger::LogMessage(Input::GetScrollWheelDelta());
 		}
-
-		if (Input::IsNewMouseButtonPress(MouseButton::Right))
-		{
-			this->GetGraphicsDevice()->ChangeResolution({ 1920, 1080 });
-		}
 	}
 
 private:
-	GLuint _vertexArrayID;
-	GLuint _vertexBufferID;
 	std::unique_ptr<IShader> _shader;
 	std::unique_ptr<IVertexBuffer> _buffer;
 	std::unique_ptr<IVertexBuffer> _buffer2;
+	std::unique_ptr<DefaultCamera> _camera;
 };
 
 int main()

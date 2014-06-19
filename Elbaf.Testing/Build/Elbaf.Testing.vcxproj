@@ -121,15 +121,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\Source\DefaultCamera.cpp" />
     <ClCompile Include="..\Source\main.cpp" />
-    <ClCompile Include="..\Source\ShaderLoader.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\Source\ShaderLoader.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="BasicShader-fs.glsl" />
     <None Include="BasicShader-vs.glsl" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\Source\DefaultCamera.h" />
+    <ClInclude Include="..\Source\ICamera.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

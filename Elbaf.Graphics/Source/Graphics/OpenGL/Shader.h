@@ -29,6 +29,10 @@ namespace OGL
 
 	protected:
 		virtual float GetFloat(std::string const& valueName) const override;
+		virtual int GetInt(std::string const& valueName) const override;
+		virtual Vector2f GetVector2f(std::string const& valueName) const override;
+		virtual Vector3f GetVector3f(std::string const& valueName) const override;
+		virtual Vector4f GetVector4f(std::string const& valueName) const override;
 		virtual Matrix4x4 GetMatrix4x4(std::string const& valueName) const override;
 
 	private:

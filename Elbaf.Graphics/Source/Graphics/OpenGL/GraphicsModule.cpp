@@ -52,6 +52,7 @@ struct OGL::GraphicsModule::GraphicsModuleImpl
 		// and then this kind of stuff could be put in the non-inheritable graphics module!
 		this->Device->SetDepthTestEnabled(true);
 		this->Device->SetDepthFunction(CompareFunction::Less);
+		this->Device->SetCullingEnabled(true);
 		this->Device->SetCullFace(CullFace::Back);
 		this->Device->SetCullMode(CullMode::CounterClockwise);
 

@@ -28,11 +28,20 @@ int IVertexBuffer::GetPrimitiveCount(PrimitiveType primitiveType)
 	}
 }
 
-std::unique_ptr<IVertexBuffer> IVertexBuffer::CreateVertexBuffer(VertexDeclaration const& vertexDeclaration, void const* vertexData, int vertexCount, int sizeOfVertex)
-{
+std::unique_ptr<IVertexBuffer> IVertexBuffer::CreateVertexBuffer()
+{ 
 #if OPENGL
-	return OGL::VertexBuffer::CreateVertexBuffer(vertexDeclaration, vertexData, vertexCount, sizeOfVertex);
+	return OGL::VertexBuffer::CreateVertexBuffer();
 #else
 #error("Not implemented");
 #endif
+}
+
+std::unique_ptr<IVertexBuffer> IVertexBuffer::CreateVertexBuffer(VertexDeclaration const& vertexDeclaration, void const* vertexData, int vertexCount, int sizeOfVertex)
+{
+	auto vertexBuffer = IVertexBuffer::CreateVertexBuffer();
+	vertexBuffer->SetData(vertexDeclaration, vertexData, vertexCount, sizeOfVertex);
+	return vertexBuffer;
+
+
 }

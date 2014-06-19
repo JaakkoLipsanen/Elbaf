@@ -73,6 +73,20 @@ void OGL::GraphicsDevice::SetCullFace(CullFace cullFace)
 	}
 }
 
+bool OGL::GraphicsDevice::IsCullingEnabled() const
+{
+	return _isCullingEnabled;
+}
+
+void OGL::GraphicsDevice::SetCullingEnabled(bool enabled)
+{
+	if (_isCullingEnabled != enabled)
+	{
+		glEnableOrDisable(GL_CULL_FACE, enabled);
+		_isCullingEnabled = enabled;
+	}
+}
+
 CompareFunction OGL::GraphicsDevice::GetDepthFunction() const
 {
 	return _depthCompareFunction;

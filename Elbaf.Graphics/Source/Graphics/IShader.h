@@ -49,6 +49,30 @@ struct IShader
 	}
 
 	template<>
+	int GetParameter<int>(const std::string& valueName) const
+	{
+		return this->GetInt(valueName);
+	}
+
+	template<>
+	Vector2f GetParameter<Vector2f>(const std::string& valueName) const
+	{
+		return this->GetVector2f(valueName);
+	}
+
+	template<>
+	Vector3f GetParameter<Vector3f>(const std::string& valueName) const
+	{
+		return this->GetVector3f(valueName);
+	}
+
+	template<>
+	Vector4f GetParameter<Vector4f>(const std::string& valueName) const
+	{
+		return this->GetVector4f(valueName);
+	}
+
+	template<>
 	Matrix4x4 GetParameter<Matrix4x4>(const std::string& valueName) const
 	{
 		return this->GetMatrix4x4(valueName);
@@ -57,5 +81,9 @@ struct IShader
 protected:
 	// todo: implement a lot more! At least Vector2f, Vector3f, Vector4f, int
 	virtual float GetFloat(const std::string& valueName) const = 0;
+	virtual int GetInt(const std::string& valueName) const = 0;
+	virtual Vector2f GetVector2f(const std::string& valueName) const = 0;
+	virtual Vector3f GetVector3f(const std::string& valueName) const = 0;
+	virtual Vector4f GetVector4f(const std::string& valueName) const = 0;
 	virtual Matrix4x4 GetMatrix4x4(const std::string& valueName) const = 0;
 };

@@ -122,3 +122,31 @@ Matrix4x4 OGL::Shader::GetMatrix4x4(std::string const& valueName) const
 	glGetUniformfv(_pImpl->ProgramID, _pImpl->GetUniformLocation(valueName), reinterpret_cast<float*>(&matrix));
 	return matrix;
 }
+
+int OGL::Shader::GetInt(std::string const& valueName) const
+{
+	int value;
+	glGetUniformiv(_pImpl->ProgramID, _pImpl->GetUniformLocation(valueName), &value);
+	return value;
+}
+
+Vector2f OGL::Shader::GetVector2f(std::string const& valueName) const
+{
+	Vector2f value;
+	glGetUniformfv(_pImpl->ProgramID, _pImpl->GetUniformLocation(valueName), reinterpret_cast<float*>(&value));
+	return value;
+}
+
+Vector3f OGL::Shader::GetVector3f(std::string const& valueName) const
+{
+	Vector3f value;
+	glGetUniformfv(_pImpl->ProgramID, _pImpl->GetUniformLocation(valueName), reinterpret_cast<float*>(&value));
+	return value;
+}
+
+Vector4f OGL::Shader::GetVector4f(std::string const& valueName) const
+{
+	Vector4f value;
+	glGetUniformfv(_pImpl->ProgramID, _pImpl->GetUniformLocation(valueName), reinterpret_cast<float*>(&value));
+	return value;
+}

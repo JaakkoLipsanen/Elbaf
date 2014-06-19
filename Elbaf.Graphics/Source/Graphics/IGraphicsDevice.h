@@ -46,6 +46,9 @@ public:
 	virtual CullFace GetCullFace() const = 0;
 	virtual void SetCullFace(CullFace cullFace) = 0;
 
+	virtual bool IsCullingEnabled() const = 0;
+	virtual void SetCullingEnabled(bool enabled) = 0;
+
 	// todo: render targets, vertexbuffers, stencil, scissor, depth states, textures(?) etc etc etc
 
 	// DRAW

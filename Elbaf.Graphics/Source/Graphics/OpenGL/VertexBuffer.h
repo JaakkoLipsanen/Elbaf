@@ -11,7 +11,7 @@ namespace OGL
 	class VertexBuffer : public IVertexBuffer
 	{
 	public:
-		static std::unique_ptr<IVertexBuffer> CreateVertexBuffer(const VertexDeclaration& vertexDeclaration, const void* vertexData, int vertexCount, int sizeOfVertex)
+		static std::unique_ptr<IVertexBuffer> CreateVertexBuffer()
 		{
 			GLuint vertexArrayID;
 			glGenVertexArrays(1, &vertexArrayID);
@@ -20,6 +20,15 @@ namespace OGL
 			GLuint vertexBufferID;
 			glGenBuffers(1, &vertexBufferID);
 			glBindBuffer(GL_ARRAY_BUFFER, vertexBufferID);
+
+			VertexBuffer* vertexBuffer = new VertexBuffer(vertexArrayID, vertexBufferID, 0);
+			return std::unique_ptr<VertexBuffer>(vertexBuffer);
+		}
+
+		virtual void SetData(const VertexDeclaration& vertexDeclaration, const void* vertexData, int vertexCount, int sizeOfVertex) override
+		{
+		  //  glBindVertexArray(vertexArrayID); // ??? not needed pretty sure. "Bind the VAO to draw. Bind the VBO to modify the VBO."
+			glBindBuffer(GL_ARRAY_BUFFER, _vertexBufferID);
 			glBufferData(GL_ARRAY_BUFFER, sizeOfVertex * vertexCount, vertexData, GL_STATIC_DRAW);
 
 			for (int i = 0; i < vertexDeclaration.GetCount(); i++)
@@ -36,7 +45,7 @@ namespace OGL
 			}
 
 			glBindVertexArray(0);
-			return std::unique_ptr<IVertexBuffer>(new VertexBuffer(vertexArrayID, vertexBufferID, vertexCount));
+			_vertexCount = vertexCount;
 		}
 
 		virtual void Bind() 
@@ -60,5 +69,7 @@ namespace OGL
 		GLuint _vertexArrayID;
 		GLuint _vertexBufferID;
 		int _vertexCount;
+
+		bool _hasData = false;
 	};
 }

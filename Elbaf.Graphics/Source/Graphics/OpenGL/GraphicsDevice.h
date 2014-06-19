@@ -21,6 +21,9 @@ namespace OGL
 		virtual CullFace GetCullFace() const override;
 		virtual void SetCullFace(CullFace cullFace) override;
 
+		virtual bool IsCullingEnabled() const override;
+		virtual void SetCullingEnabled(bool enabled) override;
+
 		// clear
 		virtual void Clear(const Color& color) override;
 		virtual void Clear(const ClearOptions& clearOptions, const Color& color, float depth = 0, int stencilValue = 0) override;
@@ -44,6 +47,7 @@ namespace OGL
 		CompareFunction _depthCompareFunction = static_cast<CompareFunction>(-1);
 		CullMode _cullMode = static_cast<CullMode>(-1);
 		CullFace _cullFace = static_cast<CullFace>(-1);
+		bool _isCullingEnabled = false;
 
 		GLFWwindow* _window;
 	};
