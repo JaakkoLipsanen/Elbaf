@@ -1,7 +1,7 @@
 #include "Shader.h"
 #include <Graphics\OpenGL\OGL-ShaderLoader.h>
+#include <Diagnostics\Logger.h>
 #include <map>
-#include <Core\Diagnostics\Logger.h>
 class OGL::Shader::PImpl
 {
 public:

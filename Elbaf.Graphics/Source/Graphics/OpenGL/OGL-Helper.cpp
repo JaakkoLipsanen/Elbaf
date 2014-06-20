@@ -79,5 +79,8 @@ GLenum OGL::PrimitiveTypeToGLenum(PrimitiveType primitiveType)
 
 	case PrimitiveType::Points:
 		return GL_POINTS;
+
+	default:
+		throw std::logic_error("Unknown primitive type");
 	}
 }

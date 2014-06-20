@@ -13,25 +13,10 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Source Files\Diagnostics">
-      <UniqueIdentifier>{253e9c90-e290-489e-9096-c61a6fd72d2f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Diagnostics">
-      <UniqueIdentifier>{cfbea2e3-d782-482f-b6d9-6dfda221cb4e}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Source\Core\Color.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Source\Core\Size.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Source\Core\SizeF.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Source\Core\Diagnostics\Ensure.cpp">
-      <Filter>Source Files\Diagnostics</Filter>
     </ClCompile>
     <ClCompile Include="..\Source\Core\IModule.cpp">
       <Filter>Source Files</Filter>
@@ -42,14 +27,11 @@
     <ClCompile Include="..\Source\Core\File.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\Source\Core\Random.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Source\Core\Size.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Source\Core\SizeF.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\Source\Core\Color.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -59,16 +41,7 @@
     <ClInclude Include="..\Source\Core\IGameWindow.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\Source\Core\Diagnostics\Ensure.h">
-      <Filter>Header Files\Diagnostics</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Source\Core\Diagnostics\Logger.h">
-      <Filter>Header Files\Diagnostics</Filter>
-    </ClInclude>
     <ClInclude Include="..\Source\Core\IModule.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Source\Core\Diagnostics.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\Source\Core\Array.h">
@@ -83,8 +56,11 @@
     <ClInclude Include="..\Source\Core\CursorVisibility.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\Source\Core\Diagnostics\LogStream.h">
-      <Filter>Header Files\Diagnostics</Filter>
+    <ClInclude Include="..\Source\Core\Random.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Core\Global.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,5 +1,5 @@
 #pragma once
-#include <Core\Diagnostics\Logger.h>
+#include "Logger.h"
 
 enum class LogType
 {

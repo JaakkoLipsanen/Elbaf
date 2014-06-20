@@ -1,7 +1,7 @@
 #include "Input.h"
 #include <Input\KeyboardState.h>
 #include <Input\IInputModule.h>
-#include <Core\Diagnostics\Ensure.h>
+#include <Diagnostics\Ensure.h>
 
 // todo: make 'Input' use IEngine::GetModule<IInputModule> instead?
 static IInputModule* _inputModule = nullptr;

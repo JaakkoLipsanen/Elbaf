@@ -1,5 +1,5 @@
 #pragma once
-#include <Core\Size.h>
+#include <Math\Size.h>
 
 namespace Screen
 {

@@ -19,12 +19,12 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{E45199A0-C73E-4FFE-88FA-C595E29C3B04}</ProjectGuid>
-    <RootNamespace>ElbafMath</RootNamespace>
+    <ProjectGuid>{A9550BEE-1E2B-4CC6-A430-89C7F9BC6C44}</ProjectGuid>
+    <RootNamespace>ElbafDiagnostics</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v120</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
@@ -36,7 +36,7 @@
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v120</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -65,7 +65,18 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -81,7 +92,6 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\Koodaus\OpenGL\Elbaf\Libraries\glm\include;C:\Koodaus\OpenGL\Elbaf\Elbaf.Math\Source;C:\Koodaus\OpenGL\Elbaf\Elbaf.Diagnostics\Source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -108,7 +118,6 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\Koodaus\OpenGL\Elbaf\Libraries\glm\include;C:\Koodaus\OpenGL\Elbaf\Elbaf.Math\Source;C:\Koodaus\OpenGL\Elbaf\Elbaf.Diagnostics\Source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -117,18 +126,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\Source\Math\FlaiMath.h" />
-    <ClInclude Include="..\Source\Math\Fundamental.h" />
-    <ClInclude Include="..\Source\Math\Matrix.h" />
-    <ClInclude Include="..\Source\Math\Noise.h" />
-    <ClInclude Include="..\Source\Math\Size.h" />
-    <ClInclude Include="..\Source\Math\SizeF.h" />
-    <ClInclude Include="..\Source\Math\Vector.h" />
+    <ClCompile Include="..\Source\Diagnostics\Ensure.cpp" />
+    <ClCompile Include="..\Source\Diagnostics\Logger.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\Source\Math\Matrix.cpp" />
-    <ClCompile Include="..\Source\Math\Size.cpp" />
-    <ClCompile Include="..\Source\Math\SizeF.cpp" />
+    <ClInclude Include="..\Source\Diagnostics\Ensure.h" />
+    <ClInclude Include="..\Source\Diagnostics\Logger.h" />
+    <ClInclude Include="..\Source\Diagnostics\LogStream.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,5 +1,6 @@
 #include "Game.h"
-#include <Core\Diagnostics.h>
+#include <Diagnostics\Logger.h>
+#include <Diagnostics\Ensure.h>
 #include <Core\IGameWindow.h>
 #include <Graphics\IGraphicsModule.h>
 #include <Graphics\IGraphicsDevice.h>

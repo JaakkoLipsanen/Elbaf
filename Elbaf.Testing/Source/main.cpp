@@ -2,7 +2,7 @@
 
 #include "DefaultCamera.h"
 #include <Engine\Game.h>
-#include <Core\Diagnostics\Logger.h>
+#include <Diagnostics\Logger.h>
 #include <Engine\Screen.h>
 #include <Input\Mouse.h>
 #include <Graphics\IGraphicsDevice.h>
@@ -12,7 +12,9 @@
 #include <Engine\Time.h>
 #include <Input\Input.h>
 #include <Graphics\OpenGL\OGL.h>
-
+#include <Core\Random.h>
+#include <algorithm>
+#include <Core\Global.h>
 class MyGame : public Game
 {
 public:
@@ -26,10 +28,6 @@ public:
 		Logger::LogMessage(Screen::GetSize());
 		Mouse::SetCursorVisibility(CursorVisibility::Disabled);
 		Mouse::SetPosition({ Screen::GetWidth() / 2, Screen::GetHeight() / 2 });
-
-		Vector2f v;
-		v.X = 2;
-
 
 		static const VertexPosition vertexData[] = {
 			VertexPosition({ 0.5f, -0.5f, 0 }),
@@ -50,7 +48,7 @@ public:
 		{
 			for (int x = 0; x < Size + 1; x++)
 			{
-				grid[x + y * Size] = RandomFloat(0, 1);
+				grid[x + y * Size] = Global::Random.NextFloat(0, 1);
 			}
 		}
 
@@ -79,13 +77,6 @@ public:
 		_buffer = IVertexBuffer::CreateVertexBuffer(vertexDataNew.data(), 3);
 		_shader = IShader::Load("BasicShader-vs.glsl", "BasicShader-fs.glsl");
 		_camera = std::unique_ptr<DefaultCamera>(new DefaultCamera);
-	}
-
-	float RandomFloat(float a, float b) {
-		float random = ((float)rand()) / (float)RAND_MAX;
-		float diff = b - a;
-		float r = random * diff;
-		return a + r;
 	}
 
 	virtual void PreRender() override
@@ -131,11 +122,6 @@ int main()
 {
 	MyGame game;
 	game.Run();
-
-	/*Engine engine;
-	engine.SetClearColor(Color::Red);
-	engine.GetWindow().SetTitle("My Game");
-	engine.GetGraphicsDevice().SetResolution(1920, 1080); */
 
 	return 1;
 }

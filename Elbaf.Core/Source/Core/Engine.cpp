@@ -1,5 +1,5 @@
 #include "Engine.h"
-#include <Core\Diagnostics\Ensure.h>
+#include <Diagnostics\Ensure.h>
 
 static IEngine* _instance = nullptr;
 IEngine::IEngine()

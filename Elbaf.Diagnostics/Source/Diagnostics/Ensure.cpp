@@ -1,4 +1,3 @@
-
 #include "Ensure.h"
 
 namespace Ensure

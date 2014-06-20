@@ -1,6 +1,6 @@
 #pragma once
 #include <Core\IModule.h>
-#include <Core\Size.h>
+#include <Math\Size.h>
 
 class IGameWindow;
 class IGraphicsDevice;

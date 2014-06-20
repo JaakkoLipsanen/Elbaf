@@ -1,7 +1,7 @@
 #include "File.h"
 #include <iostream>
 #include <fstream>
-#include <Core\Diagnostics\Logger.h>
+#include <Diagnostics\Logger.h>
 #include <string>
 
 std::string File::ReadAllLines(std::string const& filePath)

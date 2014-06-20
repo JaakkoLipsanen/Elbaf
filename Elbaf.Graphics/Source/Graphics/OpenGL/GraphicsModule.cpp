@@ -1,13 +1,14 @@
 #include "GraphicsModule.h"
 #include "GraphicsDevice.h"
 #include "OGL.h"
-#include <Core\Diagnostics\Logger.h>
+#include <Diagnostics\Logger.h>
 #include <Core\IGameWindow.h>
-#include <Core\Size.h>
+#include <Math\Size.h>
 #include <Graphics\OpenGL\GameWindow.h>
-#include <Core\Diagnostics\Ensure.h>
+#include <Diagnostics\Ensure.h>
 #include <Graphics\CompareFunction.h>
 #include <vector>
+#include <Core\Event.h>
 
 namespace OGL
 {

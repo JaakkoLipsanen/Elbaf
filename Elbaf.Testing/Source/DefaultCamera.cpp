@@ -3,6 +3,8 @@
 #include <Engine\Screen.h>
 #include <Input\Input.h>
 #include <Engine\Time.h>
+#include <Diagnostics\Logger.h>
+#include <Math\FlaiMath.h>
 
 // from OGL tutorial mostly
 DefaultCamera::DefaultCamera()
@@ -43,6 +45,7 @@ void DefaultCamera::Update()
 	}
 
 	_rotationAngle += Input::GetMousePositionDelta() * Vector2f(-1, -1) * 0.005f;
+	_rotationAngle.Y = FlaiMath::Clamp(_rotationAngle.y, -FlaiMath::Pi / 2 + 0.01f, FlaiMath::Pi / 2 - 0.01f);
 
 	this->UpdateView();
 }

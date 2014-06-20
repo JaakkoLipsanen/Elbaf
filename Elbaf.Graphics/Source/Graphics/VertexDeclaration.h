@@ -5,13 +5,13 @@
 class VertexDeclaration
 {
 public:
-	VertexDeclaration(std::vector<VertexElement> vertexElements) : _vertexElements(vertexElements), Count(static_cast<int>(vertexElements.size()))
+	VertexDeclaration(std::vector<VertexElement> vertexElements) : _vertexElements(vertexElements), _count(static_cast<int>(vertexElements.size()))
 	{
 	}
 
 	int GetCount() const
 	{
-		return this->Count;
+		return this->_count;
 	}
 
 	const VertexElement& operator[](int index) const
@@ -20,6 +20,6 @@ public:
 	}
 
 private:
-	const int Count;
+	int _count;
 	std::vector<VertexElement> _vertexElements;
 };

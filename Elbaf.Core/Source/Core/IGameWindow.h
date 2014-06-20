@@ -1,6 +1,6 @@
 #pragma once
 #include <string>
-#include "Size.h"
+#include <Math\Size.h>
 
 class IGameWindow
 {

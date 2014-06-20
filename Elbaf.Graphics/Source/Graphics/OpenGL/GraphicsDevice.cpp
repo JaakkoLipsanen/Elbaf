@@ -1,5 +1,5 @@
 #include "GraphicsDevice.h"
-#include <Core\Size.h>
+#include <Math\Size.h>
 
 #include "OGL.h"
 #include <Graphics\ClearOptions.h>

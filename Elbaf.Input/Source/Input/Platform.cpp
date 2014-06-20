@@ -1,7 +1,7 @@
 #include "Platform.h"
 #include <Input\GLFW\InputModule.h>
 #include <Input\IInputModule.h>
-#include <Core\Diagnostics\Logger.h>
+#include <Diagnostics\Logger.h>
 #include <Core\Engine.h>
 
 std::unique_ptr<IInputModule> Platform::Input::CreateDefaultInputModule(IEngine& engine)

@@ -1,5 +1,5 @@
 #include "GameWindow.h"
-#include <Core\Diagnostics\Ensure.h>
+#include <Diagnostics\Ensure.h>
 #include "OGL.h"
 #include <iostream>
 

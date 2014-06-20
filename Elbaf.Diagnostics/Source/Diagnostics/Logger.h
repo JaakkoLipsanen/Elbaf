@@ -1,6 +1,6 @@
 #pragma once
 #include <iostream>
-#include <Core\Diagnostics\LogStream.h>
+#include "LogStream.h"
 
 
 class LogStream;

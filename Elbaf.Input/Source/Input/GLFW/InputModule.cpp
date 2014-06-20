@@ -4,7 +4,7 @@
 #include <GLFW\glfw3.h>
 #include <algorithm>
 #include <Input\KeyboardState.h>
-#include <Core\Diagnostics\Logger.h>
+#include <Diagnostics\Logger.h>
 #include <Core\Array.h>
 #include <Core\Engine.h>
 #include <Core\IGameWindow.h>
