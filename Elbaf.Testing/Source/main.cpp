@@ -27,6 +27,9 @@ public:
 		Mouse::SetCursorVisibility(CursorVisibility::Disabled);
 		Mouse::SetPosition({ Screen::GetWidth() / 2, Screen::GetHeight() / 2 });
 
+		Vector2f v;
+		v.X = 2;
+
 
 		static const VertexPosition vertexData[] = {
 			VertexPosition({ 0.5f, -0.5f, 0 }),

@@ -16,8 +16,6 @@ Matrix4x4 const& DefaultCamera::GetView() const
 	return _view;
 }
 
-
-
 Matrix4x4 const& DefaultCamera::GetProjection() const
 {
 	return _projection;
@@ -44,7 +42,7 @@ void DefaultCamera::Update()
 		_position += cross * MovementSpeed * Time::GetDeltaTime();
 	}
 
-	_rotationAngle += Input::GetMousePositionDelta() * Vector2f(-1, 1) * 0.005f;
+	_rotationAngle += Input::GetMousePositionDelta() * Vector2f(-1, -1) * 0.005f;
 
 	this->UpdateView();
 }

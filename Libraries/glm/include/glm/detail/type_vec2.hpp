@@ -101,8 +101,8 @@ namespace detail
 				_GLM_SWIZZLE2_4_MEMBERS(T, P, tvec4, s, t)
 			};
 #		else
-			union {T x;};
-			union {T y;};
+			union {T X, x;};
+			union {T Y, y;};
 
 #			ifdef GLM_SWIZZLE
 				GLM_SWIZZLE_GEN_VEC_FROM_VEC2(T, P, detail::tvec2, detail::tvec2, detail::tvec3, detail::tvec4)
