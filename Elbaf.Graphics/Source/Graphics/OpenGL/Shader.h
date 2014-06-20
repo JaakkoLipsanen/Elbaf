@@ -8,6 +8,7 @@ namespace OGL
 {
 	class Shader : public IShader
 	{
+	
 	public:
 		static std::unique_ptr<IShader> Load(const std::string& vertexFilePath, const std::string& fragmentFilePath);
 
@@ -25,7 +26,8 @@ namespace OGL
 		virtual void SetParameter(std::string const& valueName, Vector4i const& value) override;
 		virtual void SetParameter(std::string const& valueName, Matrix2x2 const& value) override;
 		virtual void SetParameter(std::string const& valueName, Matrix3x3 const& value) override;
-		virtual void SetParameter(std::string const& valueName, Matrix4x4 const& value) override;
+		virtual void SetParameter(std::string const& valueName, Matrix4x4 const& value) override; public:
+		virtual void SetTextureSampler(std::string const& valueName, int index) override;
 
 	protected:
 		virtual float GetFloat(std::string const& valueName) const override;

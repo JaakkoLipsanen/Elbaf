@@ -27,6 +27,7 @@ struct IShader
 	virtual void SetParameter(const std::string& valueName, const Matrix3x3& value) = 0; // bool transpose
 	virtual void SetParameter(const std::string& valueName, const Matrix4x4& value) = 0; // bool transpose
 
+	virtual void SetTextureSampler(const std::string& valueName, int index) = 0;
 	/*
 	virtual void SetValue(const std::string& valueName, uint32 value) = 0;
 	virtual void SetValue(const std::string& valueName, Vector2u value) = 0;

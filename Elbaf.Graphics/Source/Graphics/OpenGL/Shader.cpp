@@ -15,12 +15,12 @@ public:
 		{
 			return key->second;
 		}
-		// not found
+
+		// not cached
 		GLint value = glGetUniformLocation(this->ProgramID, name.c_str());
 		if (value == -1)
 		{
-			Logger::LogError("OGL::Shader: Trying to get uniform named '" + name + "' which doesnt exist");
-			throw std::logic_error("Uniform named " + name + " not found!");
+			Logger::LogError("OGL::Shader: Trying to get uniform named '" + name + "' which doesnt exist. Setting it to -1 now");
 		}
 
 		_uniformLocations.insert(std::pair<std::string, GLint>(name, value));
@@ -49,12 +49,15 @@ OGL::Shader::~Shader()
 
 OGL::Shader::Shader(PImpl* pImpl) : _pImpl(pImpl) { }
 
-
-
 /* PARAMETER SETTERS */
 void OGL::Shader::SetParameter(std::string const& valueName, const float& value)
 {
 	glUniform1f(_pImpl->GetUniformLocation(valueName), value);
+}
+
+void OGL::Shader::SetTextureSampler(std::string const& valueName, int index)
+{
+	glUniform1i(_pImpl->GetUniformLocation(valueName), index);
 }
 
 void OGL::Shader::SetParameter(std::string const& valueName, const Vector2f& value)

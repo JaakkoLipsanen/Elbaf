@@ -20,9 +20,9 @@ struct VertexPosition
 struct VertexPositionColor
 {
 	Vector3f Position;
-	Vector3f Color; // todo: just use Color and send the data to gpu as 3x Byte (normalized)? also, this should be 4-element (alpha)....
+	Vector4f Color; // todo: just use Color and send the data to gpu as 3x Byte (normalized)? also, this should be 4-element (alpha)....
 	/* -|- !!!! */
-	VertexPositionColor(Vector3f position, ::Color color) : Position(position), Color(color.ToVector3f())
+	VertexPositionColor(Vector3f position, ::Color color) : Position(position), Color(color.ToVector4f())
 	{
 	}
 
@@ -37,10 +37,10 @@ struct VertexPositionColor
 struct VertexPositionColorTexture
 {	
 	Vector3f Position;
-	Vector3f Color; // todo: just use Color and send the data to gpu as 3x Byte (normalized)? also, this should be 4-element (alpha)....
+	Vector4f Color; // todo: just use Color and send the data to gpu as 3x Byte (normalized)? also, this should be 4-element (alpha)....
 	Vector2f TextureCoordinate;
 	/* -|- !!!! */
-	VertexPositionColorTexture(Vector3f position, ::Color color, Vector2f textureCoordinate) : Position(position), Color(color.ToVector3f()), TextureCoordinate(textureCoordinate)
+	VertexPositionColorTexture(Vector3f position, ::Color color, Vector2f textureCoordinate) : Position(position), Color(color.ToVector4f()), TextureCoordinate(textureCoordinate)
 	{
 	}
 

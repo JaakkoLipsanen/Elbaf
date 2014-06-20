@@ -27,7 +27,8 @@ namespace OGL
 
 		virtual void SetData(const VertexDeclaration& vertexDeclaration, const void* vertexData, int vertexCount, int sizeOfVertex) override
 		{
-		  //  glBindVertexArray(vertexArrayID); // ??? not needed pretty sure. "Bind the VAO to draw. Bind the VBO to modify the VBO."
+		    glBindVertexArray(_vertexArrayID); // ??? not needed pretty sure. "Bind the VAO to draw. Bind the VBO to modify the VBO." // update: i'll take that back. for some reason, without this, if I have multiple VAO's/vertex buffers and set data one one,
+											   // the data will change on the other one too
 			glBindBuffer(GL_ARRAY_BUFFER, _vertexBufferID);
 			glBufferData(GL_ARRAY_BUFFER, sizeOfVertex * vertexCount, vertexData, GL_STATIC_DRAW);
 
@@ -44,8 +45,9 @@ namespace OGL
 					reinterpret_cast<void*>(element.Offset)); // should offset be calculated automatically? could and should be possible.. although that would require the vertex elements be always in order
 			}
 
-			glBindVertexArray(0);
+			glBindVertexArray(-1);
 			_vertexCount = vertexCount;
+			_hasData = true; // except if vertexCount == 0?
 		}
 
 		virtual void Bind() 

@@ -34,7 +34,7 @@ Color::Color(uint8 r, uint8 g, uint8 b, uint8 a) : R(r), G(g), B(b), A(a)
 {
 }
 
-Color Color::operator*(float multiplier)
+Color Color::operator*(float multiplier) const
 {
 	return Color(this->R, this->G, this->B, ClampToByte(this->A * multiplier));
 }

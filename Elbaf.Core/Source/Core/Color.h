@@ -12,7 +12,7 @@ struct Color
 	Color(uint32 packedValue);
 	Color(uint8 r, uint8 g, uint8 b);
 	Color(uint8 r, uint8 g, uint8 b, uint8 a);
-	Color operator *(float multiplier);
+	Color operator *(float multiplier) const;
 
 	Vector3f ToVector3f() const;
 	Vector4f ToVector4f() const;
