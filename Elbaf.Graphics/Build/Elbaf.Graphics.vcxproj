@@ -136,13 +136,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\Source\Graphics\IGraphicsModule.cpp" />
+    <ClCompile Include="..\Source\Graphics\GraphicsModule.cpp" />
     <ClCompile Include="..\Source\Graphics\IShader.cpp" />
     <ClCompile Include="..\Source\Graphics\ITexture.cpp" />
     <ClCompile Include="..\Source\Graphics\IVertexBuffer.cpp" />
     <ClCompile Include="..\Source\Graphics\OpenGL\GameWindow.cpp" />
+    <ClCompile Include="..\Source\Graphics\OpenGL\GraphicsContext.cpp" />
     <ClCompile Include="..\Source\Graphics\OpenGL\GraphicsDevice.cpp" />
-    <ClCompile Include="..\Source\Graphics\OpenGL\GraphicsModule.cpp" />
     <ClCompile Include="..\Source\Graphics\OpenGL\OGL-Helper.cpp" />
     <ClCompile Include="..\Source\Graphics\OpenGL\OGL-ShaderLoader.cpp" />
     <ClCompile Include="..\Source\Graphics\OpenGL\Shader.cpp" />
@@ -154,8 +154,8 @@
   <ItemGroup>
     <ClInclude Include="..\Include\Graphics\ClearOptions.h" />
     <ClInclude Include="..\Include\Graphics\CompareFunction.h" />
-    <ClInclude Include="..\Include\Graphics\IGraphicsDevice.h" />
-    <ClInclude Include="..\Include\Graphics\IGraphicsModule.h" />
+    <ClInclude Include="..\Include\Graphics\GraphicsModule.h" />
+    <ClInclude Include="..\Include\Graphics\IGraphicsContext.h" />
     <ClInclude Include="..\Include\Graphics\Image.h" />
     <ClInclude Include="..\Include\Graphics\IShader.h" />
     <ClInclude Include="..\Include\Graphics\ITexture.h" />
@@ -167,9 +167,10 @@
     <ClInclude Include="..\Include\Graphics\VertexDeclaration.h" />
     <ClInclude Include="..\Include\Graphics\VertexElement.h" />
     <ClInclude Include="..\Include\Graphics\VertexFormats.h" />
+    <ClInclude Include="..\Source\Graphics\IGraphicsDevice.h" />
     <ClInclude Include="..\Source\Graphics\OpenGL\GameWindow.h" />
+    <ClInclude Include="..\Source\Graphics\OpenGL\GraphicsContext.h" />
     <ClInclude Include="..\Source\Graphics\OpenGL\GraphicsDevice.h" />
-    <ClInclude Include="..\Source\Graphics\OpenGL\GraphicsModule.h" />
     <ClInclude Include="..\Source\Graphics\OpenGL\OGL-Helper.h" />
     <ClInclude Include="..\Source\Graphics\OpenGL\OGL-ShaderLoader.h" />
     <ClInclude Include="..\Source\Graphics\OpenGL\OGL.h" />

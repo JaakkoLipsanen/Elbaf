@@ -30,11 +30,11 @@ class IVertexBuffer;
 class IShader;
 
 // todo: make DepthState, RasterizerState, StencilState etc?
-class IGraphicsDevice
+class IGraphicsContext
 {
 public:
-	IGraphicsDevice() = default;
-	virtual ~IGraphicsDevice() = default;
+	IGraphicsContext() = default;
+	virtual ~IGraphicsContext() = default;
 
 	virtual void Clear(const Color& color) = 0;
 	virtual void Clear(const ClearOptions& clearOptions, const Color& color, float depth = 0, int stencilValue = 0) = 0;

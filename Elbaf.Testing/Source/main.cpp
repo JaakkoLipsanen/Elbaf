@@ -5,7 +5,7 @@
 #include <Diagnostics\Logger.h>
 #include <Engine\Screen.h>
 #include <Input\Mouse.h>
-#include <Graphics\IGraphicsDevice.h>
+#include <Graphics\IGraphicsContext.h>
 #include <Graphics\VertexFormats.h>
 #include <Graphics\IVertexBuffer.h>
 #include <Graphics\IShader.h>
@@ -22,6 +22,7 @@
 #include <Content\ImageLoader.h>
 #include <array>
 #include <Core\CursorVisibility.h>
+#include <Core\WindowDescription.h>
 
 class MyGame : public Game
 {
@@ -140,7 +141,7 @@ public:
 			}
 		}
 
-		auto& graphicsDevice = this->GetGraphicsDevice();
+		auto& graphicsDevice = this->GetGraphicsContext();
 		_buffer3 = graphicsDevice.CreateVertexBuffer(BufferType::Static); // IVertexBuffer::CreateVertexBuffer(vertexData3, Array::Length(vertexData3));	
 		_buffer2 = graphicsDevice.CreateVertexBuffer(BufferType::Static);
 
@@ -170,7 +171,7 @@ public:
 			_buffer2->SetVertexData(vertexData, 3);
 		}
 
-		this->GetGraphicsDevice().Clear(Color::RoyalBlue);
+		this->GetGraphicsContext().Clear(Color::RoyalBlue);
 		if (Input::IsMouseButtonPressed(MouseButton::Left) || true)
 		{
 			glEnable(GL_BLEND);
@@ -181,11 +182,11 @@ public:
 			_shader->SetTextureSampler("TextureSampler", 0);
 
 			_buffer2->Bind();
-			this->GetGraphicsDevice().DrawPrimitives(PrimitiveType::TriangleList, 0, _buffer2->GetVertexCount()); 
+			this->GetGraphicsContext().DrawPrimitives(PrimitiveType::TriangleList, 0, _buffer2->GetVertexCount()); 
 		
 			_shader->SetParameter("MVP", _camera->GetProjection() * _camera->GetView() * (Matrix::Translate(-20, 0, 0) * Matrix::RotateAroundAxis(Time::GetTotalTime() * 20, Vector3f::UnitZ) * Matrix::Scale(10)));
 			_buffer3->Bind();
-			this->GetGraphicsDevice().DrawPrimitives(PrimitiveType::TriangleList, 0, _buffer3->GetVertexCount());
+			this->GetGraphicsContext().DrawPrimitives(PrimitiveType::TriangleList, 0, _buffer3->GetVertexCount());
 			glDisable(GL_BLEND);
 		}
 

@@ -1,7 +1,7 @@
 #include "OGL-Helper.h"
 #include <Graphics\ClearOptions.h>
 #include <Graphics\CompareFunction.h>
-#include <Graphics\IGraphicsDevice.h>
+#include <Graphics\IGraphicsContext.h>
 #include <Graphics\VertexElement.h>
 #include <Graphics\PrimitiveType.h>
 #include <Graphics\TextureFormat.h>

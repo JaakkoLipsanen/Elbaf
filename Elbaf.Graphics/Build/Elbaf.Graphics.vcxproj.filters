@@ -20,19 +20,10 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\Source\Graphics\OpenGL\GraphicsModule.cpp">
-      <Filter>Source Files\OpenGL</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Source\Graphics\OpenGL\GraphicsDevice.cpp">
-      <Filter>Source Files\OpenGL</Filter>
-    </ClCompile>
     <ClCompile Include="..\Source\Graphics\OpenGL\GameWindow.cpp">
       <Filter>Source Files\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="..\Source\Graphics\Platform.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Source\Graphics\IGraphicsModule.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\Source\Graphics\OpenGL\OGL-Helper.cpp">
@@ -62,6 +53,15 @@
     <ClCompile Include="..\Source\Graphics\Image.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\Source\Graphics\OpenGL\GraphicsContext.cpp">
+      <Filter>Source Files\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Graphics\OpenGL\GraphicsDevice.cpp">
+      <Filter>Source Files\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Graphics\GraphicsModule.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Include\Graphics\TextureFormat.h">
@@ -80,12 +80,6 @@
       <Filter>Public Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\Include\Graphics\CompareFunction.h">
-      <Filter>Public Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\Graphics\IGraphicsDevice.h">
-      <Filter>Public Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\Graphics\IGraphicsModule.h">
       <Filter>Public Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\Include\Graphics\Image.h">
@@ -115,12 +109,6 @@
     <ClInclude Include="..\Source\Graphics\OpenGL\GameWindow.h">
       <Filter>Private Header Files\OpenGL</Filter>
     </ClInclude>
-    <ClInclude Include="..\Source\Graphics\OpenGL\GraphicsDevice.h">
-      <Filter>Private Header Files\OpenGL</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Source\Graphics\OpenGL\GraphicsModule.h">
-      <Filter>Private Header Files\OpenGL</Filter>
-    </ClInclude>
     <ClInclude Include="..\Source\Graphics\OpenGL\OGL.h">
       <Filter>Private Header Files\OpenGL</Filter>
     </ClInclude>
@@ -138,6 +126,21 @@
     </ClInclude>
     <ClInclude Include="..\Source\Graphics\OpenGL\VertexBuffer.h">
       <Filter>Private Header Files\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Graphics\OpenGL\GraphicsContext.h">
+      <Filter>Private Header Files\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Graphics\IGraphicsContext.h">
+      <Filter>Public Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Graphics\IGraphicsDevice.h">
+      <Filter>Private Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Graphics\OpenGL\GraphicsDevice.h">
+      <Filter>Private Header Files\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Graphics\GraphicsModule.h">
+      <Filter>Public Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

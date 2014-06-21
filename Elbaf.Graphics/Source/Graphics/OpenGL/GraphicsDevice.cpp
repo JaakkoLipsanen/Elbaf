@@ -1,158 +1,118 @@
-#include "GraphicsDevice.h"
-#include <Math\Size.h>
+#include <Graphics\OpenGL\GraphicsDevice.h>
 
-#include "OGL.h"
-#include <Graphics\ClearOptions.h>
-#include <Math\FlaiMath.h>
-#include <Core\Color.h>
-#include <Graphics\OpenGL\OGL-Helper.h>
-#include <Graphics\OpenGL\Texture2D.h>
-#include <Graphics\OpenGL\VertexBuffer.h>
-#include <Graphics\OpenGL\Shader.h>
-#include <Graphics\Image.h>
-#include <Graphics\OpenGL\Texture2D.h>
-#include <Graphics\ShaderSource.h>
+#include <Graphics\OpenGL\GraphicsContext.h>
+#include <Graphics\OpenGL\GameWindow.h>
+#include <Core\Event.h>
+#include <Diagnostics\Logger.h>
+#include <Diagnostics\Ensure.h>
+#include <Core\WindowDescription.h>
 
-OGL::GraphicsDevice::GraphicsDevice(GLFWwindow* window) : _window(window)
+namespace OGL
 {
-}
-
-OGL::GraphicsDevice::~GraphicsDevice()
-{
-}
-
-void OGL::GraphicsDevice::ChangeResolution(Size const& newSize)
-{
-	glfwSetWindowSize(_window, newSize.Width, newSize.Height);
-
-	// this call could mess up state a bit. basically, if you have a custom viewport, then resize the screen. after the viewport will be fullscreen.. not a huge problem though
-	this->ResetViewport(); // glViewport(0, 0, newSize.Width, newSize.Height);  would be a bit faster but meh
-}
-
-void OGL::GraphicsDevice::ResetViewport() const
-{
-	auto size = this->GetResolution();
-	glViewport(0, 0, size.Width, size.Height); // update the viewport
-}
-
-bool OGL::GraphicsDevice::IsDepthTestEnabled() const
-{
-	return _isDepthTestEnabled;
-}
-
-void OGL::GraphicsDevice::SetDepthTestEnabled(bool isEnabled)
-{
-	if (_isDepthTestEnabled == isEnabled)
+	namespace GLFW
 	{
-		return;
-	}
+		Event<void(int, int)> WindowResized;
+		void InitializeCallbacks(GLFWwindow* window)
+		{
+			glfwSetWindowSizeCallback(window, [](GLFWwindow* window, int width, int height)
+			{
+				OGL::GLFW::WindowResized.Invoke(width, height);
+			});
+		}
 
-	_isDepthTestEnabled = isEnabled;
-	glEnableOrDisable(GL_DEPTH_TEST, _isDepthTestEnabled);
-}
-
-CullMode OGL::GraphicsDevice::GetCullMode() const
-{
-	return _cullMode;
-}
-
-void OGL::GraphicsDevice::SetCullMode(CullMode cullMode)
-{
-	if (_cullMode != cullMode)
-	{
-		_cullMode = cullMode;
-		glFrontFace((_cullMode == CullMode::Clockwise ? GL_CW : GL_CCW));
+		void UninitializeCallbacks(GLFWwindow* window)
+		{
+			glfwSetWindowSizeCallback(window, nullptr);
+			OGL::GLFW::WindowResized.Clear();
+		}
 	}
 }
 
-CullFace OGL::GraphicsDevice::GetCullFace() const
+/* Implementation */
+class OGL::GraphicsDevice::Impl
 {
-	return _cullFace;
-}
+public:
+	OGL::GraphicsContext Context;
+	OGL::GameWindow Window;
 
-void OGL::GraphicsDevice::SetCullFace(CullFace cullFace)
-{
-	if (_cullFace != cullFace)
+	Impl() : Window(), Context(Window)
 	{
-		_cullFace = cullFace;
-		glCullFace(OGL::CullFaceToGLenum(cullFace));
-	}
-}
-
-bool OGL::GraphicsDevice::IsCullingEnabled() const
-{
-	return _isCullingEnabled;
-}
-
-void OGL::GraphicsDevice::SetCullingEnabled(bool enabled)
-{
-	if (_isCullingEnabled != enabled)
-	{
-		glEnableOrDisable(GL_CULL_FACE, enabled);
-		_isCullingEnabled = enabled;
-	}
-}
-
-CompareFunction OGL::GraphicsDevice::GetDepthFunction() const
-{
-	return _depthCompareFunction;
-}
-
-Size OGL::GraphicsDevice::GetResolution() const
-{
-	int width, height;
-	glfwGetFramebufferSize(_window, &width, &height);
-	return Size(width, height);
-}
-
-void OGL::GraphicsDevice::SetDepthFunction(CompareFunction compareFunction)
-{
-	if (_depthCompareFunction == compareFunction)
-	{
-		return;
+		this->InitializeGLFW();
+		OGL::GLFW::WindowResized += CreateFunction(this, &Impl::OnResized);
 	}
 
-	_depthCompareFunction = compareFunction;
-	glDepthFunc(OGL::CompareFunctionToGLenum(compareFunction));
+	void OpenWindow(const WindowDescription& windowDescription)
+	{
+		this->Window.Open(windowDescription.Resolution, windowDescription.Title, windowDescription.IsFullScreen); // pass WindowDescription to Open?
+		OGL::GLFW::InitializeCallbacks(Window.GetGLFWwindow());
+		this->InitializeGLEW(); // glew must be initialized after opening window (= creating glfw context)
+	}
+
+private:
+	void InitializeGLFW()
+	{
+		if (!glfwInit())
+		{
+			Logger::LogError("GraphicsModule: Error initializing GLFW");
+			throw std::logic_error("Couldn't initialize GLFW");
+		}
+
+		glfwSetErrorCallback([](int, const char* message)
+		{
+			Logger::LogError("GLFW Error: " + std::string(message));
+		});
+	}
+
+	void InitializeGLEW()
+	{
+		glewExperimental = GL_TRUE; // required for some stuff
+		if (glewInit() != GLEW_OK)
+		{
+			Logger::LogError("GraphicsModule: Failed to initialize GLEW: ");
+			throw std::logic_error("Couldn't initialize GLEW");
+		}
+	}
+
+	void OnResized(int w, int h)
+	{
+		this->Context.ResetViewport();
+	}
+};
+
+/* API */
+OGL::GraphicsDevice::GraphicsDevice() : _pImpl(new Impl) { }
+OGL::GraphicsDevice::~GraphicsDevice() = default;
+
+IGameWindow& OGL::GraphicsDevice::GetGameWindow()
+{
+	return _pImpl->Window;
 }
 
-void OGL::GraphicsDevice::Clear(Color const& color)
+IGraphicsContext& OGL::GraphicsDevice::GetContext()
 {
-	static const float DefaultDepthValue = 1.0f;
-	static const int DefaultStencilValue = 0;
-
-	this->Clear(ClearOptions::All, color, DefaultDepthValue, DefaultStencilValue);
+	return _pImpl->Context;
 }
 
-void OGL::GraphicsDevice::Clear(ClearOptions const& clearOptions, Color const& color, float depth, int stencilValue)
+void OGL::GraphicsDevice::OpenWindow(const WindowDescription& windowDescription)
 {
-	glClearColor(color.R / 255.0f, color.G / 255.0f, color.B / 255.0f, color.A / 255.0f);
-	glClearDepth(FlaiMath::Clamp(depth, 0.0f, 1.0f));
-	glClearStencil(stencilValue);
-
-	glClear(OGL::GetClearMask(clearOptions));
+	_pImpl->OpenWindow(windowDescription);
 }
 
-void OGL::GraphicsDevice::DrawPrimitives(PrimitiveType primitiveType, int firstIndex, int count)
+void OGL::GraphicsDevice::BeginFrame()
 {
-	glDrawArrays(OGL::PrimitiveTypeToGLenum(primitiveType), firstIndex, count);
 }
 
-#include <Graphics\ITexture.h>
-#include <Graphics\OpenGL\Texture2D.h>
-#include <Graphics\OpenGL\OGL.h>
-
-std::unique_ptr<ITexture2D> OGL::GraphicsDevice::CreateTexture2D(std::unique_ptr<Image> textureData)
+void OGL::GraphicsDevice::EndFrame()
 {
-	return Texture2D::Load(std::move(textureData));
+	// _pImpl->Window->SwapBuffers(); ?
+	glfwSwapBuffers(_pImpl->Window.GetGLFWwindow());
 }
 
-std::unique_ptr<IVertexBuffer> OGL::GraphicsDevice::CreateVertexBuffer(BufferType bufferType)
+void OGL::GraphicsDevice::Terminate()
 {
-	return VertexBuffer::CreateVertexBuffer();
-}
+	Ensure::NotNull(_pImpl.get(), "GraphicsModule has been terminated.");
 
-std::unique_ptr<IShader> OGL::GraphicsDevice::CreateShader(const ShaderSource& shaderSource)
-{
-	return Shader::Load(shaderSource);
+	OGL::GLFW::UninitializeCallbacks(_pImpl->Window.GetGLFWwindow());
+	_pImpl->Window.Terminate();
+	_pImpl.reset(nullptr);
 }

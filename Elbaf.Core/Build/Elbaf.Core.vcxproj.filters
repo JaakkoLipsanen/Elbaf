@@ -58,5 +58,8 @@
     <ClInclude Include="..\Include\Core\Engine.h">
       <Filter>Public Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\Include\Core\WindowDescription.h">
+      <Filter>Public Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

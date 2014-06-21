@@ -36,6 +36,8 @@
 - Maybe modules should not be interfaces/abstract. Module == complete class, but contains a "Module Implementation" or something. I think that this is a good idea.
 - IGraphicsResource?
 - Make all classes usable from the constructor? So Initialize doesn't do anything... or...?
+- Make all appropiate classes non-copyable?
+
 
 -- HAPPENED BEFORE: --
 - I really fucking over-engineered the Input module

@@ -7,6 +7,9 @@ namespace OGL
 	class GameWindow : public IGameWindow
 	{
 	public:
+		GameWindow() = default;
+		virtual ~GameWindow() override = default;
+
 		virtual void SetTitle(const std::string& title) override;
 		virtual bool IsOpen() const override;
 		virtual void* GetInternalHandle() const override; // returns internal window handle. In OpenGL/GLFW, it should return GLFWwindow*
@@ -16,7 +19,7 @@ namespace OGL
 		
 		//not exposed by IGameWindow
 		void Open(const Size& size, const std::string& title, bool fullScreen);
-		void Destroy(); 
+		void Terminate(); 
 		GLFWwindow* GetGLFWwindow() const;
 
 	private:

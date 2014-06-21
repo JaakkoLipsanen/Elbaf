@@ -2,8 +2,7 @@
 #include <Diagnostics\Logger.h>
 #include <Diagnostics\Ensure.h>
 #include <Core\IGameWindow.h>
-#include <Graphics\IGraphicsModule.h>
-#include <Graphics\IGraphicsDevice.h>
+#include <Graphics\IGraphicsContext.h>
 #include <Input\IInputModule.h>
 #include <Input\KeyCode.h>
 #include <Engine\Platform.h>
@@ -11,16 +10,19 @@
 // very temporary!!
 #include "..\..\..\Elbaf.Graphics\Source\Graphics\Platform.h"
 #include "..\..\..\Elbaf.Input\Source\Input\Platform.h"
+#include <Core\WindowDescription.h>
+#include <Graphics\GraphicsModule.h>
 
 struct Game::GameImpl
 {
+	typedef GraphicsModule GfxModule;
 	GameImpl(Game& game) : _game(game), GraphicsModule(nullptr), InputModule(nullptr)
 	{
 	}
 
 	bool IsRunning = false;
 	bool IsExiting = false;
-	std::unique_ptr<IGraphicsModule> GraphicsModule;
+	std::unique_ptr<GraphicsModule> GraphicsModule;
 	std::unique_ptr<IInputModule> InputModule;
 	std::unique_ptr<TimeModule> TimeModule;
 
@@ -53,25 +55,17 @@ private:
 
 	void InitializeModules()
 	{
-		this->GraphicsModule = Platform::Graphics::CreateDefaultGraphicsModule(_game);
+		WindowDescription description({ 1280, 720 }, "Game", false);
+		_game.SetupWindow(description);
+
+		this->GraphicsModule.reset(new GfxModule(_game, description));
 		this->GraphicsModule->Initialize();
-		this->OpenWindow();	 // okay open window in this point. basically so that other modules can access it (at least Input needs it when using GLFW)
 
 		this->InputModule = Platform::Input::CreateDefaultInputModule(_game);
 		this->InputModule->Initialize();
 
 		this->TimeModule = Platform::Engine::CreateTimeModule(_game);
 		this->TimeModule->Initialize();
-	}
-
-	void OpenWindow()
-	{
-		int screenWidth = 1280, screenHeight = 720;
-		bool isFullScreen = false;
-		_game.SetupGraphics(&screenWidth, &screenHeight, &isFullScreen);
-
-		Ensure::True(screenWidth > 0 && screenHeight > 0);
-		this->GraphicsModule->OpenWindow(Size(screenWidth, screenHeight), "Game", isFullScreen);
 	}
 
 	void Tick()
@@ -123,7 +117,7 @@ IGameWindow& Game::GetWindow() const
 	return *_pImpl->GraphicsModule->GetGameWindow();
 }
 
-IGraphicsDevice& Game::GetGraphicsDevice() const
+IGraphicsContext& Game::GetGraphicsContext() const
 {
 	return *_pImpl->GraphicsModule->GetGraphicsDevice();
 }
@@ -131,7 +125,7 @@ IGraphicsDevice& Game::GetGraphicsDevice() const
 // TODO: instead of this, implementing only specific template stuff's could be better (though not sure if possible, since virtual etc)
 IModule* Game::GetModuleInner(const type_info& typeInfo) const
 {
-	if (typeInfo == typeid(IGraphicsModule))
+	if (typeInfo == typeid(GraphicsModule))
 	{
 		return _pImpl->GraphicsModule.get();
 	}

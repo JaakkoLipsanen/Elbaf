@@ -132,7 +132,6 @@
     <ClInclude Include="..\Source\DefaultCamera.h" />
     <ClInclude Include="..\Source\GraphicsContext.h" />
     <ClInclude Include="..\Source\ICamera.h" />
-    <ClInclude Include="..\Source\ImageLoader.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

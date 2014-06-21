@@ -34,7 +34,7 @@ bool OGL::GameWindow::IsExiting() const
 	return glfwWindowShouldClose(_window) == GL_TRUE;
 }
 
-void OGL::GameWindow::Destroy()
+void OGL::GameWindow::Terminate()
 {
 	if (_window != nullptr)
 	{

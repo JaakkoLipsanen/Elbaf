@@ -5,6 +5,7 @@
 class IGameWindow
 {
 public:
+	IGameWindow() = default;
 	virtual ~IGameWindow() {}
 
 	virtual void SetTitle(const std::string& title) = 0;
