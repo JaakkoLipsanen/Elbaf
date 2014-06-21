@@ -1,6 +1,6 @@
 
--- MODULES --
-- Audio (FMod or something?)
+-- TODO: MODULES --
+- Audio (FMod or OpenAL something?)
 - Physics (Havok/Bullet/box2D? Should I separate Physics2D and Physics to different modules?)
 - AI(??)
 - FSL (Flai Shader Language - language that compiles into both GLSL and HLSL. Not supposed to be feature-complete or uber performant. This should be very interesting).
@@ -9,16 +9,6 @@
 -- GENERAL --
 - The engine is "multi-layered", there is first the library layer (OpenGL, D3D, GLFW etc), then is the 'low-level module' -layer (GraphicsModule, InputModule) and then high-level wrapper classes/namespaces (Input, Screen, Cursor etc)
 
-
-- Refactor the existing code.
-	- Implement multiple "layers". For example, "InputManager" is at the base-level, and "Input::" namespace (possibly class? Don't want any globals!) is one layer higher.
-	- Wrap all platform/library specific stuff into interfaces. For example, "IGameWindow" which is platform independent (no GLFW etc dependency), of which "GameWindowGLFW" inherits from.
-	- Wrap all platform specific stuff creation into their own functions/factories. For example, "IGameWindow::CreateWindow(string title)" returns, depending on platform, GameWindowGLFW or something else
-	- ?? Use some pre-processor defines. Or, basically just "OPENGL" ?? (might be overkill)
-	- Implement PIMPL if necessary (http://en.wikibooks.org/wiki/C%2B%2B_Programming/Idioms#Pointer_To_Implementation_.28pImpl.29). Not on every class obviously, but on some (bigger) classes if needed
-	- Modules!
-	
-	
 - Core = Ei linkkaa mihinkään. Täällä on Math, muut yleiset tyypit/jutut ja mahollisesti kanssa muitten sub-systeemien "pää" interfacet (IGraphicsModule/IGraphicsDevice, IAudioModule/IAudioSystem, IInputSystem etc). Tääl kans vois olla jotain pienii moduuleita, kuten GameTime/Time (tosin tääkin tarttee ehk GLFW:ää... Ehk tee "Platform" projekti joka wrappaa
   > Timen/Inputin/FileSysteemin/kaikki tälläset yleiset jutut? Vois olla jees).
 - Graphics = Linkkaa Coreen ja mahollisesti muihininkin "perus-projekteihin". Tää wrappaa täydellisesti OpenGL:n/Direct3D:n, eli muut projektit ei tartte referenssejä OpenGL, GLFW tai GLEW:iin. Täällä mahollisesti myös GameWindow... Taino vähän pakko olla.
@@ -41,6 +31,11 @@
 - High level helper classes: Input, Screen, Time, (Game?), (Resources/Content?)
 
 
+-- TODO --
+- All graphics resources created by GraphicsDevice. DO THIS!! (graphicsDevice->CreateTexture(....), graphicsDevice->CreateVertexBuffer(...))
+- Maybe modules should not be interfaces/abstract. Module == complete class, but contains a "Module Implementation" or something. I think that this is a good idea.
+- IGraphicsResource?
+- Make all classes usable from the constructor? So Initialize doesn't do anything... or...?
 
 -- HAPPENED BEFORE: --
 - I really fucking over-engineered the Input module

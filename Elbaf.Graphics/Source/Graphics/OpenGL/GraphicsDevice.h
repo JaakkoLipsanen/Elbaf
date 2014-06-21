@@ -35,11 +35,17 @@ namespace OGL
 		// draw
 		virtual void DrawPrimitives(PrimitiveType primitiveType, int firstIndex, int count) override;
 
-		// implementation specific
+		// create
+		virtual std::unique_ptr<ITexture2D> CreateTexture2D(std::unique_ptr<Image> textureData) override;
+		virtual std::unique_ptr<IVertexBuffer> CreateVertexBuffer(BufferType bufferType) override;
+		virtual std::unique_ptr<IShader> CreateShader(const ShaderSource& shaderData) override;
+
+		/* IMPLEMENTATION SPECIFIC */
 		GraphicsDevice(GLFWwindow* window);
 		virtual ~GraphicsDevice() override;
 
 		void ResetViewport() const;
+
 	private:
 
 		// okay.. these default values are not good since if the user (or more like, me, the engine coder) forgets to set the values when constructing GraphicsModule, then these won't be the actual values
@@ -52,7 +58,3 @@ namespace OGL
 		GLFWwindow* _window;
 	};
 }
-
-#if !OPENGL
-#error ("Error: This is an OpenGL-specific class and "OPENGL" preprocessor is not defined!")
-#endif

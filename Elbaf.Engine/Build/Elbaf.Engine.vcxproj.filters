@@ -5,13 +5,12 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="Header Files">
+    <Filter Include="Public Header Files">
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
     </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    <Filter Include="Private Header Files">
+      <UniqueIdentifier>{cf6c8c98-c0cf-414e-8577-73d18e8f7dd7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -32,20 +31,20 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Source\Engine\Game.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="..\Include\Engine\Screen.h">
+      <Filter>Public Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\Source\Engine\Platform.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="..\Include\Engine\Time.h">
+      <Filter>Public Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\Source\Engine\Time.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="..\Include\Engine\Game.h">
+      <Filter>Public Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\Source\Engine\TimeModule.h">
-      <Filter>Header Files</Filter>
+      <Filter>Private Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\Source\Engine\Screen.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="..\Source\Engine\Platform.h">
+      <Filter>Private Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

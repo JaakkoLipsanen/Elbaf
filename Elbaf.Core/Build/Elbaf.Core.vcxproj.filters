@@ -5,13 +5,9 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="Header Files">
+    <Filter Include="Public Header Files">
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
-    </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -32,35 +28,35 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Source\Core\Color.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="..\Include\Core\Event.h">
+      <Filter>Public Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\Source\Core\Event.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="..\Include\Core\File.h">
+      <Filter>Public Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\Source\Core\IGameWindow.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="..\Include\Core\Global.h">
+      <Filter>Public Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\Source\Core\IModule.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="..\Include\Core\IGameWindow.h">
+      <Filter>Public Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\Source\Core\Array.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="..\Include\Core\IModule.h">
+      <Filter>Public Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\Source\Core\Engine.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="..\Include\Core\Random.h">
+      <Filter>Public Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\Source\Core\File.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="..\Include\Core\Array.h">
+      <Filter>Public Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\Source\Core\CursorVisibility.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="..\Include\Core\Color.h">
+      <Filter>Public Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\Source\Core\Random.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="..\Include\Core\CursorVisibility.h">
+      <Filter>Public Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\Source\Core\Global.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="..\Include\Core\Engine.h">
+      <Filter>Public Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

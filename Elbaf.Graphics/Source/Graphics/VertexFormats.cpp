@@ -1,4 +1,4 @@
-#include "VertexFormats.h"
+#include <Graphics\VertexFormats.h>
 #include <Graphics\VertexElement.h>
 #include <Graphics\VertexDeclaration.h>
 

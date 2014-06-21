@@ -1,7 +1,5 @@
-#include "IVertexBuffer.h"
-#if OPENGL
-#include <Graphics\OpenGL\VertexBuffer.h>
-#endif
+#include <Graphics\IVertexBuffer.h>
+#include <system_error>
 
 int IVertexBuffer::GetPrimitiveCount(PrimitiveType primitiveType)
 {
@@ -26,22 +24,4 @@ int IVertexBuffer::GetPrimitiveCount(PrimitiveType primitiveType)
 	default:
 		throw std::logic_error("Not implemented");
 	}
-}
-
-std::unique_ptr<IVertexBuffer> IVertexBuffer::CreateVertexBuffer()
-{ 
-#if OPENGL
-	return OGL::VertexBuffer::CreateVertexBuffer();
-#else
-#error("Not implemented");
-#endif
-}
-
-std::unique_ptr<IVertexBuffer> IVertexBuffer::CreateVertexBuffer(VertexDeclaration const& vertexDeclaration, void const* vertexData, int vertexCount, int sizeOfVertex)
-{
-	auto vertexBuffer = IVertexBuffer::CreateVertexBuffer();
-	vertexBuffer->SetData(vertexDeclaration, vertexData, vertexCount, sizeOfVertex);
-	return vertexBuffer;
-
-
 }

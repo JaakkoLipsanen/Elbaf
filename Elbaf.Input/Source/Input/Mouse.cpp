@@ -1,4 +1,4 @@
-#include "Mouse.h"
+#include <Input\Mouse.h>
 #include <GLFW\glfw3.h>
 #include <Core\Engine.h>
 #include <Core\IGameWindow.h>
@@ -9,7 +9,7 @@
 
 static GLFWwindow* GetWindow()
 {
-	return static_cast<GLFWwindow*>(IEngine::GetInstance().GetWindow()->GetInternalHandle());
+	return static_cast<GLFWwindow*>(IEngine::GetInstance().GetWindow().GetInternalHandle());
 }
 
 void Mouse::SetCursorVisibility(CursorVisibility cursorType)

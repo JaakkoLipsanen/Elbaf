@@ -6,6 +6,7 @@ enum class CompareFunction;
 enum class CullFace;
 enum class VertexElementType;
 enum class PrimitiveType;
+enum class TextureFormat;
 
 namespace OGL
 {
@@ -15,4 +16,6 @@ namespace OGL
 
 	GLenum VertexElementTypeToGLenum(VertexElementType elementType);
 	GLenum PrimitiveTypeToGLenum(PrimitiveType primitiveType);
+	GLenum TextureFormatToGLenum(TextureFormat textureFormat);
+	GLenum SamplerIndexToGLenum(unsigned int samplerIndex);
 }

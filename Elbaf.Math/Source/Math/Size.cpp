@@ -1,5 +1,5 @@
-#include "Size.h"
-#include "Diagnostics\Ensure.h"
+#include <Math\Size.h>
+#include <Diagnostics\Ensure.h>
 #include <string>
 
 Size::Size(int width, int height) : Width(width), Height(height)

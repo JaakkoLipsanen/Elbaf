@@ -100,7 +100,7 @@ static void OnScrollWheelCallback(GLFWwindow* window, double xOffset, double yOf
 
 void GLFW::InputModule::Initialize()
 {
-	_pImpl->GlfwWindow = static_cast<GLFWwindow*>(_engine.GetWindow()->GetInternalHandle());
+	_pImpl->GlfwWindow = static_cast<GLFWwindow*>(_engine.GetWindow().GetInternalHandle());
 	glfwSetScrollCallback(_pImpl->GlfwWindow, OnScrollWheelCallback);
 
 	// enable sticky keys. sticky keys means, that key press will be registered even if key has been pressed & released between frames. todo: make this into options?

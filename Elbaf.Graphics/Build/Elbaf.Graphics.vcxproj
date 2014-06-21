@@ -94,7 +94,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\Koodaus\OpenGL\Elbaf\Elbaf.Math\Source;C:\Koodaus\OpenGL\Elbaf\Elbaf.Graphics\Source;C:\Koodaus\OpenGL\Elbaf\Elbaf.Diagnostics\Source;C:\Koodaus\OpenGL\Elbaf\Elbaf.Core\Source</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Koodaus\OpenGL\Elbaf\Elbaf.Math\Include;C:\Koodaus\OpenGL\Elbaf\Elbaf.Graphics\Include;C:\Koodaus\OpenGL\Elbaf\Elbaf.Graphics\Source;C:\Koodaus\OpenGL\Elbaf\Elbaf.Diagnostics\Include;C:\Koodaus\OpenGL\Elbaf\Elbaf.Core\Include</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>OPENGL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
@@ -125,7 +125,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\Koodaus\OpenGL\Elbaf\Elbaf.Math\Source;C:\Koodaus\OpenGL\Elbaf\Elbaf.Graphics\Source;C:\Koodaus\OpenGL\Elbaf\Elbaf.Diagnostics\Source;C:\Koodaus\OpenGL\Elbaf\Elbaf.Core\Source</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Koodaus\OpenGL\Elbaf\Elbaf.Math\Include;C:\Koodaus\OpenGL\Elbaf\Elbaf.Graphics\Include;C:\Koodaus\OpenGL\Elbaf\Elbaf.Graphics\Source;C:\Koodaus\OpenGL\Elbaf\Elbaf.Diagnostics\Include;C:\Koodaus\OpenGL\Elbaf\Elbaf.Core\Include</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>OPENGL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
@@ -136,30 +136,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\Source\Graphics\ClearOptions.h" />
-    <ClInclude Include="..\Source\Graphics\CompareFunction.h" />
-    <ClInclude Include="..\Source\Graphics\IGraphicsDevice.h" />
-    <ClInclude Include="..\Source\Graphics\IGraphicsModule.h" />
-    <ClInclude Include="..\Source\Graphics\IShader.h" />
-    <ClInclude Include="..\Source\Graphics\IVertexBuffer.h" />
-    <ClInclude Include="..\Source\Graphics\OpenGL\GameWindow.h" />
-    <ClInclude Include="..\Source\Graphics\OpenGL\OGL-Helper.h" />
-    <ClInclude Include="..\Source\Graphics\OpenGL\OGL-ShaderLoader.h" />
-    <ClInclude Include="..\Source\Graphics\OpenGL\OGL.h" />
-    <ClInclude Include="..\Source\Graphics\OpenGL\GraphicsDevice.h" />
-    <ClInclude Include="..\Source\Graphics\OpenGL\GraphicsModule.h" />
-    <ClInclude Include="..\Source\Graphics\OpenGL\Shader.h" />
-    <ClInclude Include="..\Source\Graphics\OpenGL\VertexBuffer.h" />
-    <ClInclude Include="..\Source\Graphics\Platform.h" />
-    <ClInclude Include="..\Source\Graphics\PrimitiveType.h" />
-    <ClInclude Include="..\Source\Graphics\RendererAPI.h" />
-    <ClInclude Include="..\Source\Graphics\VertexDeclaration.h" />
-    <ClInclude Include="..\Source\Graphics\VertexElement.h" />
-    <ClInclude Include="..\Source\Graphics\VertexFormats.h" />
-  </ItemGroup>
-  <ItemGroup>
     <ClCompile Include="..\Source\Graphics\IGraphicsModule.cpp" />
     <ClCompile Include="..\Source\Graphics\IShader.cpp" />
+    <ClCompile Include="..\Source\Graphics\ITexture.cpp" />
     <ClCompile Include="..\Source\Graphics\IVertexBuffer.cpp" />
     <ClCompile Include="..\Source\Graphics\OpenGL\GameWindow.cpp" />
     <ClCompile Include="..\Source\Graphics\OpenGL\GraphicsDevice.cpp" />
@@ -167,8 +146,37 @@
     <ClCompile Include="..\Source\Graphics\OpenGL\OGL-Helper.cpp" />
     <ClCompile Include="..\Source\Graphics\OpenGL\OGL-ShaderLoader.cpp" />
     <ClCompile Include="..\Source\Graphics\OpenGL\Shader.cpp" />
+    <ClCompile Include="..\Source\Graphics\OpenGL\Texture2D.cpp" />
     <ClCompile Include="..\Source\Graphics\Platform.cpp" />
+    <ClCompile Include="..\Source\Graphics\Image.cpp" />
     <ClCompile Include="..\Source\Graphics\VertexFormats.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\Include\Graphics\ClearOptions.h" />
+    <ClInclude Include="..\Include\Graphics\CompareFunction.h" />
+    <ClInclude Include="..\Include\Graphics\IGraphicsDevice.h" />
+    <ClInclude Include="..\Include\Graphics\IGraphicsModule.h" />
+    <ClInclude Include="..\Include\Graphics\Image.h" />
+    <ClInclude Include="..\Include\Graphics\IShader.h" />
+    <ClInclude Include="..\Include\Graphics\ITexture.h" />
+    <ClInclude Include="..\Include\Graphics\IVertexBuffer.h" />
+    <ClInclude Include="..\Include\Graphics\PrimitiveType.h" />
+    <ClInclude Include="..\Include\Graphics\RendererAPI.h" />
+    <ClInclude Include="..\Include\Graphics\ShaderSource.h" />
+    <ClInclude Include="..\Include\Graphics\TextureFormat.h" />
+    <ClInclude Include="..\Include\Graphics\VertexDeclaration.h" />
+    <ClInclude Include="..\Include\Graphics\VertexElement.h" />
+    <ClInclude Include="..\Include\Graphics\VertexFormats.h" />
+    <ClInclude Include="..\Source\Graphics\OpenGL\GameWindow.h" />
+    <ClInclude Include="..\Source\Graphics\OpenGL\GraphicsDevice.h" />
+    <ClInclude Include="..\Source\Graphics\OpenGL\GraphicsModule.h" />
+    <ClInclude Include="..\Source\Graphics\OpenGL\OGL-Helper.h" />
+    <ClInclude Include="..\Source\Graphics\OpenGL\OGL-ShaderLoader.h" />
+    <ClInclude Include="..\Source\Graphics\OpenGL\OGL.h" />
+    <ClInclude Include="..\Source\Graphics\OpenGL\Shader.h" />
+    <ClInclude Include="..\Source\Graphics\OpenGL\Texture2D.h" />
+    <ClInclude Include="..\Source\Graphics\OpenGL\VertexBuffer.h" />
+    <ClInclude Include="..\Source\Graphics\Platform.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

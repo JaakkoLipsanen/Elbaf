@@ -1,4 +1,4 @@
-#include "Matrix.h"
+#include <Math\Matrix.h>
 #include <glm\gtc\matrix_transform.hpp>
 
 Matrix4x4 Matrix::CreateLookAt(Vector3f const& eye, Vector3f const& target, Vector3f const& up)

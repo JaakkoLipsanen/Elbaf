@@ -2,6 +2,8 @@
 #include <Graphics\OpenGL\OGL-ShaderLoader.h>
 #include <Diagnostics\Logger.h>
 #include <map>
+#include <Graphics\ShaderSource.h>
+
 class OGL::Shader::PImpl
 {
 public:
@@ -36,9 +38,9 @@ void OGL::Shader::ApplyShader()
 	glUseProgram(_pImpl->ProgramID);
 }
 
-std::unique_ptr<IShader> OGL::Shader::Load(std::string const& vertexFilePath, std::string const& fragmentFilePath)
+std::unique_ptr<IShader> OGL::Shader::Load(const ShaderSource& shaderSource)
 {
-	GLuint programID = OGL::LoadShaders(vertexFilePath, fragmentFilePath);
+	GLuint programID = OGL::LoadShaders(shaderSource.VertexShaderPath, shaderSource.PixelShaderPath);
 	return std::unique_ptr<Shader>(new Shader(new PImpl(programID)));
 }
 

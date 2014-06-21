@@ -1,18 +1,22 @@
-#include "Game.h"
+#include <Engine\Game.h>
 #include <Diagnostics\Logger.h>
 #include <Diagnostics\Ensure.h>
 #include <Core\IGameWindow.h>
 #include <Graphics\IGraphicsModule.h>
 #include <Graphics\IGraphicsDevice.h>
-#include <Graphics\Platform.h>
 #include <Input\IInputModule.h>
 #include <Input\KeyCode.h>
-#include <Input\Platform.h>
 #include <Engine\Platform.h>
+
+// very temporary!!
+#include "..\..\..\Elbaf.Graphics\Source\Graphics\Platform.h"
+#include "..\..\..\Elbaf.Input\Source\Input\Platform.h"
 
 struct Game::GameImpl
 {
-	GameImpl(Game& game) : _game(game), GraphicsModule(nullptr), InputModule(nullptr) { }
+	GameImpl(Game& game) : _game(game), GraphicsModule(nullptr), InputModule(nullptr)
+	{
+	}
 
 	bool IsRunning = false;
 	bool IsExiting = false;
@@ -43,6 +47,9 @@ struct Game::GameImpl
 		this->GraphicsModule->Terminate();
 		Logger::LogMessage("Exiting Game");
 	}
+
+private:
+	Game& _game;
 
 	void InitializeModules()
 	{
@@ -96,9 +103,6 @@ struct Game::GameImpl
 		this->TimeModule->EndFrame();
 		_game.EndFrame.Invoke();
 	}
-
-private:
-	Game& _game;
 };
 
 Game::Game() : _pImpl(new Game::GameImpl(*this)) { }
@@ -114,16 +118,14 @@ void Game::Exit()
 	_pImpl->IsExiting = true;
 }
 
-IGameWindow* Game::GetWindow() const
+IGameWindow& Game::GetWindow() const
 {
-	Ensure::True(_pImpl->IsRunning);
-	return _pImpl->GraphicsModule->GetGameWindow();
+	return *_pImpl->GraphicsModule->GetGameWindow();
 }
 
-IGraphicsDevice* Game::GetGraphicsDevice() const
+IGraphicsDevice& Game::GetGraphicsDevice() const
 {
-	Ensure::True(_pImpl->IsRunning);
-	return _pImpl->GraphicsModule->GetGraphicsDevice();
+	return *_pImpl->GraphicsModule->GetGraphicsDevice();
 }
 
 // TODO: instead of this, implementing only specific template stuff's could be better (though not sure if possible, since virtual etc)

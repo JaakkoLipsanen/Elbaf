@@ -16,42 +16,12 @@
 #include <algorithm>
 #include <Core\Global.h>
 #include "ImageLoader.h"
-
-class ITexture
-{
-	static std::unique_ptr<ITexture> Load(const std::string& texturePath);
-	virtual ~ITexture() { }
-
-	virtual int GetWidth() const = 0;
-	virtual int GetHeight() const = 0;
-
-	Size GetSize() const { return Size(this->GetWidth(), this->GetHeight()); }
-
-	virtual void Bind() = 0;
-	// TextureFormat?
-	// void SetData?
-	// bool HasMipMaps?
-	// void GenerateMipMaps?
-
-	// void Dispose()? if I do this, then "IGraphicsResource" would be useful (has Dispose and maybe IsDisposed)
-};
-
-class Texture
-{
-public:
-	static Texture* Load(const std::string& texturePath)
-	{
-	}
-
-
-	virtual ~Texture()
-	{
-		glDeleteTextures(1, &_textureID);
-	}
-
-private:
-	GLuint _textureID;
-};
+#include <Graphics\ITexture.h>
+#include <Core\Array.h>
+#include <Graphics\ShaderSource.h>
+#include <Content\ImageLoader.h>
+#include <array>
+#include <Core\CursorVisibility.h>
 
 class MyGame : public Game
 {
@@ -77,18 +47,65 @@ public:
 			VertexPositionColor({ 0, 1.0f, 0 }, Color::Green),
 			VertexPositionColor({ 1, 0, 0.0f }, Color::Blue) };
 
-
 		static const VertexPositionColorTexture vertexData3[] = {
-			VertexPositionColorTexture({ -1.0f, -1.0f, 0 }, Color::Transparent, Vector2f::Zero),
-			VertexPositionColorTexture({ -1.0f, 1.0f, 0 }, Color::Transparent, Vector2f(0, 1)),
-			VertexPositionColorTexture({ 1, -1, 0.0f }, Color::Transparent, Vector2f(1, 0)),
+			// front
+			VertexPositionColorTexture({ -1.0f, -1.0f, -1.0f }, Color::Transparent, Vector2f::Zero), // BL
+			VertexPositionColorTexture({ -1.0f, 1.0f, -1.0f }, Color::Transparent, Vector2f(0, 1)), // TL
+			VertexPositionColorTexture({ 1, -1, -1.0f }, Color::Transparent, Vector2f(1, 0)), // BR
 		
-			VertexPositionColorTexture({ -1.0f, 1.0f, 0 }, Color::Transparent, Vector2f(0, 1)),
-			VertexPositionColorTexture({ 1.0f, 1.0f, 0 }, Color::Transparent, Vector2f(1, 1)),
-			VertexPositionColorTexture({ 1, -1, 0.0f }, Color::Transparent, Vector2f(1, 0)),
+			VertexPositionColorTexture({ -1.0f, 1.0f, -1.0f }, Color::Transparent, Vector2f(0, 1)), // TL
+			VertexPositionColorTexture({ 1.0f, 1.0f, -1.0f }, Color::Transparent, Vector2f(1, 1)), // TR
+			VertexPositionColorTexture({ 1, -1, -1.0f }, Color::Transparent, Vector2f(1, 0)), // BR
+
+			// back
+			VertexPositionColorTexture({ 1.0f, -1.0f, 1 }, Color::Transparent, Vector2f::Zero), // BL
+			VertexPositionColorTexture({ 1.0f, 1.0f, 1 }, Color::Transparent, Vector2f(0, 1)), // TL
+			VertexPositionColorTexture({ -1, -1, 1 }, Color::Transparent, Vector2f(1, 0)), // BR
+
+			VertexPositionColorTexture({ 1.0f, 1.0f, 1 }, Color::Transparent, Vector2f(0, 1)), // TL
+			VertexPositionColorTexture({ -1, 1, 1 }, Color::Transparent, Vector2f(1, 1)), // TR
+			VertexPositionColorTexture({ -1, -1, 1 }, Color::Transparent, Vector2f(1, 0)), // BR
+
+			// left
+			VertexPositionColorTexture({ 1.0f, -1.0f, -1 }, Color::Transparent, Vector2f::Zero), // BL
+			VertexPositionColorTexture({ 1.0f, 1.0f, -1 }, Color::Transparent, Vector2f(0, 1)), // TL
+			VertexPositionColorTexture({ 1.0f, -1, 1 }, Color::Transparent, Vector2f(1, 0)), // BR
+
+			VertexPositionColorTexture({ 1.0f, 1.0f, -1 }, Color::Transparent, Vector2f(0, 1)), // TL
+			VertexPositionColorTexture({ 1.0f, 1, 1 }, Color::Transparent, Vector2f(1, 1)), // TR
+			VertexPositionColorTexture({ 1.0f, -1, 1 }, Color::Transparent, Vector2f(1, 0)), // BR
+
+
+			// right
+			VertexPositionColorTexture({ -1.0f, 1.0f, -1 }, Color::Transparent, Vector2f(0, 1)), // TL
+			VertexPositionColorTexture({ -1.0f, -1.0f, -1 }, Color::Transparent, Vector2f::Zero), // BL
+			VertexPositionColorTexture({ -1.0f, -1, 1 }, Color::Transparent, Vector2f(1, 0)), // BR
+
+			VertexPositionColorTexture({ -1.0f, 1, 1 }, Color::Transparent, Vector2f(1, 1)), // TR
+			VertexPositionColorTexture({ -1.0f, 1.0f, -1 }, Color::Transparent, Vector2f(0, 1)), // TL
+			VertexPositionColorTexture({ -1.0f, -1, 1 }, Color::Transparent, Vector2f(1, 0)), // BR
+
+
+
+			// top
+			VertexPositionColorTexture({ -1.0f, 1.0f, -1 }, Color::Transparent, Vector2f(0, 0)), // BL
+			VertexPositionColorTexture({ -1.0f, 1.0f, 1 }, Color::Transparent, Vector2f(0, 1)), // TR
+			VertexPositionColorTexture({ 1.0f, 1, -1 }, Color::Transparent, Vector2f(1, 0)), // BR
+
+			VertexPositionColorTexture({ -1.0f, 1.0f, 1 }, Color::Transparent, Vector2f(0, 1)), // TR
+			VertexPositionColorTexture({ 1.0f, 1, 1 }, Color::Transparent, Vector2f(1, 1)), // TR
+			VertexPositionColorTexture({ 1.0f, 1, -1 }, Color::Transparent, Vector2f(1, 0)), // BR
+
+
+			// bottom
+			VertexPositionColorTexture({ -1.0f, -1.0f, 1 }, Color::Transparent, Vector2f(0, 1)), // TR
+			VertexPositionColorTexture({ -1.0f, -1.0f, -1 }, Color::Transparent, Vector2f(0, 0)), // BL
+			VertexPositionColorTexture({ 1.0f, -1, -1 }, Color::Transparent, Vector2f(1, 0)), // BR
+
+			VertexPositionColorTexture({ 1.0f, -1, 1 }, Color::Transparent, Vector2f(1, 1)), // TR
+			VertexPositionColorTexture({ -1.0f, -1.0f, 1 }, Color::Transparent, Vector2f(0, 1)), // TR
+			VertexPositionColorTexture({ 1.0f,- 1, -1 }, Color::Transparent, Vector2f(1, 0)), // BR
 		};
-
-
 
 		std::vector<VertexPositionColor> vertexDataNew;
 
@@ -107,6 +124,7 @@ public:
 		{
 			for (int x = 0; x < Size; x++)
 			{
+
 				VertexPositionColor bl({ x, grid[x + y * Size], y }, Color::Brown * 0.1f);
 				VertexPositionColor br({ x + 1, grid[x + 1 + y * Size], y }, Color::RosyBrown);
 				VertexPositionColor tl({ x, grid[x + (y + 1) * Size], y + 1 }, Color::SaddleBrown);
@@ -122,27 +140,21 @@ public:
 			}
 		}
 
-		
+		auto& graphicsDevice = this->GetGraphicsDevice();
+		_buffer3 = graphicsDevice.CreateVertexBuffer(BufferType::Static); // IVertexBuffer::CreateVertexBuffer(vertexData3, Array::Length(vertexData3));	
+		_buffer2 = graphicsDevice.CreateVertexBuffer(BufferType::Static);
 
+		_buffer2->SetVertexData(vertexDataNew.data(), vertexDataNew.size());
+		_buffer3->SetVertexData(vertexData3, Array::Length(vertexData3));
 
-		_buffer3 = IVertexBuffer::CreateVertexBuffer(vertexData3, 6);
-		_buffer2 = IVertexBuffer::CreateVertexBuffer(vertexDataNew.data(), vertexDataNew.size());
-
-		_buffer = IVertexBuffer::CreateVertexBuffer(vertexDataNew.data(), 3);
-		_shader = IShader::Load("BasicShader-vs.glsl", "BasicShader-fs.glsl");
+		_shader = graphicsDevice.CreateShader(ShaderSource("BasicShader-vs.glsl", "BasicShader-fs.glsl"));
+		_texture = graphicsDevice.CreateTexture2D(Content::LoadImage("F:/Users/Jaakko/Desktop/Zoro.png"));
 		_camera = std::unique_ptr<DefaultCamera>(new DefaultCamera);
 
-		int width, height;
-
-		_textureID = LoadTexture("F:/Users/Jaakko/Desktop/Sanji.png", &width, &height);
-		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, _textureID);
+		_texture->BindToSampler(0);
 		_shader->SetTextureSampler("TextureSampler", 0);
-
-
-		Logger::MessageStream << width << " " << height << "\n";
 	}
-	GLuint _textureID;
+
 	virtual void PreRender() override
 	{
 		_camera->Update();
@@ -158,28 +170,22 @@ public:
 			_buffer2->SetVertexData(vertexData, 3);
 		}
 
-		this->GetGraphicsDevice()->Clear(Color::RoyalBlue);
+		this->GetGraphicsDevice().Clear(Color::RoyalBlue);
 		if (Input::IsMouseButtonPressed(MouseButton::Left) || true)
 		{
-
 			glEnable(GL_BLEND);
-			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+			glBlendFunc(GL_SRC_ALPHA, GL_ZERO);
 		
 			_shader->ApplyShader();
-			glActiveTexture(GL_TEXTURE0);
-			glBindTexture(GL_TEXTURE_2D, _textureID);
+			_texture->BindToSampler(0);
 			_shader->SetTextureSampler("TextureSampler", 0);
 
-			
-		/*	_buffer->Bind(); // GraphicsDevice.SetVertexBuffer?
-			this->GetGraphicsDevice()->DrawPrimitives(PrimitiveType::TriangleList, 0, _buffer->GetVertexCount()); */
-
 			_buffer2->Bind();
-			this->GetGraphicsDevice()->DrawPrimitives(PrimitiveType::TriangleList, 0, _buffer2->GetVertexCount()); 
+			this->GetGraphicsDevice().DrawPrimitives(PrimitiveType::TriangleList, 0, _buffer2->GetVertexCount()); 
 		
-			_shader->SetParameter("MVP", _camera->GetProjection() * _camera->GetView() * Matrix::Scale(10));
+			_shader->SetParameter("MVP", _camera->GetProjection() * _camera->GetView() * (Matrix::Translate(-20, 0, 0) * Matrix::RotateAroundAxis(Time::GetTotalTime() * 20, Vector3f::UnitZ) * Matrix::Scale(10)));
 			_buffer3->Bind();
-			this->GetGraphicsDevice()->DrawPrimitives(PrimitiveType::TriangleList, 0, _buffer3->GetVertexCount());
+			this->GetGraphicsDevice().DrawPrimitives(PrimitiveType::TriangleList, 0, _buffer3->GetVertexCount());
 			glDisable(GL_BLEND);
 		}
 
@@ -191,10 +197,10 @@ public:
 
 private:
 	std::unique_ptr<IShader> _shader;
-	std::unique_ptr<IVertexBuffer> _buffer;
 	std::unique_ptr<IVertexBuffer> _buffer2;
 	std::unique_ptr<IVertexBuffer> _buffer3;
 	std::unique_ptr<DefaultCamera> _camera;
+	std::unique_ptr<ITexture2D> _texture;
 };
 
 int main()

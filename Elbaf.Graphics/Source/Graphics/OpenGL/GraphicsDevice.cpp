@@ -6,6 +6,12 @@
 #include <Math\FlaiMath.h>
 #include <Core\Color.h>
 #include <Graphics\OpenGL\OGL-Helper.h>
+#include <Graphics\OpenGL\Texture2D.h>
+#include <Graphics\OpenGL\VertexBuffer.h>
+#include <Graphics\OpenGL\Shader.h>
+#include <Graphics\Image.h>
+#include <Graphics\OpenGL\Texture2D.h>
+#include <Graphics\ShaderSource.h>
 
 OGL::GraphicsDevice::GraphicsDevice(GLFWwindow* window) : _window(window)
 {
@@ -130,4 +136,23 @@ void OGL::GraphicsDevice::Clear(ClearOptions const& clearOptions, Color const& c
 void OGL::GraphicsDevice::DrawPrimitives(PrimitiveType primitiveType, int firstIndex, int count)
 {
 	glDrawArrays(OGL::PrimitiveTypeToGLenum(primitiveType), firstIndex, count);
+}
+
+#include <Graphics\ITexture.h>
+#include <Graphics\OpenGL\Texture2D.h>
+#include <Graphics\OpenGL\OGL.h>
+
+std::unique_ptr<ITexture2D> OGL::GraphicsDevice::CreateTexture2D(std::unique_ptr<Image> textureData)
+{
+	return Texture2D::Load(std::move(textureData));
+}
+
+std::unique_ptr<IVertexBuffer> OGL::GraphicsDevice::CreateVertexBuffer(BufferType bufferType)
+{
+	return VertexBuffer::CreateVertexBuffer();
+}
+
+std::unique_ptr<IShader> OGL::GraphicsDevice::CreateShader(const ShaderSource& shaderSource)
+{
+	return Shader::Load(shaderSource);
 }

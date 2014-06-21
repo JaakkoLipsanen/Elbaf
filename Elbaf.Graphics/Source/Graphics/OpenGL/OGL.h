@@ -14,6 +14,7 @@
 #include <GL\glew.h>
 #include <GLFW\glfw3.h>
 
+// wrap in OGL namespace?
 inline void glEnableOrDisable(GLenum capability, bool enable)
 {
 	if (enable)

@@ -92,6 +92,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>C:\Koodaus\OpenGL\Elbaf\Elbaf.Diagnostics\Source;C:\Koodaus\OpenGL\Elbaf\Elbaf.Diagnostics\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -118,6 +119,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>C:\Koodaus\OpenGL\Elbaf\Elbaf.Diagnostics\Source;C:\Koodaus\OpenGL\Elbaf\Elbaf.Diagnostics\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -127,12 +129,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\Source\Diagnostics\Ensure.cpp" />
-    <ClCompile Include="..\Source\Diagnostics\Logger.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Source\Diagnostics\Ensure.h" />
-    <ClInclude Include="..\Source\Diagnostics\Logger.h" />
-    <ClInclude Include="..\Source\Diagnostics\LogStream.h" />
+    <ClInclude Include="..\Include\Diagnostics\Ensure.h" />
+    <ClInclude Include="..\Include\Diagnostics\Logger.h" />
+    <ClInclude Include="..\Include\Diagnostics\LogStream.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

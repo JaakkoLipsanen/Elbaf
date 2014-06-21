@@ -1,4 +1,5 @@
 #pragma once
+#include <memory>
 
 enum class CullMode
 {
@@ -13,23 +14,30 @@ enum class CullFace
 	FrontAndBack,
 };
 
-struct Size;
 enum class ClearOptions;
 enum class CompareFunction;
 enum class PrimitiveType;
+enum class BufferType;
+
 struct Color;
-class IGraphicsModule;
+struct Size;
+struct Image;
+struct ShaderSource;
+
+class ITexture;
+class ITexture2D;
+class IVertexBuffer;
+class IShader;
 
 // todo: make DepthState, RasterizerState, StencilState etc?
 class IGraphicsDevice
 {
 public:
+	IGraphicsDevice() = default;
 	virtual ~IGraphicsDevice() = default;
 
 	virtual void Clear(const Color& color) = 0;
 	virtual void Clear(const ClearOptions& clearOptions, const Color& color, float depth = 0, int stencilValue = 0) = 0;
-
-	// returns the old resolution
 
 	virtual Size GetResolution() const = 0;
 	virtual void ChangeResolution(const Size& newSize) = 0;
@@ -53,4 +61,10 @@ public:
 
 	// DRAW
 	virtual void DrawPrimitives(PrimitiveType primitiveType, int firstIndex, int count) = 0;
+
+	// CREATE
+	virtual std::unique_ptr<ITexture2D> CreateTexture2D(std::unique_ptr<Image> textureData) = 0;
+	virtual std::unique_ptr<IVertexBuffer> CreateVertexBuffer(BufferType bufferType) = 0;
+	//virtual std::unique_ptr<IShader> CreateShader(std::unique_ptr<ShaderSource> shaderData) = 0;
+	virtual std::unique_ptr<IShader> CreateShader(const ShaderSource& shaderData) = 0;
 };

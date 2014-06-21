@@ -1,5 +1,5 @@
 #pragma once
-#include "..\IInputModule.h"
+#include <Input\IInputModule.h>
 #include <Input\KeyCode.h>
 
 namespace GLFW

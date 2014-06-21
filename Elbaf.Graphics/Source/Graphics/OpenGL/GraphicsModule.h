@@ -16,7 +16,6 @@ namespace OGL
 		virtual IGameWindow* GetGameWindow() const;
 		virtual void OpenWindow(const Size& size = Size(1280, 720), const std::string& title = "Game", bool isFullScreen = false);
 
-
 	private:
 		struct GraphicsModuleImpl;
 		std::unique_ptr<GraphicsModuleImpl> _pImpl;

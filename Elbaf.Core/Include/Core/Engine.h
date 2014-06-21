@@ -16,7 +16,7 @@ public:
 		return dynamic_cast<TModule*>(this->GetModuleInner(typeid(TModule)));
 	}
 
-	virtual IGameWindow* GetWindow() const = 0;
+	virtual IGameWindow& GetWindow() const = 0;
 	static IEngine& GetInstance();
 
 protected:

@@ -1,6 +1,7 @@
+#pragma once
+
 #include <Core\IModule.h>
 #include <Core\Engine.h>
-#include "TimeModule.h"
 
 namespace Time
 {

@@ -1,4 +1,4 @@
-#include "Ensure.h"
+#include <Diagnostics\Ensure.h>
 
 namespace Ensure
 {

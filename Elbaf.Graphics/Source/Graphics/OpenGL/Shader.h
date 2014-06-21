@@ -4,13 +4,14 @@
 #include <string>
 #include <memory>
 
+struct ShaderSource;
 namespace OGL
 {
 	class Shader : public IShader
 	{
 	
 	public:
-		static std::unique_ptr<IShader> Load(const std::string& vertexFilePath, const std::string& fragmentFilePath);
+		static std::unique_ptr<IShader> Load(const ShaderSource& shaderSource);
 
 		virtual void ApplyShader() override;
 		virtual ~Shader() override;

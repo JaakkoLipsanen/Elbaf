@@ -5,10 +5,9 @@
 #include <Math\Matrix.h>
 
 // todo: support for tesslation & geometry shaders etc?
-struct IShader
+class IShader
 {
-	static std::unique_ptr<IShader> Load(const std::string& vertexFilePath, const std::string& fragmentFilePath);
-
+public:
 	// todo: set variable (float, matrix etc)
 	virtual void ApplyShader() = 0;
 	virtual ~IShader() { }

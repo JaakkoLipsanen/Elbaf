@@ -5,51 +5,50 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
-    </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-    <Filter Include="Header Files\GLFW">
-      <UniqueIdentifier>{949ec88b-3675-4d4f-b1ec-c834b81c5588}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\GLFW">
       <UniqueIdentifier>{0b565a6b-eb77-486d-a48d-4748a6216e87}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Public Header Files">
+      <UniqueIdentifier>{f853461b-7831-461e-80aa-4b5012577f0d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Private Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Private Header Files\GLFW">
+      <UniqueIdentifier>{949ec88b-3675-4d4f-b1ec-c834b81c5588}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Source\Input\KeyCode.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Source\Input\MouseButton.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Source\Input\IInputModule.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\Source\Input\GLFW\InputModule.h">
-      <Filter>Header Files\GLFW</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Source\Input\KeyboardState.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Source\Input\MouseState.h">
-      <Filter>Header Files</Filter>
+      <Filter>Private Header Files\GLFW</Filter>
     </ClInclude>
     <ClInclude Include="..\Source\Input\Platform.h">
-      <Filter>Header Files</Filter>
+      <Filter>Private Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\Source\Input\Input.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="..\Include\Input\KeyboardState.h">
+      <Filter>Public Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\Source\Input\Cursor.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="..\Include\Input\KeyCode.h">
+      <Filter>Public Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\Source\Input\CursorVisibility.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="..\Include\Input\Mouse.h">
+      <Filter>Public Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Input\MouseButton.h">
+      <Filter>Public Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Input\MouseState.h">
+      <Filter>Public Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Input\CursorVisibility.h">
+      <Filter>Public Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Input\IInputModule.h">
+      <Filter>Public Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Input\Input.h">
+      <Filter>Public Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

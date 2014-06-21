@@ -4,6 +4,7 @@
 #include <Graphics\IGraphicsDevice.h>
 #include <Graphics\VertexElement.h>
 #include <Graphics\PrimitiveType.h>
+#include <Graphics\TextureFormat.h>
 #include <system_error>
 
 GLbitfield OGL::GetClearMask(ClearOptions const& clearOptions)
@@ -82,5 +83,33 @@ GLenum OGL::PrimitiveTypeToGLenum(PrimitiveType primitiveType)
 
 	default:
 		throw std::logic_error("Unknown primitive type");
+	}
+}
+
+GLenum OGL::SamplerIndexToGLenum(unsigned samplerIndex)
+{
+	
+	if (samplerIndex > 30)
+	{
+		throw std::logic_error("Too big value. OpenGL (I think!) supports only 30 samplers");
+	}
+
+	// the values are contigious. SAMPLER(1) == SAMPLER(0) + 1, SAMPLER(15) == SAMPLER(0) + 15 etc
+#define SAMPLER(i) GL_TEXTURE##i
+	return SAMPLER(0) + samplerIndex;
+}
+
+GLenum OGL::TextureFormatToGLenum(TextureFormat textureFormat)
+{
+	switch (textureFormat)
+	{
+	case TextureFormat::RBGA:
+		return GL_RGBA;
+
+	case TextureFormat::RBG:
+		return GL_RGB;
+
+	default:
+		throw std::logic_error("Unknown texture format");
 	}
 }

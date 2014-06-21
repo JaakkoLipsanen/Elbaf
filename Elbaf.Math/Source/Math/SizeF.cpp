@@ -1,4 +1,4 @@
-#include "SizeF.h"
+#include <Math\SizeF.h>
 #include <Diagnostics\Ensure.h>
 #include <Math\Vector.h>
 

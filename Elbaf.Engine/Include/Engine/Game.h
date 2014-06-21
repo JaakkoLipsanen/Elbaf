@@ -18,8 +18,8 @@ public:
 
 	void Run();
 	void Exit();
-	IGameWindow* GetWindow() const override;
-	IGraphicsDevice* GetGraphicsDevice() const;
+	IGameWindow& GetWindow() const override;
+	IGraphicsDevice& GetGraphicsDevice() const;
 
 protected:
 	virtual void Initialize() { }
