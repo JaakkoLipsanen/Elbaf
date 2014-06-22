@@ -9,13 +9,11 @@
 #include <Core\WindowDescription.h>
 #include <Input\InputModule.h>
 
-// very temporary!!
-#include "..\..\..\Elbaf.Graphics\Source\Graphics\Platform.h"
 
 class Game::Impl
 {
 public:
-	Impl(Game& game) : _game(game), GraphicsModule(nullptr), InputModule(nullptr)
+	explicit Impl(Game& game) : _game(game), GraphicsModule(nullptr), InputModule(nullptr)
 	{
 	}
 
@@ -67,7 +65,7 @@ private:
 
 	void Tick()
 	{
-		Platform::Graphics::RunMessagePump();
+		this->GraphicsModule->RunMessagePump();
 
 		this->BeginFrame();
 		_game.PreUpdate();

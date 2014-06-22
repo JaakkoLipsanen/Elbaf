@@ -23,9 +23,6 @@
     <ClCompile Include="..\Source\Graphics\OpenGL\GameWindow.cpp">
       <Filter>Source Files\OpenGL</Filter>
     </ClCompile>
-    <ClCompile Include="..\Source\Graphics\Platform.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\Source\Graphics\OpenGL\OGL-Helper.cpp">
       <Filter>Source Files\OpenGL</Filter>
     </ClCompile>
@@ -102,9 +99,6 @@
     </ClInclude>
     <ClInclude Include="..\Include\Graphics\ShaderSource.h">
       <Filter>Public Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Source\Graphics\Platform.h">
-      <Filter>Private Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\Source\Graphics\OpenGL\GameWindow.h">
       <Filter>Private Header Files\OpenGL</Filter>

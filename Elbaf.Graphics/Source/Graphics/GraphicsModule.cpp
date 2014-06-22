@@ -22,6 +22,16 @@ void GraphicsModule::Initialize()
 	context.SetCullMode(CullMode::CounterClockwise);
 }
 
+void GraphicsModule::RunMessagePump()
+{
+	_graphicsDevice->RunMessagePump();
+}
+
+void GraphicsModule::EndFrame()
+{
+	_graphicsDevice->EndFrame();
+}
+
 void GraphicsModule::Terminate()
 {
 	_graphicsDevice->Terminate();
@@ -31,12 +41,6 @@ IGameWindow& GraphicsModule::GetGameWindow() const
 {
 	return _graphicsDevice->GetGameWindow();
 }
-
-void GraphicsModule::EndFrame()
-{
-	_graphicsDevice->EndFrame();
-}
-
 
 IGraphicsContext& GraphicsModule::GetGraphicsDevice() const
 {

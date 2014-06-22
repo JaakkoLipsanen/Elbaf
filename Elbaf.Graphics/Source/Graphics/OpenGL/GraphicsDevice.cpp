@@ -5,6 +5,7 @@
 #include <Diagnostics\Logger.h>
 #include <Diagnostics\Ensure.h>
 
+#include <Graphics\RendererAPI.h>
 #include <Graphics\OpenGL\GraphicsContext.h>
 #include <Graphics\OpenGL\GameWindow.h>
 
@@ -101,9 +102,19 @@ IGraphicsContext& OGL::GraphicsDevice::GetContext()
 	return _pImpl->Context;
 }
 
+RendererAPI OGL::GraphicsDevice::GetRendererAPI() const
+{
+	return RendererAPI::OpenGL;
+}
+
 void OGL::GraphicsDevice::OpenWindow(const WindowDescription& windowDescription)
 {
 	_pImpl->OpenWindow(windowDescription);
+}
+
+void OGL::GraphicsDevice::RunMessagePump()
+{
+	glfwPollEvents();
 }
 
 void OGL::GraphicsDevice::BeginFrame()

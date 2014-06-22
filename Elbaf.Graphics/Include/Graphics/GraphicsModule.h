@@ -3,6 +3,7 @@
 #include <Core\IModule.h>
 
 struct WindowDescription;
+enum class RendererAPI;
 class IGraphicsDevice;
 class IEngine;
 class IGraphicsContext;
@@ -20,6 +21,8 @@ public:
 	virtual void EndFrame();
 	virtual IGraphicsContext& GetGraphicsDevice() const;
 	virtual IGameWindow& GetGameWindow() const;
+
+	void RunMessagePump(); // message pump doesn't necessarily belong here, but since I'm using GLFW... blargh!
 
 private:
 	std::unique_ptr<IGraphicsDevice> _graphicsDevice;

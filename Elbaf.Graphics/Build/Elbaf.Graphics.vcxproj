@@ -147,7 +147,6 @@
     <ClCompile Include="..\Source\Graphics\OpenGL\Shader.cpp" />
     <ClCompile Include="..\Source\Graphics\OpenGL\Texture2D.cpp" />
     <ClCompile Include="..\Source\Graphics\OpenGL\VertexBuffer.cpp" />
-    <ClCompile Include="..\Source\Graphics\Platform.cpp" />
     <ClCompile Include="..\Source\Graphics\Image.cpp" />
     <ClCompile Include="..\Source\Graphics\VertexFormats.cpp" />
   </ItemGroup>
@@ -177,7 +176,6 @@
     <ClInclude Include="..\Source\Graphics\OpenGL\Shader.h" />
     <ClInclude Include="..\Source\Graphics\OpenGL\Texture2D.h" />
     <ClInclude Include="..\Source\Graphics\OpenGL\VertexBuffer.h" />
-    <ClInclude Include="..\Source\Graphics\Platform.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
