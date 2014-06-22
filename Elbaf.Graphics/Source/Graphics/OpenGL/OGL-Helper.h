@@ -7,6 +7,8 @@ enum class CullFace;
 enum class VertexElementType;
 enum class PrimitiveType;
 enum class TextureFormat;
+enum class BlendFactor;
+enum class BlendFunction;
 
 namespace OGL
 {
@@ -18,4 +20,7 @@ namespace OGL
 	GLenum PrimitiveTypeToGLenum(PrimitiveType primitiveType);
 	GLenum TextureFormatToGLenum(TextureFormat textureFormat);
 	GLenum SamplerIndexToGLenum(unsigned int samplerIndex);
+
+	GLenum BlendFactorToGLenum(BlendFactor blendFactor);
+	GLenum BlendFunctionToGLenum(BlendFunction blendFunction);
 }

@@ -14,6 +14,14 @@
 #include <Graphics\OpenGL\Texture2D.h>
 #include <Graphics\OpenGL\VertexBuffer.h>
 #include <Graphics\OpenGL\Shader.h>
+#include <Graphics\OpenGL\BlendState.h>
+
+class OGL::GraphicsContext::Impl
+{
+public:
+	std::shared_ptr<IBlendState> BlendState;
+	Impl() : BlendState(new OGL::BlendState) { }
+};
 
 OGL::GraphicsContext::GraphicsContext(GameWindow& window) : _window(window)
 {
@@ -61,6 +69,16 @@ CompareFunction OGL::GraphicsContext::GetDepthFunction() const
 	return _depthCompareFunction;
 }
 
+IBlendState& OGL::GraphicsContext::GetBlendState()
+{
+	return _blendState; // *_pImpl->BlendState.get();
+}
+
+void OGL::GraphicsContext::SetBlendState(std::shared_ptr<IBlendState> blendState)
+{
+	//_pImpl->BlendState = blendState;
+}
+
 void OGL::GraphicsContext::SetDepthFunction(CompareFunction compareFunction)
 {
 	if (_depthCompareFunction == compareFunction)
@@ -70,6 +88,22 @@ void OGL::GraphicsContext::SetDepthFunction(CompareFunction compareFunction)
 
 	_depthCompareFunction = compareFunction;
 	glDepthFunc(OGL::CompareFunctionToGLenum(compareFunction));
+}
+
+void OGL::GraphicsContext::SetDepthWriteEnabled(bool isEnabled)
+{
+	if (_depthWriteEnabled == isEnabled)
+	{
+		return;
+	}
+
+	_depthWriteEnabled = isEnabled;
+	glDepthMask(isEnabled);
+}
+
+bool OGL::GraphicsContext::IsDepthWriteEnabled() const
+{
+	return _depthWriteEnabled;
 }
 
 /* cull */
@@ -161,4 +195,9 @@ std::unique_ptr<IVertexBuffer> OGL::GraphicsContext::CreateVertexBuffer(BufferTy
 std::unique_ptr<IShader> OGL::GraphicsContext::CreateShader(const ShaderSource& shaderSource)
 {
 	return Shader::Load(shaderSource);
+}
+
+std::unique_ptr<IBlendState> OGL::GraphicsContext::CreateBlendState()
+{
+	return std::unique_ptr<BlendState>(new OGL::BlendState);
 }

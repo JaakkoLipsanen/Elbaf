@@ -59,6 +59,9 @@
     <ClCompile Include="..\Source\Graphics\OpenGL\VertexBuffer.cpp">
       <Filter>Source Files\OpenGL</Filter>
     </ClCompile>
+    <ClCompile Include="..\Source\Graphics\OpenGL\BlendState.cpp">
+      <Filter>Source Files\OpenGL</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Include\Graphics\TextureFormat.h">
@@ -135,6 +138,12 @@
     </ClInclude>
     <ClInclude Include="..\Include\Graphics\GraphicsModule.h">
       <Filter>Public Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Graphics\IBlendState.h">
+      <Filter>Public Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Graphics\OpenGL\BlendState.h">
+      <Filter>Private Header Files\OpenGL</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

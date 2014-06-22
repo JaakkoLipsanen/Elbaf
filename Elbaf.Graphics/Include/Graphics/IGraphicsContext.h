@@ -29,8 +29,10 @@ class ITexture;
 class ITexture2D;
 class IVertexBuffer;
 class IShader;
+class IBlendState;
 
-// todo: make DepthState, RasterizerState, StencilState etc?
+// todo: make DepthState, RasterizerState, StencilState etc? // TODO: MAKE THESE, BLENDSTATE ALREADY DONE
+// update: those would really really be great... however they would also add a lot of new classes that have to be implemented per API :(
 class IGraphicsContext
 {
 public:
@@ -43,12 +45,17 @@ public:
 	virtual Size GetResolution() const = 0;
 	virtual void ChangeResolution(const Size& newSize) = 0;
 
+	// depth
 	virtual bool IsDepthTestEnabled() const = 0;
 	virtual void SetDepthTestEnabled(bool isEnabled) = 0;
+
+	virtual bool IsDepthWriteEnabled() const = 0;
+	virtual void SetDepthWriteEnabled(bool isEnabled) = 0;
 
 	virtual CompareFunction GetDepthFunction() const = 0;
 	virtual void SetDepthFunction(CompareFunction compareFunction) = 0;
 
+	// cull
 	virtual CullMode GetCullMode() const = 0;
 	virtual void SetCullMode(CullMode cullMode) = 0;
 
@@ -57,6 +64,10 @@ public:
 
 	virtual bool IsCullingEnabled() const = 0;
 	virtual void SetCullingEnabled(bool enabled) = 0;
+
+	// blend
+	virtual IBlendState& GetBlendState() = 0;
+	virtual void SetBlendState(std::shared_ptr<IBlendState> blendState) = 0; // ????????????????????????????? I was thinking, maybe better would be "BlendStatePreset" or something like that
 
 	// todo: render targets, vertexbuffers, stencil, scissor, depth states, textures(?) etc etc etc
 
@@ -67,4 +78,5 @@ public:
 	virtual std::unique_ptr<ITexture2D> CreateTexture2D(std::unique_ptr<Image> textureData) = 0;
 	virtual std::unique_ptr<IVertexBuffer> CreateVertexBuffer(BufferType bufferType) = 0;
 	virtual std::unique_ptr<IShader> CreateShader(const ShaderSource& shaderData) = 0;
+	virtual std::unique_ptr<IBlendState> CreateBlendState() = 0;
 };

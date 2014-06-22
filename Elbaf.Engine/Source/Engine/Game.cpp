@@ -9,13 +9,10 @@
 #include <Core\WindowDescription.h>
 #include <Input\InputModule.h>
 
-
 class Game::Impl
 {
 public:
-	explicit Impl(Game& game) : _game(game), GraphicsModule(nullptr), InputModule(nullptr)
-	{
-	}
+	explicit Impl(Game& game) : _game(game) { }
 
 	bool IsRunning = false;
 	bool IsExiting = false;
@@ -28,7 +25,7 @@ public:
 		Ensure::False(this->IsRunning);
 		this->IsRunning = true;
 
-		// initialize
+		// initialize!
 		this->InitializeModules();
 		_game.Initialize();
 
@@ -40,7 +37,7 @@ public:
 			this->Tick();
 		}
 
-		// exit :( !
+		// exit!
 		_game.OnExiting();
 		_game.Exiting.Invoke();
 		this->GraphicsModule->Terminate();

@@ -29,6 +29,11 @@ Color Color::operator*(float multiplier) const
 	return Color(this->R, this->G, this->B, ClampToByte(this->A * multiplier));
 }
 
+bool Color::operator==(Color const& other)
+{
+	return this->R == other.R && this->G == other.G && this->B == other.B && this->A == other.A;
+}
+
 Vector3f Color::ToVector3f() const
 {
 	return Vector3f(this->R / 255.0f, this->G / 255.0f, this->B / 255.0f);

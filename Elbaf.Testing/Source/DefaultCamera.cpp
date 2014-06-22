@@ -6,6 +6,7 @@
 #include <Input\Input.h>
 #include <Engine\Time.h>
 #include <Math\FlaiMath.h>
+#include <Diagnostics\Logger.h>
 
 // from OGL tutorial mostly
 DefaultCamera::DefaultCamera()
@@ -26,7 +27,7 @@ Matrix4x4 const& DefaultCamera::GetProjection() const
 
 void DefaultCamera::Update()
 {
-	Vector3f cross = Vector::Cross(this->CalculateDirection(), Vector3f::UnitY);
+	Vector3f cross = Vector::Normalize(Vector::Cross(this->CalculateDirection(), Vector3f::UnitY));
 	const float MovementSpeed = 25.0f;
 	if (Input::IsKeyPressed(KeyCode::W))
 	{

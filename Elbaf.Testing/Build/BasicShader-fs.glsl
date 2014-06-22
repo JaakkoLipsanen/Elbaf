@@ -8,11 +8,13 @@ out vec4 color;
 
 
 uniform sampler2D TextureSampler;
+uniform bool TextureEnabled;
 
 void main()
 {
 
 	// Output color = red 
-	color = texture2D(TextureSampler, uvFS).rgba + fragmentColor; // vec3(1,0,0);
+	color = fragmentColor;
+	 color.rgb *= texture2D(TextureSampler, uvFS).rgb;
 
 }

@@ -10,6 +10,7 @@ public:
 	virtual Matrix4x4 const& GetProjection() const override;
 
 	void Update();
+	const Vector3f& GetPosition() const { return _position; }
 
 private:
 	Matrix4x4 _view;

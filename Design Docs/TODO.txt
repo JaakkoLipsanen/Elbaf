@@ -1,43 +1,32 @@
+- The engine is semi-"multi-layered", there is first the library layer (OpenGL, D3D, GLFW etc), then is the 'low-level module' -layer (GraphicsModule, InputModule) and then high-level wrapper classes/namespaces (Input, Screen, Cursor etc)
 
 -- TODO: MODULES --
+
 - Audio (FMod or OpenAL something?)
 - Physics (Havok/Bullet/box2D? Should I separate Physics2D and Physics to different modules?)
 - AI(??)
 - FSL (Flai Shader Language - language that compiles into both GLSL and HLSL. Not supposed to be feature-complete or uber performant. This should be very interesting).
-
+- Content. Loads resources. Should here be content management too? Like keeping track of textures and shaders etc? maybe not
+- CBES/Scene: Maybe put this into Engine?
 
 -- GENERAL --
-- The engine is "multi-layered", there is first the library layer (OpenGL, D3D, GLFW etc), then is the 'low-level module' -layer (GraphicsModule, InputModule) and then high-level wrapper classes/namespaces (Input, Screen, Cursor etc)
 
-- Core = Ei linkkaa mihinkään. Täällä on Math, muut yleiset tyypit/jutut ja mahollisesti kanssa muitten sub-systeemien "pää" interfacet (IGraphicsModule/IGraphicsDevice, IAudioModule/IAudioSystem, IInputSystem etc). Tääl kans vois olla jotain pienii moduuleita, kuten GameTime/Time (tosin tääkin tarttee ehk GLFW:ää... Ehk tee "Platform" projekti joka wrappaa
-  > Timen/Inputin/FileSysteemin/kaikki tälläset yleiset jutut? Vois olla jees).
-- Graphics = Linkkaa Coreen ja mahollisesti muihininkin "perus-projekteihin". Tää wrappaa täydellisesti OpenGL:n/Direct3D:n, eli muut projektit ei tartte referenssejä OpenGL, GLFW tai GLEW:iin. Täällä mahollisesti myös GameWindow... Taino vähän pakko olla.
-- Input
-- Physics = todo (Bullet varmaan? Ehk myös box2d)
-- Audio = todo (OpenAL tms?)
-- Resource (?). Loadaa kaikkia jne. Tota... Tää kyl vähän paha. Tää linkkaa kaikkiin (taino, Core/Graphics/Audio jne?), mut mikään muu paitsi Engine ei linkkaa tähän?
-- Engine = Engineen ei linkkaa mikään muu. Engine linkkaa kaikkeen. Tääl kans definitaan high-level layerit muihin systeemeihin (ehkä?). Esim Input:: namespace, Time:: namespace jne).
-- CBES/Scene...?: Totas noin... Tän täytyy tietää fyssistä ja graffoista ja audiosta sun muista... Mut pitäskö tän tietää niist vaan interfacen kautta? No ehkä ei.
-
-
-
+- High level helper classes: Input, Screen, Time, (Game?), (Resources/Content?)
 - Okei.. Kaikki luokat, jotka riippuu jostain ei-cross-platform kirjastosta (OpenGL, Direct3D, GLFW jne) omaan namespaceen! 
 	- OpenGL -> namespace OGL
 	- Direct3D -> namespace D3D
 	- GLFW (input jne?) -> namespace OGL(? tai sit ehk joku muu, 'GLFW' ei vaan oikeen voi käyttää kun se vähän epäselvä et onks se mun namespace vs GLFW:n oma namespace);
 	
-	
-
-- High level helper classes: Input, Screen, Time, (Game?), (Resources/Content?)
-
-
 -- TODO --
 - All graphics resources created by GraphicsDevice. DO THIS!! (graphicsDevice->CreateTexture(....), graphicsDevice->CreateVertexBuffer(...))
 - Maybe modules should not be interfaces/abstract. Module == complete class, but contains a "Module Implementation" or something. I think that this is a good idea.
-- IGraphicsResource?
+- IGraphicsResource? meh?
 - Make all classes usable from the constructor? So Initialize doesn't do anything... or...?
 - Make all appropiate classes non-copyable?
 
-
+- Meh... Compile-time type deduction (using #if and typedefs)... It's possible and would be great, but the problem is that how should I make implementations to have at least partially their own API?
+  Only way to make it would be that every platform implements the header themselves, but that's just stupid.. This is really hard choice...
+  This would result a cleaner API (subjective) and it'd be more "correct" (no way to ie define own ITexture and shoot yourself in the leg). For now, scrap this
+  
 -- HAPPENED BEFORE: --
 - I really fucking over-engineered the Input module

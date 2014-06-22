@@ -24,8 +24,8 @@ std::unique_ptr<OGL::Texture2D> OGL::Texture2D::Load(std::unique_ptr<Image> text
 	glGenTextures(1, &texture);
 	glBindTexture(GL_TEXTURE_2D, texture);
 	glTexImage2D(GL_TEXTURE_2D, 0, format, textureData->Width, textureData->Height, 0, format, GL_UNSIGNED_BYTE, textureData->ImageData);
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
 	return std::unique_ptr<OGL::Texture2D>(new Texture2D(new Impl(texture, textureData->Width, textureData->Height)));
 }

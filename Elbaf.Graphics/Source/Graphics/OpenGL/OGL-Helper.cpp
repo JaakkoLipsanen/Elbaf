@@ -5,6 +5,7 @@
 #include <Graphics\VertexElement.h>
 #include <Graphics\PrimitiveType.h>
 #include <Graphics\TextureFormat.h>
+#include <Graphics\IBlendState.h>
 #include <system_error>
 
 GLbitfield OGL::GetClearMask(ClearOptions const& clearOptions)
@@ -111,5 +112,84 @@ GLenum OGL::TextureFormatToGLenum(TextureFormat textureFormat)
 
 	default:
 		throw std::logic_error("Unknown texture format");
+	}
+}
+
+GLenum OGL::BlendFactorToGLenum(BlendFactor blendFactor)
+{
+	switch (blendFactor)
+	{
+	case BlendFactor::Zero:
+		return GL_ZERO;
+
+	case BlendFactor::One:
+		return GL_ONE;
+
+	case BlendFactor::SourceColor:
+		return GL_SRC_COLOR;
+
+	case BlendFactor::OneMinusSourceColor:
+		return GL_ONE_MINUS_SRC_COLOR;
+
+	case BlendFactor::DestinationColor:
+		return GL_DST_COLOR;
+
+	case BlendFactor::OneMinusDestinationColor:
+		return GL_ONE_MINUS_DST_COLOR;
+
+	case BlendFactor::SourceAlpha:
+		return GL_SRC_ALPHA;
+
+	case BlendFactor::OneMinusSourceAlpha:
+		return GL_ONE_MINUS_SRC_ALPHA;
+
+	case BlendFactor::DestinationAlpha:
+		return GL_DST_ALPHA;
+
+	case BlendFactor::OneMinusDestinationAlpha:
+		return GL_ONE_MINUS_DST_ALPHA;
+
+
+	case BlendFactor::ConstantColor:
+		return GL_CONSTANT_COLOR;
+
+	case BlendFactor::OneMinusConstantColor:
+		return GL_ONE_MINUS_CONSTANT_COLOR;
+
+	case BlendFactor::ConstantAlpha:
+		return GL_CONSTANT_ALPHA;
+
+	case BlendFactor::OneMinusConstantAlpha:
+		return GL_ONE_MINUS_CONSTANT_ALPHA;;
+
+	case BlendFactor::SourceAlphaSaturate:
+		return GL_SRC_ALPHA_SATURATE;
+
+	default:
+		throw std::logic_error("Unknown blend factor");
+	}
+}
+
+GLenum OGL::BlendFunctionToGLenum(BlendFunction blendFunction)
+{
+	switch (blendFunction)
+	{
+	case BlendFunction::Add:
+		return GL_FUNC_ADD;
+		
+	case BlendFunction::Substract:
+		return GL_FUNC_SUBTRACT;
+
+	case BlendFunction::ReverseSubstract:
+		return GL_FUNC_REVERSE_SUBTRACT;
+
+	case BlendFunction::Max:
+		return GL_MAX;
+
+	case BlendFunction::Min:
+		return GL_MIN;
+
+	default:
+		throw std::logic_error("Unknown blend function");
 	}
 }
