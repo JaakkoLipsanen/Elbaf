@@ -1,10 +1,9 @@
 #include <Core\Random.h>
 #include <random>
 
-class Random::PImpl
+class Random::Impl
 {
 	typedef std::mt19937 Engine;
-
 public:
 	Engine RandomEngine;
 };
@@ -59,7 +58,7 @@ Random::Random() : Random(std::random_device()()) // call the random_device '()'
 {
 }
 
-Random::Random(unsigned long seed) : _pImpl(new PImpl)
+Random::Random(unsigned long seed) : _pImpl(new Impl)
 {
 	_pImpl->RandomEngine.seed(seed);
 }

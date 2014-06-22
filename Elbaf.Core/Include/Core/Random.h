@@ -17,10 +17,10 @@ public:
 	bool NextBooleanFromOdds(float odds);
 
 	Random();
-	Random(unsigned long seed);
-	~Random();
+	explicit Random(unsigned long seed);
+	virtual ~Random();
 
 private:
-	class PImpl;
-	std::unique_ptr<PImpl> _pImpl;
+	class Impl;
+	std::unique_ptr<Impl> _pImpl;
 };

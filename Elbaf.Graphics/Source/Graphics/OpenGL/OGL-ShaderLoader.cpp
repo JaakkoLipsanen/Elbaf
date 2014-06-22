@@ -1,7 +1,8 @@
-#include "OGL-ShaderLoader.h"
+#include <Graphics\OpenGL\OGL-ShaderLoader.h>
+
+#include <vector>
 #include <Core\File.h>
 #include <Diagnostics\Logger.h>
-#include <vector>
 
 static void CompileShader(GLuint& shaderID, const std::string& shaderCode, const std::string filePath)
 {

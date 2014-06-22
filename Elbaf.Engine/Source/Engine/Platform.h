@@ -1,8 +1,8 @@
 #pragma once
 #include <memory>
-#include <Core/Engine.h>
-#include <Engine\TimeModule.h>
 
+class IEngine;
+class TimeModule;
 namespace Platform
 {
 	namespace Engine

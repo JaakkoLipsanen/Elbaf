@@ -1,7 +1,5 @@
 #pragma once
 #include <memory>
-#include <string>
-#include <Math\Size.h>
 #include <Core\IModule.h>
 
 struct WindowDescription;
@@ -20,8 +18,8 @@ public:
 	virtual void Initialize();
 	virtual void Terminate();
 	virtual void EndFrame();
-	virtual IGraphicsContext* GetGraphicsDevice() const;
-	virtual IGameWindow* GetGameWindow() const;
+	virtual IGraphicsContext& GetGraphicsDevice() const;
+	virtual IGameWindow& GetGameWindow() const;
 
 private:
 	std::unique_ptr<IGraphicsDevice> _graphicsDevice;

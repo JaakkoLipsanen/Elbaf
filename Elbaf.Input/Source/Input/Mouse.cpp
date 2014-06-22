@@ -1,7 +1,9 @@
 #include <Input\Mouse.h>
-#include <GLFW\glfw3.h>
-#include <Core\Engine.h>
+
+#include <Core\IEngine.h>
 #include <Core\IGameWindow.h>
+#include <Core\CursorVisibility.h>
+#include <GLFW\glfw3.h>
 
 #if !OPENGL
 #error("Not implemented")

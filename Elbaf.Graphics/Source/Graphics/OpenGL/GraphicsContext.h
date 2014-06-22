@@ -1,6 +1,6 @@
 #pragma once
 #include <Graphics\IGraphicsContext.h>
-#include "OGL.h"
+#include <Graphics\OpenGL\OGL.h>
 
 namespace OGL
 {
@@ -51,6 +51,7 @@ namespace OGL
 
 	private:
 
+		// todo: Pimpl?
 		// okay.. these default values are not good since if the user (or more like, me, the engine coder) forgets to set the values when constructing GraphicsModule, then these won't be the actual values
 		bool _isDepthTestEnabled = false;
 		CompareFunction _depthCompareFunction = static_cast<CompareFunction>(-1);

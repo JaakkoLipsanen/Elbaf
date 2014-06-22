@@ -1,7 +1,7 @@
-#include <Core\Engine.h>
+#include <Core\IEngine.h>
 #include <Diagnostics\Ensure.h>
 
-static IEngine* _instance = nullptr;
+static IEngine* _instance = nullptr; // :(
 IEngine::IEngine()
 {
 	Ensure::Null(_instance); // must be null

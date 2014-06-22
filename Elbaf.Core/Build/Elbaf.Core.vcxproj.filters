@@ -17,13 +17,13 @@
     <ClCompile Include="..\Source\Core\IModule.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\Source\Core\Engine.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\Source\Core\File.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\Source\Core\Random.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Core\IEngine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -55,10 +55,10 @@
     <ClInclude Include="..\Include\Core\CursorVisibility.h">
       <Filter>Public Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\Include\Core\Engine.h">
+    <ClInclude Include="..\Include\Core\WindowDescription.h">
       <Filter>Public Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\Include\Core\WindowDescription.h">
+    <ClInclude Include="..\Include\Core\IEngine.h">
       <Filter>Public Header Files</Filter>
     </ClInclude>
   </ItemGroup>

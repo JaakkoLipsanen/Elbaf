@@ -1,12 +1,14 @@
 #include <Graphics\OpenGL\GraphicsDevice.h>
 
-#include <Graphics\OpenGL\GraphicsContext.h>
-#include <Graphics\OpenGL\GameWindow.h>
 #include <Core\Event.h>
+#include <Core\WindowDescription.h>
 #include <Diagnostics\Logger.h>
 #include <Diagnostics\Ensure.h>
-#include <Core\WindowDescription.h>
 
+#include <Graphics\OpenGL\GraphicsContext.h>
+#include <Graphics\OpenGL\GameWindow.h>
+
+// move to own file? If I were to add more event's here, then I guess other OGL classes might want to access them
 namespace OGL
 {
 	namespace GLFW
@@ -45,7 +47,13 @@ public:
 	{
 		this->Window.Open(windowDescription.Resolution, windowDescription.Title, windowDescription.IsFullScreen); // pass WindowDescription to Open?
 		OGL::GLFW::InitializeCallbacks(Window.GetGLFWwindow());
-		this->InitializeGLEW(); // glew must be initialized after opening window (= creating glfw context)
+		this->InitializeGLEW(); // glew must be initialized after opening window (= after creating glfw context)
+	}
+
+	void Terminate()
+	{
+		OGL::GLFW::UninitializeCallbacks(this->Window.GetGLFWwindow());
+		this->Window.Terminate();
 	}
 
 private:
@@ -111,8 +119,6 @@ void OGL::GraphicsDevice::EndFrame()
 void OGL::GraphicsDevice::Terminate()
 {
 	Ensure::NotNull(_pImpl.get(), "GraphicsModule has been terminated.");
-
-	OGL::GLFW::UninitializeCallbacks(_pImpl->Window.GetGLFWwindow());
-	_pImpl->Window.Terminate();
+	_pImpl->Terminate();
 	_pImpl.reset(nullptr);
 }

@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClInclude Include="..\Include\Input\CursorVisibility.h" />
     <ClInclude Include="..\Include\Input\IInputModule.h" />
+    <ClInclude Include="..\Include\Input\IInputProvider.h" />
     <ClInclude Include="..\Include\Input\Input.h" />
     <ClInclude Include="..\Include\Input\KeyboardState.h" />
     <ClInclude Include="..\Include\Input\KeyCode.h" />
@@ -28,10 +29,12 @@
     <ClInclude Include="..\Include\Input\MouseButton.h" />
     <ClInclude Include="..\Include\Input\MouseState.h" />
     <ClInclude Include="..\Source\Input\GLFW\InputModule.h" />
+    <ClInclude Include="..\Source\Input\GLFW\InputProvider.h" />
     <ClInclude Include="..\Source\Input\Platform.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Source\Input\GLFW\InputModule.cpp" />
+    <ClCompile Include="..\Source\Input\GLFW\InputProvider.cpp" />
     <ClCompile Include="..\Source\Input\IInputModule.cpp" />
     <ClCompile Include="..\Source\Input\Input.cpp" />
     <ClCompile Include="..\Source\Input\Mouse.cpp" />

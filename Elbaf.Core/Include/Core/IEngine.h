@@ -10,15 +10,15 @@ public:
 	virtual ~IEngine() = default;
 
 	template<typename TModule>
-	TModule* GetModule()
+	TModule& GetModule()
 	{
 		static_assert(std::is_base_of<IModule, TModule>::value, "Type must inherit from IInputSystem!");
-		return dynamic_cast<TModule*>(this->GetModuleInner(typeid(TModule)));
+		return dynamic_cast<TModule&>(this->GetModuleInner(typeid(TModule)));
 	}
 
 	virtual IGameWindow& GetWindow() const = 0;
 	static IEngine& GetInstance();
 
 protected:
-	virtual IModule* GetModuleInner(const type_info& typeInfo) const = 0;
+	virtual IModule& GetModuleInner(const type_info& typeInfo) const = 0;
 };

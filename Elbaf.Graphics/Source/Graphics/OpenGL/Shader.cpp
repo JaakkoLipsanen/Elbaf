@@ -1,14 +1,15 @@
-#include "Shader.h"
+#include <Graphics\OpenGL\Shader.h>
+
+#include <map>
 #include <Graphics\OpenGL\OGL-ShaderLoader.h>
 #include <Diagnostics\Logger.h>
-#include <map>
 #include <Graphics\ShaderSource.h>
 
-class OGL::Shader::PImpl
+class OGL::Shader::Impl
 {
 public:
 	GLuint ProgramID;
-	PImpl(GLuint programID) : ProgramID(programID) { }
+	Impl(GLuint programID) : ProgramID(programID) { }
 
 	GLint GetUniformLocation(const std::string& name)
 	{
@@ -18,7 +19,7 @@ public:
 			return key->second;
 		}
 
-		// not cached
+		// not cached yet
 		GLint value = glGetUniformLocation(this->ProgramID, name.c_str());
 		if (value == -1)
 		{
@@ -33,23 +34,22 @@ private:
 	std::map<std::string, GLint> _uniformLocations;
 };
 
-void OGL::Shader::ApplyShader()
-{
-	glUseProgram(_pImpl->ProgramID);
-}
-
-std::unique_ptr<IShader> OGL::Shader::Load(const ShaderSource& shaderSource)
-{
-	GLuint programID = OGL::LoadShaders(shaderSource.VertexShaderPath, shaderSource.PixelShaderPath);
-	return std::unique_ptr<Shader>(new Shader(new PImpl(programID)));
-}
-
+OGL::Shader::Shader(Impl* pImpl) : _pImpl(pImpl) { }
 OGL::Shader::~Shader()
 {
 	glDeleteProgram(_pImpl->ProgramID);
 }
 
-OGL::Shader::Shader(PImpl* pImpl) : _pImpl(pImpl) { }
+std::unique_ptr<IShader> OGL::Shader::Load(const ShaderSource& shaderSource)
+{
+	GLuint programID = OGL::LoadShaders(shaderSource.VertexShaderPath, shaderSource.PixelShaderPath);
+	return std::unique_ptr<Shader>(new Shader(new Impl(programID)));
+}
+
+void OGL::Shader::ApplyShader()
+{
+	glUseProgram(_pImpl->ProgramID);
+}
 
 /* PARAMETER SETTERS */
 void OGL::Shader::SetParameter(std::string const& valueName, const float& value)

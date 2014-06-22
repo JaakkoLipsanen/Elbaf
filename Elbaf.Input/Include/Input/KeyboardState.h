@@ -2,6 +2,7 @@
 #include "KeyCode.h"
 #include <Input\IInputModule.h>
 
+// cpp?
 struct KeyboardState
 {
 	bool IsKeyPressed(KeyCode keyCode) const

@@ -50,6 +50,12 @@
     <ClInclude Include="..\Include\Input\Input.h">
       <Filter>Public Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\Include\Input\IInputProvider.h">
+      <Filter>Public Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Input\GLFW\InputProvider.h">
+      <Filter>Private Header Files\GLFW</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Source\Input\GLFW\InputModule.cpp">
@@ -66,6 +72,9 @@
     </ClCompile>
     <ClCompile Include="..\Source\Input\Mouse.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Input\GLFW\InputProvider.cpp">
+      <Filter>Source Files\GLFW</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

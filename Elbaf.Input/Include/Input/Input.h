@@ -1,12 +1,13 @@
-#include <Input\KeyCode.h>
-#include <Input\MouseButton.h>
+#pragma once
 #include <Math\Vector.h>
-#include <Input\IInputModule.h>
+
+enum class KeyCode;
+enum class MouseButton;
+class IInputModule;
 
 namespace Input
 {
 	// TODO: add events!  glfwSetKeyCallback, glfwSetCharCallback, glfwSetMouseButtonCallback etc etc
-	// todo: make Vector2 class and then add MousePosition, PreviousMousePos & MouseDelta
 	bool IsKeyPressed(KeyCode keyCode);
 	bool WasKeyPressed(KeyCode keyCode);
 	bool IsNewKeyPress(KeyCode keyCode);
@@ -15,14 +16,9 @@ namespace Input
 	bool WasMouseButtonPressed(MouseButton mouseButton);
 	bool IsNewMouseButtonPress(MouseButton mouseButton);
 
-//	bool IsMouseInsideWindow();
 	int GetScrollWheelDelta();
 
 	Vector2f GetMousePosition();
 	Vector2f GetPreviousMousePosition();
 	Vector2f GetMousePositionDelta();
-
-	// todo: make 'Input' use IEngine::GetModule<IInputModule> instead?
-	void RegisterInputModule(IInputModule* inputModule);
-	void UnregisterInputModule();
 }

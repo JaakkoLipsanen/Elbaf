@@ -18,6 +18,7 @@ public:
 		this->SetData(Vertex::GetVertexDeclaration(), static_cast<const void*>(vertexData), vertexCount, sizeof(Vertex));
 	}
 
+	virtual BufferType GetBufferType() const = 0;
 	virtual int GetVertexCount() const = 0;
 	virtual void Bind() = 0;
 	virtual ~IVertexBuffer() { }

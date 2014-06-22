@@ -2,6 +2,7 @@
 #include <Graphics\VertexElement.h>
 #include <vector>
 
+// meh move to .cpp?
 class VertexDeclaration
 {
 public:

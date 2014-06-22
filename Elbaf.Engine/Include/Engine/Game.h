@@ -1,7 +1,7 @@
 #pragma once
 #include <memory>
 #include <Core\Event.h>
-#include <Core\Engine.h>
+#include <Core\IEngine.h>
 
 class Scene { };
 class IGameWindow;
@@ -29,14 +29,13 @@ protected:
 	virtual void PostUpdate() { }
 	virtual void PreRender() { }
 	virtual void PostRender() { }
-
 	virtual void OnExiting() { }
+
 	virtual std::unique_ptr<Scene> CreateDefaultScene() = 0;
 	virtual void SetupWindow(WindowDescription& description) { } // should this be forced to be implemented (pure virtual)?
-	virtual IModule* GetModuleInner(const type_info& typeInfo) const override;
+	virtual IModule& GetModuleInner(const type_info& typeInfo) const override;
 
 private:
-	struct GameImpl;
-	std::unique_ptr<GameImpl> _pImpl;
+	class Impl;
+	std::unique_ptr<Impl> _pImpl;
 };
-

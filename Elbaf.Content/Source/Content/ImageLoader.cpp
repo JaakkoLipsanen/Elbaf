@@ -11,7 +11,7 @@ std::unique_ptr<Image> Content::LoadImage(std::string const& filePath)
 	{
 		Logger::LogError("Error loading texture (" + filePath + "): Could not load the texture");
 		free(data); // free the data, in case anything was allocated into it (lets hope that it wasn't already freed :P )
-		return std::unique_ptr<Image>(nullptr); // TextureData(nullptr, -1, -1, static_cast<TextureFormat>(-1));
+		return std::unique_ptr<Image>(nullptr);
 	}
 
 	return std::unique_ptr<Image>(new Image(data, width, height, textureFormat));

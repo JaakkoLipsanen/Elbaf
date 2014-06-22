@@ -2,6 +2,7 @@
 #include <Math\Vector.h>
 #include "MouseButton.h"
 
+// cpp?
 struct MouseState
 {
 	bool IsButtonPressed(MouseButton mouseButton) const

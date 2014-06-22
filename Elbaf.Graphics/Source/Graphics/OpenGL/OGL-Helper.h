@@ -1,5 +1,5 @@
 #pragma once
-#include "OGL.h"
+#include <Graphics\OpenGL\OGL.h>
 
 enum class ClearOptions;
 enum class CompareFunction;

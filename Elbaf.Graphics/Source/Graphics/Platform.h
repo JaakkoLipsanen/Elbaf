@@ -1,8 +1,7 @@
 #pragma once
-#include <memory>
-#include <Graphics\RendererAPI.h>
 
 class IVertexBuffer;
+enum class RendererAPI;
 namespace Platform
 {
 	namespace Graphics

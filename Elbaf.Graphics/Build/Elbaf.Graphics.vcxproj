@@ -137,7 +137,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\Source\Graphics\GraphicsModule.cpp" />
-    <ClCompile Include="..\Source\Graphics\IShader.cpp" />
     <ClCompile Include="..\Source\Graphics\ITexture.cpp" />
     <ClCompile Include="..\Source\Graphics\IVertexBuffer.cpp" />
     <ClCompile Include="..\Source\Graphics\OpenGL\GameWindow.cpp" />
@@ -147,6 +146,7 @@
     <ClCompile Include="..\Source\Graphics\OpenGL\OGL-ShaderLoader.cpp" />
     <ClCompile Include="..\Source\Graphics\OpenGL\Shader.cpp" />
     <ClCompile Include="..\Source\Graphics\OpenGL\Texture2D.cpp" />
+    <ClCompile Include="..\Source\Graphics\OpenGL\VertexBuffer.cpp" />
     <ClCompile Include="..\Source\Graphics\Platform.cpp" />
     <ClCompile Include="..\Source\Graphics\Image.cpp" />
     <ClCompile Include="..\Source\Graphics\VertexFormats.cpp" />

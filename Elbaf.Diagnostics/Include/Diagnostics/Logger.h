@@ -2,9 +2,7 @@
 #include <iostream>
 #include "LogStream.h"
 
-
-class LogStream;
-// todo: this should be made into a singleton (which, however, still has static public API :P)
+// todo: this should be made into a singleton maybe? that way destructor would be called on exit (singleton which, however, still has static public API :P)
 namespace Logger
 {
 	template<typename T>

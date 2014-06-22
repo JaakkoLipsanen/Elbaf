@@ -1,17 +1,17 @@
 #include <Engine\Screen.h>
-#include <Graphics\IGraphicsContext.h>
-#include <Core\IGameWindow.h>
-#include <Core\Engine.h>
-#include <Graphics\GraphicsModule.h>
 
-static IGraphicsContext* GetGameWindow()
+#include <Graphics\IGraphicsContext.h>
+#include <Graphics\GraphicsModule.h>
+#include <Core\IEngine.h>
+
+static IGraphicsContext& GetGraphicsContext()
 {
-	return IEngine::GetInstance().GetModule<GraphicsModule>()->GetGraphicsDevice();
+	return IEngine::GetInstance().GetModule<GraphicsModule>().GetGraphicsDevice();
 }
 
 Size Screen::GetSize()
 {
-	return GetGameWindow()->GetResolution();
+	return GetGraphicsContext().GetResolution();
 }
 
 int Screen::GetWidth()

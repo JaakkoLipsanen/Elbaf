@@ -1,4 +1,5 @@
 #include <Core\Color.h>
+
 #include <Math\FlaiMath.h>
 #include <Math\Vector.h>
 
@@ -15,9 +16,17 @@ Color::Color(uint32 packedValue)
 	this->A = packedValue % 256; /* dwColor /= 256; */
 }
 
+Color::Color(uint8 r, uint8 g, uint8 b, uint8 a) : R(r), G(g), B(b), A(a)
+{
+}
 
 Color::Color(uint8 r, uint8 g, uint8 b) : R(r), G(g), B(b), A(255)
 {
+}
+
+Color Color::operator*(float multiplier) const
+{
+	return Color(this->R, this->G, this->B, ClampToByte(this->A * multiplier));
 }
 
 Vector3f Color::ToVector3f() const
@@ -28,15 +37,6 @@ Vector3f Color::ToVector3f() const
 Vector4f Color::ToVector4f() const
 {
 	return Vector4f(this->R / 255.0f, this->G / 255.0f, this->B / 255.0f, this->A / 255.0f);
-}
-
-Color::Color(uint8 r, uint8 g, uint8 b, uint8 a) : R(r), G(g), B(b), A(a)
-{
-}
-
-Color Color::operator*(float multiplier) const
-{
-	return Color(this->R, this->G, this->B, ClampToByte(this->A * multiplier));
 }
 
 Color Color::Lerp(const Color& from, const Color& to, float amount)

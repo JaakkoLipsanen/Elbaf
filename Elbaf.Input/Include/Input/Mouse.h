@@ -1,7 +1,7 @@
 #pragma once
-#include <Core\CursorVisibility.h>
 #include <Math\Vector.h>
 
+enum class CursorVisibility;
 namespace Mouse
 {
 	void SetCursorVisibility(CursorVisibility cursorType);

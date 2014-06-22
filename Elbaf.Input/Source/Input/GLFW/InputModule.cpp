@@ -4,10 +4,12 @@
 #include <GLFW\glfw3.h>
 #include <algorithm>
 #include <Input\KeyboardState.h>
+#include <Input\MouseState.h>
 #include <Diagnostics\Logger.h>
 #include <Core\Array.h>
-#include <Core\Engine.h>
+#include <Core\IEngine.h>
 #include <Core\IGameWindow.h>
+#include <Math\Vector.h>
 
 static int KeyCodeToGLFWKey(KeyCode keyCode)
 {

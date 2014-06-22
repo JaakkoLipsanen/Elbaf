@@ -123,7 +123,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\Source\Core\Color.cpp" />
-    <ClCompile Include="..\Source\Core\Engine.cpp" />
+    <ClCompile Include="..\Source\Core\IEngine.cpp" />
     <ClCompile Include="..\Source\Core\File.cpp" />
     <ClCompile Include="..\Source\Core\IModule.cpp" />
     <ClCompile Include="..\Source\Core\Random.cpp" />
@@ -132,7 +132,7 @@
     <ClInclude Include="..\Include\Core\Array.h" />
     <ClInclude Include="..\Include\Core\Color.h" />
     <ClInclude Include="..\Include\Core\CursorVisibility.h" />
-    <ClInclude Include="..\Include\Core\Engine.h" />
+    <ClInclude Include="..\Include\Core\IEngine.h" />
     <ClInclude Include="..\Include\Core\Event.h" />
     <ClInclude Include="..\Include\Core\File.h" />
     <ClInclude Include="..\Include\Core\Global.h" />

@@ -9,7 +9,7 @@ struct Color
 	uint8 B;
 	uint8 A;
 
-	Color(uint32 packedValue);
+	explicit Color(uint32 packedValue);
 	Color(uint8 r, uint8 g, uint8 b);
 	Color(uint8 r, uint8 g, uint8 b, uint8 a);
 	Color operator *(float multiplier) const;

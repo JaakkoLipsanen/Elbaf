@@ -2,11 +2,11 @@
 #include <Core\IModule.h>
 #include <memory>
 
-// for fucks sake. cant name this "TimeModule" because then I can't have a field named "TimeModule" in the Game.cpp. for fucks sake. I could make ITimeModule and just make this inherit from it but... fuck...
 class TimeModule final : public IModule
 {
 public:
 	explicit TimeModule(IEngine& engine);
+	virtual ~TimeModule() = default;
 
 	float GetDeltaTime() const;
 	float GetTotalTime() const;

@@ -1,9 +1,11 @@
 #include <Engine\Time.h>
+
 #include <Engine\TimeModule.h>
+#include <Core\IEngine.h>
 
 static TimeModule& GetTimeModule()
 {
-	return *IEngine::GetInstance().GetModule<TimeModule>();
+	return IEngine::GetInstance().GetModule<TimeModule>();
 }
 
 float Time::GetDeltaTime()

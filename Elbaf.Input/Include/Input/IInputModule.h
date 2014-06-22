@@ -1,11 +1,9 @@
 #pragma once
-#include <Core\IModule.h>
 #include <memory>
-#include <Input\MouseState.h>
+#include <Core\IModule.h>
 
-class type_info;
-class IInputSystem;
 struct KeyboardState;
+struct MouseState;
 
 class IInputModule : public IModule
 {

@@ -1,22 +1,21 @@
 #include <Engine\Game.h>
+
 #include <Diagnostics\Logger.h>
 #include <Diagnostics\Ensure.h>
 #include <Core\IGameWindow.h>
-#include <Graphics\IGraphicsContext.h>
-#include <Input\IInputModule.h>
-#include <Input\KeyCode.h>
 #include <Engine\Platform.h>
+#include <Engine\TimeModule.h>
+#include <Graphics\GraphicsModule.h>
+#include <Core\WindowDescription.h>
 
 // very temporary!!
 #include "..\..\..\Elbaf.Graphics\Source\Graphics\Platform.h"
 #include "..\..\..\Elbaf.Input\Source\Input\Platform.h"
-#include <Core\WindowDescription.h>
-#include <Graphics\GraphicsModule.h>
 
-struct Game::GameImpl
+class Game::Impl
 {
-	typedef GraphicsModule GfxModule;
-	GameImpl(Game& game) : _game(game), GraphicsModule(nullptr), InputModule(nullptr)
+public:
+	Impl(Game& game) : _game(game), GraphicsModule(nullptr), InputModule(nullptr)
 	{
 	}
 
@@ -37,7 +36,7 @@ struct Game::GameImpl
 
 		// run!
 		Logger::LogMessage("Running Game..");
-		while (!this->GraphicsModule->GetGameWindow()->IsExiting() || this->IsExiting)
+		while (!this->GraphicsModule->GetGameWindow().IsExiting() || this->IsExiting)
 		{
 			// todo: fps limiting or something? i mean 60fps lock etc. and fixedupdate?
 			this->Tick();
@@ -57,14 +56,12 @@ private:
 	{
 		WindowDescription description({ 1280, 720 }, "Game", false);
 		_game.SetupWindow(description);
-
-		this->GraphicsModule.reset(new GfxModule(_game, description));
-		this->GraphicsModule->Initialize();
-
+		this->GraphicsModule.reset(new ::GraphicsModule(_game, description));
 		this->InputModule = Platform::Input::CreateDefaultInputModule(_game);
-		this->InputModule->Initialize();
+		this->TimeModule.reset(new ::TimeModule(_game)); // = Platform::Engine::CreateTimeModule(_game);
 
-		this->TimeModule = Platform::Engine::CreateTimeModule(_game);
+		this->GraphicsModule->Initialize();
+		this->InputModule->Initialize();
 		this->TimeModule->Initialize();
 	}
 
@@ -99,7 +96,7 @@ private:
 	}
 };
 
-Game::Game() : _pImpl(new Game::GameImpl(*this)) { }
+Game::Game() : _pImpl(new Game::Impl(*this)) { }
 Game::~Game() = default;
 
 void Game::Run()
@@ -114,28 +111,28 @@ void Game::Exit()
 
 IGameWindow& Game::GetWindow() const
 {
-	return *_pImpl->GraphicsModule->GetGameWindow();
+	return _pImpl->GraphicsModule->GetGameWindow();
 }
 
 IGraphicsContext& Game::GetGraphicsContext() const
 {
-	return *_pImpl->GraphicsModule->GetGraphicsDevice();
+	return _pImpl->GraphicsModule->GetGraphicsDevice();
 }
 
 // TODO: instead of this, implementing only specific template stuff's could be better (though not sure if possible, since virtual etc)
-IModule* Game::GetModuleInner(const type_info& typeInfo) const
+IModule& Game::GetModuleInner(const type_info& typeInfo) const
 {
 	if (typeInfo == typeid(GraphicsModule))
 	{
-		return _pImpl->GraphicsModule.get();
+		return *(_pImpl->GraphicsModule.get());
 	}
 	else if (typeInfo == typeid(IInputModule))
 	{
-		return _pImpl->InputModule.get();
+		return *(_pImpl->InputModule.get());
 	}
 	else if (typeInfo == typeid(TimeModule))
 	{
-		return _pImpl->TimeModule.get();
+		return *(_pImpl->TimeModule.get());
 	}
 
 	throw std::logic_error("Not implemented yet/invalid type");

@@ -1,28 +1,22 @@
-#include <iostream>
-
-#include "DefaultCamera.h"
 #include <Engine\Game.h>
 #include <Diagnostics\Logger.h>
 #include <Engine\Screen.h>
 #include <Input\Mouse.h>
-#include <Graphics\IGraphicsContext.h>
 #include <Graphics\VertexFormats.h>
-#include <Graphics\IVertexBuffer.h>
-#include <Graphics\IShader.h>
-#include <Engine\Time.h>
-#include <Input\Input.h>
-#include <Graphics\OpenGL\OGL.h>
-#include <Core\Random.h>
-#include <algorithm>
+#include <Core\CursorVisibility.h>
 #include <Core\Global.h>
-#include "ImageLoader.h"
-#include <Graphics\ITexture.h>
+#include <Graphics\IVertexBuffer.h>
 #include <Core\Array.h>
 #include <Graphics\ShaderSource.h>
 #include <Content\ImageLoader.h>
-#include <array>
-#include <Core\CursorVisibility.h>
-#include <Core\WindowDescription.h>
+#include "DefaultCamera.h"
+#include <Input\MouseButton.h>
+#include <Graphics\OpenGL\OGL.h>
+#include <Input\Input.h>
+#include <Engine\Time.h>
+#include <Graphics\IShader.h>
+#include <Graphics\ITexture.h>
+#include <Graphics\IGraphicsContext.h>
 
 class MyGame : public Game
 {

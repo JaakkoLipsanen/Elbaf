@@ -1,33 +1,13 @@
 #include <Graphics\GraphicsModule.h>
-#include <Graphics\OpenGL\GraphicsContext.h>
-#include <Diagnostics\Logger.h>
-#include <Core\IGameWindow.h>
-#include <Math\Size.h>
-#include <Graphics\OpenGL\GameWindow.h>
-#include <Diagnostics\Ensure.h>
+
 #include <Graphics\CompareFunction.h>
-#include <vector>
-#include <Core\Event.h>
 #include <Graphics\IGraphicsContext.h>
-#include <Graphics\OpenGL\GraphicsDevice.h>
-#include <Core\WindowDescription.h>
+#include <Graphics\IGraphicsDevice.h>
 
-
-/*
-
-this->Device->SetDepthTestEnabled(true);
-this->Device->SetDepthFunction(CompareFunction::Less);
-this->Device->SetCullingEnabled(true);
-this->Device->SetCullFace(CullFace::Back);
-this->Device->SetCullMode(CullMode::CounterClockwise);
-
-
-*/
-	
-
+static IGraphicsDevice* CreateGraphicsDevice();
 GraphicsModule::GraphicsModule(IEngine& engine, const WindowDescription& windowDescription) : IModule(engine)
 {
-	_graphicsDevice = std::unique_ptr<OGL::GraphicsDevice>(new OGL::GraphicsDevice);
+	_graphicsDevice = std::unique_ptr<IGraphicsDevice>(CreateGraphicsDevice());
 	_graphicsDevice->OpenWindow(windowDescription);
 }
 GraphicsModule::~GraphicsModule() = default;
@@ -47,9 +27,9 @@ void GraphicsModule::Terminate()
 	_graphicsDevice->Terminate();
 }
 
-IGameWindow* GraphicsModule::GetGameWindow() const
+IGameWindow& GraphicsModule::GetGameWindow() const
 {
-	return &_graphicsDevice->GetGameWindow();
+	return _graphicsDevice->GetGameWindow();
 }
 
 void GraphicsModule::EndFrame()
@@ -57,16 +37,16 @@ void GraphicsModule::EndFrame()
 	_graphicsDevice->EndFrame();
 }
 
-IGraphicsContext* GraphicsModule::GetGraphicsDevice() const
+
+IGraphicsContext& GraphicsModule::GetGraphicsDevice() const
 {
-	return &_graphicsDevice->GetContext();
+	return _graphicsDevice->GetContext();
 }
 
-/*
-
-- GraphicsModule
-	- GraphicsDevice
-		- GraphicsContext
-
-
-*/
+#if OPENGL
+#include <Graphics\OpenGL\GraphicsDevice.h>
+static IGraphicsDevice* CreateGraphicsDevice()
+{
+	return new OGL::GraphicsDevice;
+}
+#endif

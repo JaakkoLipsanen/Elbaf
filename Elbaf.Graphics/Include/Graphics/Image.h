@@ -1,7 +1,7 @@
 #pragma once
 
 enum class TextureFormat; // ImageFormat?
-struct Image // I really should probably address some things here, like compression..?
+struct Image // I should probably address some things here, like compression or something...? i dont know :( !!
 {
 	const void* ImageData;
 	const int Width;

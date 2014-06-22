@@ -4,7 +4,7 @@ enum class PrimitiveType
 {
 	TriangleList,
 	TriangleStrip,
-	// TriangleFan, // dont use, not supported in modern D3D and suppousedly slow 
+	// TriangleFan, // dont use, not supported in modern D3D and suppousedly slow. should be easy to simulate using TriangleStrip
 
 	LineList,
 	LineStrip,

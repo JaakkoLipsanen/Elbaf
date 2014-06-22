@@ -1,5 +1,5 @@
 #pragma once
-#include "Logger.h"
+#include <Diagnostics\Logger.h>
 
 enum class LogType
 {
@@ -10,6 +10,9 @@ enum class LogType
 class LogStream
 {
 public:
+	LogStream(LogType logType) : _logType(logType) { }
+	virtual ~LogStream() = default;
+
 	template<typename T>
 	LogStream& operator<<(const T& value)
 	{
@@ -25,7 +28,6 @@ public:
 		return *this;
 	}
 
-	LogStream(LogType logType) : _logType(logType) { }
 private:
 	LogType _logType;
 };

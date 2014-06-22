@@ -79,7 +79,7 @@ public:
 	}
 
 protected:
-	// todo: implement a lot more! At least Vector2f, Vector3f, Vector4f, int
+	// implement more
 	virtual float GetFloat(const std::string& valueName) const = 0;
 	virtual int GetInt(const std::string& valueName) const = 0;
 	virtual Vector2f GetVector2f(const std::string& valueName) const = 0;

@@ -1,21 +1,22 @@
-#include "Texture2D.h"
+#include <Graphics\OpenGL\Texture2D.h>
+
 #include <Graphics\OpenGL\OGL.h>
+#include <Graphics\OpenGL\OGL-Helper.h>
 #include <Graphics\TextureFormat.h>
 #include <Graphics\Image.h>
-#include <Graphics\OpenGL\OGL-Helper.h>
 
-struct OGL::Texture2D::PImpl
+class OGL::Texture2D::Impl
 {
+public:
 	GLuint TextureID;
 	int Width;
 	int Height;
 
-	PImpl(GLuint textureID, int width, int height) : TextureID(textureID), Width(width), Height(height) { }
+	Impl(GLuint textureID, int width, int height) : TextureID(textureID), Width(width), Height(height) { }
 };
 
 std::unique_ptr<OGL::Texture2D> OGL::Texture2D::Load(std::unique_ptr<Image> textureData)
 {
-//	PImpl* pImpl = new PImpl()
 	GLuint format = OGL::TextureFormatToGLenum(textureData->Format);
 
 	// Generate the OpenGL texture object
@@ -26,7 +27,7 @@ std::unique_ptr<OGL::Texture2D> OGL::Texture2D::Load(std::unique_ptr<Image> text
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
-	return std::unique_ptr<OGL::Texture2D>(new Texture2D(new PImpl(texture, textureData->Width, textureData->Height)));
+	return std::unique_ptr<OGL::Texture2D>(new Texture2D(new Impl(texture, textureData->Width, textureData->Height)));
 }
 
 int OGL::Texture2D::GetWidth() const
@@ -50,9 +51,5 @@ void OGL::Texture2D::BindToSampler(unsigned samplerIndex)
 	this->Bind();
 }
 
-OGL::Texture2D::Texture2D(PImpl* pImpl) : _pImpl(pImpl)
-{
-}
-
-// required for PImpl
-OGL::Texture2D::~Texture2D() { }
+OGL::Texture2D::Texture2D(Impl* pImpl) : _pImpl(pImpl) { }
+OGL::Texture2D::~Texture2D() = default; // required for PImpl

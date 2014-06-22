@@ -16,8 +16,8 @@ namespace OGL
 		virtual ~Texture2D() override;
 
 	private:
-		struct PImpl;
-		std::unique_ptr<PImpl> _pImpl;
-		Texture2D(PImpl* pImpl);
+		class Impl;
+		std::unique_ptr<Impl> _pImpl;
+		explicit Texture2D(Impl* pImpl);
 	};
 }

@@ -1,9 +1,10 @@
 #pragma once
 #include "DefaultCamera.h"
+
 #include <Engine\Screen.h>
+#include <Input\KeyCode.h>
 #include <Input\Input.h>
 #include <Engine\Time.h>
-#include <Diagnostics\Logger.h>
 #include <Math\FlaiMath.h>
 
 // from OGL tutorial mostly

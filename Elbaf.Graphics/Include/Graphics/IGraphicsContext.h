@@ -1,6 +1,7 @@
 #pragma once
 #include <memory>
 
+// move to own headers
 enum class CullMode
 {
 	CounterClockwise,
@@ -65,6 +66,5 @@ public:
 	// CREATE
 	virtual std::unique_ptr<ITexture2D> CreateTexture2D(std::unique_ptr<Image> textureData) = 0;
 	virtual std::unique_ptr<IVertexBuffer> CreateVertexBuffer(BufferType bufferType) = 0;
-	//virtual std::unique_ptr<IShader> CreateShader(std::unique_ptr<ShaderSource> shaderData) = 0;
 	virtual std::unique_ptr<IShader> CreateShader(const ShaderSource& shaderData) = 0;
 };

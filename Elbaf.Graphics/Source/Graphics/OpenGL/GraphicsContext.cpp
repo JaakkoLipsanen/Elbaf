@@ -1,19 +1,19 @@
 #include <Graphics\OpenGL\GraphicsContext.h>
-#include <Math\Size.h>
 
-#include "OGL.h"
-#include <Graphics\ClearOptions.h>
+#include <Math\Size.h>
 #include <Math\FlaiMath.h>
 #include <Core\Color.h>
+
+#include <Graphics\Image.h>
+#include <Graphics\ClearOptions.h>
+#include <Graphics\ITexture.h>
+
 #include <Graphics\OpenGL\OGL-Helper.h>
+#include <Graphics\OpenGL\OGL.h>
+#include <Graphics\OpenGL\GameWindow.h>
 #include <Graphics\OpenGL\Texture2D.h>
 #include <Graphics\OpenGL\VertexBuffer.h>
 #include <Graphics\OpenGL\Shader.h>
-#include <Graphics\Image.h>
-#include <Graphics\OpenGL\Texture2D.h>
-#include <Graphics\ShaderSource.h>
-#include <Graphics\OpenGL\OGL.h>
-#include <Graphics\OpenGL\GameWindow.h>
 
 OGL::GraphicsContext::GraphicsContext(GameWindow& window) : _window(window)
 {
@@ -21,6 +21,14 @@ OGL::GraphicsContext::GraphicsContext(GameWindow& window) : _window(window)
 
 OGL::GraphicsContext::~GraphicsContext()
 {
+}
+
+/* resolution */
+Size OGL::GraphicsContext::GetResolution() const
+{
+	int width, height;
+	glfwGetFramebufferSize(_window.GetGLFWwindow(), &width, &height);
+	return Size(width, height);
 }
 
 void OGL::GraphicsContext::ChangeResolution(Size const& newSize)
@@ -31,12 +39,7 @@ void OGL::GraphicsContext::ChangeResolution(Size const& newSize)
 	this->ResetViewport(); // glViewport(0, 0, newSize.Width, newSize.Height);  would be a bit faster but meh
 }
 
-void OGL::GraphicsContext::ResetViewport() const
-{
-	auto size = this->GetResolution();
-	glViewport(0, 0, size.Width, size.Height); // update the viewport
-}
-
+/* depth */
 bool OGL::GraphicsContext::IsDepthTestEnabled() const
 {
 	return _isDepthTestEnabled;
@@ -53,6 +56,23 @@ void OGL::GraphicsContext::SetDepthTestEnabled(bool isEnabled)
 	glEnableOrDisable(GL_DEPTH_TEST, _isDepthTestEnabled);
 }
 
+CompareFunction OGL::GraphicsContext::GetDepthFunction() const
+{
+	return _depthCompareFunction;
+}
+
+void OGL::GraphicsContext::SetDepthFunction(CompareFunction compareFunction)
+{
+	if (_depthCompareFunction == compareFunction)
+	{
+		return;
+	}
+
+	_depthCompareFunction = compareFunction;
+	glDepthFunc(OGL::CompareFunctionToGLenum(compareFunction));
+}
+
+/* cull */
 CullMode OGL::GraphicsContext::GetCullMode() const
 {
 	return _cullMode;
@@ -95,29 +115,7 @@ void OGL::GraphicsContext::SetCullingEnabled(bool enabled)
 	}
 }
 
-CompareFunction OGL::GraphicsContext::GetDepthFunction() const
-{
-	return _depthCompareFunction;
-}
-
-Size OGL::GraphicsContext::GetResolution() const
-{
-	int width, height;
-	glfwGetFramebufferSize(_window.GetGLFWwindow(), &width, &height);
-	return Size(width, height);
-}
-
-void OGL::GraphicsContext::SetDepthFunction(CompareFunction compareFunction)
-{
-	if (_depthCompareFunction == compareFunction)
-	{
-		return;
-	}
-
-	_depthCompareFunction = compareFunction;
-	glDepthFunc(OGL::CompareFunctionToGLenum(compareFunction));
-}
-
+/* clear */
 void OGL::GraphicsContext::Clear(Color const& color)
 {
 	static const float DefaultDepthValue = 1.0f;
@@ -135,15 +133,21 @@ void OGL::GraphicsContext::Clear(ClearOptions const& clearOptions, Color const& 
 	glClear(OGL::GetClearMask(clearOptions));
 }
 
+/* misc */
+void OGL::GraphicsContext::ResetViewport() const
+{
+	auto size = this->GetResolution();
+	glViewport(0, 0, size.Width, size.Height); // update the viewport
+}
+
+
+/* draw */
 void OGL::GraphicsContext::DrawPrimitives(PrimitiveType primitiveType, int firstIndex, int count)
 {
 	glDrawArrays(OGL::PrimitiveTypeToGLenum(primitiveType), firstIndex, count);
 }
 
-#include <Graphics\ITexture.h>
-#include <Graphics\OpenGL\Texture2D.h>
-#include <Graphics\OpenGL\OGL.h>
-
+/* create */
 std::unique_ptr<ITexture2D> OGL::GraphicsContext::CreateTexture2D(std::unique_ptr<Image> textureData)
 {
 	return Texture2D::Load(std::move(textureData));
@@ -151,7 +155,7 @@ std::unique_ptr<ITexture2D> OGL::GraphicsContext::CreateTexture2D(std::unique_pt
 
 std::unique_ptr<IVertexBuffer> OGL::GraphicsContext::CreateVertexBuffer(BufferType bufferType)
 {
-	return VertexBuffer::CreateVertexBuffer();
+	return VertexBuffer::CreateVertexBuffer(bufferType);
 }
 
 std::unique_ptr<IShader> OGL::GraphicsContext::CreateShader(const ShaderSource& shaderSource)
