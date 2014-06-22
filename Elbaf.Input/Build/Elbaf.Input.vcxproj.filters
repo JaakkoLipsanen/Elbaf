@@ -20,12 +20,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Source\Input\GLFW\InputModule.h">
-      <Filter>Private Header Files\GLFW</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Source\Input\Platform.h">
-      <Filter>Private Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\Include\Input\KeyboardState.h">
       <Filter>Public Header Files</Filter>
     </ClInclude>
@@ -44,9 +38,6 @@
     <ClInclude Include="..\Include\Input\CursorVisibility.h">
       <Filter>Public Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\Include\Input\IInputModule.h">
-      <Filter>Public Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\Include\Input\Input.h">
       <Filter>Public Header Files</Filter>
     </ClInclude>
@@ -56,17 +47,11 @@
     <ClInclude Include="..\Source\Input\GLFW\InputProvider.h">
       <Filter>Private Header Files\GLFW</Filter>
     </ClInclude>
+    <ClInclude Include="..\Include\Input\InputModule.h">
+      <Filter>Public Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\Source\Input\GLFW\InputModule.cpp">
-      <Filter>Source Files\GLFW</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Source\Input\IInputModule.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Source\Input\Platform.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\Source\Input\Input.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -75,6 +60,9 @@
     </ClCompile>
     <ClCompile Include="..\Source\Input\GLFW\InputProvider.cpp">
       <Filter>Source Files\GLFW</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Input\InputModule.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

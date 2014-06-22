@@ -15,6 +15,7 @@
 static int KeyCodeToGLFWKey(KeyCode keyCode);
 static void OnScrollWheelCallback(GLFWwindow* window, double xOffset, double yOffset);
 static int GetScrollWheelValue();
+
 class GLFW::InputProvider::Impl
 {
 public:
@@ -105,6 +106,7 @@ void GLFW::InputProvider::Terminate()
 	glfwSetScrollCallback(_pImpl->GlfwWindow, nullptr);
 }
 
+/* getters */
 KeyboardState const& GLFW::InputProvider::GetKeyboardState() const
 {
 	return *(_pImpl->CurrentKeyboardState.get());

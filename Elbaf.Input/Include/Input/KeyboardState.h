@@ -1,6 +1,5 @@
 #pragma once
 #include "KeyCode.h"
-#include <Input\IInputModule.h>
 
 // cpp?
 struct KeyboardState

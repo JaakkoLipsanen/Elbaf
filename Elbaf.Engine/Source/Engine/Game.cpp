@@ -7,10 +7,10 @@
 #include <Engine\TimeModule.h>
 #include <Graphics\GraphicsModule.h>
 #include <Core\WindowDescription.h>
+#include <Input\InputModule.h>
 
 // very temporary!!
 #include "..\..\..\Elbaf.Graphics\Source\Graphics\Platform.h"
-#include "..\..\..\Elbaf.Input\Source\Input\Platform.h"
 
 class Game::Impl
 {
@@ -22,7 +22,7 @@ public:
 	bool IsRunning = false;
 	bool IsExiting = false;
 	std::unique_ptr<GraphicsModule> GraphicsModule;
-	std::unique_ptr<IInputModule> InputModule;
+	std::unique_ptr<InputModule> InputModule;
 	std::unique_ptr<TimeModule> TimeModule;
 
 	void Run()
@@ -57,7 +57,7 @@ private:
 		WindowDescription description({ 1280, 720 }, "Game", false);
 		_game.SetupWindow(description);
 		this->GraphicsModule.reset(new ::GraphicsModule(_game, description));
-		this->InputModule = Platform::Input::CreateDefaultInputModule(_game);
+		this->InputModule.reset(new ::InputModule(_game));
 		this->TimeModule.reset(new ::TimeModule(_game)); // = Platform::Engine::CreateTimeModule(_game);
 
 		this->GraphicsModule->Initialize();
@@ -126,7 +126,7 @@ IModule& Game::GetModuleInner(const type_info& typeInfo) const
 	{
 		return *(_pImpl->GraphicsModule.get());
 	}
-	else if (typeInfo == typeid(IInputModule))
+	else if (typeInfo == typeid(InputModule))
 	{
 		return *(_pImpl->InputModule.get());
 	}
