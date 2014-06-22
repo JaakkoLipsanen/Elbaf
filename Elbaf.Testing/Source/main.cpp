@@ -155,7 +155,7 @@ public:
 		_camera->Update();
 		_shader->SetParameter("MVP", _camera->GetProjection() * _camera->GetView());
 
-		if (Input::IsMouseButtonPressed(MouseButton::Right))
+		if (Input::IsNewMouseButtonPress(MouseButton::Right))
 		{
 			static const VertexPosition vertexData[] = {
 				VertexPosition({ 0.5f, -0.5f, 0 }),

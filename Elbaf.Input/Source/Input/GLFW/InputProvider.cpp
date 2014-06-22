@@ -22,14 +22,13 @@ public:
 	GLFWwindow* GlfwWindow;
 
 	// TODO: These doesn't have to be pointers necessary. look into std::swap
-	std::unique_ptr<KeyboardState> CurrentKeyboardState;
-	std::unique_ptr<KeyboardState> PreviousKeyboardState;
+	KeyboardState CurrentKeyboardState;
+	KeyboardState PreviousKeyboardState;
 
-	std::unique_ptr<MouseState> CurrentMouseState;
-	std::unique_ptr<MouseState> PreviousMouseState;
+	MouseState CurrentMouseState;
+	MouseState PreviousMouseState;
 
-	Impl() : 
-		CurrentKeyboardState(new KeyboardState), PreviousKeyboardState(new KeyboardState), CurrentMouseState(new MouseState), PreviousMouseState(new MouseState)
+	Impl()
 	{
 		this->ResetStates();
 
@@ -37,13 +36,13 @@ public:
 		glfwSetScrollCallback(this->GlfwWindow, OnScrollWheelCallback);
 
 		// enable sticky keys. sticky keys means, that key press will be registered even if key has been pressed & released between frames. todo: make this into options?
-		glfwSetInputMode(this->GlfwWindow, GLFW_STICKY_KEYS, GL_TRUE);
+		glfwSetInputMode(this->GlfwWindow, GLFW_STICKY_KEYS, GL_TRUE); // these maybe should be in public API and setted by InputModule?
 		glfwSetInputMode(this->GlfwWindow, GLFW_STICKY_MOUSE_BUTTONS, GL_TRUE); // same for mouse buttons
 	}
 
 	void GLFWScrollWheelCallback(GLFWwindow* window, double xOffset, double yOffset)
 	{
-		this->CurrentMouseState->ScrollWheelDelta = static_cast<int>(yOffset);
+		this->CurrentMouseState.ScrollWheelDelta = static_cast<int>(yOffset);
 	}
 
 	void UpdateState()
@@ -52,17 +51,17 @@ public:
 
 		double x, y;
 		glfwGetCursorPos(this->GlfwWindow, &x, &y);
-		this->CurrentMouseState->MousePosition = Vector2f(x, y);
-		this->CurrentMouseState->ScrollWheelDelta = GetScrollWheelValue();
+		this->CurrentMouseState.MousePosition = Vector2f(x, y);
+		this->CurrentMouseState.ScrollWheelDelta = GetScrollWheelValue();
 		for (int i = 0; i < MouseState::ButtonCount; i++)
 		{
-			this->CurrentMouseState->SetValue(i, glfwGetMouseButton(this->GlfwWindow, i) == GLFW_PRESS);
+			this->CurrentMouseState.SetValue(i, glfwGetMouseButton(this->GlfwWindow, i) == GLFW_PRESS);
 		}
 
 		std::swap(this->PreviousKeyboardState, this->CurrentKeyboardState);
 		for (int i = 0; i < KeyboardState::KeyCount; i++)
 		{
-			this->CurrentKeyboardState->SetValue(i, glfwGetKey(this->GlfwWindow, KeyCodeToGLFWKey(static_cast<KeyCode>(i))) == GLFW_PRESS);
+			this->CurrentKeyboardState.SetValue(i, glfwGetKey(this->GlfwWindow, KeyCodeToGLFWKey(static_cast<KeyCode>(i))) == GLFW_PRESS);
 		}
 	}
 
@@ -71,21 +70,21 @@ private:
 	{
 		for (int i = 0; i < KeyboardState::KeyCount; i++)
 		{
-			this->PreviousKeyboardState->SetValue(i, false);
-			this->CurrentKeyboardState->SetValue(i, false);
+			this->PreviousKeyboardState.SetValue(i, false);
+			this->CurrentKeyboardState.SetValue(i, false);
 		}
 
 		for (int i = 0; i < MouseState::ButtonCount; i++)
 		{
-			this->CurrentMouseState->SetValue(i, false);
-			this->PreviousMouseState->SetValue(i, false);
+			this->CurrentMouseState.SetValue(i, false);
+			this->PreviousMouseState.SetValue(i, false);
 		}
 
-		this->CurrentMouseState->ScrollWheelDelta = 0;
-		this->CurrentMouseState->MousePosition = Vector2f(0, 0);
+		this->CurrentMouseState.ScrollWheelDelta = 0;
+		this->CurrentMouseState.MousePosition = Vector2f(0, 0);
 
-		this->PreviousMouseState->ScrollWheelDelta = 0;
-		this->PreviousMouseState->MousePosition = Vector2f(0, 0);
+		this->PreviousMouseState.ScrollWheelDelta = 0;
+		this->PreviousMouseState.MousePosition = Vector2f(0, 0);
 	}
 };
 
@@ -109,22 +108,22 @@ void GLFW::InputProvider::Terminate()
 /* getters */
 KeyboardState const& GLFW::InputProvider::GetKeyboardState() const
 {
-	return *(_pImpl->CurrentKeyboardState.get());
+	return _pImpl->CurrentKeyboardState;
 }
 
 KeyboardState const& GLFW::InputProvider::GetPreviousKeyboardState() const
 {
-	return *(_pImpl->PreviousKeyboardState.get());
+	return _pImpl->PreviousKeyboardState;
 }
 
 MouseState const& GLFW::InputProvider::GetMouseState() const
 {
-	return *(_pImpl->CurrentMouseState.get());
+	return _pImpl->CurrentMouseState;
 }
 
 MouseState const& GLFW::InputProvider::GetPreviousMouseState() const
 {
-	return *(_pImpl->PreviousMouseState.get());
+	return _pImpl->PreviousMouseState;
 }
 
 /* static stuff ( :((( ) */
