@@ -24,7 +24,6 @@ namespace OGL
 		virtual void SetAlphaBlendFunction(BlendFunction function) override;
 		virtual Color GetBlendColor() const override;
 		virtual void SetBlendColor(Color const& color) override;
-		virtual bool IsActive() const override;
 
 		virtual void SetSourceBlend(BlendFactor blendFactor) override;
 		virtual void SetDestinationBlend(BlendFactor blendFactor) override;

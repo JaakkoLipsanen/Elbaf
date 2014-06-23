@@ -134,11 +134,6 @@ void OGL::BlendState::SetBlendColor(Color const& color)
 	glBlendColor(v.x, v.y, v.z, v.w);
 }
 
-bool OGL::BlendState::IsActive() const
-{
-	return true;
-}
-
 void OGL::BlendState::UpdateBlendFactors()
 {
 	glBlendFuncSeparate(OGL::BlendFactorToGLenum(_sourceColorBlend), OGL::BlendFactorToGLenum(_destinationColorBlend), OGL::BlendFactorToGLenum(_sourceAlphaBlend), OGL::BlendFactorToGLenum(_destinationAlphaBlend));

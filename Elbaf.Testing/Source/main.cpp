@@ -18,6 +18,8 @@
 #include <Graphics\IGraphicsContext.h>
 #include <Graphics\CompareFunction.h>
 #include <Graphics\IBlendState.h>
+#include <Graphics\IDepthState.h>
+#include <Graphics\ICullState.h>
 
 class MyGame : public Game
 {
@@ -140,11 +142,11 @@ public:
 		}
 
 		auto& graphicsContext = this->GetGraphicsContext();
-		_buffer3 = graphicsContext.CreateVertexBuffer(BufferType::Static);	
+		_skyboxBuffer = graphicsContext.CreateVertexBuffer(BufferType::Static);	
 		_buffer2 = graphicsContext.CreateVertexBuffer(BufferType::Static);
 
 		_buffer2->SetVertexData(vertexDataNew.data(), vertexDataNew.size());
-		_buffer3->SetVertexData(vertexData3, Array::Length(vertexData3));
+		_skyboxBuffer->SetVertexData(vertexData3, Array::Length(vertexData3));
 
 		_shader = graphicsContext.CreateShader(ShaderSource("BasicShader-vs.glsl", "BasicShader-fs.glsl"));
 		_texture = graphicsContext.CreateTexture2D(Content::LoadImage("F:/Users/Jaakko/Desktop/Skybox1.png"));
@@ -169,24 +171,20 @@ public:
 			_buffer2->SetVertexData(vertexData, 3);
 		}
 
-
+		auto& graphicsContext = this->GetGraphicsContext();
 		this->GetGraphicsContext().Clear(Color::RoyalBlue);
 		if (Input::IsMouseButtonPressed(MouseButton::Left) || true)
 		{
-			auto& blendState = this->GetGraphicsContext().GetBlendState();
-			blendState.SetBlendEnabled(true);
-			blendState.SetSourceBlend(BlendFactor::SourceAlpha);
-			blendState.SetDestinationBlend(BlendFactor::OneMinusSourceAlpha);
+			graphicsContext.GetCullState().SetCullingEnabled(false); // culling must be off because the cube isn't inverted :/
+			graphicsContext.GetDepthState().SetDepthWriteEnabled(false);
 
-			this->GetGraphicsContext().SetCullingEnabled(false); // culling must be off because the cube isn't inverted :/
-
-			this->GetGraphicsContext().SetDepthWriteEnabled(false);
 			_shader->ApplyShader();
-			_shader->SetParameter("MVP", _camera->GetProjection() * _camera->GetView() * (Matrix::Translate(_camera->GetPosition()) * Matrix::RotateAroundAxis(Time::GetTotalTime() * 0, Vector3f::UnitZ) * Matrix::Scale(1)));
-			_buffer3->Bind();
-			this->GetGraphicsContext().DrawPrimitives(PrimitiveType::TriangleList, 0, _buffer3->GetVertexCount());
-			this->GetGraphicsContext().SetDepthWriteEnabled(true );
-			this->GetGraphicsContext().SetCullingEnabled(true);
+			_shader->SetParameter("MVP", _camera->GetProjection() * _camera->GetView() * (Matrix::Translate(_camera->GetPosition())));
+			_skyboxBuffer->Bind();
+			graphicsContext.DrawPrimitives(PrimitiveType::TriangleList, 0, _skyboxBuffer->GetVertexCount());
+
+			graphicsContext.GetDepthState().SetDepthWriteEnabled(false);
+			graphicsContext.GetCullState().SetCullingEnabled(true);
 
 			_shader->SetParameter("MVP", _camera->GetProjection() * _camera->GetView());
 			_texture->BindToSampler(0);
@@ -194,7 +192,7 @@ public:
 
 			_shader->ApplyShader();
 			_buffer2->Bind();
-			this->GetGraphicsContext().DrawPrimitives(PrimitiveType::TriangleList, 0, _buffer2->GetVertexCount()); 
+			graphicsContext.DrawPrimitives(PrimitiveType::TriangleList, 0, _buffer2->GetVertexCount());
 		}
 
 		if (Input::GetScrollWheelDelta() != 0)
@@ -206,7 +204,7 @@ public:
 private:
 	std::unique_ptr<IShader> _shader;
 	std::unique_ptr<IVertexBuffer> _buffer2;
-	std::unique_ptr<IVertexBuffer> _buffer3;
+	std::unique_ptr<IVertexBuffer> _skyboxBuffer;
 	std::unique_ptr<DefaultCamera> _camera;
 	std::unique_ptr<ITexture2D> _texture;
 };

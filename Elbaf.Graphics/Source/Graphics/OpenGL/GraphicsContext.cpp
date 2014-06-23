@@ -47,26 +47,14 @@ void OGL::GraphicsContext::ChangeResolution(Size const& newSize)
 	this->ResetViewport(); // glViewport(0, 0, newSize.Width, newSize.Height);  would be a bit faster but meh
 }
 
-/* depth */
-bool OGL::GraphicsContext::IsDepthTestEnabled() const
+ICullState& OGL::GraphicsContext::GetCullState()
 {
-	return _isDepthTestEnabled;
+	return _cullState;
 }
 
-void OGL::GraphicsContext::SetDepthTestEnabled(bool isEnabled)
+void OGL::GraphicsContext::SetCullState(CullStatePreset const& preset)
 {
-	if (_isDepthTestEnabled == isEnabled)
-	{
-		return;
-	}
-
-	_isDepthTestEnabled = isEnabled;
-	glEnableOrDisable(GL_DEPTH_TEST, _isDepthTestEnabled);
-}
-
-CompareFunction OGL::GraphicsContext::GetDepthFunction() const
-{
-	return _depthCompareFunction;
+	throw std::logic_error("Not implemented");
 }
 
 IBlendState& OGL::GraphicsContext::GetBlendState()
@@ -74,79 +62,19 @@ IBlendState& OGL::GraphicsContext::GetBlendState()
 	return _blendState; // *_pImpl->BlendState.get();
 }
 
-void OGL::GraphicsContext::SetBlendState(std::shared_ptr<IBlendState> blendState)
+void OGL::GraphicsContext::SetBlendState(const BlendStatePreset& blendStatePreset)
 {
-	//_pImpl->BlendState = blendState;
+	throw std::logic_error("Not implemented");
 }
 
-void OGL::GraphicsContext::SetDepthFunction(CompareFunction compareFunction)
+IDepthState& OGL::GraphicsContext::GetDepthState()
 {
-	if (_depthCompareFunction == compareFunction)
-	{
-		return;
-	}
-
-	_depthCompareFunction = compareFunction;
-	glDepthFunc(OGL::CompareFunctionToGLenum(compareFunction));
+	return _depthState;
 }
 
-void OGL::GraphicsContext::SetDepthWriteEnabled(bool isEnabled)
+void OGL::GraphicsContext::SetDepthState(DepthStatePreset const& depthStatePreset)
 {
-	if (_depthWriteEnabled == isEnabled)
-	{
-		return;
-	}
-
-	_depthWriteEnabled = isEnabled;
-	glDepthMask(isEnabled);
-}
-
-bool OGL::GraphicsContext::IsDepthWriteEnabled() const
-{
-	return _depthWriteEnabled;
-}
-
-/* cull */
-CullMode OGL::GraphicsContext::GetCullMode() const
-{
-	return _cullMode;
-}
-
-void OGL::GraphicsContext::SetCullMode(CullMode cullMode)
-{
-	if (_cullMode != cullMode)
-	{
-		_cullMode = cullMode;
-		glFrontFace((_cullMode == CullMode::Clockwise ? GL_CW : GL_CCW));
-	}
-}
-
-CullFace OGL::GraphicsContext::GetCullFace() const
-{
-	return _cullFace;
-}
-
-void OGL::GraphicsContext::SetCullFace(CullFace cullFace)
-{
-	if (_cullFace != cullFace)
-	{
-		_cullFace = cullFace;
-		glCullFace(OGL::CullFaceToGLenum(cullFace));
-	}
-}
-
-bool OGL::GraphicsContext::IsCullingEnabled() const
-{
-	return _isCullingEnabled;
-}
-
-void OGL::GraphicsContext::SetCullingEnabled(bool enabled)
-{
-	if (_isCullingEnabled != enabled)
-	{
-		glEnableOrDisable(GL_CULL_FACE, enabled);
-		_isCullingEnabled = enabled;
-	}
+	throw std::logic_error("Not implemented");
 }
 
 /* clear */

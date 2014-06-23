@@ -62,6 +62,12 @@
     <ClCompile Include="..\Source\Graphics\OpenGL\BlendState.cpp">
       <Filter>Source Files\OpenGL</Filter>
     </ClCompile>
+    <ClCompile Include="..\Source\Graphics\OpenGL\DepthState.cpp">
+      <Filter>Source Files\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Graphics\OpenGL\CullState.cpp">
+      <Filter>Source Files\OpenGL</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Include\Graphics\TextureFormat.h">
@@ -143,6 +149,27 @@
       <Filter>Public Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\Source\Graphics\OpenGL\BlendState.h">
+      <Filter>Private Header Files\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Graphics\BlendStatePreset.h">
+      <Filter>Public Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Graphics\IDepthState.h">
+      <Filter>Public Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Graphics\DepthStatePreset.h">
+      <Filter>Public Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Graphics\OpenGL\DepthState.h">
+      <Filter>Private Header Files\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Graphics\ICullState.h">
+      <Filter>Public Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Graphics\CullStatePreset.h">
+      <Filter>Public Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Graphics\OpenGL\CullState.h">
       <Filter>Private Header Files\OpenGL</Filter>
     </ClInclude>
   </ItemGroup>

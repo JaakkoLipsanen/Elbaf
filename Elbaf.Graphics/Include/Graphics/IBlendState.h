@@ -62,7 +62,4 @@ public:
 
 	virtual Color GetBlendColor() const = 0;
 	virtual void SetBlendColor(const Color& color) = 0;
-	
-	// is the active state on graphics context
-	virtual bool IsActive() const = 0;
 };

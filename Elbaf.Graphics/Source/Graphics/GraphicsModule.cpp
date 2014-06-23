@@ -3,6 +3,9 @@
 #include <Graphics\CompareFunction.h>
 #include <Graphics\IGraphicsContext.h>
 #include <Graphics\IGraphicsDevice.h>
+#include <Graphics\IDepthState.h>
+#include <Graphics\IBlendState.h>
+#include <Graphics\ICullState.h>
 
 static IGraphicsDevice* CreateGraphicsDevice();
 GraphicsModule::GraphicsModule(IEngine& engine, const WindowDescription& windowDescription) : IModule(engine)
@@ -15,11 +18,20 @@ GraphicsModule::~GraphicsModule() = default;
 void GraphicsModule::Initialize()
 {	
 	auto& context = _graphicsDevice->GetContext();
-	context.SetDepthTestEnabled(true);
-	context.SetDepthFunction(CompareFunction::Less);
-	context.SetCullingEnabled(true);
-	context.SetCullFace(CullFace::Back);
-	context.SetCullMode(CullMode::CounterClockwise);
+
+	auto& depthState = context.GetDepthState();
+	depthState.SetDepthTestEnabled(true);
+	depthState.SetDepthFunction(CompareFunction::Less);
+
+	auto& cullState = context.GetCullState();
+	cullState.SetCullingEnabled(true);
+	cullState.SetCullFace(CullFace::Back);
+	cullState.SetCullMode(CullMode::CounterClockwise);
+
+	auto& blendState = context.GetBlendState();
+	blendState.SetBlendEnabled(true);
+	blendState.SetSourceBlend(BlendFactor::SourceAlpha);
+	blendState.SetDestinationBlend(BlendFactor::OneMinusSourceAlpha);
 }
 
 void GraphicsModule::RunMessagePump()

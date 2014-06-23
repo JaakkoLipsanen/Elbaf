@@ -24,12 +24,17 @@ struct Color;
 struct Size;
 struct Image;
 struct ShaderSource;
+struct BlendStatePreset;
+struct DepthStatePreset;
+struct CullStatePreset;
 
 class ITexture;
 class ITexture2D;
 class IVertexBuffer;
 class IShader;
 class IBlendState;
+class IDepthState;
+class ICullState;
 
 // todo: make DepthState, RasterizerState, StencilState etc? // TODO: MAKE THESE, BLENDSTATE ALREADY DONE
 // update: those would really really be great... however they would also add a lot of new classes that have to be implemented per API :(
@@ -45,29 +50,17 @@ public:
 	virtual Size GetResolution() const = 0;
 	virtual void ChangeResolution(const Size& newSize) = 0;
 
-	// depth
-	virtual bool IsDepthTestEnabled() const = 0;
-	virtual void SetDepthTestEnabled(bool isEnabled) = 0;
-
-	virtual bool IsDepthWriteEnabled() const = 0;
-	virtual void SetDepthWriteEnabled(bool isEnabled) = 0;
-
-	virtual CompareFunction GetDepthFunction() const = 0;
-	virtual void SetDepthFunction(CompareFunction compareFunction) = 0;
-
 	// cull
-	virtual CullMode GetCullMode() const = 0;
-	virtual void SetCullMode(CullMode cullMode) = 0;
+	virtual ICullState& GetCullState() = 0;
+	virtual void SetCullState(const CullStatePreset& preset) = 0;
 
-	virtual CullFace GetCullFace() const = 0;
-	virtual void SetCullFace(CullFace cullFace) = 0;
-
-	virtual bool IsCullingEnabled() const = 0;
-	virtual void SetCullingEnabled(bool enabled) = 0;
+	// depth
+	virtual IDepthState& GetDepthState() = 0;
+	virtual void SetDepthState(const DepthStatePreset& preset) = 0;
 
 	// blend
 	virtual IBlendState& GetBlendState() = 0;
-	virtual void SetBlendState(std::shared_ptr<IBlendState> blendState) = 0; // ????????????????????????????? I was thinking, maybe better would be "BlendStatePreset" or something like that
+	virtual void SetBlendState(const BlendStatePreset& preset) = 0; // ????????????????????????????? I was thinking, maybe better would be "BlendStatePreset" or something like that
 
 	// todo: render targets, vertexbuffers, stencil, scissor, depth states, textures(?) etc etc etc
 
