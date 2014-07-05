@@ -40,5 +40,8 @@
     <ClInclude Include="..\Source\DefaultCamera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\Source\NoiseGen.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

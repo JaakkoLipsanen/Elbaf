@@ -16,7 +16,7 @@ private:
 	Matrix4x4 _view;
 	Matrix4x4 _projection;
 
-	Vector3f _position;
+	Vector3f _position = Vector3f::UnitY * 40;
 	Vector2f _rotationAngle; // :| ?
 
 	void UpdateView();

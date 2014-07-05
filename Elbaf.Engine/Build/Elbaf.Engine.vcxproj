@@ -65,7 +65,12 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutDir>$(SolutionDir)\$(Platform)\$(Configuration)\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutDir>$(SolutionDir)\$(Platform)\$(Configuration)\</OutDir>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -122,6 +127,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\Include\Engine\Game.h" />
+    <ClInclude Include="..\Include\Engine\Graphics.h" />
+    <ClInclude Include="..\Include\Engine\ICamera.h" />
+    <ClInclude Include="..\Include\Engine\Scene.h" />
+    <ClInclude Include="..\Include\Engine\SceneModule.h" />
     <ClInclude Include="..\Include\Engine\Screen.h" />
     <ClInclude Include="..\Include\Engine\Time.h" />
     <ClInclude Include="..\Source\Engine\Platform.h" />
@@ -129,7 +138,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Source\Engine\Game.cpp" />
+    <ClCompile Include="..\Source\Engine\Graphics.cpp" />
     <ClCompile Include="..\Source\Engine\Platform.cpp" />
+    <ClCompile Include="..\Source\Engine\Scene.cpp" />
+    <ClCompile Include="..\Source\Engine\SceneModule.cpp" />
     <ClCompile Include="..\Source\Engine\Screen.cpp" />
     <ClCompile Include="..\Source\Engine\Time.cpp" />
     <ClCompile Include="..\Source\Engine\TimeModule.cpp" />

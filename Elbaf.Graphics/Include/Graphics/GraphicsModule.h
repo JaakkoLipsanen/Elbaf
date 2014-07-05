@@ -16,10 +16,10 @@ public:
 	GraphicsModule(IEngine& engine, const WindowDescription& windowDescription);
 	virtual ~GraphicsModule();
 
-	virtual void Initialize();
-	virtual void Terminate();
-	virtual void EndFrame();
-	virtual IGraphicsContext& GetGraphicsDevice() const;
+	virtual void Initialize() override;
+	virtual void Terminate() override;
+	virtual void EndFrame() override;
+	virtual IGraphicsContext& GetGraphicsContext() const;
 	virtual IGameWindow& GetGameWindow() const;
 
 	void RunMessagePump(); // message pump doesn't necessarily belong here, but since I'm using GLFW... blargh!

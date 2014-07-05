@@ -8,6 +8,8 @@
 #include <Graphics\GraphicsModule.h>
 #include <Core\WindowDescription.h>
 #include <Input\InputModule.h>
+#include <Engine\Scene.h>
+#include <Engine/SceneModule.h>
 
 class Game::Impl
 {
@@ -19,6 +21,7 @@ public:
 	std::unique_ptr<GraphicsModule> GraphicsModule;
 	std::unique_ptr<InputModule> InputModule;
 	std::unique_ptr<TimeModule> TimeModule;
+	std::unique_ptr<SceneModule> SceneModule;
 
 	void Run()
 	{
@@ -54,10 +57,14 @@ private:
 		this->GraphicsModule.reset(new ::GraphicsModule(_game, description));
 		this->InputModule.reset(new ::InputModule(_game));
 		this->TimeModule.reset(new ::TimeModule(_game)); // = Platform::Engine::CreateTimeModule(_game);
+		this->SceneModule.reset(new ::SceneModule(_game));
 
 		this->GraphicsModule->Initialize();
 		this->InputModule->Initialize();
 		this->TimeModule->Initialize();
+		this->SceneModule->Initialize();
+
+		this->SceneModule->LoadScene(_game.CreateDefaultScene());
 	}
 
 	void Tick()
@@ -69,8 +76,13 @@ private:
 		this->TimeModule->Update();
 		this->GraphicsModule->Update();
 		this->InputModule->Update();
-		
+		this->SceneModule->Update();
+		_game.PostUpdate();
+
 		_game.PreRender();
+		this->SceneModule->Render(); // todo: should rendering happen in SceneModule::Update? that would be a "more correct" approach maybe...? 
+		_game.PostRender();
+
 		this->EndFrame();
 	}
 
@@ -80,6 +92,7 @@ private:
 		this->GraphicsModule->BeginFrame();
 		this->InputModule->BeginFrame();
 		this->TimeModule->BeginFrame();
+		this->SceneModule->BeginFrame();
 	}
 
 	void EndFrame()
@@ -87,6 +100,8 @@ private:
 		this->GraphicsModule->EndFrame();
 		this->InputModule->EndFrame();
 		this->TimeModule->EndFrame();
+		this->SceneModule->EndFrame();
+
 		_game.EndFrame.Invoke();
 	}
 };
@@ -111,7 +126,12 @@ IGameWindow& Game::GetWindow() const
 
 IGraphicsContext& Game::GetGraphicsContext() const
 {
-	return _pImpl->GraphicsModule->GetGraphicsDevice();
+	return _pImpl->GraphicsModule->GetGraphicsContext();
+}
+
+Game& Game::GetInstance()
+{
+	return static_cast<Game&>(IEngine::GetInstance());
 }
 
 // TODO: instead of this, implementing only specific template stuff's could be better (though not sure if possible, since virtual etc)

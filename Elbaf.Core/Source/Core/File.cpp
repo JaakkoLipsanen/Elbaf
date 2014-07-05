@@ -4,13 +4,15 @@
 #include <fstream>
 #include <string>
 #include <Diagnostics\Logger.h>
+#include <Windows.h>
 
 std::string File::ReadAllLines(std::string const& filePath)
 {
-	std::ifstream fileStream(filePath, std::ios::in);
+	auto realPath = File::GetAbsolutePath(filePath);
+	std::ifstream fileStream(realPath, std::ios::in);
 	if (!fileStream.is_open())
 	{
-		Logger::LogError("Could not open file " + filePath + "!");
+		Logger::LogError("Could not open file " + realPath + "!");
 		return "";
 	}
 
@@ -23,4 +25,12 @@ std::string File::ReadAllLines(std::string const& filePath)
 
 	fileStream.close();
 	return code;
+}
+
+std::string File::GetAbsolutePath(std::string const& path)
+{
+	char buffer[256];
+	_fullpath(buffer, path.c_str(), 256);
+
+	return std::string(buffer);
 }

@@ -17,3 +17,8 @@ float Time::GetTotalTime()
 {
 	return GetTimeModule().GetTotalTime();
 }
+
+double Time::GetCurrentSystemTime()
+{
+	return GetTimeModule().GetSystemTime();
+}

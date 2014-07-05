@@ -30,4 +30,22 @@ namespace FlaiMath
 			++begin;
 		}
 	}
+
+	template<typename T>
+	T Modulus(T left, T right)
+	{
+		return left % right;
+	}
+
+	template<>
+	inline float Modulus<float>(float left, float right)
+	{
+		return std::fmodf(left, right);
+	}
+
+	template<>
+	inline double Modulus<double>(double left, double right)
+	{
+		return std::fmod(left, right);
+	}
 }

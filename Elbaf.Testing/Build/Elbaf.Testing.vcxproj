@@ -131,6 +131,7 @@
   <ItemGroup>
     <ClInclude Include="..\Source\DefaultCamera.h" />
     <ClInclude Include="..\Source\ICamera.h" />
+    <ClInclude Include="..\Source\NoiseGen.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

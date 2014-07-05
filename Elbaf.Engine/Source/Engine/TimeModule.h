@@ -10,6 +10,7 @@ public:
 
 	float GetDeltaTime() const;
 	float GetTotalTime() const;
+	double GetSystemTime() const;
 
 	virtual void Initialize() override;
 	virtual void Terminate() override;

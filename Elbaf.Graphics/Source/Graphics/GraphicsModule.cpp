@@ -54,7 +54,7 @@ IGameWindow& GraphicsModule::GetGameWindow() const
 	return _graphicsDevice->GetGameWindow();
 }
 
-IGraphicsContext& GraphicsModule::GetGraphicsDevice() const
+IGraphicsContext& GraphicsModule::GetGraphicsContext() const
 {
 	return _graphicsDevice->GetContext();
 }

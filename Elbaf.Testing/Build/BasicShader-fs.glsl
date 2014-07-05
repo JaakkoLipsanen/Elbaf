@@ -15,6 +15,6 @@ void main()
 
 	// Output color = red 
 	color = fragmentColor;
-	 color.rgb *= texture2D(TextureSampler, uvFS).rgb;
+	color.rgb *= texture2D(TextureSampler, uvFS).rgb;
 
 }

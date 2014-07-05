@@ -6,7 +6,7 @@
 
 static IGraphicsContext& GetGraphicsContext()
 {
-	return IEngine::GetInstance().GetModule<GraphicsModule>().GetGraphicsDevice();
+	return IEngine::GetInstance().GetModule<GraphicsModule>().GetGraphicsContext();
 }
 
 Size Screen::GetSize()

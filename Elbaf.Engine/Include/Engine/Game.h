@@ -3,7 +3,7 @@
 #include <Core\Event.h>
 #include <Core\IEngine.h>
 
-class Scene { };
+class Scene;
 class IGameWindow;
 class IGraphicsContext;
 struct WindowDescription;
@@ -22,6 +22,8 @@ public:
 	void Exit();
 	IGameWindow& GetWindow() const override;
 	IGraphicsContext& GetGraphicsContext() const;
+
+	static Game& GetInstance();
 
 protected:
 	virtual void Initialize() { }

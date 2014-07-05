@@ -29,6 +29,15 @@
     <ClCompile Include="..\Source\Engine\Screen.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\Source\Engine\SceneModule.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Engine\Scene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Engine\Graphics.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Include\Engine\Screen.h">
@@ -45,6 +54,18 @@
     </ClInclude>
     <ClInclude Include="..\Source\Engine\Platform.h">
       <Filter>Private Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Engine\Scene.h">
+      <Filter>Public Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Engine\SceneModule.h">
+      <Filter>Private Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Engine\Graphics.h">
+      <Filter>Public Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Engine\ICamera.h">
+      <Filter>Public Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

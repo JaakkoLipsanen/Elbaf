@@ -11,7 +11,7 @@
 // from OGL tutorial mostly
 DefaultCamera::DefaultCamera()
 {
-	_projection = Matrix::CreatePerspective(90, Screen::GetSize().GetAspectRatio(), 0.1f, 1000.0f);
+	_projection = Matrix::CreatePerspective(75, Screen::GetSize().GetAspectRatio(), 0.1f, 1000.0f);
 	this->UpdateView();
 }
 

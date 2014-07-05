@@ -20,6 +20,68 @@
 #include <Graphics\IBlendState.h>
 #include <Graphics\IDepthState.h>
 #include <Graphics\ICullState.h>
+#include <Graphics\OpenGL\OGL.h>
+#include "NoiseGen.h"
+
+enum class DepthBufferFormat
+{
+	None,
+	Depth16,
+	Depth24Stencil8,
+	Depth32,
+};
+
+class RenderTarget
+{
+	std::unique_ptr<RenderTarget> Create(DepthBufferFormat format)
+	{
+		GLuint frameBufferID;
+		glGenFramebuffers(1, &frameBufferID);
+
+		// Modifies global frame buffer. cache old and set it back?
+		glBindFramebuffer(GL_FRAMEBUFFER, frameBufferID);
+	}
+	
+private:
+	GLuint _framebufferID;
+	GLuint _colorTextureID;
+	GLuint _depthTextureID;
+};
+
+struct Stopwatch
+{
+	Stopwatch()
+	{
+		_startTime = Time::GetCurrentSystemTime();
+	}
+
+	void Stop()
+	{
+		if (!_hasStopped)
+		{
+			Logger::MessageStream << "Time: " << this->DeltaTime() << "\n";
+			_hasStopped = true;
+		}
+	}
+
+	~Stopwatch()
+	{
+		if (!_hasStopped)
+		{
+			Logger::MessageStream << "Time: " << this->DeltaTime() << "\n";
+			_hasStopped = true;
+		}
+	}
+
+	double DeltaTime()
+	{
+		return Time::GetCurrentSystemTime() - _startTime;
+	}
+
+private:
+	double _startTime;
+	bool _hasStopped = false;
+};
 
 class MyGame : public Game
 {
@@ -31,6 +93,7 @@ public:
 
 	virtual void Initialize() override
 	{
+		Stopwatch sw;
 		Logger::LogMessage(Screen::GetSize());
 		Mouse::SetCursorVisibility(CursorVisibility::Disabled);
 		Mouse::SetPosition({ Screen::GetWidth() / 2, Screen::GetHeight() / 2 });
@@ -53,7 +116,7 @@ public:
 			VertexPositionColorTexture({ -1.0f, -1.0f, -1.0f }, cubeMapColor, slotSize * Vector2f(0, 1)), // BL
 			VertexPositionColorTexture({ -1.0f, 1.0f, -1.0f }, cubeMapColor, slotSize * Vector2f(0, 2)), // TL
 			VertexPositionColorTexture({ 1, -1, -1.0f }, cubeMapColor, slotSize * Vector2f(1, 1)), // BR
-		
+
 			VertexPositionColorTexture({ -1.0f, 1.0f, -1.0f }, cubeMapColor, slotSize * Vector2f(0, 2)), // TL
 			VertexPositionColorTexture({ 1.0f, 1.0f, -1.0f }, cubeMapColor, slotSize * Vector2f(1, 2)), // TR
 			VertexPositionColorTexture({ 1, -1, -1.0f }, cubeMapColor, slotSize * Vector2f(1, 1)), // BR
@@ -85,7 +148,7 @@ public:
 			VertexPositionColorTexture({ -1.0f, 1.0f, -1 }, cubeMapColor, slotSize * Vector2f(4, 2)), // TL
 			VertexPositionColorTexture({ -1.0f, -1, 1 }, cubeMapColor, slotSize * Vector2f(3, 1)), // BR
 
-			
+
 
 			// top
 			VertexPositionColorTexture({ -1.0f, 1.0f, -1 }, cubeMapColor, slotSize * Vector2f(1, 3)), // BL
@@ -93,7 +156,7 @@ public:
 			VertexPositionColorTexture({ 1.0f, 1, -1 }, cubeMapColor, slotSize * Vector2f(1, 2)), // BR
 
 			VertexPositionColorTexture({ -1.0f, 1.0f, 1 }, Color::White, slotSize * Vector2f(2, 3)), // TR
-			VertexPositionColorTexture({ 1.0f, 1, 1 }, cubeMapColor, slotSize * Vector2f(2,2)), // TR
+			VertexPositionColorTexture({ 1.0f, 1, 1 }, cubeMapColor, slotSize * Vector2f(2, 2)), // TR
 			VertexPositionColorTexture({ 1.0f, 1, -1 }, cubeMapColor, slotSize * Vector2f(1, 2)), // BR
 
 
@@ -107,16 +170,19 @@ public:
 			VertexPositionColorTexture({ 1.0f, -1, -1 }, cubeMapColor, slotSize * Vector2f(1, 1) + Vector2f(pixelSize.x, -pixelSize.y)), // BR
 		};
 
-		std::vector<VertexPositionColor> vertexDataNew;
+		std::vector<VertexPositionColorNormal> vertexDataNew;
 
-		const int Size = 300;
+		int i;
+		glGetIntegerv(GL_MAX_VERTEX_ATTRIBS, &i);
+		Logger::LogMessage(i);
+		const int Size = 400;
 		float grid[(Size + 1) * (Size + 1)];
-		const float MaxHeight = 0.4f;
+		const float MaxHeight = 1;
 		for (int y = 0; y < Size + 1; y++)
 		{
 			for (int x = 0; x < Size + 1; x++)
 			{
-				grid[x + y * Size] = Global::Random.NextFloat(0, MaxHeight);
+				grid[x + y * Size] = scaled_octave_noise_2d(24, 0.4f, 0.0075f, 0, 60, x, y) + Global::Random.NextFloat(-0.5f, 0.5f); // Global::Random.NextFloat(0, MaxHeight);
 			}
 		}
 
@@ -124,36 +190,48 @@ public:
 		{
 			for (int x = 0; x < Size; x++)
 			{
-				static const Color From = Color::LightBlue;
-				static const Color To = Color::White * 0.1f;
-				VertexPositionColor bl({ x, grid[x + y * Size], y }, Color::Lerp(From, To, grid[x + y * Size] / MaxHeight));
-				VertexPositionColor br({ x + 1, grid[x + 1 + y * Size], y }, Color::Lerp(From, To, grid[x + 1 + y * Size] / MaxHeight));
-				VertexPositionColor tl({ x, grid[x + (y + 1) * Size], y + 1 }, Color::Lerp(From, To, grid[x + (y + 1) * Size] / MaxHeight));
-				VertexPositionColor tr({ x + 1, grid[x + 1 + (y + 1) * Size], y + 1 }, Color::Lerp(From, To, grid[x + 1 + (y + 1) * Size] / MaxHeight));
+				static const Color From = Color::PaleGreen;
+				static const Color To = From;
 
-				vertexDataNew.push_back(bl);
-				vertexDataNew.push_back(tl);
-				vertexDataNew.push_back(br);
+				Vector3f blPos = { x, grid[x + y * Size], y };
+				Vector3f brPos = { x + 1, grid[x + 1 + y * Size], y };
+				Vector3f tlPos = { x, grid[x + (y + 1) * Size], y + 1.0f };
+				Vector3f trPos = { x + 1, grid[x + 1 + (y + 1) * Size], y + 1 };
 
-				vertexDataNew.push_back(tl);
-				vertexDataNew.push_back(tr);
-				vertexDataNew.push_back(br);
+				Vector3f normalFirst = Vector::Cross(tlPos - blPos, brPos - blPos);
+				Vector3f normalSecond = -Vector::Cross(tlPos - trPos, brPos - trPos);
+
+				Color blColor = Color::Lerp(From, To, grid[x + y * Size] / MaxHeight);
+				Color brColor = Color::Lerp(From, To, grid[x + 1 + y * Size] / MaxHeight);
+				Color tlColor = Color::Lerp(From, To, grid[x + (y + 1) * Size] / MaxHeight);
+				Color trColor = Color::Lerp(From, To, grid[x + 1 + (y + 1) * Size] / MaxHeight);
+
+				typedef VertexPositionColorNormal V;
+
+				vertexDataNew.emplace_back(V(blPos, blColor, normalFirst));
+				vertexDataNew.push_back(V(tlPos, tlColor, normalFirst));
+				vertexDataNew.push_back(V(brPos, brColor, normalFirst));
+
+				vertexDataNew.push_back(V(tlPos, tlColor, normalSecond));
+				vertexDataNew.push_back(V(trPos, trColor, normalSecond));
+				vertexDataNew.push_back(V(brPos, brColor, normalSecond));
 			}
 		}
 
 		auto& graphicsContext = this->GetGraphicsContext();
-		_skyboxBuffer = graphicsContext.CreateVertexBuffer(BufferType::Static);	
+		_skyboxBuffer = graphicsContext.CreateVertexBuffer(BufferType::Static);
 		_buffer2 = graphicsContext.CreateVertexBuffer(BufferType::Static);
 
 		_buffer2->SetVertexData(vertexDataNew.data(), vertexDataNew.size());
 		_skyboxBuffer->SetVertexData(vertexData3, Array::Length(vertexData3));
 
 		_shader = graphicsContext.CreateShader(ShaderSource("BasicShader-vs.glsl", "BasicShader-fs.glsl"));
-		_texture = graphicsContext.CreateTexture2D(Content::LoadImage("F:/Users/Jaakko/Desktop/Skybox1.png"));
+		_texture = graphicsContext.CreateTexture2D(Content::LoadImage("F:/Users/Jaakko/Desktop/Skybox.png"));
 		_camera = std::unique_ptr<DefaultCamera>(new DefaultCamera);
 
 		_texture->BindToSampler(0);
 		_shader->SetTextureSampler("TextureSampler", 0);
+		sw.Stop();
 	}
 
 	virtual void PreRender() override
@@ -171,6 +249,7 @@ public:
 			_buffer2->SetVertexData(vertexData, 3);
 		}
 
+
 		auto& graphicsContext = this->GetGraphicsContext();
 		this->GetGraphicsContext().Clear(Color::RoyalBlue);
 		if (Input::IsMouseButtonPressed(MouseButton::Left) || true)
@@ -178,17 +257,18 @@ public:
 			graphicsContext.GetCullState().SetCullingEnabled(false); // culling must be off because the cube isn't inverted :/
 			graphicsContext.GetDepthState().SetDepthWriteEnabled(false);
 
-			_shader->ApplyShader();
 			_shader->SetParameter("MVP", _camera->GetProjection() * _camera->GetView() * (Matrix::Translate(_camera->GetPosition())));
+			_shader->SetParameter("UseLighting", false);
 			_skyboxBuffer->Bind();
 			graphicsContext.DrawPrimitives(PrimitiveType::TriangleList, 0, _skyboxBuffer->GetVertexCount());
 
-			graphicsContext.GetDepthState().SetDepthWriteEnabled(false);
+			graphicsContext.GetDepthState().SetDepthWriteEnabled(true);
 			graphicsContext.GetCullState().SetCullingEnabled(true);
 
-			_shader->SetParameter("MVP", _camera->GetProjection() * _camera->GetView());
+			_shader->SetParameter("MVP", _camera->GetProjection() * _camera->GetView() * Matrix::Scale(2));
 			_texture->BindToSampler(0);
 			_shader->SetTextureSampler("TextureSampler", 0);
+			_shader->SetParameter("UseLighting", true);
 
 			_shader->ApplyShader();
 			_buffer2->Bind();

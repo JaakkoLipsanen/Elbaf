@@ -14,6 +14,11 @@ float TimeModule::GetTotalTime() const
 	return static_cast<float>(_totalTime);
 }
 
+double TimeModule::GetSystemTime() const
+{
+	return GetCurrentTime();
+}
+
 void TimeModule::BeginFrame()
 {
 	double currentTime = GetCurrentTime();
