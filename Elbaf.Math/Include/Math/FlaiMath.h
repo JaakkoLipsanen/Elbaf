@@ -48,4 +48,15 @@ namespace FlaiMath
 	{
 		return std::fmod(left, right);
 	}
+
+	inline float GetVectorAngle(Vector2f vector)
+	{
+		return std::atan2(vector.y, vector.x);
+	}
+
+	inline Vector2f AngleToVector(float radians)
+	{
+		Vector2f result = Vector2f(std::cos(radians), std::sin(radians));
+		return Vector::Normalize(result);
+	}
 }

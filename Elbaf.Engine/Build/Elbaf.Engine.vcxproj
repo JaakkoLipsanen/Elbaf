@@ -132,6 +132,7 @@
     <ClInclude Include="..\Include\Engine\Scene.h" />
     <ClInclude Include="..\Include\Engine\SceneModule.h" />
     <ClInclude Include="..\Include\Engine\Screen.h" />
+    <ClInclude Include="..\Include\Engine\Stopwatch.h" />
     <ClInclude Include="..\Include\Engine\Time.h" />
     <ClInclude Include="..\Source\Engine\Platform.h" />
     <ClInclude Include="..\Source\Engine\TimeModule.h" />
@@ -143,6 +144,7 @@
     <ClCompile Include="..\Source\Engine\Scene.cpp" />
     <ClCompile Include="..\Source\Engine\SceneModule.cpp" />
     <ClCompile Include="..\Source\Engine\Screen.cpp" />
+    <ClCompile Include="..\Source\Engine\Stopwatch.cpp" />
     <ClCompile Include="..\Source\Engine\Time.cpp" />
     <ClCompile Include="..\Source\Engine\TimeModule.cpp" />
   </ItemGroup>

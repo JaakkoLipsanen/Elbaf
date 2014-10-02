@@ -38,6 +38,9 @@
     <ClCompile Include="..\Source\Engine\Graphics.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\Source\Engine\Stopwatch.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Include\Engine\Screen.h">
@@ -65,6 +68,9 @@
       <Filter>Public Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\Include\Engine\ICamera.h">
+      <Filter>Public Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Engine\Stopwatch.h">
       <Filter>Public Header Files</Filter>
     </ClInclude>
   </ItemGroup>

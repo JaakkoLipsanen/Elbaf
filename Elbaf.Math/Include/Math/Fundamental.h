@@ -20,6 +20,7 @@ typedef unsigned char uchar;
 typedef unsigned short ushort;
 typedef unsigned int uint;
 typedef unsigned long ulong; // most likely same as uint
+typedef long long longlong;
 typedef unsigned long long ulonglong;
 
 typedef wchar_t wchar;

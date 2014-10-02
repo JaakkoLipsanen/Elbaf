@@ -10,7 +10,7 @@ enum class LogType
 class LogStream
 {
 public:
-	LogStream(LogType logType) : _logType(logType) { }
+	explicit LogStream(LogType logType) : _logType(logType) { }
 	virtual ~LogStream() = default;
 
 	template<typename T>

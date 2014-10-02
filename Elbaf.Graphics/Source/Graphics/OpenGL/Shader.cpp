@@ -9,7 +9,7 @@ class OGL::Shader::Impl
 {
 public:
 	GLuint ProgramID;
-	Impl(GLuint programID) : ProgramID(programID) { }
+	explicit Impl(GLuint programID) : ProgramID(programID) { }
 
 	GLint GetUniformLocation(const std::string& name)
 	{

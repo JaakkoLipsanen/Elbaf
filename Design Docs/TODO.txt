@@ -30,3 +30,12 @@
   
 -- HAPPENED BEFORE: --
 - I really fucking over-engineered the Input module
+
+
+Content -> Math, Graphics, Diagnostics, Core (libpng)
+Core -> Diagnostics, MATH
+Diagnostics -> ...
+Engine -> Math, Input, Graphics, Diagnostics, Core, (glfw, glm). TODO: Get rid of glfw requirement :((
+Graphics -> Math, Diagnostics, Core, (glm, glfw, glfw)
+Input -> Core, Diagnostics, Math (glfw). TODO: Get rid of GLFW? That would require another input library.
+Math -> Diagnostics

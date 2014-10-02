@@ -61,5 +61,8 @@
     <ClInclude Include="..\Include\Core\IEngine.h">
       <Filter>Public Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\Include\Core\Stopwatch.h">
+      <Filter>Public Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
