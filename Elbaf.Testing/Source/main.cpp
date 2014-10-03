@@ -24,6 +24,8 @@
 #include "NoiseGen.h"
 #include <Engine/Scene.h>
 #include <Engine/Stopwatch.h>
+#include <Math/Range.h>
+
 
 enum class DepthBufferFormat
 {
@@ -69,6 +71,10 @@ public:
 
 	virtual void Initialize() override
 	{
+		Range<float> range(5, 10.05f);
+		Range<int> rangeInt(9, 12);
+
+		Logger::MessageStream << "C: " << (-1 % 4);
 		Stopwatch sw("Initialize");
 
 		// Initialize mouse settings

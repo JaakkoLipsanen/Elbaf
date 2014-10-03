@@ -14,17 +14,23 @@
     <ClCompile Include="..\Source\Math\Matrix.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\Source\Math\Size.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="..\Source\Math\SizeF.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\Source\Math\Size.cpp">
+    <ClCompile Include="..\Source\Math\Rectangle.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Math\RectangleF.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Math\Range.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Include\Math\SizeF.h">
-      <Filter>Public Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\Include\Math\Vector.h">
       <Filter>Public Header Files</Filter>
     </ClInclude>
@@ -41,6 +47,24 @@
       <Filter>Public Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\Include\Math\Size.h">
+      <Filter>Public Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Math\RectangleF.h">
+      <Filter>Public Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Math\Rectangle.h">
+      <Filter>Public Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Math\SizeF.h">
+      <Filter>Public Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Math\Range.h">
+      <Filter>Public Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Math\Sign.h">
+      <Filter>Public Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Math\Direction.h">
       <Filter>Public Header Files</Filter>
     </ClInclude>
   </ItemGroup>

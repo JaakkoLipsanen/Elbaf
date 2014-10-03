@@ -123,14 +123,22 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\Source\Math\Matrix.cpp" />
+    <ClCompile Include="..\Source\Math\Range.cpp" />
+    <ClCompile Include="..\Source\Math\Rectangle.cpp" />
+    <ClCompile Include="..\Source\Math\RectangleF.cpp" />
     <ClCompile Include="..\Source\Math\Size.cpp" />
     <ClCompile Include="..\Source\Math\SizeF.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\Include\Math\Direction.h" />
     <ClInclude Include="..\Include\Math\FlaiMath.h" />
     <ClInclude Include="..\Include\Math\Fundamental.h" />
     <ClInclude Include="..\Include\Math\Matrix.h" />
     <ClInclude Include="..\Include\Math\Noise.h" />
+    <ClInclude Include="..\Include\Math\Range.h" />
+    <ClInclude Include="..\Include\Math\Rectangle.h" />
+    <ClInclude Include="..\Include\Math\RectangleF.h" />
+    <ClInclude Include="..\Include\Math\Sign.h" />
     <ClInclude Include="..\Include\Math\Size.h" />
     <ClInclude Include="..\Include\Math\SizeF.h" />
     <ClInclude Include="..\Include\Math\Vector.h" />
