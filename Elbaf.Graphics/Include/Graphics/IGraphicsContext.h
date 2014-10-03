@@ -21,12 +21,12 @@ enum class PrimitiveType;
 enum class BufferType;
 
 struct Color;
-struct Size;
 struct Image;
 struct ShaderSource;
 struct BlendStatePreset;
 struct DepthStatePreset;
 struct CullStatePreset;
+struct Size;
 
 class ITexture;
 class ITexture2D;
