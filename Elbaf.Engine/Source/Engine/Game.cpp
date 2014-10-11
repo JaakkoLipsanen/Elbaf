@@ -10,6 +10,7 @@
 #include <Input\InputModule.h>
 #include <Engine\Scene.h>
 #include <Engine/SceneModule.h>
+#include <Content/ContentModule.h>
 
 class Game::Impl
 {
@@ -22,6 +23,7 @@ public:
 	std::unique_ptr<InputModule> InputModule;
 	std::unique_ptr<TimeModule> TimeModule;
 	std::unique_ptr<SceneModule> SceneModule;
+	std::unique_ptr<ContentModule> ContentModule;
 
 	void Run()
 	{
@@ -58,11 +60,13 @@ private:
 		this->InputModule.reset(new ::InputModule(_game));
 		this->TimeModule.reset(new ::TimeModule(_game)); // = Platform::Engine::CreateTimeModule(_game);
 		this->SceneModule.reset(new ::SceneModule(_game));
+		this->ContentModule.reset(new ::ContentModule(_game));
 
 		this->GraphicsModule->Initialize();
 		this->InputModule->Initialize();
 		this->TimeModule->Initialize();
 		this->SceneModule->Initialize();
+		this->ContentModule->Initialize();
 
 		this->SceneModule->LoadScene(_game.CreateDefaultScene());
 	}
@@ -77,6 +81,7 @@ private:
 		this->GraphicsModule->Update();
 		this->InputModule->Update();
 		this->SceneModule->Update();
+		this->ContentModule->Update();
 		_game.PostUpdate();
 
 		_game.PreRender();
@@ -93,6 +98,7 @@ private:
 		this->InputModule->BeginFrame();
 		this->TimeModule->BeginFrame();
 		this->SceneModule->BeginFrame();
+		this->ContentModule->BeginFrame();
 	}
 
 	void EndFrame()
@@ -101,6 +107,7 @@ private:
 		this->InputModule->EndFrame();
 		this->TimeModule->EndFrame();
 		this->SceneModule->EndFrame();
+		this->ContentModule->EndFrame();
 
 		_game.EndFrame.Invoke();
 	}
@@ -148,6 +155,14 @@ IModule& Game::GetModuleInner(const type_info& typeInfo) const
 	else if (typeInfo == typeid(TimeModule))
 	{
 		return *(_pImpl->TimeModule.get());
+	}
+	else if (typeInfo == typeid(SceneModule))
+	{
+		return *(_pImpl->SceneModule.get());
+	}
+	else if (typeInfo == typeid(ContentModule))
+	{
+		return *(_pImpl->ContentModule.get());
 	}
 
 	throw std::logic_error("Not implemented yet/invalid type");

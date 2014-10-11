@@ -130,13 +130,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\Include\Content\FontLoader.h" />
-    <ClInclude Include="..\Include\Content\ImageLoader.h" />
+    <ClInclude Include="..\Include\Content\Content.h" />
+    <ClInclude Include="..\Include\Content\ContentModule.h" />
     <ClInclude Include="..\Source\Content\PNG-Loader.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\Source\Content\Content.cpp" />
+    <ClCompile Include="..\Source\Content\ContentModule.cpp" />
     <ClCompile Include="..\Source\Content\FontLoader.cpp" />
-    <ClCompile Include="..\Source\Content\ImageLoader.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

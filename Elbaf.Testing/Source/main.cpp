@@ -8,7 +8,6 @@
 #include <Graphics\IVertexBuffer.h>
 #include <Core\Array.h>
 #include <Graphics\ShaderSource.h>
-#include <Content\ImageLoader.h>
 #include "DefaultCamera.h"
 #include <Input\MouseButton.h>
 #include <Input\Input.h>
@@ -45,6 +44,7 @@
 #include <Core/IGameWindow.h>
 #include <Core/RectangleCorner.h>
 #include <Graphics/FontRenderer.h>
+#include <Content/Content.h>
 
 enum class DepthBufferFormat
 {
@@ -100,14 +100,14 @@ public:
 		Stopwatch sw("Initialize");
 
 		// Initialize mouse settings
-		Mouse::SetCursorVisibility(CursorVisibility::Visible);
+		Mouse::SetCursorVisibility(CursorVisibility::Disabled);
 		Mouse::SetPosition({ Screen::GetWidth() / 2, Screen::GetHeight() / 2 });
 
 		this->CreateSkybox();
 		this->CreateTerrain();
 
 		_shader = this->GetGraphicsContext().CreateShader(ShaderSource::FromFiles("BasicShader-vs.glsl", "BasicShader-fs.glsl"));
-		_skyboxTexture = this->GetGraphicsContext().CreateTexture2D(Content::LoadImage("F:/Users/Jaakko/Desktop/Sky.png"));
+		_skyboxTexture = Content::LoadTexture("F:/Users/Jaakko/Desktop/Sky.png");
 		_camera = std::unique_ptr<DefaultCamera>(new DefaultCamera);
 
 		_skyboxTexture->BindToSampler(0);
@@ -139,7 +139,7 @@ public:
 	{
 		auto& graphicsContext = this->GetGraphicsContext();
 		graphicsContext.GetCullState().SetCullingEnabled(false); // culling must be off because the cube isn't inverted :/
-		graphicsContext.GetDepthState().SetDepthWriteEnabled(false);
+		graphicsContext.GetDepthState().SetDepthTestEnabled(false);
 
 		_shader->ApplyShader();
 		_shader->SetParameter("MVP", _camera->GetProjection() * _camera->GetView() * Matrix::Translate(_camera->GetPosition()));
@@ -153,8 +153,9 @@ public:
 	void RenderTerrain()
 	{
 		auto& graphicsContext = this->GetGraphicsContext();
-		graphicsContext.GetDepthState().SetDepthWriteEnabled(true);
 		graphicsContext.GetCullState().SetCullingEnabled(true);
+		graphicsContext.GetDepthState().SetDepthWriteEnabled(true);
+		graphicsContext.GetDepthState().SetDepthTestEnabled(true);
 
 		_shader->ApplyShader();
 		_shader->SetParameter("MVP", _camera->GetProjection() * _camera->GetView() * Matrix::Scale(2));
