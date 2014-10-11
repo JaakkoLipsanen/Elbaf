@@ -67,5 +67,8 @@
     <ClInclude Include="..\Include\Math\Direction.h">
       <Filter>Public Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\Include\Math\Alignment.h">
+      <Filter>Public Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

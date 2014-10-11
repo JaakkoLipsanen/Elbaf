@@ -21,7 +21,7 @@ static void CompileShader(GLuint& shaderID, const std::string& shaderCode, const
 	{
 		std::vector<char> errorMessage(errorMessageLength + 1);
 		glGetShaderInfoLog(shaderID, errorMessageLength, nullptr, &errorMessage[0]);
-		Logger::LogError("\nError Compiling Shader (" + filePath + "): " + std::string(errorMessage.data()));
+		Logger::LogError("\nError Compiling Shader (" + filePath + "): " + std::string(errorMessage.data()) + "\n\n" + shaderCode + "\n");
 		return;
 	}
 
@@ -54,15 +54,15 @@ static void LinkShaders(GLuint programID, GLuint vertexShaderID, GLuint fragment
 	Logger::LogMessage("");
 }
 
-GLuint OGL::LoadShaders(const std::string& vertexFilePath, const std::string& fragmentFilePath)
+GLuint OGL::LoadShadersFromSource(const std::string& vertexShader, const std::string& fragmentShader, const std::string& vertexShaderName, const std::string& fragmentShaderName)
 {
 	// Create the shaders 
 	GLuint vertexShaderID = glCreateShader(GL_VERTEX_SHADER);
 	GLuint fragmentShaderID = glCreateShader(GL_FRAGMENT_SHADER);
 
 	// Read the Vertex Shader code from the file
-	CompileShader(vertexShaderID, File::ReadAllLines(vertexFilePath), vertexFilePath);
-	CompileShader(fragmentShaderID, File::ReadAllLines(fragmentFilePath), vertexFilePath);
+	CompileShader(vertexShaderID, vertexShader, vertexShaderName);
+	CompileShader(fragmentShaderID, fragmentShader, fragmentShaderName);
 
 	GLuint programID = glCreateProgram();
 	LinkShaders(programID, vertexShaderID, fragmentShaderID);
@@ -70,4 +70,9 @@ GLuint OGL::LoadShaders(const std::string& vertexFilePath, const std::string& fr
 	glDeleteShader(vertexShaderID);
 	glDeleteShader(fragmentShaderID);
 	return programID;
+}
+
+GLuint OGL::LoadShadersFromFile(const std::string& vertexFilePath, const std::string& fragmentFilePath)
+{
+	return OGL::LoadShadersFromSource(File::ReadAllLines(vertexFilePath), File::ReadAllLines(fragmentFilePath), vertexFilePath, fragmentFilePath);
 }

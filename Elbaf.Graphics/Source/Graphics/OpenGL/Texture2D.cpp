@@ -27,6 +27,7 @@ std::unique_ptr<OGL::Texture2D> OGL::Texture2D::Load(std::unique_ptr<Image> text
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
+	
 	return std::unique_ptr<OGL::Texture2D>(new Texture2D(new Impl(texture, textureData->Width, textureData->Height)));
 }
 

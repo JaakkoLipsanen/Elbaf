@@ -102,12 +102,18 @@ namespace Content
 		switch (colorType)
 		{
 		case PNG_COLOR_TYPE_RGB:
-			*textureFormat = TextureFormat::RBG;
+			*textureFormat = TextureFormat::RBG8;
 			break;
 
 		case PNG_COLOR_TYPE_RGB_ALPHA:
-			*textureFormat = TextureFormat::RBGA;
+			*textureFormat = TextureFormat::RBGA8;
 			break;
+
+		case PNG_COLOR_TYPE_GRAY:
+			if (bitDepth == 8)
+			{
+				*textureFormat = TextureFormat::Red8;
+			}
 
 		default:
 			Logger::LogError("ReadPNG: Invalid color type/format (" + filePath + ")");

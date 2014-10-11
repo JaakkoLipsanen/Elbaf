@@ -1,5 +1,5 @@
 #include <Math/RectangleF.h>
-
+#include <Math/Rectangle.h>
 
 const RectangleF RectangleF::Empty = RectangleF(0, 0, 0, 0);
 const RectangleF RectangleF::MinMax = RectangleF(FLT_MIN / 2, FLT_MIN / 2, FLT_MAX, FLT_MAX);
@@ -10,6 +10,71 @@ inline RectangleF::RectangleF(float x, float y, float width, float height) : X(x
 	Ensure::True(height >= 0);
 	this->Width = width;
 	this->Height = height;
+}
+
+float RectangleF::Left() const
+{
+	return this->X;
+}
+
+float RectangleF::Right() const
+{
+	return this->X + this->Width;
+}
+
+float RectangleF::Bottom() const
+{
+	return this->Y;
+}
+
+Vector2f RectangleF::TopLeft() const
+{
+	return Vector2f(this->Left(), this->Top());
+}
+
+Vector2f RectangleF::TopRight() const
+{
+	return Vector2f(this->Right(), this->Top());
+}
+
+Vector2f RectangleF::BottomLeft() const
+{
+	return Vector2f(this->Left(), this->Bottom());
+}
+
+Vector2f RectangleF::BottomRight() const
+{
+	return Vector2f(this->Right(), this->Bottom());
+}
+
+float RectangleF::MinX() const
+{
+	return this->X;
+}
+
+float RectangleF::MaxX() const
+{
+	return this->X + this->Width;
+}
+
+float RectangleF::MinY() const
+{
+	return this->Y;
+}
+
+float RectangleF::MaxY() const
+{
+	return this->Y + this->Height;
+}
+
+float RectangleF::Top() const
+{
+	return this->Y + this->Height;
+}
+
+RectangleF::RectangleF(Rectangle const& rectangle) 
+	: RectangleF(rectangle.X, rectangle.Y, rectangle.Width, rectangle.Height)
+{
 }
 
 inline Vector2f RectangleF::Center() const
@@ -91,4 +156,28 @@ inline RectangleF RectangleF::CreateCentered(const Vector2f& center, float size)
 inline RectangleF RectangleF::CreateCentered(const Vector2f& center, const SizeF& size)
 {
 	return RectangleF(center.X - size.Width / 2.0f, center.Y - size.Height / 2.0f, size.Width, size.Height);
+}
+
+RectangleF operator*(const RectangleF& rectangle, float multiplier)
+{
+	Ensure::True(multiplier >= 0);
+	return RectangleF(rectangle.X * multiplier, rectangle.Y * multiplier, rectangle.Width * multiplier, rectangle.Height * multiplier);
+}
+
+RectangleF operator*(const RectangleF& rectangle, Vector2f const& multiplier)
+{
+	Ensure::True(multiplier.X >= 0 && multiplier.Y >= 0);
+	return RectangleF(rectangle.X * multiplier.X, rectangle.Y * multiplier.Y, rectangle.Width * multiplier.X, rectangle.Height * multiplier.Y);
+}
+
+RectangleF operator/(const RectangleF& rectangle, float divider)
+{
+	Ensure::True(divider >= 0);
+	return RectangleF(rectangle.X / divider, rectangle.Y / divider, rectangle.Width / divider, rectangle.Height / divider);
+}
+
+RectangleF operator/(const RectangleF& rectangle, Vector2f const& divider)
+{
+	Ensure::True(divider.X >= 0 && divider.Y >= 0);
+	return RectangleF(rectangle.X / divider.X, rectangle.Y / divider.Y, rectangle.Width / divider.X, rectangle.Height / divider.Y);
 }

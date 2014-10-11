@@ -5,6 +5,7 @@ Stopwatch::Stopwatch(std::string name)
 {
 	_startTime = Time::GetCurrentSystemTime();
 	_name = name;
+	_hasStopped = false;
 }
 
 Stopwatch::~Stopwatch()

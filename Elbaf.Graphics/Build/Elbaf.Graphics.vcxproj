@@ -138,6 +138,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\Source\Graphics\Font.cpp" />
+    <ClCompile Include="..\Source\Graphics\FontRenderer.cpp" />
     <ClCompile Include="..\Source\Graphics\GraphicsModule.cpp" />
     <ClCompile Include="..\Source\Graphics\ITexture.cpp" />
     <ClCompile Include="..\Source\Graphics\IVertexBuffer.cpp" />
@@ -161,6 +163,8 @@
     <ClInclude Include="..\Include\Graphics\CompareFunction.h" />
     <ClInclude Include="..\Include\Graphics\CullStatePreset.h" />
     <ClInclude Include="..\Include\Graphics\DepthStatePreset.h" />
+    <ClInclude Include="..\Include\Graphics\Font.h" />
+    <ClInclude Include="..\Include\Graphics\FontRenderer.h" />
     <ClInclude Include="..\Include\Graphics\GraphicsModule.h" />
     <ClInclude Include="..\Include\Graphics\IBlendState.h" />
     <ClInclude Include="..\Include\Graphics\ICullState.h" />
@@ -174,6 +178,7 @@
     <ClInclude Include="..\Include\Graphics\RendererAPI.h" />
     <ClInclude Include="..\Include\Graphics\ShaderSource.h" />
     <ClInclude Include="..\Include\Graphics\TextureFormat.h" />
+    <ClInclude Include="..\Include\Graphics\TextureHelper.h" />
     <ClInclude Include="..\Include\Graphics\VertexDeclaration.h" />
     <ClInclude Include="..\Include\Graphics\VertexElement.h" />
     <ClInclude Include="..\Include\Graphics\VertexFormats.h" />

@@ -2,6 +2,9 @@
 #include <Diagnostics\Logger.h>
 #include <Content\PNG-Loader.h>
 
+
+#include <Content/FontLoader.h>
+
 std::unique_ptr<Image> Content::LoadImage(std::string const& filePath)
 {
 	TextureFormat textureFormat;
@@ -26,4 +29,10 @@ std::unique_ptr<Image> Content::LoadImage(std::string const& filePath)
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	*/
 	//return texture;
+}
+
+std::unique_ptr<Font> Content::LoadFont(IGraphicsContext& graphicsContext, std::string const& fontPath, int fontSize)
+{
+	FontLoader loader;
+	return loader.LoadFont(graphicsContext, fontPath, fontSize);
 }

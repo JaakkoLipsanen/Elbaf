@@ -93,7 +93,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\Koodaus\OpenGL\Elbaf\Elbaf.Math\Include;C:\Koodaus\OpenGL\Elbaf\Elbaf.Graphics\Include;C:\Koodaus\OpenGL\Elbaf\Elbaf.Diagnostics\Include;C:\Koodaus\OpenGL\Elbaf\Elbaf.Core\Include;C:\Koodaus\OpenGL\Elbaf\Elbaf.Content\Include;C:\Koodaus\OpenGL\Elbaf\Elbaf.Content\Source;C:\Koodaus\OpenGL\Elbaf\Libraries\libpng\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Koodaus\OpenGL\Elbaf\Elbaf.Math\Include;C:\Koodaus\OpenGL\Elbaf\Elbaf.Graphics\Include;C:\Koodaus\OpenGL\Elbaf\Elbaf.Diagnostics\Include;C:\Koodaus\OpenGL\Elbaf\Elbaf.Core\Include;C:\Koodaus\OpenGL\Elbaf\Elbaf.Content\Include;C:\Koodaus\OpenGL\Elbaf\Elbaf.Content\Source;C:\Koodaus\OpenGL\Elbaf\Libraries\freetype\include;C:\Koodaus\OpenGL\Elbaf\Libraries\libpng\include;C:\Koodaus\OpenGL\Elbaf\Libraries\glm\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -121,7 +121,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\Koodaus\OpenGL\Elbaf\Elbaf.Math\Include;C:\Koodaus\OpenGL\Elbaf\Elbaf.Graphics\Include;C:\Koodaus\OpenGL\Elbaf\Elbaf.Diagnostics\Include;C:\Koodaus\OpenGL\Elbaf\Elbaf.Core\Include;C:\Koodaus\OpenGL\Elbaf\Elbaf.Content\Include;C:\Koodaus\OpenGL\Elbaf\Elbaf.Content\Source;C:\Koodaus\OpenGL\Elbaf\Libraries\libpng\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Koodaus\OpenGL\Elbaf\Elbaf.Math\Include;C:\Koodaus\OpenGL\Elbaf\Elbaf.Graphics\Include;C:\Koodaus\OpenGL\Elbaf\Elbaf.Diagnostics\Include;C:\Koodaus\OpenGL\Elbaf\Elbaf.Core\Include;C:\Koodaus\OpenGL\Elbaf\Elbaf.Content\Include;C:\Koodaus\OpenGL\Elbaf\Elbaf.Content\Source;C:\Koodaus\OpenGL\Elbaf\Libraries\freetype\include;C:\Koodaus\OpenGL\Elbaf\Libraries\libpng\include;C:\Koodaus\OpenGL\Elbaf\Libraries\glm\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -130,10 +130,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\Include\Content\FontLoader.h" />
     <ClInclude Include="..\Include\Content\ImageLoader.h" />
     <ClInclude Include="..\Source\Content\PNG-Loader.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\Source\Content\FontLoader.cpp" />
     <ClCompile Include="..\Source\Content\ImageLoader.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

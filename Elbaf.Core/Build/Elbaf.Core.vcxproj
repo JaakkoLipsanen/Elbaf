@@ -125,6 +125,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\Source\Core\Color.cpp" />
+    <ClCompile Include="..\Source\Core\HsvColor.cpp" />
     <ClCompile Include="..\Source\Core\IEngine.cpp" />
     <ClCompile Include="..\Source\Core\File.cpp" />
     <ClCompile Include="..\Source\Core\IModule.cpp" />
@@ -133,7 +134,9 @@
   <ItemGroup>
     <ClInclude Include="..\Include\Core\Array.h" />
     <ClInclude Include="..\Include\Core\Color.h" />
+    <ClInclude Include="..\Include\Core\RectangleCorner.h" />
     <ClInclude Include="..\Include\Core\CursorVisibility.h" />
+    <ClInclude Include="..\Include\Core\HsvColor.h" />
     <ClInclude Include="..\Include\Core\IEngine.h" />
     <ClInclude Include="..\Include\Core\Event.h" />
     <ClInclude Include="..\Include\Core\File.h" />

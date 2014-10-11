@@ -2,6 +2,7 @@
 
 enum class TextureFormat
 {
-	RBGA,
-	RBG,
+	RBGA8,
+	RBG8,
+	Red8,
 };

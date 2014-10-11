@@ -1,3 +1,5 @@
+#pragma once
+
 #include <Engine/Time.h>
 #include <Diagnostics/Logger.h>
 struct Stopwatch

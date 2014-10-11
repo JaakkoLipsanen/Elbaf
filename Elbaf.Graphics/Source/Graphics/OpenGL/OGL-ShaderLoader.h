@@ -4,5 +4,6 @@
 
 namespace OGL
 {
-	GLuint LoadShaders(const std::string& vertexFilePath, const std::string& fragmentFilePath);
+	GLuint LoadShadersFromFile(const std::string& vertexFilePath, const std::string& fragmentFilePath);
+	GLuint LoadShadersFromSource(const std::string& vertexShader, const std::string& fragmentShader, const std::string& vertexShaderName = "VertexShader", const std::string& fragmentShaderName = "FragmentShader");
 }

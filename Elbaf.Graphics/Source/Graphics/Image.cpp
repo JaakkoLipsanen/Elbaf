@@ -1,5 +1,6 @@
 #include <Graphics\Image.h>
 #include <cstdlib>
+#include <Diagnostics/Logger.h>
 
 Image::~Image()
 {

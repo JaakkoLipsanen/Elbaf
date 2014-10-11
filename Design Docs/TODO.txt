@@ -2,13 +2,6 @@
 
 -- TODO: MODULES --
 
-- Audio (FMod or OpenAL something?)
-- Physics (Havok/Bullet/box2D? Should I separate Physics2D and Physics to different modules?)
-- AI(??)
-- FSL (Flai Shader Language - language that compiles into both GLSL and HLSL. Not supposed to be feature-complete or uber performant. This should be very interesting).
-- Content. Loads resources. Should here be content management too? Like keeping track of textures and shaders etc? maybe not
-- CBES/Scene: Maybe put this into Engine?
-
 -- GENERAL --
 
 - High level helper classes: Input, Screen, Time, (Game?), (Resources/Content?)
@@ -31,6 +24,7 @@
 -- HAPPENED BEFORE: --
 - I really fucking over-engineered the Input module
 
+-- MODULE DEPENDENCIES --
 
 Content -> Math, Graphics, Diagnostics, Core (libpng)
 Core -> Diagnostics, MATH
@@ -48,3 +42,21 @@ Math -> Diagnostics
 
 Okei.. Aluksi, hyväksyn sellaiset globaalit funktiot/Singletonit, jotka eivät ole gameplay systeemejä (esim Time, Input, Graphics on hyväksyttäviä). Hyväksyn myös sellaiset singleton gameplay systeemit,
 missä Singletonit ovat read-onlyjä, eli niiden avulla ei voi muokata statea. HUOM! Koita myös näissä "ei gameplay-systeemi" singletoneissa välttää statea muuttavia funktioita.
+
+
+ -- TODO --
+ 
+ 
+- Font Rendering & Loading (FreeType seems good http://www.freetype.org/freetype2 )
+ - CBES/Scene: Maybe put this into Engine?
+- 3D Model loading, Audio loading, Font loading
+- Content Management? Like keeping track of textures and shaders etc?
+- FSL (Flai Shader Language - language that compiles into both GLSL and HLSL. Not supposed to be feature-complete or uber performant. This should be very interesting).
+- Physics (Havok/Bullet/box2D? Should I separate Physics2D and Physics to different modules?)
+- Audio (FMod or OpenAL something?)
+- AI (Behaviour Trees etc)
+
+
+
+TODO: 
+3.10: Font Rendering & Loading

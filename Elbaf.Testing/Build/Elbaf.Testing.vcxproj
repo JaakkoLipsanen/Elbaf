@@ -81,12 +81,12 @@
       <WarningLevel>Level4</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\Koodaus\OpenGL\Elbaf\Elbaf.Diagnostics\Include;C:\Koodaus\OpenGL\Elbaf\Elbaf.Math\Include;C:\Koodaus\OpenGL\Elbaf\Elbaf.Graphics\Source;C:\Koodaus\OpenGL\Elbaf\Elbaf.Graphics\Include;C:\Koodaus\OpenGL\Elbaf\Elbaf.Input\Include;C:\Koodaus\OpenGL\Elbaf\Elbaf.Engine\Include;C:\Koodaus\OpenGL\Elbaf\Elbaf.Content\Include;C:\Koodaus\OpenGL\Elbaf\Elbaf.Core\Include;C:\Koodaus\OpenGL\Elbaf\Libraries\glew\include;C:\Koodaus\OpenGL\Elbaf\Libraries\glfw\include;C:\Koodaus\OpenGL\Elbaf\Libraries\libpng\include;C:\Koodaus\OpenGL\Elbaf\Libraries\glm\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Koodaus\OpenGL\Elbaf\Elbaf.Diagnostics\Include;C:\Koodaus\OpenGL\Elbaf\Elbaf.Math\Include;C:\Koodaus\OpenGL\Elbaf\Elbaf.Graphics\Source;C:\Koodaus\OpenGL\Elbaf\Elbaf.Graphics\Include;C:\Koodaus\OpenGL\Elbaf\Elbaf.Input\Include;C:\Koodaus\OpenGL\Elbaf\Elbaf.Engine\Include;C:\Koodaus\OpenGL\Elbaf\Elbaf.Content\Include;C:\Koodaus\OpenGL\Elbaf\Elbaf.Core\Include;C:\Koodaus\OpenGL\Elbaf\Libraries\glew\include;C:\Koodaus\OpenGL\Elbaf\Libraries\glfw\include;C:\Koodaus\OpenGL\Elbaf\Libraries\libpng\include;C:\Koodaus\OpenGL\Elbaf\Libraries\freetype\include;C:\Koodaus\OpenGL\Elbaf\Libraries\glm\include</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>OPENGL;GLEW_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>$(TargetDir)Elbaf.Core.lib;$(TargetDir)Elbaf.Graphics.lib;$(TargetDir)Elbaf.Engine.lib;$(TargetDir)Elbaf.Input.lib;$(TargetDir)Elbaf.Math.lib;$(TargetDir)Elbaf.Diagnostics.lib;$(TargetDir)Elbaf.Content.lib;opengl32.lib;C:\Koodaus\OpenGL\Elbaf\Libraries\glew\glew32s.lib;C:\Koodaus\OpenGL\Elbaf\Libraries\glfw\glfw3.lib;C:\Koodaus\OpenGL\Elbaf\Libraries\libpng\libpng16.lib;C:\Koodaus\OpenGL\Elbaf\Libraries\zlib\zlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(TargetDir)Elbaf.Core.lib;$(TargetDir)Elbaf.Graphics.lib;$(TargetDir)Elbaf.Engine.lib;$(TargetDir)Elbaf.Input.lib;$(TargetDir)Elbaf.Math.lib;$(TargetDir)Elbaf.Diagnostics.lib;$(TargetDir)Elbaf.Content.lib;opengl32.lib;C:\Koodaus\OpenGL\Elbaf\Libraries\glew\glew32s.lib;C:\Koodaus\OpenGL\Elbaf\Libraries\glfw\glfw3.lib;C:\Koodaus\OpenGL\Elbaf\Libraries\libpng\libpng16.lib;C:\Koodaus\OpenGL\Elbaf\Libraries\zlib\zlib.lib;C:\Koodaus\OpenGL\Elbaf\Libraries\freetype\freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -110,14 +110,14 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\Koodaus\OpenGL\Elbaf\Elbaf.Diagnostics\Include;C:\Koodaus\OpenGL\Elbaf\Elbaf.Math\Include;C:\Koodaus\OpenGL\Elbaf\Elbaf.Graphics\Source;C:\Koodaus\OpenGL\Elbaf\Elbaf.Graphics\Include;C:\Koodaus\OpenGL\Elbaf\Elbaf.Input\Include;C:\Koodaus\OpenGL\Elbaf\Elbaf.Engine\Include;C:\Koodaus\OpenGL\Elbaf\Elbaf.Content\Include;C:\Koodaus\OpenGL\Elbaf\Elbaf.Core\Include;C:\Koodaus\OpenGL\Elbaf\Libraries\glew\include;C:\Koodaus\OpenGL\Elbaf\Libraries\glfw\include;C:\Koodaus\OpenGL\Elbaf\Libraries\libpng\include;C:\Koodaus\OpenGL\Elbaf\Libraries\glm\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Koodaus\OpenGL\Elbaf\Elbaf.Diagnostics\Include;C:\Koodaus\OpenGL\Elbaf\Elbaf.Math\Include;C:\Koodaus\OpenGL\Elbaf\Elbaf.Graphics\Source;C:\Koodaus\OpenGL\Elbaf\Elbaf.Graphics\Include;C:\Koodaus\OpenGL\Elbaf\Elbaf.Input\Include;C:\Koodaus\OpenGL\Elbaf\Elbaf.Engine\Include;C:\Koodaus\OpenGL\Elbaf\Elbaf.Content\Include;C:\Koodaus\OpenGL\Elbaf\Elbaf.Core\Include;C:\Koodaus\OpenGL\Elbaf\Libraries\glew\include;C:\Koodaus\OpenGL\Elbaf\Libraries\glfw\include;C:\Koodaus\OpenGL\Elbaf\Libraries\libpng\include;C:\Koodaus\OpenGL\Elbaf\Libraries\freetype\include;C:\Koodaus\OpenGL\Elbaf\Libraries\glm\include</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>OPENGL;GLEW_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>$(TargetDir)Elbaf.Core.lib;$(TargetDir)Elbaf.Graphics.lib;$(TargetDir)Elbaf.Engine.lib;$(TargetDir)Elbaf.Input.lib;$(TargetDir)Elbaf.Math.lib;$(TargetDir)Elbaf.Diagnostics.lib;$(TargetDir)Elbaf.Content.lib;opengl32.lib;C:\Koodaus\OpenGL\Elbaf\Libraries\glew\glew32s.lib;C:\Koodaus\OpenGL\Elbaf\Libraries\glfw\glfw3.lib;C:\Koodaus\OpenGL\Elbaf\Libraries\libpng\libpng16.lib;C:\Koodaus\OpenGL\Elbaf\Libraries\zlib\zlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(TargetDir)Elbaf.Core.lib;$(TargetDir)Elbaf.Graphics.lib;$(TargetDir)Elbaf.Engine.lib;$(TargetDir)Elbaf.Input.lib;$(TargetDir)Elbaf.Math.lib;$(TargetDir)Elbaf.Diagnostics.lib;$(TargetDir)Elbaf.Content.lib;opengl32.lib;C:\Koodaus\OpenGL\Elbaf\Libraries\glew\glew32s.lib;C:\Koodaus\OpenGL\Elbaf\Libraries\glfw\glfw3.lib;C:\Koodaus\OpenGL\Elbaf\Libraries\libpng\libpng16.lib;C:\Koodaus\OpenGL\Elbaf\Libraries\zlib\zlib.lib;C:\Koodaus\OpenGL\Elbaf\Libraries\freetype\freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>

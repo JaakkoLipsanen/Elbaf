@@ -1,4 +1,5 @@
 #pragma once
+#include <Math/Fundamental.h>
 
 namespace FlaiMath
 {
@@ -6,6 +7,32 @@ namespace FlaiMath
 	const float TwoPi = FlaiMath::Pi * 2;
 	const float HalfPi = FlaiMath::Pi / 2;
 	const float QuarterPi = FlaiMath::Pi / 4;
+
+	inline int32 NextPowerOfTwo(int32 x)
+	{
+		if (x < 0)
+			return 0;
+		--x;
+		x |= x >> 1;
+		x |= x >> 2;
+		x |= x >> 4;
+		x |= x >> 8;
+		x |= x >> 16;
+		return x + 1;
+	}
+
+	inline int64 NextPowerOfTwo(int64 x)
+	{
+		if (x < 0)
+			return 0;
+		--x;
+		x |= x >> 1;
+		x |= x >> 2;
+		x |= x >> 4;
+		x |= x >> 8;
+		x |= x >> 16;
+		return x + 1;
+	}
 
 	template<typename T>
 	T Clamp(const T& value, const T& min, const T& max)
@@ -38,7 +65,7 @@ namespace FlaiMath
 	}
 
 	template<typename T>
-	int64 Floor(const T& value)
+	int64 Floor64(const T& value)
 	{
 		return static_cast<int64>(value);
 	}
@@ -46,7 +73,7 @@ namespace FlaiMath
 	template<typename T>
 	int32 Floor(const T& value)
 	{
-		return static_cast<int>(value);
+		return static_cast<int32>(value);
 	}
 
 	template<typename T>

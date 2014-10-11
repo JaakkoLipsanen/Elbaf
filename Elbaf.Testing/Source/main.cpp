@@ -25,7 +25,26 @@
 #include <Engine/Scene.h>
 #include <Engine/Stopwatch.h>
 #include <Math/Range.h>
+#include <Graphics/TextureFormat.h>
+#include <set>
+#include <map>
 
+#include <Graphics/ITexture.h>
+#include <Graphics/BlendStatePreset.h>
+#include <Graphics/Image.h>
+#include <ft2build.h>
+#include FT_FREETYPE_H
+#include <Math/Rectangle.h>
+
+#include <Graphics/ITexture.h>
+#include <Graphics/IGraphicsDevice.h>
+
+#include <stdlib.h>
+#include <chrono>
+#include <Math/RectangleF.h>
+#include <Core/IGameWindow.h>
+#include <Core/RectangleCorner.h>
+#include <Graphics/FontRenderer.h>
 
 enum class DepthBufferFormat
 {
@@ -57,6 +76,9 @@ private:
 #include <Core/WindowDescription.h>
 class MyGame : public Game
 {
+	std::unique_ptr<Font> _font;
+	std::unique_ptr<FontRenderer> _fontRenderer;
+
 protected:
 	void SetupWindow(WindowDescription& description) override
 	{
@@ -78,18 +100,23 @@ public:
 		Stopwatch sw("Initialize");
 
 		// Initialize mouse settings
-		Mouse::SetCursorVisibility(CursorVisibility::Disabled);
+		Mouse::SetCursorVisibility(CursorVisibility::Visible);
 		Mouse::SetPosition({ Screen::GetWidth() / 2, Screen::GetHeight() / 2 });
 
 		this->CreateSkybox();
 		this->CreateTerrain();
 
-		_shader = this->GetGraphicsContext().CreateShader(ShaderSource("BasicShader-vs.glsl", "BasicShader-fs.glsl"));
+		_shader = this->GetGraphicsContext().CreateShader(ShaderSource::FromFiles("BasicShader-vs.glsl", "BasicShader-fs.glsl"));
 		_skyboxTexture = this->GetGraphicsContext().CreateTexture2D(Content::LoadImage("F:/Users/Jaakko/Desktop/Sky.png"));
 		_camera = std::unique_ptr<DefaultCamera>(new DefaultCamera);
 
 		_skyboxTexture->BindToSampler(0);
-		_shader->SetTextureSampler("TextureSampler", 0);
+		_shader->SetTextureSampler("TextureSampler", 0);;
+
+		Stopwatch fontSw("Font Loading");
+		_font = Content::LoadFont(this->GetGraphicsContext(), "F:\\Users\\Jaakko\\Desktop\\ArvoRegular.ttf", 32);
+		_fontRenderer.reset(new FontRenderer(this->GetGraphicsContext()));
+		sw.Stop();
 	}
 
 	virtual void PostUpdate() override
@@ -99,13 +126,13 @@ public:
 
 	virtual void PreRender() override
 	{
-		_shader->SetParameter("MVP", _camera->GetProjection() * _camera->GetView());
-
 		auto& graphicsContext = this->GetGraphicsContext();
-		graphicsContext.Clear(Color::RoyalBlue);
+		graphicsContext.Clear(Color::Red);
 
+		graphicsContext.GetBlendState().SetBlendEnabled(false);
 		this->RenderSkybox();
 		this->RenderTerrain();
+		_fontRenderer->DrawTextShaded2D(*_font.get(), "ELBAF", Vector2f::One * 8, Color::Black * 0.5f, Color::Gray * 0.5f);;
 	}
 
 	void RenderSkybox()
@@ -114,10 +141,11 @@ public:
 		graphicsContext.GetCullState().SetCullingEnabled(false); // culling must be off because the cube isn't inverted :/
 		graphicsContext.GetDepthState().SetDepthWriteEnabled(false);
 
+		_shader->ApplyShader();
 		_shader->SetParameter("MVP", _camera->GetProjection() * _camera->GetView() * Matrix::Translate(_camera->GetPosition()));
 		_shader->SetParameter("UseLighting", false);
-
-		_shader->ApplyShader();
+		_shader->SetParameter("TextureEnabled", true);
+		_skyboxTexture->BindToSampler(0);
 		_skyboxBuffer->Bind();
 		graphicsContext.DrawPrimitives(PrimitiveType::TriangleList, 0, _skyboxBuffer->GetVertexCount());
 	}
@@ -128,12 +156,11 @@ public:
 		graphicsContext.GetDepthState().SetDepthWriteEnabled(true);
 		graphicsContext.GetCullState().SetCullingEnabled(true);
 
+		_shader->ApplyShader();
 		_shader->SetParameter("MVP", _camera->GetProjection() * _camera->GetView() * Matrix::Scale(2));
-		_skyboxTexture->BindToSampler(0);
-		_shader->SetTextureSampler("TextureSampler", 0);
+		_shader->SetParameter("TextureEnabled", false);
 		_shader->SetParameter("UseLighting", true);
 
-		_shader->ApplyShader();
 		_terrainBuffer->Bind();
 		graphicsContext.DrawPrimitives(PrimitiveType::TriangleList, 0, _terrainBuffer->GetVertexCount());
 	}
@@ -222,7 +249,7 @@ public:
 		{
 			for (int x = 0; x < Size; x++)
 			{
-				static const Color From = Color::PaleGreen;
+				static const Color From = Color(40, 40, 40);
 				static const Color To = From;
 
 				Vector3f blPos = { x, grid[x + y * Size], y };

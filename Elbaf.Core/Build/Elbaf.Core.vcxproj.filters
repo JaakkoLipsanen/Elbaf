@@ -26,6 +26,9 @@
     <ClCompile Include="..\Source\Core\IEngine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\Source\Core\HsvColor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Include\Core\Event.h">
@@ -62,6 +65,12 @@
       <Filter>Public Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\Include\Core\Stopwatch.h">
+      <Filter>Public Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Core\HsvColor.h">
+      <Filter>Public Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Core\RectangleCorner.h">
       <Filter>Public Header Files</Filter>
     </ClInclude>
   </ItemGroup>

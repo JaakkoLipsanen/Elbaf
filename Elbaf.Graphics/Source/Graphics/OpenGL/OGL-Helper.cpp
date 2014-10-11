@@ -104,11 +104,14 @@ GLenum OGL::TextureFormatToGLenum(TextureFormat textureFormat)
 {
 	switch (textureFormat)
 	{
-	case TextureFormat::RBGA:
+	case TextureFormat::RBGA8:
 		return GL_RGBA;
 
-	case TextureFormat::RBG:
+	case TextureFormat::RBG8:
 		return GL_RGB;
+
+	case TextureFormat::Red8:
+		return GL_RED;
 
 	default:
 		throw std::logic_error("Unknown texture format");
