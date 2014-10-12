@@ -68,7 +68,7 @@ public:
 	virtual void DrawPrimitives(PrimitiveType primitiveType, int firstIndex, int count) = 0;
 
 	// CREATE
-	virtual std::unique_ptr<ITexture2D> CreateTexture2D(std::unique_ptr<Image> textureData) = 0;
+	virtual std::unique_ptr<ITexture2D> CreateTexture2D(const Image& textureData) = 0;
 	virtual std::unique_ptr<IVertexBuffer> CreateVertexBuffer(BufferType bufferType) = 0;
 	virtual std::unique_ptr<IShader> CreateShader(const ShaderSource& shaderData) = 0;
 	virtual std::unique_ptr<IBlendState> CreateBlendState() = 0;

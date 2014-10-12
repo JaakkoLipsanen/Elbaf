@@ -88,11 +88,15 @@ void OGL::GraphicsContext::Clear(Color const& color)
 
 void OGL::GraphicsContext::Clear(ClearOptions const& clearOptions, Color const& color, float depth, int stencilValue)
 {
+	bool wasDepthWriteEnabled = this->GetDepthState().IsDepthWriteEnabled();
+	this->GetDepthState().SetDepthWriteEnabled(true); // depth write must be enabled to allow depth clearing
+
 	glClearColor(color.R / 255.0f, color.G / 255.0f, color.B / 255.0f, color.A / 255.0f);
 	glClearDepth(FlaiMath::Clamp(depth, 0.0f, 1.0f));
 	glClearStencil(stencilValue);
 
 	glClear(OGL::GetClearMask(clearOptions));
+	this->GetDepthState().SetDepthWriteEnabled(wasDepthWriteEnabled);
 }
 
 /* misc */
@@ -110,9 +114,9 @@ void OGL::GraphicsContext::DrawPrimitives(PrimitiveType primitiveType, int first
 }
 
 /* create */
-std::unique_ptr<ITexture2D> OGL::GraphicsContext::CreateTexture2D(std::unique_ptr<Image> textureData)
+std::unique_ptr<ITexture2D> OGL::GraphicsContext::CreateTexture2D(const Image& textureData)
 {
-	return Texture2D::Load(std::move(textureData));
+	return Texture2D::Load(textureData);
 }
 
 std::unique_ptr<IVertexBuffer> OGL::GraphicsContext::CreateVertexBuffer(BufferType bufferType)

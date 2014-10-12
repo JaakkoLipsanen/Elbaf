@@ -9,7 +9,7 @@ class IShader
 {
 public:
 	// todo: set variable (float, matrix etc)
-	virtual void ApplyShader() = 0;
+	virtual void Bind() = 0;
 	virtual ~IShader() { }
 
 	virtual void SetParameter(const std::string& valueName, const float& value) = 0;

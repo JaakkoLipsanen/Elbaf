@@ -181,10 +181,10 @@
     <ClInclude Include="..\Include\Graphics\Font.h">
       <Filter>Public Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\Include\Graphics\TextureHelper.h">
+    <ClInclude Include="..\Include\Graphics\FontRenderer.h">
       <Filter>Public Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\Include\Graphics\FontRenderer.h">
+    <ClInclude Include="..\Include\Graphics\TextureHelper.h">
       <Filter>Public Header Files</Filter>
     </ClInclude>
   </ItemGroup>

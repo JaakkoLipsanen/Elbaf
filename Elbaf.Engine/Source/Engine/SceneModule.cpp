@@ -34,5 +34,7 @@ void SceneModule::LoadScene(std::unique_ptr<Scene> scene)
 
 	Ensure::NotNull(scene.get());
 	_currentScene.reset(scene.release());
-	_currentScene->Initialize();
+
+	Game* game = static_cast<Game*>(&_engine);
+	_currentScene->Initialize(*game, *this);
 }

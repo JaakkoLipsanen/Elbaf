@@ -157,7 +157,8 @@ public:
 		std::string fontName = std::string(fontFace->family_name) + " " + fontFace->style_name;
 		FT_Done_Face(fontFace);
 
-		return std::unique_ptr<Font>(new Font(graphicsContext.CreateTexture2D(std::make_unique<Image>(buffer, textureWidth, textureHeight, TextureFormat::Red8)), characters, kerning, fontName, fontSize));
+		Image image(buffer, textureWidth, textureHeight, TextureFormat::Red8);
+		return std::unique_ptr<Font>(new Font(graphicsContext.CreateTexture2D(image), characters, kerning, fontName, fontSize));
 	}
 };
 

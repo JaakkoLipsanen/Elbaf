@@ -21,7 +21,7 @@ public:
 	explicit FontRenderer(IGraphicsContext& graphicsContext);
 	~FontRenderer();
 
-	void DrawText2D(Font& font, const std::string& text, Vector2f position, Color color = Color::White, TextCorner originCorner = TextCorner::Center);
+	void DrawText2D(Font& font, const std::string& text, Vector2f position, Color color = Color::White, TextCorner originCorner = TextCorner::TopLeft);
 	void DrawTextShaded2D(Font& font, const std::string& text, Vector2f position, Color backgroundColor = Color::Black, Color foregroundColor = Color::White, TextCorner originCorner = TextCorner::TopLeft);
 
 private:

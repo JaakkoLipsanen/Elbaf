@@ -98,7 +98,7 @@ struct FontRenderer::Data
 		this->VertexBuffer->SetVertexData(this->Vertices.data(), this->Vertices.size());
 		this->VertexBuffer->Bind();
 
-		this->FontShader->ApplyShader();
+		this->FontShader->Bind();
 		this->FontShader->SetParameter("MVP", Matrix::Scale(1, -1, 1) * Matrix::Translate(-1.f, -1.0f, 0) * Matrix::Scale(1.0f / this->GraphicsContext.GetResolution().Width * 2, 1.0f / this->GraphicsContext.GetResolution().Height * 2, 0));
 		this->GraphicsContext.DrawPrimitives(PrimitiveType::TriangleList, 0, this->Vertices.size());
 

@@ -46,7 +46,7 @@ std::unique_ptr<IShader> OGL::Shader::Load(const ShaderSource& shaderSource)
 	return std::unique_ptr<Shader>(new Shader(new Impl(programID)));
 }
 
-void OGL::Shader::ApplyShader()
+void OGL::Shader::Bind()
 {
 	glUseProgram(_pImpl->ProgramID);
 }

@@ -40,7 +40,7 @@ std::unique_ptr<Image> ContentModule::LoadImage(std::string const& filePath)
 
 std::unique_ptr<ITexture2D> ContentModule::LoadTexture(std::string const& filePath)
 {
-	return _engine.GetInstance().GetModule<GraphicsModule>().GetGraphicsContext().CreateTexture2D(this->LoadImage(filePath));
+	return _engine.GetInstance().GetModule<GraphicsModule>().GetGraphicsContext().CreateTexture2D(*this->LoadImage(filePath).get());
 }
 
 std::unique_ptr<Font> ContentModule::LoadFont(IGraphicsContext& graphicsContext, std::string const& fontPath, int fontSize)

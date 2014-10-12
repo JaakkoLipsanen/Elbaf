@@ -8,15 +8,14 @@ out vec4 color;
 
 
 uniform sampler2D TextureSampler;
-uniform bool TextureEnabled;
+uniform vec3 Tint;
 
 void main()
 {
 
 	// Output color = red 
 	color = fragmentColor;
-	if(TextureEnabled)
-	{
-		color.rgba *= texture2D(TextureSampler, uvFS).rgba;
-	}
+	color.rgb *= Tint;
+
+	color.rgba *= texture2D(TextureSampler, uvFS).rgba;
 }

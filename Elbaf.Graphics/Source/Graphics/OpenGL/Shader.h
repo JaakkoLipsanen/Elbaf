@@ -13,7 +13,7 @@ namespace OGL
 		static std::unique_ptr<IShader> Load(const ShaderSource& shaderSource);
 
 		virtual ~Shader() override;
-		virtual void ApplyShader() override;
+		virtual void Bind() override;
 
 		// parameter setters
 		virtual void SetParameter(std::string const& valueName, float const& value) override;

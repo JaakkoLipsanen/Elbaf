@@ -9,18 +9,18 @@
 #include <Diagnostics\Logger.h>
 
 // from OGL tutorial mostly
-DefaultCamera::DefaultCamera()
+DefaultCamera::DefaultCamera() : _position(Vector3f::One * 100)
 {
 	_projection = Matrix::CreatePerspective(75, Screen::GetSize().GetAspectRatio(), 0.1f, 1000.0f);
 	this->UpdateView();
 }
 
-Matrix4x4 const& DefaultCamera::GetView() const
+Matrix4x4 DefaultCamera::GetView()
 {
 	return _view;
 }
 
-Matrix4x4 const& DefaultCamera::GetProjection() const
+Matrix4x4 DefaultCamera::GetProjection()
 {
 	return _projection;
 }
@@ -28,7 +28,8 @@ Matrix4x4 const& DefaultCamera::GetProjection() const
 void DefaultCamera::Update()
 {
 	Vector3f cross = Vector::Normalize(Vector::Cross(this->CalculateDirection(), Vector3f::UnitY));
-	const float MovementSpeed = 25.0f;
+	const float DefaultMovementSpeed = 25.0f;
+	float MovementSpeed = DefaultMovementSpeed * (Input::IsKeyPressed(KeyCode::LeftShift) ? 4 : 1);
 	if (Input::IsKeyPressed(KeyCode::W))
 	{
 		_position += this->CalculateDirection() * MovementSpeed * Time::GetDeltaTime();

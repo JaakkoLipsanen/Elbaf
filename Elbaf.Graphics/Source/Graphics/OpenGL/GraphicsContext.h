@@ -41,7 +41,7 @@ namespace OGL
 		virtual void DrawPrimitives(PrimitiveType primitiveType, int firstIndex, int count) override;
 
 		// create
-		virtual std::unique_ptr<ITexture2D> CreateTexture2D(std::unique_ptr<Image> textureData) override;
+		virtual std::unique_ptr<ITexture2D> CreateTexture2D(const Image& textureData) override;
 		virtual std::unique_ptr<IVertexBuffer> CreateVertexBuffer(BufferType bufferType) override;
 		virtual std::unique_ptr<IShader> CreateShader(const ShaderSource& shaderData) override;
 		virtual std::unique_ptr<IBlendState> CreateBlendState() override;

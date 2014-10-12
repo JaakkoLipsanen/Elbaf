@@ -15,19 +15,19 @@ public:
 	Impl(GLuint textureID, int width, int height) : TextureID(textureID), Width(width), Height(height) { }
 };
 
-std::unique_ptr<OGL::Texture2D> OGL::Texture2D::Load(std::unique_ptr<Image> textureData)
+std::unique_ptr<OGL::Texture2D> OGL::Texture2D::Load(const Image& textureData)
 {
-	GLuint format = OGL::TextureFormatToGLenum(textureData->Format);
+	GLuint format = OGL::TextureFormatToGLenum(textureData.Format);
 
 	// Generate the OpenGL texture object
 	GLuint texture;
 	glGenTextures(1, &texture);
 	glBindTexture(GL_TEXTURE_2D, texture);
-	glTexImage2D(GL_TEXTURE_2D, 0, format, textureData->Width, textureData->Height, 0, format, GL_UNSIGNED_BYTE, textureData->ImageData);
+	glTexImage2D(GL_TEXTURE_2D, 0, format, textureData.Width, textureData.Height, 0, format, GL_UNSIGNED_BYTE, textureData.ImageData);
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
-	return std::unique_ptr<OGL::Texture2D>(new Texture2D(new Impl(texture, textureData->Width, textureData->Height)));
+	return std::unique_ptr<OGL::Texture2D>(new Texture2D(new Impl(texture, textureData.Width, textureData.Height)));
 }
 
 int OGL::Texture2D::GetWidth() const

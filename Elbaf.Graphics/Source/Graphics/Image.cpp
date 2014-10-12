@@ -1,10 +1,23 @@
 #include <Graphics\Image.h>
 #include <cstdlib>
 #include <Diagnostics/Logger.h>
+#include <Graphics/TextureFormat.h>
+#include <Core/Color.h>
 
 Image::~Image()
 {
 	// meh. casting const pointer to non-const pointer. but whatever..
-	// also I'm really not sure if it's a good idea for this to automatically delete the image data, after all the 'user' might want to keep it in memory?
-	free((void*)this->ImageData);
+	if (_freeImageDataWhenDestructed)
+	{
+		free(const_cast<void*>(this->ImageData));
+	}
+}
+
+Image Image::Copy() const
+{
+	int dataLength = this->Width * this->Height * TextureFormatHelper::GetPixelSizeInBytes(this->Format);
+	void* newData = malloc(dataLength);
+	memcpy(newData, this->ImageData, dataLength);
+
+	return Image(newData, this->Width, this->Height, this->Format, true); // should freeImageDataWhenDestructed be always true..?
 }

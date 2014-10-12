@@ -20,7 +20,7 @@ void main(){
 	uvFS = uvVS;
 	fragmentColor = vertexColor;
 
-	if(UseLighting)
+	if(UseLighting || true)
 	{
 		vec3 l = normalize(lightDir);
 		vec3 n = normalize(normal);

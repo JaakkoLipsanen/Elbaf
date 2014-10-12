@@ -46,8 +46,6 @@ missä Singletonit ovat read-onlyjä, eli niiden avulla ei voi muokata statea. HUO
 
  -- TODO --
  
- 
-- Font Rendering & Loading (FreeType seems good http://www.freetype.org/freetype2 )
  - CBES/Scene: Maybe put this into Engine?
 - 3D Model loading, Audio loading, Font loading
 - Content Management? Like keeping track of textures and shaders etc?

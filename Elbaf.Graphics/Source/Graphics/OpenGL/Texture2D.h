@@ -6,7 +6,7 @@ namespace OGL
 	class Texture2D : public ITexture2D
 	{
 	public:
-		static std::unique_ptr<Texture2D> Load(std::unique_ptr<Image> textureData);
+		static std::unique_ptr<Texture2D> Load(const Image& textureData);
 
 		virtual int GetWidth() const override;
 		virtual int GetHeight() const override;
