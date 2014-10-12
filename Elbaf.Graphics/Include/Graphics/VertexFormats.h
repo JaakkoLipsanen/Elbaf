@@ -17,6 +17,22 @@ struct VertexPosition
 	}
 };
 
+struct VertexPositionTexture
+{
+	Vector3f Position;
+	Vector2f TextureCoordinate;
+
+	VertexPositionTexture(Vector3f position, Vector2f textureCoordinate) : Position(position), TextureCoordinate(textureCoordinate)
+	{
+	}
+
+	static const VertexDeclaration Declaration; // = VertexDeclaration({ VertexElement(), VertexElement() }); // VertexDeclaration({ VertexElement() });
+	static const VertexDeclaration& GetVertexDeclaration()
+	{
+		return Declaration;
+	}
+};
+
 struct VertexPositionColor
 {
 	Vector3f Position;

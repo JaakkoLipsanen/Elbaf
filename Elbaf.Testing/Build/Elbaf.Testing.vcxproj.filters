@@ -16,6 +16,12 @@
     <Filter Include="Shaders">
       <UniqueIdentifier>{d4b97bfd-2bd0-4abd-81d7-e7d5c54ea36e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Post Processing">
+      <UniqueIdentifier>{50ede958-e5ed-4029-8eba-024bf10c6b5f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Post Processing">
+      <UniqueIdentifier>{4c9f7313-fe5e-44a5-ad10-1e68b26a3bf5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Source\main.cpp">
@@ -29,6 +35,12 @@
     </ClCompile>
     <ClCompile Include="..\Source\TestRenderer.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\PostProcessRenderer.cpp">
+      <Filter>Source Files\Post Processing</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\PostProcess.cpp">
+      <Filter>Source Files\Post Processing</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -60,6 +72,18 @@
     </ClInclude>
     <ClInclude Include="..\Source\Skybox.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\RenderTarget.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\PostProcessRenderer.h">
+      <Filter>Header Files\Post Processing</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\PostProcess.h">
+      <Filter>Header Files\Post Processing</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Vignette.h">
+      <Filter>Header Files\Post Processing</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

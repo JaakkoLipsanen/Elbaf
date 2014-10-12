@@ -8,10 +8,17 @@
 #include <Graphics/ShaderSource.h>
 #include <algorithm>
 
+#include <Graphics/OpenGL/OGL.h>
+#include <Graphics/OpenGL/OGL-Helper.h>
+#include <Graphics/VertexFormats.h>
+#include "RenderTarget.h"
+#include "Vignette.h"
+
 TestRenderer::TestRenderer(IGraphicsContext& graphicsContext)
-	: _graphicsContext(graphicsContext)
+	: _graphicsContext(graphicsContext), _postProcessRenderer(graphicsContext)
 {
 	_shader = graphicsContext.CreateShader(ShaderSource::FromFiles("BasicShader-vs.glsl", "BasicShader-fs.glsl"));
+	_postProcessRenderer.AddPostProcess(std::make_shared<VignettePostProcess>(_graphicsContext));
 }
 
 TestRenderer::~TestRenderer() = default;
@@ -31,14 +38,18 @@ void TestRenderer::PostUpdate()
 
 void TestRenderer::Render()
 {
+	_postProcessRenderer.BeginRender();
+
 	// sorting every frame is pretty wasteful.. also std::sort should be fine, but I guess there could be some artifacts/glitches without stable sort..?
 	std::stable_sort(_renderObjects.begin(), _renderObjects.end(), [](const std::shared_ptr<const RenderObject>& left, const std::shared_ptr<const RenderObject>& right) { return left->RenderOrder < right->RenderOrder; });
-	_graphicsContext.Clear(Color::DodgerBlue);
 	this->RenderScene();
+	
+	_postProcessRenderer.Render();
 }
 
 void TestRenderer::RenderScene()
 {
+	_graphicsContext.Clear(Color::White);
 	auto projectionXview = _camera->GetProjection() * _camera->GetView();
 	for (auto& renderObject : _renderObjects)
 	{

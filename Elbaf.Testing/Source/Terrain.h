@@ -18,14 +18,14 @@ public:
 	std::shared_ptr<Mesh> Mesh;
 	void Generate()
 	{
-		const int Size = 400;
+		const int Size = 256;
 		float grid[(Size + 1) * (Size + 1)];
 		const float MaxHeight = 1;
 		for (int y = 0; y < Size + 1; y++)
 		{
 			for (int x = 0; x < Size + 1; x++)
 			{
-				grid[x + y * Size] = scaled_octave_noise_2d(24, 0.4f, 0.0075f, 0, 60, x, y) + Global::Random.NextFloat(-0.5f, 0.5f);
+				grid[x + y * Size] = scaled_octave_noise_2d(24, 0.4f, 0.0075f, 0, 10, x, y) + Global::Random.NextFloat(-0.5f, 0.5f);
 			}
 		}
 
@@ -35,7 +35,7 @@ public:
 		{
 			for (int x = 0; x < Size; x++)
 			{
-				static const Color From = Color::White; // Color(40, 40, 40);
+				static const Color From = Color::Lerp(Color::DodgerBlue, Color::White, 0.5f); // Color(40, 40, 40);
 				static const Color To = From;
 
 				Vector3f blPos = { x, grid[x + y * Size], y };

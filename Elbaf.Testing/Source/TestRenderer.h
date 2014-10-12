@@ -4,6 +4,7 @@
 #include <vector>
 #include <Engine/ICamera.h>
 #include <Core/Color.h>
+#include "PostProcessRenderer.h"
 
 struct Material
 {
@@ -44,6 +45,7 @@ struct RenderObject
 	}
 };
 
+class RenderTarget;
 class TestRenderer
 {
 public:
@@ -60,6 +62,7 @@ private:
 	IGraphicsContext& _graphicsContext;
 	ICamera* _camera;
 	std::unique_ptr<IShader> _shader;
+	PostProcessRenderer _postProcessRenderer;
 
 	void RenderScene();
 };

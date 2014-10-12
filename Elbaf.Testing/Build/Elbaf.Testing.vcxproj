@@ -123,6 +123,8 @@
   <ItemGroup>
     <ClCompile Include="..\Source\DefaultCamera.cpp" />
     <ClCompile Include="..\Source\main.cpp" />
+    <ClCompile Include="..\Source\PostProcess.cpp" />
+    <ClCompile Include="..\Source\PostProcessRenderer.cpp" />
     <ClCompile Include="..\Source\TestRenderer.cpp" />
     <ClCompile Include="..\Source\TestScene.cpp" />
   </ItemGroup>
@@ -134,10 +136,14 @@
     <ClInclude Include="..\Source\DefaultCamera.h" />
     <ClInclude Include="..\Source\ICamera.h" />
     <ClInclude Include="..\Source\NoiseGen.h" />
+    <ClInclude Include="..\Source\PostProcess.h" />
+    <ClInclude Include="..\Source\PostProcessRenderer.h" />
+    <ClInclude Include="..\Source\RenderTarget.h" />
     <ClInclude Include="..\Source\Skybox.h" />
     <ClInclude Include="..\Source\Terrain.h" />
     <ClInclude Include="..\Source\TestRenderer.h" />
     <ClInclude Include="..\Source\TestScene.h" />
+    <ClInclude Include="..\Source\Vignette.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

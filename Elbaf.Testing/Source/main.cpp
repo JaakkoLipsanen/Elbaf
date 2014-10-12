@@ -8,34 +8,8 @@
 #include "TestScene.h"
 #include <Core/CursorVisibility.h>
 #include <Content/Content.h>
-
-enum class DepthBufferFormat
-{
-	None,
-	Depth16,
-	Depth24Stencil8,
-	Depth32,
-};
-
-class RenderTarget
-{
-public:
-	static std::unique_ptr<RenderTarget> Create(DepthBufferFormat format)
-	{
-		GLuint frameBufferID;
-		glGenFramebuffers(1, &frameBufferID);
-
-		// Modifies global frame buffer. cache old and set it back?
-		glBindFramebuffer(GL_FRAMEBUFFER, frameBufferID);
-	}
-
-private:
-	GLuint _framebufferID;
-	GLuint _colorTextureID;
-	GLuint _depthTextureID;
-};
-
 #include <Core/WindowDescription.h>
+
 class MyGame : public Game
 {
 	std::unique_ptr<Font> _font;

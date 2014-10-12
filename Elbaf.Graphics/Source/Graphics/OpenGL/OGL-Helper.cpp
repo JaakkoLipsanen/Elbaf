@@ -89,7 +89,6 @@ GLenum OGL::PrimitiveTypeToGLenum(PrimitiveType primitiveType)
 
 GLenum OGL::SamplerIndexToGLenum(unsigned samplerIndex)
 {
-	
 	if (samplerIndex > 30)
 	{
 		throw std::logic_error("Too big value. OpenGL (I think!) supports only 30 samplers");

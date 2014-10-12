@@ -11,6 +11,13 @@ const VertexDeclaration VertexPositionColor::Declaration = VertexDeclaration({
 	VertexElement(0, 3, VertexElementType::Float, false, offsetof(VertexPositionColor, Position)),
 	VertexElement(1, 4, VertexElementType::Float, false, offsetof(VertexPositionColor, Color)) });
 
+
+// VertexPositionTexture
+const VertexDeclaration VertexPositionTexture::Declaration = VertexDeclaration({
+	VertexElement(0, 3, VertexElementType::Float, false, offsetof(VertexPositionTexture, Position)),
+	// Color
+	VertexElement(2, 2, VertexElementType::Float, false, offsetof(VertexPositionTexture, TextureCoordinate)) });
+
 // VertexPositionColorTexture
 const VertexDeclaration VertexPositionColorTexture::Declaration = VertexDeclaration({
 	VertexElement(0, 3, VertexElementType::Float, false, offsetof(VertexPositionColorTexture, Position)),
