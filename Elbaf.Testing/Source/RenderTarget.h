@@ -34,13 +34,26 @@ public:
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 
+		
 		// The depth buffer
-		GLuint depthTextureID;
+	/*	GLuint depthTextureID;
 		glGenRenderbuffers(1, &depthTextureID);
 		glBindRenderbuffer(GL_RENDERBUFFER, depthTextureID);
 		glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, width, height);
 		glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, depthTextureID);
 
+		glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, colorTextureID, 0);
+		*/
+
+		GLuint depthTextureID;
+		glGenTextures(1, &depthTextureID);
+		glBindTexture(GL_TEXTURE_2D, depthTextureID);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT24, width, height, 0, GL_DEPTH_COMPONENT, GL_FLOAT, 0); // == last 0 == "empty buffer"
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+
+
+		glFramebufferTexture(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, depthTextureID, 0);
 		glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, colorTextureID, 0);
 
 		GLenum drawBuffers[1] = { GL_COLOR_ATTACHMENT0 };
@@ -71,6 +84,11 @@ public:
 	{
 		glActiveTexture(OGL::SamplerIndexToGLenum(samplerIndex));
 		this->BindTexture();
+	}
+
+	GLuint DepthTextureID()
+	{
+		return _depthTextureID;
 	}
 
 private:

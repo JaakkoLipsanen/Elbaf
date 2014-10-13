@@ -8,6 +8,10 @@ public:
 	ICamera() = default;
 	virtual ~ICamera() = default;
 
-	virtual Matrix4x4 GetView() = 0;
-	virtual Matrix4x4 GetProjection() = 0;
+	virtual Matrix4x4 GetView() const = 0;
+	virtual Matrix4x4 GetProjection() const = 0;
+
+	virtual Vector3f GetPosition() const = 0;
+	virtual float GetNearZ() const = 0;
+	virtual float GetFarZ() const = 0;
 };

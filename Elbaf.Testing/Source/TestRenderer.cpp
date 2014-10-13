@@ -19,8 +19,8 @@ TestRenderer::TestRenderer(IGraphicsContext& graphicsContext)
 	: _graphicsContext(graphicsContext), _postProcessRenderer(graphicsContext)
 {
 	_shader = graphicsContext.CreateShader(ShaderSource::FromFiles("BasicShader-vs.glsl", "BasicShader-fs.glsl"));
-	_postProcessRenderer.AddPostProcess(std::make_shared<VignettePostProcess>(_graphicsContext));
 	_postProcessRenderer.AddPostProcess(std::make_shared<FogPostProcess>(_graphicsContext));
+	_postProcessRenderer.AddPostProcess(std::make_shared<VignettePostProcess>(_graphicsContext));
 }
 
 TestRenderer::~TestRenderer() = default;
@@ -36,6 +36,7 @@ void TestRenderer::SetCamera(ICamera* camera)
 
 void TestRenderer::PostUpdate()
 {
+	_postProcessRenderer.Update();
 }
 
 void TestRenderer::Render()
@@ -46,7 +47,7 @@ void TestRenderer::Render()
 	std::stable_sort(_renderObjects.begin(), _renderObjects.end(), [](const std::shared_ptr<const RenderObject>& left, const std::shared_ptr<const RenderObject>& right) { return left->RenderOrder < right->RenderOrder; });
 	this->RenderScene();
 	
-	_postProcessRenderer.Render();
+	_postProcessRenderer.Render(_camera);
 }
 
 void TestRenderer::RenderScene()

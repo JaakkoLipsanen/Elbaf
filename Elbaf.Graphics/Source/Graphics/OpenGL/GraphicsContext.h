@@ -31,7 +31,7 @@ namespace OGL
 
 		// clear
 		virtual void Clear(const Color& color) override;
-		virtual void Clear(const ClearOptions& clearOptions, const Color& color, float depth = 0, int stencilValue = 0) override;
+		virtual void Clear(const ClearOptions& clearOptions, const Color& color, float depth = 1, int stencilValue = 0) override;
 		
 		// miscp
 		virtual Size GetResolution() const override;

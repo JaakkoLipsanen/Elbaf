@@ -45,7 +45,7 @@ public:
 	virtual ~IGraphicsContext() = default;
 
 	virtual void Clear(const Color& color) = 0;
-	virtual void Clear(const ClearOptions& clearOptions, const Color& color, float depth = 0, int stencilValue = 0) = 0;
+	virtual void Clear(const ClearOptions& clearOptions, const Color& color, float depth = 1, int stencilValue = 0) = 0;
 
 	virtual Size GetResolution() const = 0;
 	virtual void ChangeResolution(const Size& newSize) = 0;

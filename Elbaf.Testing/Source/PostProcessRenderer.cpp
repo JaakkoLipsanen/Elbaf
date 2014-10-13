@@ -6,11 +6,14 @@
 #include <Graphics/IDepthState.h>
 #include <Graphics/ICullState.h>
 #include <Core/Array.h>
+#include <Graphics/ClearOptions.h>
+#include <Engine/ICamera.h>
+#include "Vignette.h"
 
 PostProcessRenderer::PostProcessRenderer(IGraphicsContext& graphicsContext)
 	: _graphicsContext(graphicsContext), _quadVertexBuffer(graphicsContext.CreateVertexBuffer(BufferType::Static))
 {
-	static const VertexPositionTexture quadVertices[]
+	static const VertexPositionTexture quadVertices[6]
 	{
 		VertexPositionTexture(Vector3f(-1, 1, 0), Vector2f::UnitY),
 		VertexPositionTexture(Vector3f(-1, -1, 0), Vector2f::Zero),
@@ -33,8 +36,8 @@ PostProcessRenderer::PostProcessRenderer(IGraphicsContext& graphicsContext)
 		out vec2 fragmentUV;
 
 		void main(){
-		gl_Position =  vec4(vertexPosition, 1);
-		fragmentUV = vertexUV;
+			gl_Position =  vec4(vertexPosition, 1);
+			fragmentUV = vertexUV;
 		})XXX";
 
 	static const std::string FragmentShader = R"XXX(
@@ -51,10 +54,20 @@ PostProcessRenderer::PostProcessRenderer(IGraphicsContext& graphicsContext)
 	_passthroughShader = graphicsContext.CreateShader(ShaderSource::FromSource(VertexShader, FragmentShader));
 }
 
-void PostProcessRenderer::AddPostProcess(std::shared_ptr<PostProcess> postProcess)
+void PostProcessRenderer::Update()
+{
+	for (auto& postProcess : _postProcesses)
+	{
+		postProcess->Update();
+	}
+}
+
+std::shared_ptr<PostProcess> PostProcessRenderer::AddPostProcess(std::shared_ptr<PostProcess> postProcess)
 {
 	_postProcesses.push_back(postProcess);
 	postProcess->Initialize(*this);
+
+	return postProcess;
 }
 
 void PostProcessRenderer::BeginRender()
@@ -63,15 +76,23 @@ void PostProcessRenderer::BeginRender()
 	glViewport(0, 0, 1920, 1080);
 }
 
-void PostProcessRenderer::Render()
+void PostProcessRenderer::Render(const ICamera* renderCamera)
 {	
+	RenderTarget& originalSceneRenderTarget = *_currentRenderTarget;
+	_graphicsContext.GetDepthState().SetDepthTestEnabled(false);
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	for (auto& postProcess : _postProcesses)
 	{
+		if (!postProcess->IsEnabled())
+		{
+			continue;
+		}
+
 		_backgroundRenderTarget->BindRenderTarget();
+		_graphicsContext.Clear(ClearOptions::Color, Color::White);
 
 		_currentRenderTarget->BindTextureToSampler(0);
-		postProcess->ProcessInner(*_currentRenderTarget, *_backgroundRenderTarget);
+		postProcess->ProcessInner(*_currentRenderTarget, *_backgroundRenderTarget, originalSceneRenderTarget, renderCamera);
 
 		_currentRenderTarget.swap(_backgroundRenderTarget);
 	}

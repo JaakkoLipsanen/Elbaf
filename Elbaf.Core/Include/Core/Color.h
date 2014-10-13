@@ -13,7 +13,8 @@ struct Color
 	Color(uint8 r, uint8 g, uint8 b);
 	Color(uint8 r, uint8 g, uint8 b, uint8 a);
 	Color operator *(float multiplier) const;
-	bool operator==(const Color& other);
+	bool operator==(const Color& other) const;
+	bool operator!=(const Color& other) const;
 
 	Vector3f ToVector3f() const;
 	Vector4f ToVector4f() const;

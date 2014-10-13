@@ -3,7 +3,7 @@
 #include <Graphics/ShaderSource.h>
 #include <Graphics/IShader.h>
 #include <Graphics/IVertexBuffer.h>
-
+#include <Engine/ICamera.h>
 
 static const std::string DefaultVertexShader = R"XXX(
 	#version 330 core
@@ -36,22 +36,23 @@ void PostProcess::Initialize(PostProcessRenderer& parentRenderer)
 	// not sure about the best order of CreateShader and LoadContent...?
 	auto shaderSource = this->CreateShader(DefaultVertexShader);
 	_shader = _graphicsContext.CreateShader(shaderSource);
-	_shader->Bind();
-	_shader->SetTextureSampler("TextureSampler", 0);
+
 	this->LoadContent();
 }
 
-void PostProcess::ProcessInner(RenderTarget& source, RenderTarget& destination)
+void PostProcess::ProcessInner(RenderTarget& source, RenderTarget& destination, RenderTarget& originalSceneRT, const ICamera* renderCamera)
 {
 	_shader->Bind();
+	destination.BindRenderTarget();
 	source.BindTextureToSampler(0);
+	_shader->SetTextureSampler("TextureSampler", 0);
 
 	this->GetFullscreenQuadBuffer().Bind();
-	this->Process(source, destination);
+	this->Process(source, destination, originalSceneRT, renderCamera);
 }
 
 // default implementation == draw full screen quad with the shader applied
-void PostProcess::Process(RenderTarget& source, RenderTarget& destination)
+void PostProcess::Process(RenderTarget& source, RenderTarget& destination, RenderTarget& originalSceneRT, const ICamera* renderCamera)
 {
 	this->GetFullscreenQuadBuffer().Bind();
 	_graphicsContext.DrawPrimitives(PrimitiveType::TriangleList, 0, this->GetFullscreenQuadBuffer().GetVertexCount());

@@ -6,8 +6,8 @@
 template<typename T>
 struct Range
 {
-	const T Min;
-	const T Max;
+	T Min;
+	T Max;
 
 	Range(const T& min, const T& max);
 	float Average() const; // MEH. okay for int and float but for others no..
@@ -16,6 +16,9 @@ struct Range
 	Range<T> AsInflated(float amount) const;
 
 	bool Intersects(const Range<T>& other) const;
+
+	bool operator==(const Range<T>& other) const;
+	bool operator!=(const Range<T>& other) const;
 
 	static Range<T> CreateCentered(T center, T length);
 };
@@ -61,4 +64,16 @@ template <typename T>
 float Range<T>::Average() const
 {
 	return static_cast<float>(Min + Max) / 2.0f;
+}
+
+template <typename T>
+bool Range<T>::operator==(Range<T> const& other) const
+{
+	return this->Min == other.Min && this->Max == other.Max;
+}
+
+template <typename T>
+bool Range<T>::operator!=(Range<T> const& other) const
+{
+	return !(*this == other);
 }

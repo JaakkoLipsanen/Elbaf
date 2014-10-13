@@ -4,6 +4,7 @@
 #include <vector>
 #include <Graphics/VertexFormats.h>
 
+class ICamera;
 class PostProcessRenderer
 {
 	friend class PostProcess;
@@ -11,9 +12,10 @@ class PostProcessRenderer
 public:
 	explicit PostProcessRenderer(IGraphicsContext& graphicsContext);
 
-	void AddPostProcess(std::shared_ptr<PostProcess> postProcess);
+	void Update();
+	std::shared_ptr<PostProcess> AddPostProcess(std::shared_ptr<PostProcess> postProcess);
 	void BeginRender();
-	void Render();
+	void Render(const ICamera* renderCamera);
 
 private:
 	IGraphicsContext& _graphicsContext;

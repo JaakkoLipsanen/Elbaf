@@ -8,21 +8,34 @@
 #include <Math\FlaiMath.h>
 #include <Diagnostics\Logger.h>
 
+static const float NearZ = 0.1f;
+static const float FarZ = 1000.0f;
+
 // from OGL tutorial mostly
 DefaultCamera::DefaultCamera() : _position(Vector3f::One * 100)
 {
-	_projection = Matrix::CreatePerspective(75, Screen::GetSize().GetAspectRatio(), 0.1f, 1000.0f);
+	_projection = Matrix::CreatePerspective(75, Screen::GetSize().GetAspectRatio(),NearZ, FarZ);
 	this->UpdateView();
 }
 
-Matrix4x4 DefaultCamera::GetView()
+Matrix4x4 DefaultCamera::GetView() const
 {
 	return _view;
 }
 
-Matrix4x4 DefaultCamera::GetProjection()
+Matrix4x4 DefaultCamera::GetProjection() const
 {
 	return _projection;
+}
+
+float DefaultCamera::GetNearZ() const
+{
+	return NearZ;
+}
+
+float DefaultCamera::GetFarZ() const
+{
+	return FarZ;
 }
 
 void DefaultCamera::Update()
