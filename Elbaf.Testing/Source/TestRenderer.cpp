@@ -13,12 +13,14 @@
 #include <Graphics/VertexFormats.h>
 #include "RenderTarget.h"
 #include "Vignette.h"
+#include "Fog.h"
 
 TestRenderer::TestRenderer(IGraphicsContext& graphicsContext)
 	: _graphicsContext(graphicsContext), _postProcessRenderer(graphicsContext)
 {
 	_shader = graphicsContext.CreateShader(ShaderSource::FromFiles("BasicShader-vs.glsl", "BasicShader-fs.glsl"));
 	_postProcessRenderer.AddPostProcess(std::make_shared<VignettePostProcess>(_graphicsContext));
+	_postProcessRenderer.AddPostProcess(std::make_shared<FogPostProcess>(_graphicsContext));
 }
 
 TestRenderer::~TestRenderer() = default;

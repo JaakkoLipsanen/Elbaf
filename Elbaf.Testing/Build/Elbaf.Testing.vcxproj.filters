@@ -85,5 +85,8 @@
     <ClInclude Include="..\Source\Vignette.h">
       <Filter>Header Files\Post Processing</Filter>
     </ClInclude>
+    <ClInclude Include="..\Source\Fog.h">
+      <Filter>Header Files\Post Processing</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

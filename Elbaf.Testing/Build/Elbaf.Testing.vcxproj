@@ -134,6 +134,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Source\DefaultCamera.h" />
+    <ClInclude Include="..\Source\Fog.h" />
     <ClInclude Include="..\Source\ICamera.h" />
     <ClInclude Include="..\Source\NoiseGen.h" />
     <ClInclude Include="..\Source\PostProcess.h" />
