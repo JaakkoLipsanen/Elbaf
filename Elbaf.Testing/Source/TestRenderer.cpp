@@ -12,15 +12,17 @@
 #include <Graphics/OpenGL/OGL-Helper.h>
 #include <Graphics/VertexFormats.h>
 #include "RenderTarget.h"
-#include "Vignette.h"
-#include "Fog.h"
+#include "Post Processing/Vignette.h"
+#include "Post Processing/Fog.h"
+#include "Post Processing/Pixelizer.h"
 
 TestRenderer::TestRenderer(IGraphicsContext& graphicsContext)
 	: _graphicsContext(graphicsContext), _postProcessRenderer(graphicsContext)
 {
 	_shader = graphicsContext.CreateShader(ShaderSource::FromFiles("BasicShader-vs.glsl", "BasicShader-fs.glsl"));
 	_postProcessRenderer.AddPostProcess(std::make_shared<FogPostProcess>(_graphicsContext));
-	//_postProcessRenderer.AddPostProcess(std::make_shared<VignettePostProcess>(_graphicsContext));
+	_postProcessRenderer.AddPostProcess(std::make_shared<VignettePostProcess>(_graphicsContext));
+	_postProcessRenderer.AddPostProcess(std::make_shared<PixelizerPostProcess>(_graphicsContext))->SetEnabled(false);
 }
 
 TestRenderer::~TestRenderer() = default;

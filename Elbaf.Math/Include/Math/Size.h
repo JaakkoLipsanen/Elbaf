@@ -1,5 +1,7 @@
 #pragma once
 #include <ostream>
+#include <Math/Fundamental.h>
+#include <Math/Vector.h>
 
 struct Size
 {
@@ -7,9 +9,10 @@ struct Size
 	int Height;
 
 	Size(int width, int height);
+	Size(const Vector2i& vector);
 	float GetAspectRatio() const;
 
-	Size& operator=(const Size&) = default;
+	operator Vector2i() const;
 };
 
 inline std::ostream & operator << (std::ostream & stream, Size const& size)

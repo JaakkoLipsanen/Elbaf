@@ -16,5 +16,6 @@ private:
 	std::unique_ptr<DefaultCamera> _camera;
 	std::shared_ptr<RenderObject> _skybox;
 
+
 	void CreateObjects();
 };

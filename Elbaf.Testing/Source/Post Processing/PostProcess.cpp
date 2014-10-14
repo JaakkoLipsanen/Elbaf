@@ -13,10 +13,9 @@ static const std::string DefaultVertexShader = R"XXX(
 	out vec2 fragmentUV;
 
 	void main(){
-
-	gl_Position =  vec4(vertexPosition, 1);
-	fragmentUV = vertexUV;
-})XXX";
+		gl_Position =  vec4(vertexPosition, 1);
+		fragmentUV = vertexUV;
+	})XXX";
 
 
 IVertexBuffer& PostProcess::GetFullscreenQuadBuffer()

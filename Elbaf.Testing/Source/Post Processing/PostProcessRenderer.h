@@ -1,8 +1,8 @@
 #pragma once
 #include <Graphics/IGraphicsContext.h>
-#include "RenderTarget.h"
 #include <vector>
 #include <Graphics/VertexFormats.h>
+#include <RenderTarget.h>
 
 class ICamera;
 class PostProcessRenderer

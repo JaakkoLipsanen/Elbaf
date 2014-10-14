@@ -56,5 +56,5 @@ void TestScene::CreateObjects()
 	_skybox->UseCulling = false;
 	_skybox->RenderOrder = -1000;
 
-	//	_renderer->AddObject(_skybox);
+ // _renderer->AddObject(_skybox);
 }

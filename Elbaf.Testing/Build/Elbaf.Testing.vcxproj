@@ -81,7 +81,7 @@
       <WarningLevel>Level4</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\Koodaus\OpenGL\Elbaf\Elbaf.Diagnostics\Include;C:\Koodaus\OpenGL\Elbaf\Elbaf.Math\Include;C:\Koodaus\OpenGL\Elbaf\Elbaf.Graphics\Source;C:\Koodaus\OpenGL\Elbaf\Elbaf.Graphics\Include;C:\Koodaus\OpenGL\Elbaf\Elbaf.Input\Include;C:\Koodaus\OpenGL\Elbaf\Elbaf.Engine\Include;C:\Koodaus\OpenGL\Elbaf\Elbaf.Content\Include;C:\Koodaus\OpenGL\Elbaf\Elbaf.Core\Include;C:\Koodaus\OpenGL\Elbaf\Libraries\glew\include;C:\Koodaus\OpenGL\Elbaf\Libraries\glfw\include;C:\Koodaus\OpenGL\Elbaf\Libraries\libpng\include;C:\Koodaus\OpenGL\Elbaf\Libraries\freetype\include;C:\Koodaus\OpenGL\Elbaf\Libraries\glm\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Koodaus\OpenGL\Elbaf\Elbaf.Diagnostics\Include;C:\Koodaus\OpenGL\Elbaf\Elbaf.Math\Include;C:\Koodaus\OpenGL\Elbaf\Elbaf.Graphics\Source;C:\Koodaus\OpenGL\Elbaf\Elbaf.Graphics\Include;C:\Koodaus\OpenGL\Elbaf\Elbaf.Input\Include;C:\Koodaus\OpenGL\Elbaf\Elbaf.Engine\Include;C:\Koodaus\OpenGL\Elbaf\Elbaf.Content\Include;C:\Koodaus\OpenGL\Elbaf\Elbaf.Core\Include;C:\Koodaus\OpenGL\Elbaf\Libraries\glew\include;C:\Koodaus\OpenGL\Elbaf\Libraries\glfw\include;C:\Koodaus\OpenGL\Elbaf\Libraries\libpng\include;C:\Koodaus\OpenGL\Elbaf\Libraries\freetype\include;C:\Koodaus\OpenGL\Elbaf\Libraries\glm\include;C:\Koodaus\OpenGL\Elbaf\Elbaf.Testing\Source</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>OPENGL;GLEW_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
@@ -110,7 +110,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\Koodaus\OpenGL\Elbaf\Elbaf.Diagnostics\Include;C:\Koodaus\OpenGL\Elbaf\Elbaf.Math\Include;C:\Koodaus\OpenGL\Elbaf\Elbaf.Graphics\Source;C:\Koodaus\OpenGL\Elbaf\Elbaf.Graphics\Include;C:\Koodaus\OpenGL\Elbaf\Elbaf.Input\Include;C:\Koodaus\OpenGL\Elbaf\Elbaf.Engine\Include;C:\Koodaus\OpenGL\Elbaf\Elbaf.Content\Include;C:\Koodaus\OpenGL\Elbaf\Elbaf.Core\Include;C:\Koodaus\OpenGL\Elbaf\Libraries\glew\include;C:\Koodaus\OpenGL\Elbaf\Libraries\glfw\include;C:\Koodaus\OpenGL\Elbaf\Libraries\libpng\include;C:\Koodaus\OpenGL\Elbaf\Libraries\freetype\include;C:\Koodaus\OpenGL\Elbaf\Libraries\glm\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Koodaus\OpenGL\Elbaf\Elbaf.Diagnostics\Include;C:\Koodaus\OpenGL\Elbaf\Elbaf.Math\Include;C:\Koodaus\OpenGL\Elbaf\Elbaf.Graphics\Source;C:\Koodaus\OpenGL\Elbaf\Elbaf.Graphics\Include;C:\Koodaus\OpenGL\Elbaf\Elbaf.Input\Include;C:\Koodaus\OpenGL\Elbaf\Elbaf.Engine\Include;C:\Koodaus\OpenGL\Elbaf\Elbaf.Content\Include;C:\Koodaus\OpenGL\Elbaf\Elbaf.Core\Include;C:\Koodaus\OpenGL\Elbaf\Libraries\glew\include;C:\Koodaus\OpenGL\Elbaf\Libraries\glfw\include;C:\Koodaus\OpenGL\Elbaf\Libraries\libpng\include;C:\Koodaus\OpenGL\Elbaf\Libraries\freetype\include;C:\Koodaus\OpenGL\Elbaf\Libraries\glm\include;C:\Koodaus\OpenGL\Elbaf\Elbaf.Testing\Source</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>OPENGL;GLEW_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
@@ -123,8 +123,8 @@
   <ItemGroup>
     <ClCompile Include="..\Source\DefaultCamera.cpp" />
     <ClCompile Include="..\Source\main.cpp" />
-    <ClCompile Include="..\Source\PostProcess.cpp" />
-    <ClCompile Include="..\Source\PostProcessRenderer.cpp" />
+    <ClCompile Include="..\Source\Post Processing\PostProcess.cpp" />
+    <ClCompile Include="..\Source\Post Processing\PostProcessRenderer.cpp" />
     <ClCompile Include="..\Source\TestRenderer.cpp" />
     <ClCompile Include="..\Source\TestScene.cpp" />
   </ItemGroup>
@@ -134,17 +134,18 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Source\DefaultCamera.h" />
-    <ClInclude Include="..\Source\Fog.h" />
     <ClInclude Include="..\Source\ICamera.h" />
     <ClInclude Include="..\Source\NoiseGen.h" />
-    <ClInclude Include="..\Source\PostProcess.h" />
-    <ClInclude Include="..\Source\PostProcessRenderer.h" />
+    <ClInclude Include="..\Source\Post Processing\Fog.h" />
+    <ClInclude Include="..\Source\Post Processing\Pixelizer.h" />
+    <ClInclude Include="..\Source\Post Processing\PostProcess.h" />
+    <ClInclude Include="..\Source\Post Processing\PostProcessRenderer.h" />
+    <ClInclude Include="..\Source\Post Processing\Vignette.h" />
     <ClInclude Include="..\Source\RenderTarget.h" />
     <ClInclude Include="..\Source\Skybox.h" />
     <ClInclude Include="..\Source\Terrain.h" />
     <ClInclude Include="..\Source\TestRenderer.h" />
     <ClInclude Include="..\Source\TestScene.h" />
-    <ClInclude Include="..\Source\Vignette.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

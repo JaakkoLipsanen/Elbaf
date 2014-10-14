@@ -23,7 +23,7 @@ public:
 		if (_fogColor != color)
 		{
 			_fogColor = color;
-			this->GetShader().SetParameter("FogColor", _fogColor.ToVector4f());
+			_dirty = true;
 		}
 	}
 
@@ -33,6 +33,8 @@ public:
 		if (_fogRange != range)
 		{
 			_fogRange = range;
+			_dirty = true;
+			this->GetShader().Bind(); // meh
 			this->GetShader().SetParameter("FogStart", range.Min);
 			this->GetShader().SetParameter("FogEnd", range.Max);
 		}
@@ -45,6 +47,8 @@ public:
 		if (_useColor != useColor)
 		{
 			_useColor = useColor;
+			_dirty = true;
+			this->GetShader().Bind(); // meh
 			this->GetShader().SetParameter("UseColor", _useColor);
 		}
 	}
@@ -52,7 +56,9 @@ public:
 protected:
 	virtual ShaderSource CreateShader(std::string const& defaultVertexShader) override
 	{
-		// http://stackoverflow.com/a/6657284/925777 based on this. HOWEVER, this is dependant on view angle!!!! explore this: http://cs.gmu.edu/~jchen/cs662/fog.pdf, implementation: http://isnippets.blogspot.fi/2010/10/real-time-fog-using-post-processing-in.html
+		// TODO: the fragment shader could be optimized A LOT. I mean, lots of stuff could be calculated just one in the CPU
+		// also some stuff could be moved to vertex shader and let the hardware interpolate it (for example "pixelPositionInNearPlane"
+		// partially based on this: http://cs.gmu.edu/~jchen/cs662/fog.pdf
 		static const std::string FogFragmentShader = R"XXX(
 			#version 330 core
 
@@ -61,7 +67,7 @@ protected:
 
 			uniform sampler2D TextureSampler;
 			uniform sampler2D DepthSampler;
-			uniform bool UseDepth;
+			uniform bool UseColor;
 
 			uniform float FogStart;
 			uniform float FogEnd;
@@ -76,10 +82,6 @@ protected:
 
 			void main() {
 				color = texture2D(TextureSampler, fragmentUV);
-				if(!UseDepth)
-				{
-					return;
-				}
 						
 				float depthBufferZ =  texture2D(DepthSampler, fragmentUV).r;
 				if(depthBufferZ == 1) // if depth is "no"/default/cleared depth (which is 1 currently in Elbaf), then dont use fog
@@ -109,10 +111,18 @@ protected:
 
 				float pixelDistanceFromCamera = distance(pixelPositionInWorld, CameraPosition);
 				float fogValue = clamp((pixelDistanceFromCamera - FogStart) / (FogEnd-FogStart), 0, 1);
-				color = mix(color, FogColor, fogValue);
+
+				if(UseColor)
+				{
+					color = mix(color, FogColor, fogValue);
+				}
+				else
+				{
+					color.a *= (1 - fogValue);
+				}
 			})XXX";
 
-		return  ShaderSource::FromSource(defaultVertexShader, FogFragmentShader);
+		return ShaderSource::FromSource(defaultVertexShader, FogFragmentShader);
 	}
 
 	virtual void LoadContent() override
@@ -121,20 +131,21 @@ protected:
 		this->GetShader().SetTextureSampler("TextureSampler", 0);
 		this->GetShader().SetTextureSampler("DepthSampler", 1);
 
-		this->SetFogColor(Color(255, 255, 255, 255));
-		this->SetFogRange(Range<float>(350, 450));
+		this->SetFogColor(Color(48, 48, 56));
+		this->SetFogRange(Range<float>(500, 750));
 		this->SetUseColor(false);
-	}
-
-	virtual void Update() override
-	{
-		this->GetShader().Bind();
-		this->GetShader().SetParameter("UseDepth", !Input::IsKeyPressed(KeyCode::Space));
 	}
 
 	virtual void Process(RenderTarget& source, RenderTarget& destination, RenderTarget& originalSceneRT, const ICamera* renderCamera) override
 	{
 		this->GetShader().Bind();
+		if (_dirty)
+		{
+			this->GetShader().SetParameter("FogColor", _fogColor.ToVector4f());
+			this->GetShader().SetParameter("FogStart", _fogRange.Min);
+			this->GetShader().SetParameter("FogEnd", _fogRange.Max);
+		}
+
 
 		// bind depth texture to sampler 1
 		auto x = originalSceneRT.DepthTextureID();
@@ -190,4 +201,5 @@ private:
 	bool _useColor;
 	Range<float> _fogRange;
 	Color _fogColor;
+	bool _dirty;
 };
