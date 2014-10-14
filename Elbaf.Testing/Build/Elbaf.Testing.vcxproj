@@ -139,6 +139,7 @@
     <ClInclude Include="..\Source\FloatingCube.h" />
     <ClInclude Include="..\Source\ICamera.h" />
     <ClInclude Include="..\Source\NoiseGen.h" />
+    <ClInclude Include="..\Source\Post Processing\DepthOfField.h" />
     <ClInclude Include="..\Source\Post Processing\Fog.h" />
     <ClInclude Include="..\Source\Post Processing\GaussianBlur.h" />
     <ClInclude Include="..\Source\Post Processing\Pixelizer.h" />

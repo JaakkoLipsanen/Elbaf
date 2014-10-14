@@ -12,6 +12,18 @@ class PostProcessRenderer
 public:
 	explicit PostProcessRenderer(IGraphicsContext& graphicsContext);
 
+	template<typename T>
+	T* Get()
+	{
+		for (auto& postProcess : _postProcesses)
+		{
+			T* p = dynamic_cast<T*>(postProcess.get());
+			if (p != nullptr) return p;
+		}
+
+		return nullptr;
+	}
+
 	void Update();
 	std::shared_ptr<PostProcess> AddPostProcess(std::shared_ptr<PostProcess> postProcess);
 	void BeginRender();

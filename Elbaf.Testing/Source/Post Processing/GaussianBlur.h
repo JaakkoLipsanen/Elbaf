@@ -6,7 +6,6 @@
 
 class GaussianBlurPostProcess : public PostProcess
 {
-
 protected:
 	virtual ShaderSource CreateShader(std::string const& defaultVertexShader) override
 	{
@@ -20,19 +19,23 @@ protected:
 			uniform int SampleRadius = 0;
 			uniform vec2 PixelSize;
 
-			void main() {
-
+			vec4 CalculateBlur(vec2 stepSize)
+			{
 				vec4 result = vec4(0, 0, 0, 0);
 				for(int j = -SampleRadius; j <= SampleRadius; j++)
 				{
 					for(int i = -SampleRadius; i <= SampleRadius; i++)
 					{
-						result += texture2D(TextureSampler, fragmentUV + vec2(i, j) * PixelSize);
+						result += texture2D(TextureSampler, fragmentUV + vec2(i, j) * stepSize);
 					}
 				}
 
 				result /= float((SampleRadius * 2 + 1) * (SampleRadius * 2 + 1));
-				color = result;
+				return result;
+			}
+
+			void main() {
+				color = CalculateBlur(PixelSize * 4);
 		
 			})XXX";
 

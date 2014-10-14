@@ -16,6 +16,7 @@
 #include "Post Processing/Fog.h"
 #include "Post Processing/Pixelizer.h"
 #include <Post Processing/GaussianBlur.h>
+#include <Post Processing/DepthOfField.h>
 
 TestRenderer::TestRenderer(IGraphicsContext& graphicsContext)
 	: _graphicsContext(graphicsContext), _postProcessRenderer(graphicsContext)
@@ -36,9 +37,10 @@ TestRenderer::TestRenderer(IGraphicsContext& graphicsContext)
 	_normalShader->SetParameter("Lights[1].Power", 0.8f);
 
 	_postProcessRenderer.AddPostProcess(std::make_shared<FogPostProcess>(_graphicsContext));
+	_postProcessRenderer.AddPostProcess(std::make_shared<DepthOfFieldPostProcess>(_graphicsContext));
 	_postProcessRenderer.AddPostProcess(std::make_shared<VignettePostProcess>(_graphicsContext));
 	_postProcessRenderer.AddPostProcess(std::make_shared<PixelizerPostProcess>(_graphicsContext))->SetEnabled(false);
-	_postProcessRenderer.AddPostProcess(std::make_shared<GaussianBlurPostProcess>(_graphicsContext));
+	_postProcessRenderer.AddPostProcess(std::make_shared<GaussianBlurPostProcess>(_graphicsContext))->SetEnabled(false);
 }
 
 TestRenderer::~TestRenderer() = default; 
@@ -55,6 +57,12 @@ void TestRenderer::SetCamera(ICamera* camera)
 void TestRenderer::PostUpdate()
 {
 	_postProcessRenderer.Update();
+
+	if (Input::IsNewKeyPress(KeyCode::Tab))
+	{
+		auto dof = _postProcessRenderer.Get<DepthOfFieldPostProcess>();
+		dof->SetEnabled(!dof->IsEnabled());
+	}
 }
 
 void TestRenderer::Render()

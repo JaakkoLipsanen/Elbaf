@@ -133,7 +133,7 @@ protected:
 		this->GetShader().SetTextureSampler("DepthSampler", 1);
 
 		this->SetFogColor(Color(48, 48, 56));
-		this->SetFogRange(Range<float>(1000, 4000));
+		this->SetFogRange(Range<float>(1500, 4000));
 		this->SetUseColor(false);
 	}
 
