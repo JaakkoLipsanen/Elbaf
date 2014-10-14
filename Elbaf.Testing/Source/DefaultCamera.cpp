@@ -10,11 +10,12 @@
 
 static const float NearZ = 0.1f;
 static const float FarZ = 1000.0f;
+static const float VerticalFOV = 75;
 
 // from OGL tutorial mostly
-DefaultCamera::DefaultCamera() : _position(Vector3f::One * 100)
+DefaultCamera::DefaultCamera() : _position(Vector3f::One * 400)
 {
-	_projection = Matrix::CreatePerspective(75, Screen::GetSize().GetAspectRatio(),NearZ, FarZ);
+	_projection = Matrix::CreatePerspective(VerticalFOV, Screen::GetSize().GetAspectRatio(), NearZ, FarZ);
 	this->UpdateView();
 }
 
@@ -36,6 +37,16 @@ float DefaultCamera::GetNearZ() const
 float DefaultCamera::GetFarZ() const
 {
 	return FarZ;
+}
+
+float DefaultCamera::GetVerticalFieldOfView() const
+{
+	return VerticalFOV;
+}
+
+float DefaultCamera::GetAspectRatio() const
+{
+	return 16.0f / 9.0f;
 }
 
 void DefaultCamera::Update()
@@ -73,8 +84,8 @@ void DefaultCamera::UpdateView()
 
 Vector3f DefaultCamera::CalculateDirection() const
 {
-	return Vector3f(
+	return Vector::Normalize(Vector3f(
 		cos(_rotationAngle.y) * sin(_rotationAngle.x),
 		sin(_rotationAngle.y),
-		cos(_rotationAngle.y) * cos(_rotationAngle.x));
+		cos(_rotationAngle.y) * cos(_rotationAngle.x)));
 }

@@ -4,6 +4,9 @@
 #include <Input/Input.h>
 #include <Input/KeyCode.h>
 #include <Math/Range.h>
+#include "DefaultCamera.h"
+#include <Diagnostics/Logger.h>
+#include <Math/FlaiMath.h>
 
 class FogPostProcess : public PostProcess
 {
@@ -67,6 +70,10 @@ protected:
 			uniform float zNear;
 			uniform float zFar;
 
+			uniform vec3 CameraPosition;
+			uniform vec3 CameraDirection;
+			uniform vec2 NearPlaneSize;
+
 			void main() {
 				color = texture2D(TextureSampler, fragmentUV);
 				if(!UseDepth)
@@ -79,10 +86,29 @@ protected:
 					return;
 
 				depthBufferZ = 2.0 * depthBufferZ - 1.0; // [-1, 1] -> [0, 1]
-				float pixelZ = 2.0 * zNear * zFar / (zFar + zNear - depthBufferZ * (zFar - zNear)); // [0, (zFar-zNear)]
-				float normalizedPixelZ = pixelZ / (zFar-zNear); // [0, 1]
+				float pixelZ = 2.0 * zNear * zFar / (zFar + zNear - depthBufferZ * (zFar - zNear)); // [zNear, zFar-zNear] // todo: concerns here. is it really [zNear, zFar-zNear]? 
+				float normalizedPixelZ = (pixelZ-zNear) / (zFar-zNear); // [0, 1]					// that could cause some (minor) bugs/glitches. im pretty sure it's [zNear, zFar-zNear] though :P
 
-				float fogValue = clamp((pixelZ - FogStart) / (FogEnd-FogStart), 0, 1);
+				vec3 nearPlaneCenter = CameraPosition + CameraDirection * zNear; // center of camera's near plane
+				vec3 rightVector = normalize(cross(CameraDirection, vec3(0, 1, 0))); // the near planes "right" vector
+				vec3 upVector = normalize(cross(rightVector, CameraDirection)); // the near planes "up" vector
+
+				vec2 pixelOffset = vec2(fragmentUV.x - 0.5, fragmentUV.y - 0.5); // UV [0, 1] -> [-0.5, 0.5]
+				vec3 rightValue = pixelOffset.x * NearPlaneSize.x * rightVector; // pixels horizontal position in the near plane
+				vec3 upValue = pixelOffset.y * NearPlaneSize.y * upVector; // pixels vertical position in the near plane
+
+				vec3 pixelPositionInNearPlane = nearPlaneCenter + rightValue + upValue; // pixels final position in the near plane
+
+				// calculate the ratio of "length from camera to current pixel position in near plane" to "length from camear to center of near plane"
+				// this information is used to multiply the depth buffer's z value later (distance from near to far plane is longer on the sides; the 'distance multiplier' is the ratio that is calculated here
+				vec3 nearPlaneToCamera = pixelPositionInNearPlane - CameraPosition;
+				float zLengthMultiplier = length(nearPlaneToCamera) / zNear;
+
+				// calculate the final position of the pixel in the world
+				vec3 pixelPositionInWorld = pixelPositionInNearPlane + normalize(pixelPositionInNearPlane - CameraPosition) * pixelZ * zLengthMultiplier;
+
+				float pixelDistanceFromCamera = distance(pixelPositionInWorld, CameraPosition);
+				float fogValue = clamp((pixelDistanceFromCamera - FogStart) / (FogEnd-FogStart), 0, 1);
 				color = mix(color, FogColor, fogValue);
 			})XXX";
 
@@ -95,13 +121,14 @@ protected:
 		this->GetShader().SetTextureSampler("TextureSampler", 0);
 		this->GetShader().SetTextureSampler("DepthSampler", 1);
 
-		this->SetFogColor(Color(255, 255, 255, 255)); // "transparent white"
+		this->SetFogColor(Color(255, 255, 255, 255));
 		this->SetFogRange(Range<float>(350, 450));
 		this->SetUseColor(false);
 	}
 
 	virtual void Update() override
 	{
+		this->GetShader().Bind();
 		this->GetShader().SetParameter("UseDepth", !Input::IsKeyPressed(KeyCode::Space));
 	}
 
@@ -118,7 +145,44 @@ protected:
 		this->GetShader().SetTextureSampler("DepthSampler", 1);
 
 		this->GetShader().SetParameter("zNear", renderCamera->GetNearZ());
-		this->GetShader().SetParameter("zFar", renderCamera->GetFarZ()); // todo: these should come from camera
+		this->GetShader().SetParameter("zFar", renderCamera->GetFarZ());
+		this->GetShader().SetParameter("CameraPosition", renderCamera->GetPosition());
+		this->GetShader().SetParameter("CameraDirection", renderCamera->GetDirection());
+
+		struct Frustum
+		{
+			// todo: make const
+			Vector3f NearTopLeft;
+			Vector3f NearTopRight;
+			Vector3f NearBottomLeft;
+			Vector3f NearBottomRight;
+
+			Vector3f FarTopLeft;
+			Vector3f FarTTopRight;
+			Vector3f FarTBottomLeft;
+			Vector3f FarTBottomRight;
+
+			static Frustum Create(const DefaultCamera camera)
+			{
+				float nearPlaneHeight = 2 * tan(camera.GetVerticalFieldOfView() / 2.0f) * camera.GetNearZ();
+				float nearPlaneWidth = nearPlaneHeight * camera.GetAspectRatio();
+
+				float farPlaneHeight = 2 * tan(camera.GetVerticalFieldOfView() / 2.0) * camera.GetFarZ();
+				float farPlaneWidth = farPlaneHeight * camera.GetAspectRatio();
+
+				Vector3f centerNear = camera.GetPosition() + camera.GetDirection() * camera.GetNearZ();
+				Vector3f centerFar = camera.GetPosition() + camera.GetDirection() * camera.GetFarZ();
+
+				return Frustum();
+
+			}
+		};
+
+		//Logger::LogMessage(renderCamera->GetDirection());
+		auto cam = dynamic_cast<const DefaultCamera*>(renderCamera);
+
+		float height = 2 * cam->GetNearZ() * tan(FlaiMath::ToRadians(cam->GetVerticalFieldOfView() / 2));
+		this->GetShader().SetParameter("NearPlaneSize", Vector2f(height * 16.0f / 9.0f, height));
 		_graphicsContext.DrawPrimitives(PrimitiveType::TriangleList, 0, this->GetFullscreenQuadBuffer().GetVertexCount());
 	}
 

@@ -6,6 +6,7 @@
 template<typename T>
 struct Range
 {
+	// ... if these are const, then assigment operator is not possible, but if these are not const then either state can be changed to invalid (Min > Max) or I have to make Min() and Max() methods..
 	T Min;
 	T Max;
 

@@ -12,6 +12,7 @@ public:
 	virtual Matrix4x4 GetProjection() const = 0;
 
 	virtual Vector3f GetPosition() const = 0;
+	virtual Vector3f GetDirection() const = 0;
 	virtual float GetNearZ() const = 0;
 	virtual float GetFarZ() const = 0;
 };

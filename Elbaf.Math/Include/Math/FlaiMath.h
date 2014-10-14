@@ -146,4 +146,17 @@ namespace FlaiMath
 	{
 		return FlaiMath::Min(value1, FlaiMath::Min(value2, FlaiMath::Min(value3, value4)));
 	}
+
+
+	template<typename T>
+	T ToRadians(const T& degrees)
+	{
+		return degrees * 0.0174532924f;
+	}
+
+	template<typename T>
+	T ToDegrees(const T& radians)
+	{
+		return radians * 57.2957764f; // MathHelper.ToDegrees
+	}
 }
