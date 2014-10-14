@@ -15,17 +15,33 @@
 #include "Post Processing/Vignette.h"
 #include "Post Processing/Fog.h"
 #include "Post Processing/Pixelizer.h"
+#include <Post Processing/GaussianBlur.h>
 
 TestRenderer::TestRenderer(IGraphicsContext& graphicsContext)
 	: _graphicsContext(graphicsContext), _postProcessRenderer(graphicsContext)
 {
-	_shader = graphicsContext.CreateShader(ShaderSource::FromFiles("BasicShader-vs.glsl", "BasicShader-fs.glsl"));
+	_terrainShader = graphicsContext.CreateShader(ShaderSource::FromFiles("Shaders/TerrainShader-vs.glsl", "Shaders/TerrainShader-fs.glsl"));
+	_normalShader = graphicsContext.CreateShader(ShaderSource::FromFiles("Shaders/DefaultShader-vs.glsl", "Shaders/DefaultShader-fs.glsl"));
+
+	_terrainShader->Bind();
+	_terrainShader->SetParameter("LightDirection", Vector::Normalize(Vector3f(0, -1, -0)));
+
+	_normalShader->Bind(); 
+	_normalShader->SetTextureSampler("TextureSampler", 0);
+	_normalShader->SetParameter("AmbientLightAmount", 0.15f);
+	_normalShader->SetParameter("LightCount", 2);
+	_normalShader->SetParameter("Lights[0].Direction", Vector::Normalize(Vector3f(0.2f, -1, -0.5f)));
+	_normalShader->SetParameter("Lights[0].Power", 0.7f);
+	_normalShader->SetParameter("Lights[1].Direction", Vector::Normalize(Vector3f(-0.3f, 0.4f, 0.2f)));
+	_normalShader->SetParameter("Lights[1].Power", 0.8f);
+
 	_postProcessRenderer.AddPostProcess(std::make_shared<FogPostProcess>(_graphicsContext));
 	_postProcessRenderer.AddPostProcess(std::make_shared<VignettePostProcess>(_graphicsContext));
 	_postProcessRenderer.AddPostProcess(std::make_shared<PixelizerPostProcess>(_graphicsContext))->SetEnabled(false);
+	_postProcessRenderer.AddPostProcess(std::make_shared<GaussianBlurPostProcess>(_graphicsContext));
 }
 
-TestRenderer::~TestRenderer() = default;
+TestRenderer::~TestRenderer() = default; 
 void TestRenderer::AddObject(std::shared_ptr<const RenderObject> renderObject)
 {
 	_renderObjects.push_back(renderObject);
@@ -62,13 +78,19 @@ void TestRenderer::RenderScene()
 		_graphicsContext.GetDepthState().SetDepthWriteEnabled(renderObject->UseDepth); //
 		_graphicsContext.GetCullState().SetCullingEnabled(renderObject->UseCulling);
 
-		_shader->Bind();
-		_shader->SetParameter("MVP", projectionXview * Matrix::Translate(renderObject->Position) * Matrix::Scale(renderObject->Scale));
-		_shader->SetParameter("Tint", renderObject->Material->Tint.ToVector3f());
+		auto& shader = this->GetShader(renderObject->Material->MaterialType);
+		shader.Bind();
+		shader.SetParameter("MVP", projectionXview * Matrix::Translate(renderObject->Position) * Matrix::Scale(renderObject->Scale));
+		shader.SetParameter("Tint", renderObject->Material->Tint.ToVector3f());
 
 		renderObject->Material->Texture->BindToSampler(0);
 		renderObject->Mesh->VertexBuffer->Bind();
 
 		_graphicsContext.DrawPrimitives(PrimitiveType::TriangleList, 0, renderObject->Mesh->VertexBuffer->GetVertexCount());
 	}
+}
+
+IShader& TestRenderer::GetShader(MaterialType materialType)
+{
+	return (materialType == MaterialType::Terrain) ? *_terrainShader : *_normalShader;
 }

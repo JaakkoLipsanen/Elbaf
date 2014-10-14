@@ -66,13 +66,14 @@ protected:
 			layout(location = 0) out vec4 color;
 
 			uniform sampler2D TextureSampler;
-			uniform sampler2D DepthSampler;
+			uniform sampler2D DepthSampler; // depth reconstruction 
 			uniform bool UseColor;
 
 			uniform float FogStart;
 			uniform float FogEnd;
 			uniform vec4 FogColor;
 
+			// depth reconstruction 
 			uniform float zNear;
 			uniform float zFar;
 
@@ -132,7 +133,7 @@ protected:
 		this->GetShader().SetTextureSampler("DepthSampler", 1);
 
 		this->SetFogColor(Color(48, 48, 56));
-		this->SetFogRange(Range<float>(500, 750));
+		this->SetFogRange(Range<float>(1000, 4000));
 		this->SetUseColor(false);
 	}
 

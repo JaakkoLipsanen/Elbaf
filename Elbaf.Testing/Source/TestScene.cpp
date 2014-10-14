@@ -7,6 +7,7 @@
 #include <Graphics/ITexture.h>
 #include "Skybox.h"
 #include <Graphics/TextureHelper.h>
+#include <Core/HsvColor.h>
 
 void TestScene::OnEntering()
 {
@@ -20,6 +21,11 @@ void TestScene::OnEntering()
 
 void TestScene::PostUpdate()
 {
+	for (auto& cube : _floatingCubes)
+	{
+		cube.Update();
+	}
+
 	_camera->Update();
 	_skybox->Position = _camera->GetPosition();
 	_renderer->PostUpdate();
@@ -36,7 +42,7 @@ void TestScene::CreateObjects()
 
 	/* Terrain */
 	std::shared_ptr<ITexture2D> blankPixel = std::move(TextureHelper::CreateBlankTexture(graphicsContext));
-	std::shared_ptr<Material> terrainMaterial = std::make_shared<Material>(blankPixel);
+	std::shared_ptr<Material> terrainMaterial = std::make_shared<Material>(blankPixel, Color::White, MaterialType::Terrain);
 	terrainMaterial->Tint = Color::White; // Color(40, 40, 40);
 
 	Terrain terrain(graphicsContext);
@@ -57,4 +63,21 @@ void TestScene::CreateObjects()
 	_skybox->RenderOrder = -1000;
 
  // _renderer->AddObject(_skybox);
+
+
+	auto cubeMesh = FloatingCube::CreateMesh(graphicsContext);
+	for (int i = 0; i < 50; i++)
+	{
+		_floatingCubes.emplace_back(
+			graphicsContext,
+			Vector3f(Global::Random.NextFloat(300, 4000) * (Global::Random.NextBoolean() ? 1 : -1), Global::Random.NextFloat(-350, 550), Global::Random.NextFloat(300, 4000) * (Global::Random.NextBoolean() ? 1 : -1)),
+			Vector3f::One * Global::Random.NextFloat(20, 160));
+
+		auto cubeMaterial = std::make_shared<Material>(blankPixel);
+		cubeMaterial->Tint = HsvColor(Global::Random.NextFloat(0, 360), 0.8f, 0.8f).ToRgb();
+		auto renderObject = std::make_shared<RenderObject>(cubeMesh, cubeMaterial, Vector3f::Zero);
+		_floatingCubes[_floatingCubes.size() - 1].SetRenderHandle(renderObject);
+
+		_renderer->AddObject(renderObject);
+	}
 }

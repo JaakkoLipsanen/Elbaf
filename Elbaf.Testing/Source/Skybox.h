@@ -11,7 +11,7 @@ class Skybox
 {
 public:
 
-	Skybox(IGraphicsContext& graphicsContext) :
+	explicit Skybox(IGraphicsContext& graphicsContext) :
 		_graphicsContext(graphicsContext)
 	{
 	}

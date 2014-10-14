@@ -12,6 +12,10 @@ struct Color
 	explicit Color(uint32 packedValue);
 	Color(uint8 r, uint8 g, uint8 b);
 	Color(uint8 r, uint8 g, uint8 b, uint8 a);
+	Color(int32 r, int32 g, int32 b);
+	Color(int32 r, int32 g, int32 b, int32 a);
+	explicit Color(float r, float g, float b);
+	explicit Color(float r, float g, float b, float a);
 	Color operator *(float multiplier) const;
 	bool operator==(const Color& other) const;
 	bool operator!=(const Color& other) const;

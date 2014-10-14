@@ -9,11 +9,11 @@
 #include <Diagnostics\Logger.h>
 
 static const float NearZ = 0.1f;
-static const float FarZ = 1000.0f;
+static const float FarZ = 4000.0f;
 static const float VerticalFOV = 75;
 
 // from OGL tutorial mostly
-DefaultCamera::DefaultCamera() : _position(Vector3f::One * 400)
+DefaultCamera::DefaultCamera() : _position(Vector3f::One * 100)
 {
 	_projection = Matrix::CreatePerspective(VerticalFOV, Screen::GetSize().GetAspectRatio(), NearZ, FarZ);
 	this->UpdateView();
@@ -53,7 +53,7 @@ void DefaultCamera::Update()
 {
 	Vector3f cross = Vector::Normalize(Vector::Cross(this->CalculateDirection(), Vector3f::UnitY));
 	const float DefaultMovementSpeed = 25.0f;
-	float MovementSpeed = DefaultMovementSpeed * (Input::IsKeyPressed(KeyCode::LeftShift) ? 4 : 1);
+	float MovementSpeed = DefaultMovementSpeed * (Input::IsKeyPressed(KeyCode::LeftShift) ? 20 : 1);
 	if (Input::IsKeyPressed(KeyCode::W))
 	{
 		_position += this->CalculateDirection() * MovementSpeed * Time::GetDeltaTime();

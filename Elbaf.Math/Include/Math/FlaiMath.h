@@ -159,4 +159,22 @@ namespace FlaiMath
 	{
 		return radians * 57.2957764f; // MathHelper.ToDegrees
 	}
+
+	template<typename T>
+	T Cos(const T& input)
+	{
+		return std::cos(input);
+	}
+
+	template<typename T>
+	T Sin(const T& input)
+	{
+		return std::sin(input);
+	}
+
+	template<typename T>
+	T Tan(const T& input)
+	{
+		return std::tan(input);
+	}
 }

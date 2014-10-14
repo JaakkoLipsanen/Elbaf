@@ -6,13 +6,22 @@
 #include <Core/Color.h>
 #include "Post Processing/PostProcessRenderer.h"
 
+// dont support custom shaders, just "fixed" shaders
+enum class MaterialType
+{
+	Skybox,
+	Terrain,
+	Normal,
+};
+
 struct Material
 {
+	MaterialType MaterialType;
 	std::shared_ptr<ITexture2D> Texture;
 	Color Tint;
 
-	explicit Material(std::shared_ptr<ITexture2D> vertexBuffer, Color tint = Color::White)
-		: Texture(vertexBuffer), Tint(tint)
+	explicit Material(std::shared_ptr<ITexture2D> vertexBuffer, Color tint = Color::White, ::MaterialType type = ::MaterialType::Normal)
+		: Texture(vertexBuffer), Tint(tint), MaterialType(type)
 	{
 	}
 };
@@ -61,8 +70,10 @@ private:
 	std::vector<std::shared_ptr<const RenderObject>> _renderObjects;
 	IGraphicsContext& _graphicsContext;
 	ICamera* _camera;
-	std::unique_ptr<IShader> _shader;
 	PostProcessRenderer _postProcessRenderer;
+	std::unique_ptr<IShader> _terrainShader;
+	std::unique_ptr<IShader> _normalShader;
 
+	IShader& GetShader(MaterialType materialType);
 	void RenderScene();
 };

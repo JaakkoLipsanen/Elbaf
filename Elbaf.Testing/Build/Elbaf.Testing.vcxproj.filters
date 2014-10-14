@@ -44,10 +44,16 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="BasicShader-vs.glsl">
+    <None Include="TerrainShader-vs.glsl">
       <Filter>Shaders</Filter>
     </None>
-    <None Include="BasicShader-fs.glsl">
+    <None Include="TerrainShader-fs.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\DefaultShader-fs.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\DefaultShader-vs.glsl">
       <Filter>Shaders</Filter>
     </None>
   </ItemGroup>
@@ -89,6 +95,12 @@
       <Filter>Header Files\Post Processing</Filter>
     </ClInclude>
     <ClInclude Include="..\Source\Post Processing\Vignette.h">
+      <Filter>Header Files\Post Processing</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\FloatingCube.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Post Processing\GaussianBlur.h">
       <Filter>Header Files\Post Processing</Filter>
     </ClInclude>
   </ItemGroup>

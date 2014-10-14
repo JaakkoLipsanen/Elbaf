@@ -16,6 +16,26 @@ Color::Color(uint32 packedValue)
 	this->A = packedValue % 256; /* dwColor /= 256; */
 }
 
+Color::Color(float r, float g, float b)
+	: R(byte(FlaiMath::Clamp(int(r * 255), 0, 255))), G(byte(FlaiMath::Clamp(int(g * 255), 0, 255))), B(byte(FlaiMath::Clamp(int(b * 255), 0, 255)))
+{
+}
+
+Color::Color(float r, float g, float b, float a)	
+	: R(byte(FlaiMath::Clamp(int(r * 255), 0, 255))), G(byte(FlaiMath::Clamp(int(g * 255), 0, 255))), B(byte(FlaiMath::Clamp(int(b * 255), 0, 255))), A(byte(FlaiMath::Clamp(int(a * 255), 0, 255)))
+{
+}
+
+Color::Color(int32 r, int32 g, int32 b)
+	: R(FlaiMath::Clamp(r, 0, 255)), G(FlaiMath::Clamp(g, 0, 255)), B(FlaiMath::Clamp(b, 0, 255))
+{
+}
+
+Color::Color(int32 r, int32 g, int32 b, int32 a)
+	: R(FlaiMath::Clamp(r, 0, 255)), G(FlaiMath::Clamp(g, 0, 255)), B(FlaiMath::Clamp(b, 0, 255)), A(FlaiMath::Clamp(a, 0, 255))
+{
+}
+
 Color::Color(uint8 r, uint8 g, uint8 b, uint8 a) : R(r), G(g), B(b), A(a)
 {
 }
