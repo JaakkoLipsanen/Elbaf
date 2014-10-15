@@ -106,5 +106,11 @@
     <ClInclude Include="..\Source\Post Processing\DepthOfField.h">
       <Filter>Header Files\Post Processing</Filter>
     </ClInclude>
+    <ClInclude Include="..\Source\Post Processing\ColorAdjust.h">
+      <Filter>Header Files\Post Processing</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Post Processing\SSAO.h">
+      <Filter>Header Files\Post Processing</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

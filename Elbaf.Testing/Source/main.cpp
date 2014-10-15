@@ -9,7 +9,7 @@
 #include <Core/CursorVisibility.h>
 #include <Content/Content.h>
 #include <Core/WindowDescription.h>
-
+#include <Engine/SceneModule.h>
 class MyGame : public Game
 {
 	std::unique_ptr<Font> _font;

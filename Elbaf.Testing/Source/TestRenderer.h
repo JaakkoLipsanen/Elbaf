@@ -73,6 +73,7 @@ private:
 	PostProcessRenderer _postProcessRenderer;
 	std::unique_ptr<IShader> _terrainShader;
 	std::unique_ptr<IShader> _normalShader;
+	int _vertexCount;
 
 	IShader& GetShader(MaterialType materialType);
 	void RenderScene();

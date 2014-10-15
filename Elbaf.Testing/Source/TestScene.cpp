@@ -8,6 +8,7 @@
 #include "Skybox.h"
 #include <Graphics/TextureHelper.h>
 #include <Core/HsvColor.h>
+#include <Engine/Stopwatch.h>
 
 void TestScene::OnEntering()
 {
@@ -46,8 +47,20 @@ void TestScene::CreateObjects()
 	terrainMaterial->Tint = Color::White; // Color(40, 40, 40);
 
 	Terrain terrain(graphicsContext);
+	Stopwatch sw("Terrain gen");
 	terrain.Generate();
-	_renderer->AddObject(std::make_shared<RenderObject>(terrain.Mesh, terrainMaterial, Vector3f::Zero));
+	sw.Stop();
+
+	for (int x = -1; x <= 1; x++)
+	{
+		for (int y = -1; y <= 1; y++)
+		{
+			auto terrainRenderObject = std::make_shared<RenderObject>(terrain.Mesh, terrainMaterial, Vector3f::Zero);
+			terrainRenderObject->Scale = Vector3f(4, 1, 4);
+			terrainRenderObject->Position = Vector3f(x, 0, y) * 4 * 256;
+			_renderer->AddObject(terrainRenderObject);
+		}
+	}
 
 	/* Skybox */
 	Skybox skybox(graphicsContext);
@@ -62,9 +75,8 @@ void TestScene::CreateObjects()
 	_skybox->UseCulling = false;
 	_skybox->RenderOrder = -1000;
 
- // _renderer->AddObject(_skybox);
-
-
+	 _renderer->AddObject(_skybox);
+	 
 	auto cubeMesh = FloatingCube::CreateMesh(graphicsContext);
 	for (int i = 0; i < 50; i++)
 	{
@@ -79,5 +91,5 @@ void TestScene::CreateObjects()
 		_floatingCubes[_floatingCubes.size() - 1].SetRenderHandle(renderObject);
 
 		_renderer->AddObject(renderObject);
-	}
+	} 
 }

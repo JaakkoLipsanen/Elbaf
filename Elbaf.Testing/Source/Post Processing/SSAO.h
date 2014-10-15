@@ -1,16 +1,32 @@
 #pragma once
 #include "PostProcess.h"
 #include <Graphics/ShaderSource.h>
+#include <Input/Input.h>
+#include <Input/KeyCode.h>
+#include <Math/Range.h>
+#include "DefaultCamera.h"
+#include <Diagnostics/Logger.h>
+#include <Math/FlaiMath.h>
 #include <Graphics/IShader.h>
-#include <Engine/Screen.h>
-#include <Engine/ICamera.h>
+#include <Graphics/PrimitiveType.h>
+#include <Graphics/IVertexBuffer.h>
 
-class DepthOfFieldPostProcess : public PostProcess
+class SSAO : public PostProcess
 {
+public:
+	explicit SSAO(IGraphicsContext& graphicsContext)
+		: PostProcess(graphicsContext)
+	{
+	}
+
+
 protected:
 	virtual ShaderSource CreateShader(std::string const& defaultVertexShader) override
 	{
-		static const std::string BlurFragmentShader = R"XXX(
+		// TODO: the fragment shader could be optimized A LOT. I mean, lots of stuff could be calculated just one in the CPU
+		// also some stuff could be moved to vertex shader and let the hardware interpolate it (for example "pixelPositionInNearPlane"
+		// partially based on this: http://cs.gmu.edu/~jchen/cs662/fog.pdf
+		static const std::string FogFragmentShader = R"XXX(
 			#version 330 core
 
 			in vec2 fragmentUV;
@@ -18,10 +34,11 @@ protected:
 
 			uniform sampler2D TextureSampler;
 			uniform sampler2D DepthSampler; // depth reconstruction 
+			uniform bool UseColor;
 
-			uniform int SampleRadius = 0;
-			uniform int SampleCount = 0;
-			uniform vec2 PixelSize;
+			uniform float FogStart;
+			uniform float FogEnd;
+			uniform vec4 FogColor;
 
 			// depth reconstruction 
 			uniform float zNear;
@@ -31,36 +48,12 @@ protected:
 			uniform vec3 CameraDirection;
 			uniform vec2 NearPlaneSize;
 
-			vec4 CalculateBlur(vec2 sampleAreaSize)
-			{
-				vec4 result = vec4(0, 0, 0, 0);
-				vec2 stepSize = sampleAreaSize / SampleCount;
-				for(int j = -SampleCount; j <= SampleCount; j++)
-				{
-					for(int i = -SampleCount; i <= SampleCount; i++)
-					{
-						result += texture2D(TextureSampler, fragmentUV + vec2(i, j) * stepSize);
-					}
-				}
-
-				result /= float((SampleCount * 2 + 1) * (SampleCount * 2 + 1));
-				return result;
-			}
-
-			float CalculatePixelDepthFromCamera()
-			{
-				
+			void main() {
+				color = texture2D(TextureSampler, fragmentUV);
+						
 				float depthBufferZ =  texture2D(DepthSampler, fragmentUV).r;
-				if(depthBufferZ == 1)
-				{
-					depthBufferZ = min(texture2D(DepthSampler, fragmentUV  + vec2(-SampleCount, SampleCount) * PixelSize * SampleRadius).r,
-								   min(texture2D(DepthSampler, fragmentUV  + vec2(-SampleCount, -SampleCount) * PixelSize * SampleRadius).r,
-								   min(texture2D(DepthSampler, fragmentUV  + vec2(SampleCount, SampleCount) * PixelSize * SampleRadius).r, 
-									   texture2D(DepthSampler, fragmentUV  + vec2(SampleCount, -SampleCount) * PixelSize * SampleRadius).r)));
-				}
-
-				//float depthBufferZ =  texture2D(DepthSampler, fragmentUV).r;
-				//if(depthBufferZ == 1) return 0;
+				if(depthBufferZ == 1) // if depth is "no"/default/cleared depth (which is 1 currently in Elbaf), then dont use fog
+					return;
 
 				depthBufferZ = 2.0 * depthBufferZ - 1.0; // [-1, 1] -> [0, 1]
 				float pixelZ = 2.0 * zNear * zFar / (zFar + zNear - depthBufferZ * (zFar - zNear)); // [zNear, zFar-zNear] // todo: concerns here. is it really [zNear, zFar-zNear]? 
@@ -84,54 +77,45 @@ protected:
 				// calculate the final position of the pixel in the world
 				vec3 pixelPositionInWorld = pixelPositionInNearPlane + normalize(pixelPositionInNearPlane - CameraPosition) * pixelZ * zLengthMultiplier;
 
-				return distance(pixelPositionInWorld, CameraPosition);
-			}
+				float pixelDistanceFromCamera = distance(pixelPositionInWorld, CameraPosition);
+				float fogValue = clamp((pixelDistanceFromCamera - FogStart) / (FogEnd-FogStart), 0, 1);
 
-			void main() {
-				float depth = CalculatePixelDepthFromCamera();
-				
-				const float BlurStart = 1000;
-				const float BlurEnd = 2000;
-
-				float blurValue = mix(0, 1, (depth - BlurStart) / (BlurEnd - BlurStart));
-				blurValue = max(0, blurValue);
-				blurValue = min(2, blurValue);
-
-				color = CalculateBlur(PixelSize * blurValue * SampleRadius);
-					
+				color.rgb = vec3(pixelDistanceFromCamera, pixelDistanceFromCamera, pixelDistanceFromCamera);
+				color.a = 1;
 			})XXX";
 
-		return ShaderSource::FromSource(defaultVertexShader, BlurFragmentShader);
+		return ShaderSource::FromSource(defaultVertexShader, FogFragmentShader);
 	}
 
-	void Process(RenderTarget& source, RenderTarget& destination, RenderTarget& originalSceneRT, ICamera const* renderCamera) override
+	virtual void LoadContent() override
 	{
 		this->GetShader().Bind();
 		this->GetShader().SetTextureSampler("TextureSampler", 0);
 		this->GetShader().SetTextureSampler("DepthSampler", 1);
-		this->GetShader().SetParameter("SampleRadius", 4);
-		this->GetShader().SetParameter("SampleCount", 3);
-		this->GetShader().SetParameter("PixelSize", Vector2f::One / Vector2f(Vector2i(Screen::GetSize())));
+	}
 
-		source.BindTextureToSampler(0);
+	virtual void Process(RenderTarget& source, RenderTarget& destination, RenderTarget& originalSceneRT, const ICamera* renderCamera) override
+	{
+		this->GetShader().Bind();
 
 		// bind depth texture to sampler 1
 		auto x = originalSceneRT.DepthTextureID();
 		glActiveTexture(OGL::SamplerIndexToGLenum(1));
 		glBindTexture(GL_TEXTURE_2D, x);
 
+		this->GetShader().SetTextureSampler("TextureSampler", 0);
+		this->GetShader().SetTextureSampler("DepthSampler", 1);
 
 		this->GetShader().SetParameter("zNear", renderCamera->GetNearZ());
 		this->GetShader().SetParameter("zFar", renderCamera->GetFarZ());
 		this->GetShader().SetParameter("CameraPosition", renderCamera->GetPosition());
 		this->GetShader().SetParameter("CameraDirection", renderCamera->GetDirection());
 
-		PostProcess::Process(source, destination, originalSceneRT, renderCamera);
-	}
+		//Logger::LogMessage(renderCamera->GetDirection());
+		auto cam = dynamic_cast<const DefaultCamera*>(renderCamera);
 
-public:
-	explicit DepthOfFieldPostProcess(IGraphicsContext& graphicsContext)
-		: PostProcess(graphicsContext)
-	{
+		float height = 2 * cam->GetNearZ() * tan(FlaiMath::ToRadians(cam->GetVerticalFieldOfView() / 2));
+		this->GetShader().SetParameter("NearPlaneSize", Vector2f(height * 16.0f / 9.0f, height));
+		_graphicsContext.DrawPrimitives(PrimitiveType::TriangleList, 0, this->GetFullscreenQuadBuffer().GetVertexCount());
 	}
 };

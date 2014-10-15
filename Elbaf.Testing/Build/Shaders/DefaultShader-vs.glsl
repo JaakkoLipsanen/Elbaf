@@ -26,6 +26,7 @@ void main(){
 	gl_Position =  MVP * vec4(vertexPosition, 1);	
 	
 	fragmentColor = vertexColor;
+	fragmentUV = vertexUV;
 	if(LightCount == 0)
 	{
 		return;

@@ -20,6 +20,7 @@ public:
 	// todo: should rendering happen in SceneModule::Update? that would be a "more correct" approach maybe...? 
 	void Render();
 	void LoadScene(std::unique_ptr<Scene> scene);
+	Scene& GetCurrentScene();
 
 private:
 	std::unique_ptr<Scene> _currentScene;

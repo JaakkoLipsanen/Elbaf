@@ -17,6 +17,9 @@
 #include "Post Processing/Pixelizer.h"
 #include <Post Processing/GaussianBlur.h>
 #include <Post Processing/DepthOfField.h>
+#include <Post Processing/ColorAdjust.h>
+#include <Engine/Time.h>
+#include <Post Processing/SSAO.h>
 
 TestRenderer::TestRenderer(IGraphicsContext& graphicsContext)
 	: _graphicsContext(graphicsContext), _postProcessRenderer(graphicsContext)
@@ -36,11 +39,14 @@ TestRenderer::TestRenderer(IGraphicsContext& graphicsContext)
 	_normalShader->SetParameter("Lights[1].Direction", Vector::Normalize(Vector3f(-0.3f, 0.4f, 0.2f)));
 	_normalShader->SetParameter("Lights[1].Power", 0.8f);
 
+	/*_postProcessRenderer.AddPostProcess(std::make_shared<ColorAdjustPostProcess>(_graphicsContext));
 	_postProcessRenderer.AddPostProcess(std::make_shared<FogPostProcess>(_graphicsContext));
 	_postProcessRenderer.AddPostProcess(std::make_shared<DepthOfFieldPostProcess>(_graphicsContext));
 	_postProcessRenderer.AddPostProcess(std::make_shared<VignettePostProcess>(_graphicsContext));
 	_postProcessRenderer.AddPostProcess(std::make_shared<PixelizerPostProcess>(_graphicsContext))->SetEnabled(false);
-	_postProcessRenderer.AddPostProcess(std::make_shared<GaussianBlurPostProcess>(_graphicsContext))->SetEnabled(false);
+	_postProcessRenderer.AddPostProcess(std::make_shared<GaussianBlurPostProcess>(_graphicsContext))->SetEnabled(false);*/
+
+	_postProcessRenderer.AddPostProcess(std::make_shared<SSAO>(_graphicsContext));
 }
 
 TestRenderer::~TestRenderer() = default; 
@@ -63,10 +69,20 @@ void TestRenderer::PostUpdate()
 		auto dof = _postProcessRenderer.Get<DepthOfFieldPostProcess>();
 		dof->SetEnabled(!dof->IsEnabled());
 	}
+	else if (Input::IsNewKeyPress(KeyCode::CapsLock))
+	{
+		auto dof = _postProcessRenderer.Get<ColorAdjustPostProcess>();
+		dof->SetEnabled(!dof->IsEnabled());
+	}
+
+	auto dof = _postProcessRenderer.Get<ColorAdjustPostProcess>();
+//	dof->SetSaturationMultiplier(FlaiMath::PingPong(Time::GetTotalTime(), 1.0f));
 }
 
 void TestRenderer::Render()
 {
+
+	_vertexCount = 0;
 	_postProcessRenderer.BeginRender();
 
 	// sorting every frame is pretty wasteful.. also std::sort should be fine, but I guess there could be some artifacts/glitches without stable sort..?
@@ -74,6 +90,8 @@ void TestRenderer::Render()
 	this->RenderScene();
 	
 	_postProcessRenderer.Render(_camera);
+
+	Logger::LogMessage(_vertexCount);
 }
 
 void TestRenderer::RenderScene()
@@ -94,6 +112,7 @@ void TestRenderer::RenderScene()
 		renderObject->Material->Texture->BindToSampler(0);
 		renderObject->Mesh->VertexBuffer->Bind();
 
+		_vertexCount += renderObject->Mesh->VertexBuffer->GetVertexCount();
 		_graphicsContext.DrawPrimitives(PrimitiveType::TriangleList, 0, renderObject->Mesh->VertexBuffer->GetVertexCount());
 	}
 }

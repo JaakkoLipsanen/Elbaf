@@ -34,9 +34,6 @@ public:
 		{
 			_fogRange = range;
 			_dirty = true;
-			this->GetShader().Bind(); // meh
-			this->GetShader().SetParameter("FogStart", range.Min);
-			this->GetShader().SetParameter("FogEnd", range.Max);
 		}
 	}
 
@@ -48,8 +45,6 @@ public:
 		{
 			_useColor = useColor;
 			_dirty = true;
-			this->GetShader().Bind(); // meh
-			this->GetShader().SetParameter("UseColor", _useColor);
 		}
 	}
 
@@ -145,6 +140,8 @@ protected:
 			this->GetShader().SetParameter("FogColor", _fogColor.ToVector4f());
 			this->GetShader().SetParameter("FogStart", _fogRange.Min);
 			this->GetShader().SetParameter("FogEnd", _fogRange.Max);
+			this->GetShader().SetParameter("UseColor", _useColor);
+			_dirty = false;
 		}
 
 

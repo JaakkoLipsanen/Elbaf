@@ -177,4 +177,15 @@ namespace FlaiMath
 	{
 		return std::tan(input);
 	}
+
+	template<typename T>
+	T PingPong(const T& value, const T& step)
+	{
+		Ensure::False(step == 0);
+		int count = static_cast<int>(value / step);
+
+		T mod = FlaiMath::RealModulus(value, step);
+		return (count % 2 == 0) ? mod : (step - mod);
+	}
+
 }

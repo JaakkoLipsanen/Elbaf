@@ -38,3 +38,8 @@ void SceneModule::LoadScene(std::unique_ptr<Scene> scene)
 	Game* game = static_cast<Game*>(&_engine);
 	_currentScene->Initialize(*game, *this);
 }
+
+Scene& SceneModule::GetCurrentScene()
+{
+	return *_currentScene;
+}

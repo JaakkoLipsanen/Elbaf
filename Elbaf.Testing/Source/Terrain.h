@@ -5,6 +5,7 @@
 #include <Graphics/VertexFormats.h>
 #include <Graphics/IVertexBuffer.h>
 #include "NoiseGen.h"
+#include <Engine/Stopwatch.h>
 
 class Terrain
 {
@@ -21,14 +22,15 @@ public:
 		const int Size = 256;
 		float grid[(Size + 1) * (Size + 1)];
 		const float MaxHeight = 1;
+		Stopwatch sw("Noise gen");
 		for (int y = 0; y < Size + 1; y++)
 		{
 			for (int x = 0; x < Size + 1; x++)
 			{
-				grid[x + y * Size] = scaled_octave_noise_2d(24, 0.4f, 0.0075f, 0, 20, x, y) +Global::Random.NextFloat(-0.5f, 0.5f);
+				grid[x + y * Size] = scaled_octave_noise_2d(24, 0.4f, 0.0015f, 0, 700, x * 4, y * 4) + Global::Random.NextFloat(-0.5f, 0.5f) * 2;
 			}
 		}
-
+		sw.Stop();
 
 		std::vector<VertexPositionColorNormal> terrainVertexData;
 		for (int y = 0; y < Size; y++)
@@ -62,9 +64,15 @@ public:
 				terrainVertexData.push_back(V(brPos, brColor, normalSecond));
 			}
 		}
+		
+
 	    std::shared_ptr<IVertexBuffer> x(_graphicsContext.CreateVertexBuffer(BufferType::Static).release());
 		this->Mesh.reset(new ::Mesh(x));
+		Stopwatch sw2("Mesh gen");
 		this->Mesh->VertexBuffer->SetVertexData(terrainVertexData.data(), terrainVertexData.size());
+		sw2.Stop();
+
+		Logger::LogMessage(terrainVertexData.size());
 	}
 
 private:
