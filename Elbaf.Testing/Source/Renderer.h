@@ -54,12 +54,18 @@ struct RenderObject
 	}
 };
 
+struct DirectionalLight
+{
+	Vector3f Direction;
+	explicit DirectionalLight(Vector3f diretion) : Direction(diretion) { }
+};
+
 class RenderTarget;
-class TestRenderer
+class Renderer
 {
 public:
-	explicit TestRenderer(IGraphicsContext& graphicsContext);
-	~TestRenderer();
+	explicit Renderer(IGraphicsContext& graphicsContext);
+	~Renderer();
 
 	void AddObject(std::shared_ptr<const RenderObject> renderObject);
 	void SetCamera(ICamera* camera);

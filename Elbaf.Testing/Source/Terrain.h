@@ -1,6 +1,6 @@
 #pragma once
 #include <Core/Global.h>
-#include "TestRenderer.h"
+#include "Renderer.h"
 #include <Core/Color.h>
 #include <Graphics/VertexFormats.h>
 #include <Graphics/IVertexBuffer.h>
@@ -37,7 +37,7 @@ public:
 		{
 			for (int x = 0; x < Size; x++)
 			{
-				static const Color From = Color::Lerp(Color::DodgerBlue, Color::White, 0.5f); // Color(40, 40, 40);
+				static const Color From = Color::Lerp(Color::DodgerBlue, Color::White, 1.f); // Color(40, 40, 40);
 				static const Color To = From;
 
 				Vector3f blPos = { x, grid[x + y * Size], y };

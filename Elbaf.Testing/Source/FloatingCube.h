@@ -3,7 +3,7 @@
 #include <Math/Vector.h>
 #include <Math/FlaiMath.h>
 #include <Engine/Time.h>
-#include <TestRenderer.h>
+#include <Renderer.h>
 #include <Graphics/IVertexBuffer.h>
 #include <Core/Array.h>
 #include <Core/Global.h>

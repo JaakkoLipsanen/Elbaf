@@ -13,7 +13,7 @@
 void TestScene::OnEntering()
 {
 	auto& graphicsContext = this->GetGame().GetGraphicsContext();
-	_renderer.reset(new TestRenderer(graphicsContext));
+	_renderer.reset(new Renderer(graphicsContext));
 	_camera.reset(new DefaultCamera);
 	_renderer->SetCamera(_camera.get());
 

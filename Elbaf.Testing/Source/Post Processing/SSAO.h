@@ -36,10 +36,6 @@ protected:
 			uniform sampler2D DepthSampler; // depth reconstruction 
 			uniform bool UseColor;
 
-			uniform float FogStart;
-			uniform float FogEnd;
-			uniform vec4 FogColor;
-
 			// depth reconstruction 
 			uniform float zNear;
 			uniform float zFar;
@@ -48,12 +44,18 @@ protected:
 			uniform vec3 CameraDirection;
 			uniform vec2 NearPlaneSize;
 
-			void main() {
-				color = texture2D(TextureSampler, fragmentUV);
-						
-				float depthBufferZ =  texture2D(DepthSampler, fragmentUV).r;
-				if(depthBufferZ == 1) // if depth is "no"/default/cleared depth (which is 1 currently in Elbaf), then dont use fog
-					return;
+			
+			uniform int SampleRadius = 0;
+			uniform int SampleCount = 0;
+			uniform vec2 PixelSize;
+
+
+			float CalculatePixelDepthFromCamera(vec2 uv)
+			{
+				float depthBufferZ =  texture2D(DepthSampler, uv).r;
+	
+				//float depthBufferZ =  texture2D(DepthSampler, fragmentUV).r;
+				//if(depthBufferZ == 1) return 0;
 
 				depthBufferZ = 2.0 * depthBufferZ - 1.0; // [-1, 1] -> [0, 1]
 				float pixelZ = 2.0 * zNear * zFar / (zFar + zNear - depthBufferZ * (zFar - zNear)); // [zNear, zFar-zNear] // todo: concerns here. is it really [zNear, zFar-zNear]? 
@@ -77,11 +79,35 @@ protected:
 				// calculate the final position of the pixel in the world
 				vec3 pixelPositionInWorld = pixelPositionInNearPlane + normalize(pixelPositionInNearPlane - CameraPosition) * pixelZ * zLengthMultiplier;
 
-				float pixelDistanceFromCamera = distance(pixelPositionInWorld, CameraPosition);
-				float fogValue = clamp((pixelDistanceFromCamera - FogStart) / (FogEnd-FogStart), 0, 1);
+				return distance(pixelPositionInWorld, CameraPosition);
+			}
+			
 
-				color.rgb = vec3(pixelDistanceFromCamera, pixelDistanceFromCamera, pixelDistanceFromCamera);
-				color.a = 1;
+
+			float CalculateZBufferAvg(vec2 sampleAreaSize, vec2 uv)
+			{
+				float result = 0;
+				vec2 stepSize = sampleAreaSize / SampleCount;
+				for(int j = -SampleCount; j <= SampleCount; j++)
+				{
+					for(int i = -SampleCount; i <= SampleCount; i++)
+					{
+						result += CalculatePixelDepthFromCamera(uv + vec2(i, j) * stepSize);
+					}
+				}
+
+				result /= float((SampleCount * 2 + 1) * (SampleCount * 2 + 1));
+				return result;
+			}
+
+			
+			void main() {
+				color = texture2D(TextureSampler, fragmentUV);
+				float distance = CalculatePixelDepthFromCamera(fragmentUV);
+				distance -= CalculateZBufferAvg(PixelSize * SampleRadius, fragmentUV);
+				distance = pow(abs(distance), 0.4);
+				distance = min(1, distance > 2 ? distance / 8.0f : 0);
+				color.rgb =  vec3(distance, distance, distance);
 			})XXX";
 
 		return ShaderSource::FromSource(defaultVertexShader, FogFragmentShader);
@@ -110,6 +136,10 @@ protected:
 		this->GetShader().SetParameter("zFar", renderCamera->GetFarZ());
 		this->GetShader().SetParameter("CameraPosition", renderCamera->GetPosition());
 		this->GetShader().SetParameter("CameraDirection", renderCamera->GetDirection());
+
+		this->GetShader().SetParameter("SampleRadius", 12);
+		this->GetShader().SetParameter("SampleCount", 3);
+		this->GetShader().SetParameter("PixelSize", Vector2f::One / Vector2f(Vector2i(Screen::GetSize())));
 
 		//Logger::LogMessage(renderCamera->GetDirection());
 		auto cam = dynamic_cast<const DefaultCamera*>(renderCamera);

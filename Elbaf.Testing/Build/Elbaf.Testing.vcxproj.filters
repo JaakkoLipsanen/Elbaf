@@ -33,14 +33,14 @@
     <ClCompile Include="..\Source\TestScene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\Source\TestRenderer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\Source\Post Processing\PostProcess.cpp">
       <Filter>Source Files\Post Processing</Filter>
     </ClCompile>
     <ClCompile Include="..\Source\Post Processing\PostProcessRenderer.cpp">
       <Filter>Source Files\Post Processing</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Renderer.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -68,9 +68,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\Source\TestScene.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Source\TestRenderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\Source\Terrain.h">
@@ -111,6 +108,9 @@
     </ClInclude>
     <ClInclude Include="..\Source\Post Processing\SSAO.h">
       <Filter>Header Files\Post Processing</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Renderer.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

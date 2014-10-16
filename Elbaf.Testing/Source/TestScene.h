@@ -1,7 +1,7 @@
 #pragma once
 #include <Engine/Scene.h>
 #include <memory>
-#include "TestRenderer.h"
+#include "Renderer.h"
 #include "DefaultCamera.h"
 #include <FloatingCube.h>
 
@@ -13,7 +13,7 @@ protected:
 	void PostRender() override;
 
 private:
-	std::unique_ptr<TestRenderer> _renderer;
+	std::unique_ptr<Renderer> _renderer;
 	std::unique_ptr<DefaultCamera> _camera;
 	std::shared_ptr<RenderObject> _skybox;
 	std::vector<FloatingCube> _floatingCubes;

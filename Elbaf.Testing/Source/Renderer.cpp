@@ -1,4 +1,4 @@
-#include "TestRenderer.h"
+#include "Renderer.h"
 #include <Core/Color.h>
 #include <Graphics/IVertexBuffer.h>
 #include <Graphics/ITexture.h>
@@ -21,7 +21,7 @@
 #include <Engine/Time.h>
 #include <Post Processing/SSAO.h>
 
-TestRenderer::TestRenderer(IGraphicsContext& graphicsContext)
+Renderer::Renderer(IGraphicsContext& graphicsContext)
 	: _graphicsContext(graphicsContext), _postProcessRenderer(graphicsContext)
 {
 	_terrainShader = graphicsContext.CreateShader(ShaderSource::FromFiles("Shaders/TerrainShader-vs.glsl", "Shaders/TerrainShader-fs.glsl"));
@@ -39,28 +39,28 @@ TestRenderer::TestRenderer(IGraphicsContext& graphicsContext)
 	_normalShader->SetParameter("Lights[1].Direction", Vector::Normalize(Vector3f(-0.3f, 0.4f, 0.2f)));
 	_normalShader->SetParameter("Lights[1].Power", 0.8f);
 
-	/*_postProcessRenderer.AddPostProcess(std::make_shared<ColorAdjustPostProcess>(_graphicsContext));
+	_postProcessRenderer.AddPostProcess(std::make_shared<ColorAdjustPostProcess>(_graphicsContext));
 	_postProcessRenderer.AddPostProcess(std::make_shared<FogPostProcess>(_graphicsContext));
 	_postProcessRenderer.AddPostProcess(std::make_shared<DepthOfFieldPostProcess>(_graphicsContext));
 	_postProcessRenderer.AddPostProcess(std::make_shared<VignettePostProcess>(_graphicsContext));
 	_postProcessRenderer.AddPostProcess(std::make_shared<PixelizerPostProcess>(_graphicsContext))->SetEnabled(false);
-	_postProcessRenderer.AddPostProcess(std::make_shared<GaussianBlurPostProcess>(_graphicsContext))->SetEnabled(false);*/
+	_postProcessRenderer.AddPostProcess(std::make_shared<GaussianBlurPostProcess>(_graphicsContext))->SetEnabled(false); 
 
-	_postProcessRenderer.AddPostProcess(std::make_shared<SSAO>(_graphicsContext));
+	//_postProcessRenderer.AddPostProcess(std::make_shared<SSAO>(_graphicsContext));
 }
 
-TestRenderer::~TestRenderer() = default; 
-void TestRenderer::AddObject(std::shared_ptr<const RenderObject> renderObject)
+Renderer::~Renderer() = default; 
+void Renderer::AddObject(std::shared_ptr<const RenderObject> renderObject)
 {
 	_renderObjects.push_back(renderObject);
 }
 
-void TestRenderer::SetCamera(ICamera* camera)
+void Renderer::SetCamera(ICamera* camera)
 {
 	_camera = camera;
 }
 
-void TestRenderer::PostUpdate()
+void Renderer::PostUpdate()
 {
 	_postProcessRenderer.Update();
 
@@ -75,11 +75,15 @@ void TestRenderer::PostUpdate()
 		dof->SetEnabled(!dof->IsEnabled());
 	}
 
-	auto dof = _postProcessRenderer.Get<ColorAdjustPostProcess>();
-//	dof->SetSaturationMultiplier(FlaiMath::PingPong(Time::GetTotalTime(), 1.0f));
+	else if (Input::IsNewKeyPress(KeyCode::Space))
+	{
+		auto dof = _postProcessRenderer.Get<SSAO>();
+		dof->SetEnabled(!dof->IsEnabled());
+	}
+
 }
 
-void TestRenderer::Render()
+void Renderer::Render()
 {
 
 	_vertexCount = 0;
@@ -91,10 +95,10 @@ void TestRenderer::Render()
 	
 	_postProcessRenderer.Render(_camera);
 
-	Logger::LogMessage(_vertexCount);
+	//Logger::LogMessage(_vertexCount);
 }
 
-void TestRenderer::RenderScene()
+void Renderer::RenderScene()
 {
 	_graphicsContext.Clear(Color::White);
 	auto projectionXview = _camera->GetProjection() * _camera->GetView();
@@ -117,7 +121,7 @@ void TestRenderer::RenderScene()
 	}
 }
 
-IShader& TestRenderer::GetShader(MaterialType materialType)
+IShader& Renderer::GetShader(MaterialType materialType)
 {
 	return (materialType == MaterialType::Terrain) ? *_terrainShader : *_normalShader;
 }

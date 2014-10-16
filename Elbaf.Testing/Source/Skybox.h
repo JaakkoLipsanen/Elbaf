@@ -1,6 +1,6 @@
 #pragma once
 #include <Core/Global.h>
-#include "TestRenderer.h"
+#include "Renderer.h"
 #include <Core/Color.h>
 #include <Graphics/VertexFormats.h>
 #include <Graphics/IVertexBuffer.h>

@@ -49,7 +49,6 @@ protected:
 
 			float CalculatePixelDepthFromCamera()
 			{
-				
 				float depthBufferZ =  texture2D(DepthSampler, fragmentUV).r;
 				if(depthBufferZ == 1)
 				{
