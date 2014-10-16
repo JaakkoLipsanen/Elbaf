@@ -9,6 +9,9 @@
 #include <Graphics/TextureHelper.h>
 #include <Core/HsvColor.h>
 #include <Engine/Stopwatch.h>
+#include <Engine/Screen.h>
+#include <memory>
+
 
 void TestScene::OnEntering()
 {
@@ -18,6 +21,10 @@ void TestScene::OnEntering()
 	_renderer->SetCamera(_camera.get());
 
 	this->CreateObjects();
+
+
+	_font = Content::LoadFont(this->GetGame().GetGraphicsContext(), "F:\\Users\\Jaakko\\Desktop\\ArvoRegular.ttf", 32);
+	_fontRenderer.reset(new FontRenderer(this->GetGame().GetGraphicsContext()));
 }
 
 void TestScene::PostUpdate()
@@ -35,6 +42,7 @@ void TestScene::PostUpdate()
 void TestScene::PostRender()
 {
 	_renderer->Render();
+	_fontRenderer->DrawText2D(*_font, "Vertices: " + std::to_string(_renderer->GetFrameVertexCount()), Vector2f(Screen::GetSize().Width - 8, 8), Color::White * 0.5f, TextCorner::TopRight);
 }
 
 void TestScene::CreateObjects()

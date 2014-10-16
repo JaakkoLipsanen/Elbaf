@@ -43,7 +43,7 @@ void PostProcess::ProcessInner(RenderTarget& source, RenderTarget& destination, 
 {
 	_shader->Bind();
 	destination.BindRenderTarget();
-	source.BindTextureToSampler(0);
+	source.BindColorTextureToSampler(0, 0);
 	_shader->SetTextureSampler("TextureSampler", 0);
 
 	this->GetFullscreenQuadBuffer().Bind();

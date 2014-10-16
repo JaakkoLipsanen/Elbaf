@@ -146,9 +146,7 @@ protected:
 
 
 		// bind depth texture to sampler 1
-		auto x = originalSceneRT.DepthTextureID();
-		glActiveTexture(OGL::SamplerIndexToGLenum(1));
-		glBindTexture(GL_TEXTURE_2D, x);
+		originalSceneRT.BindDepthTextureToSampler(1);
 
 		this->GetShader().SetTextureSampler("TextureSampler", 0);
 		this->GetShader().SetTextureSampler("DepthSampler", 1);

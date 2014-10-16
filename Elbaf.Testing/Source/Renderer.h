@@ -57,7 +57,10 @@ struct RenderObject
 struct DirectionalLight
 {
 	Vector3f Direction;
-	explicit DirectionalLight(Vector3f diretion) : Direction(diretion) { }
+	bool Enabled;
+	// Color
+	// Intensity
+	explicit DirectionalLight(Vector3f diretion) : Direction(diretion), Enabled(true) { }
 };
 
 class RenderTarget;
@@ -71,6 +74,8 @@ public:
 	void SetCamera(ICamera* camera);
 	void PostUpdate();
 	void Render();
+	int GetFrameVertexCount() const { return _frameVertexCount; }
+	DirectionalLight& GetDirectionalLight() { return _directionalLight; }
 	
 private:
 	std::vector<std::shared_ptr<const RenderObject>> _renderObjects;
@@ -79,8 +84,12 @@ private:
 	PostProcessRenderer _postProcessRenderer;
 	std::unique_ptr<IShader> _terrainShader;
 	std::unique_ptr<IShader> _normalShader;
-	int _vertexCount;
+	std::unique_ptr<IShader> _shadowPassthroughShader;
+	DirectionalLight _directionalLight;
+	int _frameVertexCount;
+	std::unique_ptr<RenderTarget> _directionalLightShadowMap;
 
 	IShader& GetShader(MaterialType materialType);
+	void RenderDirectionalLight();
 	void RenderScene();
 };

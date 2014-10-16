@@ -112,12 +112,10 @@ protected:
 		this->GetShader().SetParameter("SampleCount", 3);
 		this->GetShader().SetParameter("PixelSize", Vector2f::One / Vector2f(Vector2i(Screen::GetSize())));
 
-		source.BindTextureToSampler(0);
+		source.BindColorTextureToSampler(0, 0);
 
 		// bind depth texture to sampler 1
-		auto x = originalSceneRT.DepthTextureID();
-		glActiveTexture(OGL::SamplerIndexToGLenum(1));
-		glBindTexture(GL_TEXTURE_2D, x);
+		originalSceneRT.BindDepthTextureToSampler(1);
 
 
 		this->GetShader().SetParameter("zNear", renderCamera->GetNearZ());

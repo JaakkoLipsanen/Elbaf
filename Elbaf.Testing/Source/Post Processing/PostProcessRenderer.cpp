@@ -91,7 +91,7 @@ void PostProcessRenderer::Render(const ICamera* renderCamera)
 		_backgroundRenderTarget->BindRenderTarget();
 		_graphicsContext.Clear(ClearOptions::Color, Color::White);
 
-		_currentRenderTarget->BindTextureToSampler(0);
+		_currentRenderTarget->BindColorTextureToSampler(0, 0);
 		postProcess->ProcessInner(*_currentRenderTarget, *_backgroundRenderTarget, originalSceneRenderTarget, renderCamera);
 
 		_currentRenderTarget.swap(_backgroundRenderTarget);
@@ -101,7 +101,7 @@ void PostProcessRenderer::Render(const ICamera* renderCamera)
 	_graphicsContext.Clear(Color::Red);
 
 	_passthroughShader->Bind();
-	_currentRenderTarget->BindTextureToSampler(0);
+	_currentRenderTarget->BindColorTextureToSampler(0, 0);
 	_passthroughShader->SetTextureSampler("TextureSampler", 0);
 	_quadVertexBuffer->Bind();
 

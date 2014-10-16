@@ -48,7 +48,7 @@ protected:
 		this->GetShader().SetTextureSampler("TextureSampler", 0);
 		this->GetShader().SetParameter("SampleRadius", 3);
 		this->GetShader().SetParameter("PixelSize", Vector2f::One / Vector2f(Vector2i(Screen::GetSize())));
-		source.BindTextureToSampler(0);
+		source.BindColorTextureToSampler(0, 0);
 
 		PostProcess::Process(source, destination, originalSceneRT, renderCamera);
 	}

@@ -22,10 +22,11 @@
 #include <Post Processing/SSAO.h>
 
 Renderer::Renderer(IGraphicsContext& graphicsContext)
-	: _graphicsContext(graphicsContext), _postProcessRenderer(graphicsContext)
+	: _graphicsContext(graphicsContext), _postProcessRenderer(graphicsContext), _directionalLight(Vector::Normalize(Vector3f(0.2f, -1.f, -0.5f)))
 {
 	_terrainShader = graphicsContext.CreateShader(ShaderSource::FromFiles("Shaders/TerrainShader-vs.glsl", "Shaders/TerrainShader-fs.glsl"));
 	_normalShader = graphicsContext.CreateShader(ShaderSource::FromFiles("Shaders/DefaultShader-vs.glsl", "Shaders/DefaultShader-fs.glsl"));
+	_shadowPassthroughShader = graphicsContext.CreateShader(ShaderSource::FromFiles("Shaders/ShadowPassShader-vs.glsl", "Shaders/ShadowPassShader-fs.glsl"));
 
 	_terrainShader->Bind();
 	_terrainShader->SetParameter("LightDirection", Vector::Normalize(Vector3f(0, -1, -0)));
@@ -34,7 +35,7 @@ Renderer::Renderer(IGraphicsContext& graphicsContext)
 	_normalShader->SetTextureSampler("TextureSampler", 0);
 	_normalShader->SetParameter("AmbientLightAmount", 0.15f);
 	_normalShader->SetParameter("LightCount", 2);
-	_normalShader->SetParameter("Lights[0].Direction", Vector::Normalize(Vector3f(0.2f, -1, -0.5f)));
+	_normalShader->SetParameter("Lights[0].Direction", _directionalLight.Direction);
 	_normalShader->SetParameter("Lights[0].Power", 0.7f);
 	_normalShader->SetParameter("Lights[1].Direction", Vector::Normalize(Vector3f(-0.3f, 0.4f, 0.2f)));
 	_normalShader->SetParameter("Lights[1].Power", 0.8f);
@@ -47,6 +48,8 @@ Renderer::Renderer(IGraphicsContext& graphicsContext)
 	_postProcessRenderer.AddPostProcess(std::make_shared<GaussianBlurPostProcess>(_graphicsContext))->SetEnabled(false); 
 
 	//_postProcessRenderer.AddPostProcess(std::make_shared<SSAO>(_graphicsContext));
+
+	_directionalLightShadowMap = RenderTarget::Create(2048, 2048, DepthBufferFormat::Depth16, { });
 }
 
 Renderer::~Renderer() = default; 
@@ -74,19 +77,12 @@ void Renderer::PostUpdate()
 		auto dof = _postProcessRenderer.Get<ColorAdjustPostProcess>();
 		dof->SetEnabled(!dof->IsEnabled());
 	}
-
-	else if (Input::IsNewKeyPress(KeyCode::Space))
-	{
-		auto dof = _postProcessRenderer.Get<SSAO>();
-		dof->SetEnabled(!dof->IsEnabled());
-	}
-
 }
 
 void Renderer::Render()
 {
-
-	_vertexCount = 0;
+	this->RenderDirectionalLight();
+	_frameVertexCount = 0;
 	_postProcessRenderer.BeginRender();
 
 	// sorting every frame is pretty wasteful.. also std::sort should be fine, but I guess there could be some artifacts/glitches without stable sort..?
@@ -94,8 +90,6 @@ void Renderer::Render()
 	this->RenderScene();
 	
 	_postProcessRenderer.Render(_camera);
-
-	//Logger::LogMessage(_vertexCount);
 }
 
 void Renderer::RenderScene()
@@ -116,7 +110,7 @@ void Renderer::RenderScene()
 		renderObject->Material->Texture->BindToSampler(0);
 		renderObject->Mesh->VertexBuffer->Bind();
 
-		_vertexCount += renderObject->Mesh->VertexBuffer->GetVertexCount();
+		_frameVertexCount += renderObject->Mesh->VertexBuffer->GetVertexCount();
 		_graphicsContext.DrawPrimitives(PrimitiveType::TriangleList, 0, renderObject->Mesh->VertexBuffer->GetVertexCount());
 	}
 }
@@ -124,4 +118,23 @@ void Renderer::RenderScene()
 IShader& Renderer::GetShader(MaterialType materialType)
 {
 	return (materialType == MaterialType::Terrain) ? *_terrainShader : *_normalShader;
+}
+
+void Renderer::RenderDirectionalLight()
+{
+	auto inverseLightDirection = -_directionalLight.Direction;
+	Matrix4x4 lightMatrix;
+	return;
+
+	_shadowPassthroughShader->Bind();
+//	_shadowPassthroughShader->SetParameter("MVP", Matrix::C);
+	for (auto& renderObject : _renderObjects)
+	{
+
+		renderObject->Material->Texture->BindToSampler(0);
+		renderObject->Mesh->VertexBuffer->Bind();
+
+		_frameVertexCount += renderObject->Mesh->VertexBuffer->GetVertexCount();
+		_graphicsContext.DrawPrimitives(PrimitiveType::TriangleList, 0, renderObject->Mesh->VertexBuffer->GetVertexCount());
+	}
 }
