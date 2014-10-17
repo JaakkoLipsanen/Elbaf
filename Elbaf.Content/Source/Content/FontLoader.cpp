@@ -11,7 +11,7 @@
 #include <Graphics/Font.h>
 #include <algorithm>
 #include <Math/FlaiMath.h>
-#include <Graphics/IGraphicsContext.h>
+#include <Graphics/GraphicsContext.h>
 #include <Graphics/Image.h>
 #include <Graphics/TextureFormat.h>
 #include <iostream>
@@ -57,7 +57,7 @@ public:
 	}
 
 	// todo: load font from memory? FreeType supports this also
-	std::unique_ptr<Font> LoadFont(IGraphicsContext& graphicsContext, const std::string& path, int fontSize, Range<char> characterRange = Range<char>(32, 122), int dpi = 0, bool useKerning = false) // todo: "face_index" (third parameter in FT_New_Face)? Some font formats allow multiple fonts to be embedded in a single file
+	std::unique_ptr<Font> LoadFont(GraphicsContext& graphicsContext, const std::string& path, int fontSize, Range<char> characterRange = Range<char>(32, 122), int dpi = 0, bool useKerning = false) // todo: "face_index" (third parameter in FT_New_Face)? Some font formats allow multiple fonts to be embedded in a single file
 	{
 		Ensure::True(_library != NULL, "FontLoader: Cannot load font because FreeType was not initialized correctly");
 		
@@ -165,7 +165,7 @@ public:
 FontLoader::FontLoader() : _pImpl(new Impl) { }
 FontLoader::~FontLoader() = default;
 
-std::unique_ptr<Font> FontLoader::LoadFont(IGraphicsContext& graphicsContext, std::string const& path, int fontSize, Range<char> characterRange, int dpi)
+std::unique_ptr<Font> FontLoader::LoadFont(GraphicsContext& graphicsContext, std::string const& path, int fontSize, Range<char> characterRange, int dpi)
 {
 	return _pImpl->LoadFont(graphicsContext, path, fontSize, characterRange, dpi);
 }

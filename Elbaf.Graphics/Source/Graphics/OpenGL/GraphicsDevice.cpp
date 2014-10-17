@@ -35,7 +35,7 @@ namespace OGL
 class OGL::GraphicsDevice::Impl
 {
 public:
-	OGL::GraphicsContext Context;
+	OGL::OGLGraphicsContext Context;
 	OGL::GameWindow Window;
 
 	Impl() : Window(), Context(Window)
@@ -97,7 +97,7 @@ IGameWindow& OGL::GraphicsDevice::GetGameWindow()
 	return _pImpl->Window;
 }
 
-IGraphicsContext& OGL::GraphicsDevice::GetContext()
+GraphicsContext& OGL::GraphicsDevice::GetContext()
 {
 	return _pImpl->Context;
 }

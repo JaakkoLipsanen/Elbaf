@@ -3,11 +3,11 @@
 enum class CullMode;
 enum class CullFace;
 
-class ICullState
+class CullState
 {
 public:
-	ICullState() = default;
-	virtual ~ICullState() = default;
+	CullState() = default;
+	virtual ~CullState() = default;
 
 	virtual CullMode GetCullMode() const = 0;
 	virtual void SetCullMode(CullMode cullMode) = 0;

@@ -1,7 +1,7 @@
 #pragma once
 #include "PostProcess.h"
 #include <Graphics/ShaderSource.h>
-#include <Graphics/IShader.h>
+#include <Graphics/Shader.h>
 #include <Engine/Screen.h>
 
 class GaussianBlurPostProcess : public PostProcess
@@ -54,7 +54,7 @@ protected:
 	}
 
 public:
-	explicit GaussianBlurPostProcess(IGraphicsContext& graphicsContext)
+	explicit GaussianBlurPostProcess(GraphicsContext& graphicsContext)
 		: PostProcess(graphicsContext)
 	{
 	}

@@ -1,5 +1,5 @@
 #pragma once
-#include <Graphics\IShader.h>
+#include <Graphics\Shader.h>
 #include <Graphics\OpenGL\OGL.h>
 #include <string>
 #include <memory>
@@ -7,12 +7,12 @@
 struct ShaderSource;
 namespace OGL
 {
-	class Shader : public IShader
+	class OGLShader : public Shader
 	{
 	public:
-		static std::unique_ptr<IShader> Load(const ShaderSource& shaderSource);
+		static std::unique_ptr<OGLShader> Load(const ShaderSource& shaderSource);
 
-		virtual ~Shader() override;
+		virtual ~OGLShader() override;
 		virtual void Bind() override;
 
 		// parameter setters
@@ -40,6 +40,6 @@ namespace OGL
 	private:
 		class Impl;
 		std::unique_ptr<Impl> _pImpl;
-		explicit Shader(Impl* pImpl);
+		explicit OGLShader(Impl* pImpl);
 	};
 }

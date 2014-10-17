@@ -19,12 +19,12 @@ public:
 	// void Dispose()? if I do this, then "IGraphicsResource" would be useful (has Dispose and maybe IsDisposed)
 };
 
-class ITexture2D : public ITexture
+class Texture2D : public ITexture
 {
 public:
 	Size GetSize() const;
 	virtual int GetWidth() const = 0;
 	virtual int GetHeight() const = 0;
 
-	virtual ~ITexture2D() override { }
+	virtual ~Texture2D() override { }
 };

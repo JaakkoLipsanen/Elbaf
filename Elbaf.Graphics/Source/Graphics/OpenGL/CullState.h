@@ -1,7 +1,7 @@
 #pragma once
-#include <Graphics\ICullState.h>
+#include <Graphics\CullState.h>
 
-class CullState : public ICullState
+class OGLCullState : public CullState
 {
 public:
 	virtual CullMode GetCullMode() const override;

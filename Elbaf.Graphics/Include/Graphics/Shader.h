@@ -5,12 +5,12 @@
 #include <Math\Matrix.h>
 
 // todo: support for tesslation & geometry shaders etc?
-class IShader
+class Shader
 {
 public:
 	// todo: set variable (float, matrix etc)
 	virtual void Bind() = 0;
-	virtual ~IShader() { }
+	virtual ~Shader() { }
 
 	virtual void SetParameter(const std::string& valueName, const float& value) = 0;
 	virtual void SetParameter(const std::string& valueName, const Vector2f& value) = 0;

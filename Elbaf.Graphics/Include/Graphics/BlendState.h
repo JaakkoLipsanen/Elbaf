@@ -30,11 +30,11 @@ enum class BlendFunction
 };
 
 struct Color;
-class IBlendState
+class BlendState
 {
 public:
-	IBlendState() = default;
-	virtual ~IBlendState() = default;
+	BlendState() = default;
+	virtual ~BlendState() = default;
 
 	virtual bool IsBlendEnabled() const = 0;
 	virtual void SetBlendEnabled(bool enabled) = 0;

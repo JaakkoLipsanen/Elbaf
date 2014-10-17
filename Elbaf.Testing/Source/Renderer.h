@@ -1,5 +1,5 @@
 #pragma once
-#include <Graphics/IGraphicsContext.h>
+#include <Graphics/GraphicsContext.h>
 #include <Math/Vector.h>
 #include <vector>
 #include <Engine/ICamera.h>
@@ -17,10 +17,10 @@ enum class MaterialType
 struct Material
 {
 	MaterialType MaterialType;
-	std::shared_ptr<ITexture2D> Texture;
+	std::shared_ptr<Texture2D> Texture;
 	Color Tint;
 
-	explicit Material(std::shared_ptr<ITexture2D> vertexBuffer, Color tint = Color::White, ::MaterialType type = ::MaterialType::Normal)
+	explicit Material(std::shared_ptr<Texture2D> vertexBuffer, Color tint = Color::White, ::MaterialType type = ::MaterialType::Normal)
 		: Texture(vertexBuffer), Tint(tint), MaterialType(type)
 	{
 	}
@@ -28,8 +28,8 @@ struct Material
 
 struct Mesh
 {
-	std::shared_ptr<IVertexBuffer> VertexBuffer;
-	explicit Mesh(std::shared_ptr<IVertexBuffer> vertexBuffer) 
+	std::shared_ptr<VertexBuffer> VertexBuffer;
+	explicit Mesh(std::shared_ptr<::VertexBuffer> vertexBuffer) 
 		: VertexBuffer(vertexBuffer)
 	{	
 	}
@@ -67,7 +67,7 @@ class RenderTarget;
 class Renderer
 {
 public:
-	explicit Renderer(IGraphicsContext& graphicsContext);
+	explicit Renderer(GraphicsContext& graphicsContext);
 	~Renderer();
 
 	void AddObject(std::shared_ptr<const RenderObject> renderObject);
@@ -79,17 +79,17 @@ public:
 	
 private:
 	std::vector<std::shared_ptr<const RenderObject>> _renderObjects;
-	IGraphicsContext& _graphicsContext;
+	GraphicsContext& _graphicsContext;
 	ICamera* _camera;
 	PostProcessRenderer _postProcessRenderer;
-	std::unique_ptr<IShader> _terrainShader;
-	std::unique_ptr<IShader> _normalShader;
-	std::unique_ptr<IShader> _depthPassShader;
+	std::unique_ptr<Shader> _terrainShader;
+	std::unique_ptr<Shader> _normalShader;
+	std::unique_ptr<Shader> _depthPassShader;
 	DirectionalLight _directionalLight;
 	int _frameVertexCount;
 	std::unique_ptr<RenderTarget> _directionalLightShadowMap;
 
-	IShader& GetShader(MaterialType materialType);
+	Shader& GetShader(MaterialType materialType);
 	void RenderShadowMap();
 	void RenderScene();
 };

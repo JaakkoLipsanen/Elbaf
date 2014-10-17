@@ -3,11 +3,11 @@
 enum class CompareFunction;
 
 // add something else here  than just depth? like.... stencil :( ??
-class IDepthState
+class DepthState
 {
 public:
-	IDepthState() = default;
-	virtual ~IDepthState() = default;
+	DepthState() = default;
+	virtual ~DepthState() = default;
 
 	virtual bool IsDepthTestEnabled() const = 0;
 	virtual void SetDepthTestEnabled(bool isEnabled) = 0;

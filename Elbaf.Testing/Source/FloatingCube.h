@@ -1,17 +1,17 @@
 #pragma once
-#include <Graphics/IGraphicsContext.h>
+#include <Graphics/GraphicsContext.h>
 #include <Math/Vector.h>
 #include <Math/FlaiMath.h>
 #include <Engine/Time.h>
 #include <Renderer.h>
-#include <Graphics/IVertexBuffer.h>
+#include <Graphics/VertexBuffer.h>
 #include <Core/Array.h>
 #include <Core/Global.h>
 
 class FloatingCube
 {
 public:
-	explicit FloatingCube(IGraphicsContext& graphicsContext, Vector3f position, Vector3f scale) :
+	explicit FloatingCube(GraphicsContext& graphicsContext, Vector3f position, Vector3f scale) :
 		_graphicsContext(graphicsContext), _initialPosition(position), _position(position), _scale(scale), _timeOffset(Global::Random.NextFloat(0, 1000)), _floatingSpeedMultiplier(Global::Random.NextFloat(0.5f, 1.1f)), _floatingScaleMultiplier(Global::Random.NextFloat(0.8f, 1.2f))
 	{	
 	}
@@ -30,7 +30,7 @@ public:
 		_renderObject->Position = _position;
 	}
 
-	static std::shared_ptr<Mesh> CreateMesh(IGraphicsContext& graphicsContext)
+	static std::shared_ptr<Mesh> CreateMesh(GraphicsContext& graphicsContext)
 	{
 		typedef VertexPositionColorNormal Vertex;
 
@@ -92,14 +92,14 @@ public:
 		};
 
 
-		std::shared_ptr<IVertexBuffer> vertexBuffer(graphicsContext.CreateVertexBuffer(BufferType::Static).release());
+		std::shared_ptr<VertexBuffer> vertexBuffer(graphicsContext.CreateVertexBuffer(BufferType::Static).release());
 		vertexBuffer->SetVertexData(cubeVertexData, Array::Length(cubeVertexData));
 
 		return std::make_shared<Mesh>(vertexBuffer);
 	}
 
 private:
-	IGraphicsContext& _graphicsContext;
+	GraphicsContext& _graphicsContext;
 	Vector3f _initialPosition;
 	Vector3f _position;
 	Vector3f _scale;

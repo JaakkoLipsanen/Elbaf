@@ -4,7 +4,7 @@
 #include <Core/IEngine.h>
 #include <Graphics/GraphicsModule.h>
 #include <Content/FontLoader.h>
-#include <Graphics/IGraphicsContext.h>
+#include <Graphics/GraphicsContext.h>
 
 struct ContentModule::Data
 {
@@ -38,12 +38,12 @@ std::unique_ptr<Image> ContentModule::LoadImage(std::string const& filePath)
 	return std::unique_ptr<Image>(new Image(data, width, height, textureFormat));
 }
 
-std::unique_ptr<ITexture2D> ContentModule::LoadTexture(std::string const& filePath)
+std::unique_ptr<Texture2D> ContentModule::LoadTexture(std::string const& filePath)
 {
 	return _engine.GetInstance().GetModule<GraphicsModule>().GetGraphicsContext().CreateTexture2D(*this->LoadImage(filePath).get());
 }
 
-std::unique_ptr<Font> ContentModule::LoadFont(IGraphicsContext& graphicsContext, std::string const& fontPath, int fontSize)
+std::unique_ptr<Font> ContentModule::LoadFont(GraphicsContext& graphicsContext, std::string const& fontPath, int fontSize)
 {
 	return _pData->FontLoader.LoadFont(graphicsContext, fontPath, fontSize);
 }

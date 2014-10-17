@@ -3,12 +3,12 @@
 #include <Graphics\OpenGL\OGL.h>
 #include <Graphics\OpenGL\OGL-Helper.h>
 
-bool OGL::DepthState::IsDepthTestEnabled() const
+bool OGL::OGLDepthState::IsDepthTestEnabled() const
 {
 	return _isDepthTestEnabled;
 }
 
-void OGL::DepthState::SetDepthTestEnabled(bool isEnabled)
+void OGL::OGLDepthState::SetDepthTestEnabled(bool isEnabled)
 {
 	if (_isDepthTestEnabled == isEnabled)
 	{
@@ -19,12 +19,12 @@ void OGL::DepthState::SetDepthTestEnabled(bool isEnabled)
 	glEnableOrDisable(GL_DEPTH_TEST, _isDepthTestEnabled);
 }
 
-bool OGL::DepthState::IsDepthWriteEnabled() const
+bool OGL::OGLDepthState::IsDepthWriteEnabled() const
 {
 	return _depthWriteEnabled;
 }
 
-void OGL::DepthState::SetDepthWriteEnabled(bool isEnabled)
+void OGL::OGLDepthState::SetDepthWriteEnabled(bool isEnabled)
 {
 	if (_depthWriteEnabled == isEnabled)
 	{
@@ -35,12 +35,12 @@ void OGL::DepthState::SetDepthWriteEnabled(bool isEnabled)
 	glDepthMask(isEnabled);
 }
 
-CompareFunction OGL::DepthState::GetDepthFunction() const
+CompareFunction OGL::OGLDepthState::GetDepthFunction() const
 {
 	return _depthCompareFunction;
 }
 
-void OGL::DepthState::SetDepthFunction(CompareFunction compareFunction)
+void OGL::OGLDepthState::SetDepthFunction(CompareFunction compareFunction)
 {
 	if (_depthCompareFunction == compareFunction)
 	{

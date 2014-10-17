@@ -1,9 +1,9 @@
 #pragma once
-#include <Graphics\IDepthState.h>
+#include <Graphics\DepthState.h>
 
 namespace OGL
 {
-	class DepthState : public IDepthState
+	class OGLDepthState : public DepthState
 	{
 	public:
 		virtual bool IsDepthTestEnabled() const override;

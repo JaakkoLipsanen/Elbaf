@@ -6,40 +6,40 @@
 
 #include <Graphics\Image.h>
 #include <Graphics\ClearOptions.h>
-#include <Graphics\ITexture.h>
+#include <Graphics\Texture.h>
 
 #include <Graphics\OpenGL\OGL-Helper.h>
 #include <Graphics\OpenGL\OGL.h>
 #include <Graphics\OpenGL\GameWindow.h>
-#include <Graphics\OpenGL\Texture2D.h>
-#include <Graphics\OpenGL\VertexBuffer.h>
-#include <Graphics\OpenGL\Shader.h>
+#include <Graphics\OpenGL\OGLTexture2D.h>
+#include <Graphics\OpenGL\OGLVertexBuffer.h>
+#include <Graphics\OpenGL\OGLShader.h>
 #include <Graphics\OpenGL\BlendState.h>
 
-class OGL::GraphicsContext::Impl
+class OGL::OGLGraphicsContext::Impl
 {
 public:
-	std::shared_ptr<IBlendState> BlendState;
-	Impl() : BlendState(new OGL::BlendState) { }
+	std::shared_ptr<BlendState> BlendState;
+	Impl() : BlendState(new OGL::OGLBlendState) { }
 };
 
-OGL::GraphicsContext::GraphicsContext(GameWindow& window) : _window(window)
+OGL::OGLGraphicsContext::OGLGraphicsContext(GameWindow& window) : _window(window)
 {
 }
 
-OGL::GraphicsContext::~GraphicsContext()
+OGL::OGLGraphicsContext::~OGLGraphicsContext()
 {
 }
 
 /* resolution */
-Size OGL::GraphicsContext::GetResolution() const
+Size OGL::OGLGraphicsContext::GetResolution() const
 {
 	int width, height;
 	glfwGetFramebufferSize(_window.GetGLFWwindow(), &width, &height);
 	return Size(width, height);
 }
 
-void OGL::GraphicsContext::ChangeResolution(Size const& newSize)
+void OGL::OGLGraphicsContext::ChangeResolution(Size const& newSize)
 {
 	glfwSetWindowSize(_window.GetGLFWwindow(), newSize.Width, newSize.Height);
 
@@ -47,38 +47,38 @@ void OGL::GraphicsContext::ChangeResolution(Size const& newSize)
 	this->ResetViewport(); // glViewport(0, 0, newSize.Width, newSize.Height);  would be a bit faster but meh
 }
 
-ICullState& OGL::GraphicsContext::GetCullState()
+CullState& OGL::OGLGraphicsContext::GetCullState()
 {
 	return _cullState;
 }
 
-void OGL::GraphicsContext::SetCullState(CullStatePreset const& preset)
+void OGL::OGLGraphicsContext::SetCullState(CullStatePreset const& preset)
 {
 	throw std::logic_error("Not implemented");
 }
 
-IBlendState& OGL::GraphicsContext::GetBlendState()
+BlendState& OGL::OGLGraphicsContext::GetBlendState()
 {
 	return _blendState; // *_pImpl->BlendState.get();
 }
 
-void OGL::GraphicsContext::SetBlendState(const BlendStatePreset& blendStatePreset)
+void OGL::OGLGraphicsContext::SetBlendState(const BlendStatePreset& blendStatePreset)
 {
 	throw std::logic_error("Not implemented");
 }
 
-IDepthState& OGL::GraphicsContext::GetDepthState()
+DepthState& OGL::OGLGraphicsContext::GetDepthState()
 {
 	return _depthState;
 }
 
-void OGL::GraphicsContext::SetDepthState(DepthStatePreset const& depthStatePreset)
+void OGL::OGLGraphicsContext::SetDepthState(DepthStatePreset const& depthStatePreset)
 {
 	throw std::logic_error("Not implemented");
 }
 
 /* clear */
-void OGL::GraphicsContext::Clear(Color const& color)
+void OGL::OGLGraphicsContext::Clear(Color const& color)
 {
 	static const float DefaultDepthValue = 1.0f;
 	static const int DefaultStencilValue = 0;
@@ -86,7 +86,7 @@ void OGL::GraphicsContext::Clear(Color const& color)
 	this->Clear(ClearOptions::All, color, DefaultDepthValue, DefaultStencilValue);
 }
 
-void OGL::GraphicsContext::Clear(ClearOptions const& clearOptions, Color const& color, float depth, int stencilValue)
+void OGL::OGLGraphicsContext::Clear(ClearOptions const& clearOptions, Color const& color, float depth, int stencilValue)
 {
 	bool wasDepthWriteEnabled = this->GetDepthState().IsDepthWriteEnabled();
 	this->GetDepthState().SetDepthWriteEnabled(true); // depth write must be enabled to allow depth clearing
@@ -100,7 +100,7 @@ void OGL::GraphicsContext::Clear(ClearOptions const& clearOptions, Color const& 
 }
 
 /* misc */
-void OGL::GraphicsContext::ResetViewport() const
+void OGL::OGLGraphicsContext::ResetViewport() const
 {
 	auto size = this->GetResolution();
 	glViewport(0, 0, size.Width, size.Height); // update the viewport
@@ -108,28 +108,28 @@ void OGL::GraphicsContext::ResetViewport() const
 
 
 /* draw */
-void OGL::GraphicsContext::DrawPrimitives(PrimitiveType primitiveType, int firstIndex, int count)
+void OGL::OGLGraphicsContext::DrawPrimitives(PrimitiveType primitiveType, int firstIndex, int count)
 {
 	glDrawArrays(OGL::PrimitiveTypeToGLenum(primitiveType), firstIndex, count);
 }
 
 /* create */
-std::unique_ptr<ITexture2D> OGL::GraphicsContext::CreateTexture2D(const Image& textureData)
+std::unique_ptr<Texture2D> OGL::OGLGraphicsContext::CreateTexture2D(const Image& textureData)
 {
-	return Texture2D::Load(textureData);
+	return OGLTexture2D::Load(textureData);
 }
 
-std::unique_ptr<IVertexBuffer> OGL::GraphicsContext::CreateVertexBuffer(BufferType bufferType)
+std::unique_ptr<VertexBuffer> OGL::OGLGraphicsContext::CreateVertexBuffer(BufferType bufferType)
 {
-	return VertexBuffer::CreateVertexBuffer(bufferType);
+	return OGLVertexBuffer::CreateVertexBuffer(bufferType);
 }
 
-std::unique_ptr<IShader> OGL::GraphicsContext::CreateShader(const ShaderSource& shaderSource)
+std::unique_ptr<Shader> OGL::OGLGraphicsContext::CreateShader(const ShaderSource& shaderSource)
 {
-	return Shader::Load(shaderSource);
+	return OGLShader::Load(shaderSource);
 }
 
-std::unique_ptr<IBlendState> OGL::GraphicsContext::CreateBlendState()
+std::unique_ptr<BlendState> OGL::OGLGraphicsContext::CreateBlendState()
 {
-	return std::unique_ptr<BlendState>(new OGL::BlendState);
+	return std::unique_ptr<OGLBlendState>(new OGL::OGLBlendState);
 }

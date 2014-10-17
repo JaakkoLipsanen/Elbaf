@@ -29,19 +29,7 @@
     <ClCompile Include="..\Source\Graphics\VertexFormats.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\Source\Graphics\IVertexBuffer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Source\Graphics\OpenGL\Shader.cpp">
-      <Filter>Source Files\OpenGL</Filter>
-    </ClCompile>
     <ClCompile Include="..\Source\Graphics\OpenGL\OGL-ShaderLoader.cpp">
-      <Filter>Source Files\OpenGL</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Source\Graphics\ITexture.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Source\Graphics\OpenGL\Texture2D.cpp">
       <Filter>Source Files\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="..\Source\Graphics\Image.cpp">
@@ -55,9 +43,6 @@
     </ClCompile>
     <ClCompile Include="..\Source\Graphics\GraphicsModule.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Source\Graphics\OpenGL\VertexBuffer.cpp">
-      <Filter>Source Files\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="..\Source\Graphics\OpenGL\BlendState.cpp">
       <Filter>Source Files\OpenGL</Filter>
@@ -73,6 +58,21 @@
     </ClCompile>
     <ClCompile Include="..\Source\Graphics\FontRenderer.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Graphics\Texture.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Graphics\OpenGL\OGLTexture2D.cpp">
+      <Filter>Source Files\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Graphics\OpenGL\OGLShader.cpp">
+      <Filter>Source Files\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Graphics\VertexBuffer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Graphics\OpenGL\OGLVertexBuffer.cpp">
+      <Filter>Source Files\OpenGL</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -97,15 +97,6 @@
     <ClInclude Include="..\Include\Graphics\Image.h">
       <Filter>Public Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\Include\Graphics\IShader.h">
-      <Filter>Public Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\Graphics\ITexture.h">
-      <Filter>Public Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\Graphics\IVertexBuffer.h">
-      <Filter>Public Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\Include\Graphics\PrimitiveType.h">
       <Filter>Public Header Files</Filter>
     </ClInclude>
@@ -127,21 +118,6 @@
     <ClInclude Include="..\Source\Graphics\OpenGL\OGL-ShaderLoader.h">
       <Filter>Private Header Files\OpenGL</Filter>
     </ClInclude>
-    <ClInclude Include="..\Source\Graphics\OpenGL\Shader.h">
-      <Filter>Private Header Files\OpenGL</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Source\Graphics\OpenGL\Texture2D.h">
-      <Filter>Private Header Files\OpenGL</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Source\Graphics\OpenGL\VertexBuffer.h">
-      <Filter>Private Header Files\OpenGL</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Source\Graphics\OpenGL\GraphicsContext.h">
-      <Filter>Private Header Files\OpenGL</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\Graphics\IGraphicsContext.h">
-      <Filter>Public Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\Source\Graphics\IGraphicsDevice.h">
       <Filter>Private Header Files</Filter>
     </ClInclude>
@@ -151,16 +127,10 @@
     <ClInclude Include="..\Include\Graphics\GraphicsModule.h">
       <Filter>Public Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\Include\Graphics\IBlendState.h">
-      <Filter>Public Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\Source\Graphics\OpenGL\BlendState.h">
       <Filter>Private Header Files\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="..\Include\Graphics\BlendStatePreset.h">
-      <Filter>Public Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\Graphics\IDepthState.h">
       <Filter>Public Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\Include\Graphics\DepthStatePreset.h">
@@ -168,9 +138,6 @@
     </ClInclude>
     <ClInclude Include="..\Source\Graphics\OpenGL\DepthState.h">
       <Filter>Private Header Files\OpenGL</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\Graphics\ICullState.h">
-      <Filter>Public Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\Include\Graphics\CullStatePreset.h">
       <Filter>Public Header Files</Filter>
@@ -185,6 +152,39 @@
       <Filter>Public Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\Include\Graphics\TextureHelper.h">
+      <Filter>Public Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Graphics\Texture.h">
+      <Filter>Public Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Graphics\OpenGL\OGLTexture2D.h">
+      <Filter>Private Header Files\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Graphics\Shader.h">
+      <Filter>Public Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Graphics\OpenGL\OGLShader.h">
+      <Filter>Private Header Files\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Graphics\VertexBuffer.h">
+      <Filter>Public Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Graphics\OpenGL\OGLVertexBuffer.h">
+      <Filter>Private Header Files\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Graphics\GraphicsContext.h">
+      <Filter>Public Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Graphics\DepthState.h">
+      <Filter>Public Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Graphics\OpenGL\GraphicsContext.h">
+      <Filter>Private Header Files\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Graphics\CullState.h">
+      <Filter>Public Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Graphics\BlendState.h">
       <Filter>Public Header Files</Filter>
     </ClInclude>
   </ItemGroup>

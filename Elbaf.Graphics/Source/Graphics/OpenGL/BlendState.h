@@ -1,11 +1,11 @@
 #pragma once
-#include <Graphics\IBlendState.h>
-#include <Graphics\IGraphicsContext.h>
+#include <Graphics\BlendState.h>
+#include <Graphics\GraphicsContext.h>
 #include <Core\Color.h>
 
 namespace OGL
 {
-	class BlendState : public IBlendState
+	class OGLBlendState : public BlendState
 	{
 	public:
 		virtual bool IsBlendEnabled() const override;

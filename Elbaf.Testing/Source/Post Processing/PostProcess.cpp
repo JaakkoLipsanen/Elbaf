@@ -1,8 +1,8 @@
 #include "PostProcess.h"
 #include "PostProcessRenderer.h"
 #include <Graphics/ShaderSource.h>
-#include <Graphics/IShader.h>
-#include <Graphics/IVertexBuffer.h>
+#include <Graphics/Shader.h>
+#include <Graphics/VertexBuffer.h>
 #include <Engine/ICamera.h>
 
 static const std::string DefaultVertexShader = R"XXX(
@@ -18,12 +18,12 @@ static const std::string DefaultVertexShader = R"XXX(
 	})XXX";
 
 
-IVertexBuffer& PostProcess::GetFullscreenQuadBuffer()
+VertexBuffer& PostProcess::GetFullscreenQuadBuffer()
 {
 	return *_parentRenderer->_quadVertexBuffer;
 }
 
-IShader& PostProcess::GetShader()
+Shader& PostProcess::GetShader()
 {
 	return *_shader;
 }

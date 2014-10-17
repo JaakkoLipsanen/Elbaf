@@ -1,11 +1,11 @@
 #include <Graphics\GraphicsModule.h>
 
 #include <Graphics\CompareFunction.h>
-#include <Graphics\IGraphicsContext.h>
+#include <Graphics\GraphicsContext.h>
 #include <Graphics\IGraphicsDevice.h>
-#include <Graphics\IDepthState.h>
-#include <Graphics\IBlendState.h>
-#include <Graphics\ICullState.h>
+#include <Graphics\DepthState.h>
+#include <Graphics\BlendState.h>
+#include <Graphics\CullState.h>
 
 static IGraphicsDevice* CreateGraphicsDevice();
 GraphicsModule::GraphicsModule(IEngine& engine, const WindowDescription& windowDescription) : IModule(engine)
@@ -54,7 +54,7 @@ IGameWindow& GraphicsModule::GetGameWindow() const
 	return _graphicsDevice->GetGameWindow();
 }
 
-IGraphicsContext& GraphicsModule::GetGraphicsContext() const
+GraphicsContext& GraphicsModule::GetGraphicsContext() const
 {
 	return _graphicsDevice->GetContext();
 }

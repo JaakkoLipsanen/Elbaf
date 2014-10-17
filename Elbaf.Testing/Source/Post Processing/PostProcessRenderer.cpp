@@ -1,16 +1,16 @@
 #include "PostProcessRenderer.h"
 #include "PostProcess.h"
-#include <Graphics/IVertexBuffer.h>
+#include <Graphics/VertexBuffer.h>
 #include <Graphics/ShaderSource.h>
-#include <Graphics/IShader.h>
-#include <Graphics/IDepthState.h>
-#include <Graphics/ICullState.h>
+#include <Graphics/Shader.h>
+#include <Graphics/DepthState.h>
+#include <Graphics/CullState.h>
 #include <Core/Array.h>
 #include <Graphics/ClearOptions.h>
 #include <Engine/ICamera.h>
 #include "Vignette.h"
 
-PostProcessRenderer::PostProcessRenderer(IGraphicsContext& graphicsContext)
+PostProcessRenderer::PostProcessRenderer(GraphicsContext& graphicsContext)
 	: _graphicsContext(graphicsContext), _quadVertexBuffer(graphicsContext.CreateVertexBuffer(BufferType::Static))
 {
 	static const VertexPositionTexture quadVertices[6]

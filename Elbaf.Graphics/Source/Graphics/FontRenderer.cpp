@@ -2,13 +2,13 @@
 #include <Graphics/ShaderSource.h>
 #include <vector>
 #include <Graphics/VertexFormats.h>
-#include <Graphics/IVertexBuffer.h>
+#include <Graphics/VertexBuffer.h>
 #include <Math/RectangleF.h>
 #include <Math/Matrix.h>
-#include <Graphics/IShader.h>
-#include <Graphics/IBlendState.h>
-#include <Graphics/ICullState.h>
-#include <Graphics/IDepthState.h>
+#include <Graphics/Shader.h>
+#include <Graphics/BlendState.h>
+#include <Graphics/CullState.h>
+#include <Graphics/DepthState.h>
 
 const std::string VertexShader = R"XXX(
 		#version 330 core
@@ -50,11 +50,11 @@ const std::string FragmentShader = R"XXX(
 struct FontRenderer::Data
 {
 	std::vector<VertexPositionColorTexture> Vertices;
-	std::unique_ptr<IVertexBuffer> VertexBuffer;
-	std::unique_ptr<IShader> FontShader;
-	IGraphicsContext& GraphicsContext;
+	std::unique_ptr<VertexBuffer> VertexBuffer;
+	std::unique_ptr<Shader> FontShader;
+	GraphicsContext& GraphicsContext;
 
-	Data(IGraphicsContext& graphicsContext) :
+	Data(::GraphicsContext& graphicsContext) :
 		GraphicsContext(graphicsContext),
 		FontShader(graphicsContext.CreateShader(ShaderSource::FromSource(VertexShader, FragmentShader))),
 		VertexBuffer(graphicsContext.CreateVertexBuffer(BufferType::Dynamic))
@@ -106,7 +106,7 @@ struct FontRenderer::Data
 	}
 };
 
-FontRenderer::FontRenderer(IGraphicsContext& graphicsContext) :
+FontRenderer::FontRenderer(GraphicsContext& graphicsContext) :
 _pData(new Data(graphicsContext))
 {
 }

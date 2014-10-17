@@ -3,12 +3,12 @@
 #include <Graphics\OpenGL\OGL-Helper.h>
 #include <Core\Color.h>
 
-bool OGL::BlendState::IsBlendEnabled() const
+bool OGL::OGLBlendState::IsBlendEnabled() const
 {
 	return _isEnabled;
 }
 
-void OGL::BlendState::SetBlendEnabled(bool enabled)
+void OGL::OGLBlendState::SetBlendEnabled(bool enabled)
 {
 	if (_isEnabled == enabled)
 	{
@@ -19,12 +19,12 @@ void OGL::BlendState::SetBlendEnabled(bool enabled)
 	glEnableOrDisable(GL_BLEND, enabled);
 }
 
-BlendFactor OGL::BlendState::GetSourceColorBlend() const
+BlendFactor OGL::OGLBlendState::GetSourceColorBlend() const
 {
 	return _sourceColorBlend;
 }
 
-void OGL::BlendState::SetSourceColorBlend(BlendFactor blendFactor)
+void OGL::OGLBlendState::SetSourceColorBlend(BlendFactor blendFactor)
 {
 	if (_sourceColorBlend == blendFactor)
 	{
@@ -35,12 +35,12 @@ void OGL::BlendState::SetSourceColorBlend(BlendFactor blendFactor)
 	this->UpdateBlendFactors();
 }
 
-BlendFactor OGL::BlendState::GetDestinationColorBlend() const
+BlendFactor OGL::OGLBlendState::GetDestinationColorBlend() const
 {
 	return _destinationColorBlend;
 }
 
-void OGL::BlendState::SetDestinationColorBlend(BlendFactor blendFactor)
+void OGL::OGLBlendState::SetDestinationColorBlend(BlendFactor blendFactor)
 {
 	if (_destinationColorBlend == blendFactor)
 	{
@@ -51,12 +51,12 @@ void OGL::BlendState::SetDestinationColorBlend(BlendFactor blendFactor)
 	this->UpdateBlendFactors();
 }
 
-BlendFactor OGL::BlendState::GetSourceAlphaBlend() const
+BlendFactor OGL::OGLBlendState::GetSourceAlphaBlend() const
 {
 	return _sourceAlphaBlend;
 }
 
-void OGL::BlendState::SetSourceAlphaBlend(BlendFactor blendFactor)
+void OGL::OGLBlendState::SetSourceAlphaBlend(BlendFactor blendFactor)
 {
 	if (_sourceAlphaBlend == blendFactor)
 	{
@@ -67,12 +67,12 @@ void OGL::BlendState::SetSourceAlphaBlend(BlendFactor blendFactor)
 	this->UpdateBlendFactors();
 }
 
-BlendFactor OGL::BlendState::GetDestinationAlphaBlend() const
+BlendFactor OGL::OGLBlendState::GetDestinationAlphaBlend() const
 {
 	return _destinationAlphaBlend;
 }
 
-void OGL::BlendState::SetDestinationAlphaBlend(BlendFactor blendFactor)
+void OGL::OGLBlendState::SetDestinationAlphaBlend(BlendFactor blendFactor)
 {
 	if (_destinationAlphaBlend == blendFactor)
 	{
@@ -83,13 +83,13 @@ void OGL::BlendState::SetDestinationAlphaBlend(BlendFactor blendFactor)
 	this->UpdateBlendFactors();
 }
 
-BlendFunction OGL::BlendState::GetColorBlendFunction() const
+BlendFunction OGL::OGLBlendState::GetColorBlendFunction() const
 {
 	return _colorBlendFunction;
 }
 
 
-void OGL::BlendState::SetColorBlendFunction(BlendFunction function)
+void OGL::OGLBlendState::SetColorBlendFunction(BlendFunction function)
 {
 	if (_colorBlendFunction == function)
 	{
@@ -100,12 +100,12 @@ void OGL::BlendState::SetColorBlendFunction(BlendFunction function)
 	this->UpdateBlendFunctions();
 }
 
-BlendFunction OGL::BlendState::GetAlphaBlendFunction() const
+BlendFunction OGL::OGLBlendState::GetAlphaBlendFunction() const
 {
 	return _alphaBlendFunction;
 }
 
-void OGL::BlendState::SetAlphaBlendFunction(BlendFunction function)
+void OGL::OGLBlendState::SetAlphaBlendFunction(BlendFunction function)
 {
 	if (_alphaBlendFunction == function)
 	{
@@ -116,12 +116,12 @@ void OGL::BlendState::SetAlphaBlendFunction(BlendFunction function)
 	this->UpdateBlendFunctions();
 }
 
-Color OGL::BlendState::GetBlendColor() const
+Color OGL::OGLBlendState::GetBlendColor() const
 {
 	return _blendColor;
 }
 
-void OGL::BlendState::SetBlendColor(Color const& color)
+void OGL::OGLBlendState::SetBlendColor(Color const& color)
 {
 	if (_blendColor == color)
 	{
@@ -134,17 +134,17 @@ void OGL::BlendState::SetBlendColor(Color const& color)
 	glBlendColor(v.x, v.y, v.z, v.w);
 }
 
-void OGL::BlendState::UpdateBlendFactors()
+void OGL::OGLBlendState::UpdateBlendFactors()
 {
 	glBlendFuncSeparate(OGL::BlendFactorToGLenum(_sourceColorBlend), OGL::BlendFactorToGLenum(_destinationColorBlend), OGL::BlendFactorToGLenum(_sourceAlphaBlend), OGL::BlendFactorToGLenum(_destinationAlphaBlend));
 }
 
-void OGL::BlendState::UpdateBlendFunctions()
+void OGL::OGLBlendState::UpdateBlendFunctions()
 {
 	glBlendEquationSeparate(OGL::BlendFunctionToGLenum(_colorBlendFunction), OGL::BlendFunctionToGLenum(_alphaBlendFunction));
 }
 
-void OGL::BlendState::SetSourceBlend(BlendFactor blendFactor)
+void OGL::OGLBlendState::SetSourceBlend(BlendFactor blendFactor)
 {
 	if (_sourceColorBlend == blendFactor && _sourceAlphaBlend == blendFactor)
 	{
@@ -156,7 +156,7 @@ void OGL::BlendState::SetSourceBlend(BlendFactor blendFactor)
 	this->UpdateBlendFactors();
 }
 
-void OGL::BlendState::SetDestinationBlend(BlendFactor blendFactor)
+void OGL::OGLBlendState::SetDestinationBlend(BlendFactor blendFactor)
 {
 	if (_destinationColorBlend == blendFactor && _destinationAlphaBlend == blendFactor)
 	{

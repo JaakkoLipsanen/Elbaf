@@ -1,7 +1,7 @@
 #pragma once
 
-class IGraphicsContext;
+class GraphicsContext;
 namespace Graphics
 {
-	IGraphicsContext& GetContext();
+	GraphicsContext& GetContext();
 }

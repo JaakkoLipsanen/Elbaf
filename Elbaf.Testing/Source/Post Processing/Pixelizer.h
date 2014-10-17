@@ -7,7 +7,7 @@ class PixelizerPostProcess : public PostProcess
 {
 
 public:
-	explicit PixelizerPostProcess(IGraphicsContext& graphicsContext)
+	explicit PixelizerPostProcess(GraphicsContext& graphicsContext)
 		: PostProcess(graphicsContext), _pixelSize(4)
 	{
 	}

@@ -28,7 +28,7 @@ protected:
 	}
 
 public:
-	explicit VignettePostProcess(IGraphicsContext& graphicsContext)
+	explicit VignettePostProcess(GraphicsContext& graphicsContext)
 		: PostProcess(graphicsContext)
 	{
 	}

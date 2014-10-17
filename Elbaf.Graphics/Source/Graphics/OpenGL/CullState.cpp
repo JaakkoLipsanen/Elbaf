@@ -1,15 +1,15 @@
 #include <Graphics\OpenGL\CullState.h>
 
-#include <Graphics\IGraphicsContext.h>
+#include <Graphics\GraphicsContext.h>
 #include <Graphics\OpenGL\OGL.h>
 #include <Graphics\OpenGL\OGL-Helper.h>
 
-CullMode CullState::GetCullMode() const
+CullMode OGLCullState::GetCullMode() const
 {
 	return _cullMode;
 }
 
-void CullState::SetCullMode(CullMode cullMode)
+void OGLCullState::SetCullMode(CullMode cullMode)
 {
 	if (_cullMode != cullMode)
 	{
@@ -18,12 +18,12 @@ void CullState::SetCullMode(CullMode cullMode)
 	}
 }
 
-CullFace CullState::GetCullFace() const
+CullFace OGLCullState::GetCullFace() const
 {
 	return _cullFace;
 }
 
-void CullState::SetCullFace(CullFace cullFace)
+void OGLCullState::SetCullFace(CullFace cullFace)
 {
 	if (_cullFace != cullFace)
 	{
@@ -32,12 +32,12 @@ void CullState::SetCullFace(CullFace cullFace)
 	}
 }
 
-bool CullState::IsCullingEnabled() const
+bool OGLCullState::IsCullingEnabled() const
 {
 	return _isCullingEnabled;
 }
 
-void CullState::SetCullingEnabled(bool enabled)
+void OGLCullState::SetCullingEnabled(bool enabled)
 {
 	if (_isCullingEnabled != enabled)
 	{

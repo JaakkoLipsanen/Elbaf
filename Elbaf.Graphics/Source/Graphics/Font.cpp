@@ -1,5 +1,5 @@
 #include <Graphics/Font.h>
-#include <Graphics/ITexture.h>
+#include <Graphics/Texture.h>
 #include <Math/FlaiMath.h>
 
 class Font::Impl
@@ -8,25 +8,25 @@ public:
 	std::string FontName; // can be empty
 	int FontSize; // can be -1
 
-	std::unique_ptr<ITexture2D> FontTexture;
+	std::unique_ptr<Texture2D> FontTexture;
 	std::map<char, CharacterDefinition> Characters; // set vs vector?
 	std::map<std::tuple<char, char>, Vector2f> Kerning;
 
-	Impl(std::unique_ptr<ITexture2D> texture, std::map<char, CharacterDefinition> characters, std::map<std::tuple<char, char>, Vector2f> kerningData, const std::string& fontName = "", int fontSize = -1)
+	Impl(std::unique_ptr<Texture2D> texture, std::map<char, CharacterDefinition> characters, std::map<std::tuple<char, char>, Vector2f> kerningData, const std::string& fontName = "", int fontSize = -1)
 		: FontTexture(texture.release()), Characters(characters), Kerning(kerningData), FontName(fontName), FontSize(fontSize)
 	{
 		
 	}
 };
 
-Font::Font(std::unique_ptr<ITexture2D> texture, std::map<char, CharacterDefinition> characters, std::map<std::tuple<char, char>, Vector2f> kerningData, std::string const& fontName, int fontSize)
+Font::Font(std::unique_ptr<Texture2D> texture, std::map<char, CharacterDefinition> characters, std::map<std::tuple<char, char>, Vector2f> kerningData, std::string const& fontName, int fontSize)
 	: _pImpl(new Font::Impl(std::move(texture), characters, kerningData, fontName, fontSize))
 {
 }
 
 Font::~Font() = default;
 
-ITexture2D& Font::GetTexture()
+Texture2D& Font::GetTexture()
 {
 	return *_pImpl->FontTexture.get();
 }

@@ -131,7 +131,7 @@ IGameWindow& Game::GetWindow() const
 	return _pImpl->GraphicsModule->GetGameWindow();
 }
 
-IGraphicsContext& Game::GetGraphicsContext() const
+GraphicsContext& Game::GetGraphicsContext() const
 {
 	return _pImpl->GraphicsModule->GetGraphicsContext();
 }

@@ -7,14 +7,14 @@
 #include "DefaultCamera.h"
 #include <Diagnostics/Logger.h>
 #include <Math/FlaiMath.h>
-#include <Graphics/IShader.h>
+#include <Graphics/Shader.h>
 #include <Graphics/PrimitiveType.h>
-#include <Graphics/IVertexBuffer.h>
+#include <Graphics/VertexBuffer.h>
 
 class SSAO : public PostProcess
 {
 public:
-	explicit SSAO(IGraphicsContext& graphicsContext)
+	explicit SSAO(GraphicsContext& graphicsContext)
 		: PostProcess(graphicsContext)
 	{
 	}

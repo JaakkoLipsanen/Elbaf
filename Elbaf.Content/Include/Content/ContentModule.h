@@ -3,9 +3,9 @@
 #include <memory>
 #include <string>
 #include <Graphics/Image.h>
-#include <Graphics/ITexture.h>
+#include <Graphics/Texture.h>
 #include <Graphics/Font.h>
-#include <Graphics/IGraphicsContext.h>
+#include <Graphics/GraphicsContext.h>
 
 class ContentModule : public IModule
 {
@@ -17,8 +17,8 @@ public:
 	virtual void Terminate() override;
 
 	std::unique_ptr<Image> LoadImage(const std::string& filePath);
-	std::unique_ptr<ITexture2D> LoadTexture(const std::string& filePath); // todo: additional parameters?
-	std::unique_ptr<Font> LoadFont(IGraphicsContext& graphicsContext, const std::string& fontPath, int fontSize);
+	std::unique_ptr<Texture2D> LoadTexture(const std::string& filePath); // todo: additional parameters?
+	std::unique_ptr<Font> LoadFont(GraphicsContext& graphicsContext, const std::string& fontPath, int fontSize);
 
 private:
 	struct Data;

@@ -29,20 +29,20 @@ struct CullStatePreset;
 struct Size;
 
 class ITexture;
-class ITexture2D;
-class IVertexBuffer;
-class IShader;
-class IBlendState;
-class IDepthState;
-class ICullState;
+class Texture2D;
+class VertexBuffer;
+class Shader;
+class BlendState;
+class DepthState;
+class CullState;
 
 // todo: make DepthState, RasterizerState, StencilState etc? // TODO: MAKE THESE, BLENDSTATE ALREADY DONE
 // update: those would really really be great... however they would also add a lot of new classes that have to be implemented per API :(
-class IGraphicsContext
+class GraphicsContext
 {
 public:
-	IGraphicsContext() = default;
-	virtual ~IGraphicsContext() = default;
+	GraphicsContext() = default;
+	virtual ~GraphicsContext() = default;
 
 	virtual void Clear(const Color& color) = 0;
 	virtual void Clear(const ClearOptions& clearOptions, const Color& color, float depth = 1, int stencilValue = 0) = 0;
@@ -51,15 +51,15 @@ public:
 	virtual void ChangeResolution(const Size& newSize) = 0;
 
 	// cull
-	virtual ICullState& GetCullState() = 0;
+	virtual CullState& GetCullState() = 0;
 	virtual void SetCullState(const CullStatePreset& preset) = 0;
 
 	// depth
-	virtual IDepthState& GetDepthState() = 0;
+	virtual DepthState& GetDepthState() = 0;
 	virtual void SetDepthState(const DepthStatePreset& preset) = 0;
 
 	// blend
-	virtual IBlendState& GetBlendState() = 0;
+	virtual BlendState& GetBlendState() = 0;
 	virtual void SetBlendState(const BlendStatePreset& preset) = 0; // ????????????????????????????? I was thinking, maybe better would be "BlendStatePreset" or something like that
 
 	// todo: render targets, vertexbuffers, stencil, scissor, depth states, textures(?) etc etc etc
@@ -68,8 +68,8 @@ public:
 	virtual void DrawPrimitives(PrimitiveType primitiveType, int firstIndex, int count) = 0;
 
 	// CREATE
-	virtual std::unique_ptr<ITexture2D> CreateTexture2D(const Image& textureData) = 0;
-	virtual std::unique_ptr<IVertexBuffer> CreateVertexBuffer(BufferType bufferType) = 0;
-	virtual std::unique_ptr<IShader> CreateShader(const ShaderSource& shaderData) = 0;
-	virtual std::unique_ptr<IBlendState> CreateBlendState() = 0;
+	virtual std::unique_ptr<Texture2D> CreateTexture2D(const Image& textureData) = 0;
+	virtual std::unique_ptr<VertexBuffer> CreateVertexBuffer(BufferType bufferType) = 0;
+	virtual std::unique_ptr<Shader> CreateShader(const ShaderSource& shaderData) = 0;
+	virtual std::unique_ptr<BlendState> CreateBlendState() = 0;
 };

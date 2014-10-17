@@ -1,10 +1,10 @@
 #include <Engine\Screen.h>
 
-#include <Graphics\IGraphicsContext.h>
+#include <Graphics\GraphicsContext.h>
 #include <Graphics\GraphicsModule.h>
 #include <Core\IEngine.h>
 
-static IGraphicsContext& GetGraphicsContext()
+static GraphicsContext& GetGraphicsContext()
 {
 	return IEngine::GetInstance().GetModule<GraphicsModule>().GetGraphicsContext();
 }

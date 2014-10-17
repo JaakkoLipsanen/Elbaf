@@ -4,7 +4,7 @@
 #include "DefaultCamera.h"
 #include "Terrain.h"
 #include <Content/Content.h>
-#include <Graphics/ITexture.h>
+#include <Graphics/Texture.h>
 #include "Skybox.h"
 #include <Graphics/TextureHelper.h>
 #include <Core/HsvColor.h>
@@ -50,7 +50,7 @@ void TestScene::CreateObjects()
 	auto& graphicsContext = this->GetGame().GetGraphicsContext();
 
 	/* Terrain */
-	std::shared_ptr<ITexture2D> blankPixel = std::move(TextureHelper::CreateBlankTexture(graphicsContext));
+	std::shared_ptr<Texture2D> blankPixel = std::move(TextureHelper::CreateBlankTexture(graphicsContext));
 	std::shared_ptr<Material> terrainMaterial = std::make_shared<Material>(blankPixel, Color::White, MaterialType::Terrain);
 	terrainMaterial->Tint = Color::White; // Color(40, 40, 40);
 
@@ -74,7 +74,7 @@ void TestScene::CreateObjects()
 	Skybox skybox(graphicsContext);
 	skybox.Generate();
 
-	std::shared_ptr<ITexture2D> skyTexture = std::move(Content::LoadTexture("F:/Users/Jaakko/Desktop/Skybox1.png"));
+	std::shared_ptr<Texture2D> skyTexture = std::move(Content::LoadTexture("F:/Users/Jaakko/Desktop/Skybox1.png"));
 	std::shared_ptr<Material> skyboxMaterial = std::make_shared<Material>(skyTexture);
 	skyboxMaterial->Tint = Color::White;
 

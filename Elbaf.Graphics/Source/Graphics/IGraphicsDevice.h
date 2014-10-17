@@ -1,7 +1,7 @@
 #pragma once
 #include <string>
 
-class IGraphicsContext;
+class GraphicsContext;
 class IGameWindow;
 struct Size;
 struct WindowDescription;
@@ -14,7 +14,7 @@ public:
 	virtual ~IGraphicsDevice() { }
 
 	virtual IGameWindow& GetGameWindow() = 0;
-	virtual IGraphicsContext& GetContext() = 0; 
+	virtual GraphicsContext& GetContext() = 0; 
 	virtual RendererAPI GetRendererAPI() const = 0;
 	virtual void OpenWindow(const WindowDescription& windowDescription) = 0;
 	virtual void RunMessagePump() = 0; // meh, this really doesn't belong here :(

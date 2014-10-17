@@ -14,7 +14,7 @@ namespace OGL
 		virtual ~GraphicsDevice() override;
 
 		virtual IGameWindow& GetGameWindow() override;
-		virtual IGraphicsContext& GetContext() override;
+		virtual GraphicsContext& GetContext() override;
 		virtual RendererAPI GetRendererAPI() const override;
 		virtual void OpenWindow(const WindowDescription& windowDescription) override;
 		virtual void RunMessagePump() override;

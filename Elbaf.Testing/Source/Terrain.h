@@ -3,7 +3,7 @@
 #include "Renderer.h"
 #include <Core/Color.h>
 #include <Graphics/VertexFormats.h>
-#include <Graphics/IVertexBuffer.h>
+#include <Graphics/VertexBuffer.h>
 #include "NoiseGen.h"
 #include <Engine/Stopwatch.h>
 
@@ -11,7 +11,7 @@ class Terrain
 {
 public:
 
-	Terrain(IGraphicsContext& graphicsContext) :
+	Terrain(GraphicsContext& graphicsContext) :
 		_graphicsContext(graphicsContext)
 	{
 	}
@@ -37,7 +37,7 @@ public:
 		{
 			for (int x = 0; x < Size; x++)
 			{
-				static const Color From = Color::Lerp(Color::DodgerBlue, Color::White, 1.f); // Color(40, 40, 40);
+				static const Color From = Color::Lerp(Color::DodgerBlue, Color::White, 0.5f); // Color(40, 40, 40);
 				static const Color To = From;
 
 				Vector3f blPos = { x, grid[x + y * Size], y };
@@ -66,7 +66,7 @@ public:
 		}
 		
 
-	    std::shared_ptr<IVertexBuffer> x(_graphicsContext.CreateVertexBuffer(BufferType::Static).release());
+	    std::shared_ptr<VertexBuffer> x = _graphicsContext.CreateVertexBuffer(BufferType::Static);
 		this->Mesh.reset(new ::Mesh(x));
 		Stopwatch sw2("Mesh gen");
 		this->Mesh->VertexBuffer->SetVertexData(terrainVertexData.data(), terrainVertexData.size());
@@ -76,5 +76,5 @@ public:
 	}
 
 private:
-	IGraphicsContext& _graphicsContext;
+	GraphicsContext& _graphicsContext;
 };

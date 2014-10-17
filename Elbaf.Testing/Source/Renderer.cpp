@@ -1,10 +1,10 @@
 #include "Renderer.h"
 #include <Core/Color.h>
-#include <Graphics/IVertexBuffer.h>
-#include <Graphics/ITexture.h>
-#include <Graphics/IShader.h>
-#include <Graphics/IDepthState.h>
-#include <Graphics/ICullState.h>
+#include <Graphics/VertexBuffer.h>
+#include <Graphics/Texture.h>
+#include <Graphics/Shader.h>
+#include <Graphics/DepthState.h>
+#include <Graphics/CullState.h>
 #include <Graphics/ShaderSource.h>
 #include <algorithm>
 
@@ -23,7 +23,7 @@
 #include <glm/gtc/matrix_transform.inl>
 
 Matrix4x4 GetShadowMVP();
-Renderer::Renderer(IGraphicsContext& graphicsContext)
+Renderer::Renderer(GraphicsContext& graphicsContext)
 	: _graphicsContext(graphicsContext), _postProcessRenderer(graphicsContext), _directionalLight(Vector::Normalize(Vector3f(0.2f, -1.f, -0.5f)))
 {
 	_terrainShader = graphicsContext.CreateShader(ShaderSource::FromFiles("Shaders/TerrainShader-vs.glsl", "Shaders/TerrainShader-fs.glsl"));
@@ -105,6 +105,14 @@ void Renderer::Render()
 
 	_postProcessRenderer.DrawFullscreen(*_directionalLightShadowMap);
 	glViewport(0, 0, 1920, 1080);*/
+
+	/*
+	
+	_graphicsContext.BindRenderTarget(nullptr);
+	_graphicsContext.BindShader(nullptr);
+	_graphicsContext.BindTexture(nullptr);
+	
+	*/
 }
 
 void Renderer::RenderScene()
@@ -144,7 +152,7 @@ void Renderer::RenderScene()
 	}
 }
 
-IShader& Renderer::GetShader(MaterialType materialType)
+Shader& Renderer::GetShader(MaterialType materialType)
 {
 	return (materialType == MaterialType::Terrain) ? *_terrainShader : *_normalShader;
 }
@@ -176,7 +184,7 @@ void Renderer::RenderShadowMap()
 
 Matrix4x4 GetShadowMVP()
 {
-	glm::vec3 lightInvDir = glm::vec3(0.5f, 2, 2);
+	glm::vec3 lightInvDir = -Vector::Normalize(Vector3f(0.2f, -1.f, -0.5f));
 
 	// Compute the MVP matrix from the light's point of view
 	glm::mat4 depthProjectionMatrix = glm::ortho<float>(-1000, 1000, -1000, 1000, -1000, 2000);

@@ -3,7 +3,7 @@
 #include "Renderer.h"
 #include <Core/Color.h>
 #include <Graphics/VertexFormats.h>
-#include <Graphics/IVertexBuffer.h>
+#include <Graphics/VertexBuffer.h>
 #include "NoiseGen.h"
 #include <Core/Array.h>
 
@@ -11,7 +11,7 @@ class Skybox
 {
 public:
 
-	explicit Skybox(IGraphicsContext& graphicsContext) :
+	explicit Skybox(GraphicsContext& graphicsContext) :
 		_graphicsContext(graphicsContext)
 	{
 	}
@@ -78,11 +78,11 @@ public:
 			VertexPositionColorTexture({ 1.0f, -1, -1 }, cubeMapColor, slotSize * Vector2f(1, 1) + Vector2f(pixelSize.x, -pixelSize.y)), // BR
 		};
 
-		std::shared_ptr<IVertexBuffer> x(_graphicsContext.CreateVertexBuffer(BufferType::Static).release());
+		std::shared_ptr<VertexBuffer> x(_graphicsContext.CreateVertexBuffer(BufferType::Static).release());
 		this->Mesh.reset(new ::Mesh(x));
 		this->Mesh->VertexBuffer->SetVertexData(skyboxVertexData, Array::Length(skyboxVertexData));
 	}
 
 private:
-	IGraphicsContext& _graphicsContext;
+	GraphicsContext& _graphicsContext;
 };

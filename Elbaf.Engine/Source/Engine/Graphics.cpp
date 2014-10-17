@@ -2,7 +2,7 @@
 #include <Engine/Game.h>
 #include <Graphics/GraphicsModule.h>
 
-IGraphicsContext& Graphics::GetContext()
+GraphicsContext& Graphics::GetContext()
 {
 	return Game::GetInstance().GetGraphicsContext();
 }

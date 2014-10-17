@@ -1,11 +1,11 @@
-#include <Graphics\OpenGL\Texture2D.h>
+#include <Graphics\OpenGL\OGLTexture2D.h>
 
 #include <Graphics\OpenGL\OGL.h>
 #include <Graphics\OpenGL\OGL-Helper.h>
 #include <Graphics\TextureFormat.h>
 #include <Graphics\Image.h>
 
-class OGL::Texture2D::Impl
+class OGL::OGLTexture2D::Impl
 {
 public:
 	GLuint TextureID;
@@ -15,7 +15,7 @@ public:
 	Impl(GLuint textureID, int width, int height) : TextureID(textureID), Width(width), Height(height) { }
 };
 
-std::unique_ptr<OGL::Texture2D> OGL::Texture2D::Load(const Image& textureData)
+std::unique_ptr<OGL::OGLTexture2D> OGL::OGLTexture2D::Load(const Image& textureData)
 {
 	GLuint format = OGL::TextureFormatToGLenum(textureData.Format);
 
@@ -27,29 +27,29 @@ std::unique_ptr<OGL::Texture2D> OGL::Texture2D::Load(const Image& textureData)
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
-	return std::unique_ptr<OGL::Texture2D>(new Texture2D(new Impl(texture, textureData.Width, textureData.Height)));
+	return std::unique_ptr<OGL::OGLTexture2D>(new OGLTexture2D(new Impl(texture, textureData.Width, textureData.Height)));
 }
 
-int OGL::Texture2D::GetWidth() const
+int OGL::OGLTexture2D::GetWidth() const
 {
 	return _pImpl->Width;
 }
 
-int OGL::Texture2D::GetHeight() const
+int OGL::OGLTexture2D::GetHeight() const
 {
 	return _pImpl->Height;
 }
 
-void OGL::Texture2D::Bind()
+void OGL::OGLTexture2D::Bind()
 {
 	glBindTexture(GL_TEXTURE_2D, _pImpl->TextureID);
 }
 
-void OGL::Texture2D::BindToSampler(unsigned samplerIndex)
+void OGL::OGLTexture2D::BindToSampler(unsigned samplerIndex)
 {
 	glActiveTexture(OGL::SamplerIndexToGLenum(samplerIndex));
 	this->Bind();
 }
 
-OGL::Texture2D::Texture2D(Impl* pImpl) : _pImpl(pImpl) { }
-OGL::Texture2D::~Texture2D() = default; // required for PImpl
+OGL::OGLTexture2D::OGLTexture2D(Impl* pImpl) : _pImpl(pImpl) { }
+OGL::OGLTexture2D::~OGLTexture2D() = default; // required for PImpl

@@ -1,6 +1,6 @@
 #pragma once
 #include <Graphics/Font.h>
-#include <Graphics/IGraphicsContext.h>
+#include <Graphics/GraphicsContext.h>
 #include <Core/Color.h>
 
 enum class TextCorner
@@ -18,7 +18,7 @@ class FontRenderer
 {
 
 public:
-	explicit FontRenderer(IGraphicsContext& graphicsContext);
+	explicit FontRenderer(GraphicsContext& graphicsContext);
 	~FontRenderer();
 
 	void DrawText2D(Font& font, const std::string& text, Vector2f position, Color color = Color::White, TextCorner originCorner = TextCorner::TopLeft);

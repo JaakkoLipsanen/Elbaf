@@ -1,7 +1,7 @@
 #pragma once
 #include <Math/Rectangle.h>
 #include <memory>
-#include <Graphics/ITexture.h>
+#include <Graphics/Texture.h>
 #include <map>
 #include <Math/SizeF.h>
 
@@ -21,10 +21,10 @@ public:
 		}
 	};
 
-	Font(std::unique_ptr<ITexture2D> texture, std::map<char, CharacterDefinition> characters, std::map<std::tuple<char, char>, Vector2f> kerningData, const std::string& fontName = "", int fontSize = -1);
+	Font(std::unique_ptr<Texture2D> texture, std::map<char, CharacterDefinition> characters, std::map<std::tuple<char, char>, Vector2f> kerningData, const std::string& fontName = "", int fontSize = -1);
 	~Font();
 
-	ITexture2D& GetTexture();
+	Texture2D& GetTexture();
 	Vector2f GetKerning(char previous, char next) const;
 	const CharacterDefinition& GetCharacterDefinition(char character) const;
 

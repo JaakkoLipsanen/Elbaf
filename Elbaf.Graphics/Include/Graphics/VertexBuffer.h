@@ -9,7 +9,7 @@ enum class BufferType
 };
 
 class VertexDeclaration;
-class IVertexBuffer
+class VertexBuffer
 {
 public:
 	template<typename Vertex>
@@ -21,7 +21,7 @@ public:
 	virtual BufferType GetBufferType() const = 0;
 	virtual int GetVertexCount() const = 0;
 	virtual void Bind() = 0;
-	virtual ~IVertexBuffer() { }
+	virtual ~VertexBuffer() { }
 
 	virtual int GetPrimitiveCount(PrimitiveType primitiveType);
 

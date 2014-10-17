@@ -5,7 +5,7 @@
 
 class Scene;
 class IGameWindow;
-class IGraphicsContext;
+class GraphicsContext;
 struct WindowDescription;
 
 class Game : public IEngine
@@ -21,7 +21,7 @@ public:
 	void Run();
 	void Exit();
 	IGameWindow& GetWindow() const override;
-	IGraphicsContext& GetGraphicsContext() const;
+	GraphicsContext& GetGraphicsContext() const;
 
 	static Game& GetInstance();
 

@@ -1,32 +1,32 @@
 #pragma once
-#include <Graphics\IGraphicsContext.h>
+#include <Graphics\GraphicsContext.h>
 #include <Graphics\OpenGL\OGL.h>
 #include <Core\Color.h>
 #include <Graphics\OpenGL\BlendState.h>
 #include <Graphics\OpenGL\DepthState.h>
 #include <Graphics\OpenGL\CullState.h>
 
-class IBlendState;
+class BlendState;
 namespace OGL
 {
 	// must be inside namespace
 	class GameWindow;
 
 	// okay I'm having a bit of a "fuck that" feelings atm.. So basically, don't focus so much on the portability/abstractness, just get it done!
-	class GraphicsContext : public IGraphicsContext
+	class OGLGraphicsContext : public GraphicsContext
 	{
 	public:
 
 		// depth stuff
-		virtual IDepthState& GetDepthState() override;
+		virtual DepthState& GetDepthState() override;
 		virtual void SetDepthState(DepthStatePreset const& depthStatePreset) override;
 
 		// cull stuff
-		virtual ICullState& GetCullState() override;
+		virtual CullState& GetCullState() override;
 		virtual void SetCullState(CullStatePreset const& preset) override;
 
 		// blend ( jesus christ )
-		virtual IBlendState& GetBlendState() override;
+		virtual BlendState& GetBlendState() override;
 		virtual void SetBlendState(const BlendStatePreset& blendStatePreset) override;
 
 		// clear
@@ -41,14 +41,14 @@ namespace OGL
 		virtual void DrawPrimitives(PrimitiveType primitiveType, int firstIndex, int count) override;
 
 		// create
-		virtual std::unique_ptr<ITexture2D> CreateTexture2D(const Image& textureData) override;
-		virtual std::unique_ptr<IVertexBuffer> CreateVertexBuffer(BufferType bufferType) override;
-		virtual std::unique_ptr<IShader> CreateShader(const ShaderSource& shaderData) override;
-		virtual std::unique_ptr<IBlendState> CreateBlendState() override;
+		virtual std::unique_ptr<Texture2D> CreateTexture2D(const Image& textureData) override;
+		virtual std::unique_ptr<VertexBuffer> CreateVertexBuffer(BufferType bufferType) override;
+		virtual std::unique_ptr<Shader> CreateShader(const ShaderSource& shaderData) override;
+		virtual std::unique_ptr<BlendState> CreateBlendState() override;
 
 		/* IMPLEMENTATION SPECIFIC */
-		GraphicsContext(GameWindow& window);
-		virtual ~GraphicsContext() override;
+		OGLGraphicsContext(GameWindow& window);
+		virtual ~OGLGraphicsContext() override;
 
 		void ResetViewport() const;
 
@@ -57,9 +57,9 @@ namespace OGL
 		class Impl;
 		std::unique_ptr<Impl> _pImpl;
 
-		BlendState _blendState;
-		DepthState _depthState;
-		CullState _cullState;
+		OGLBlendState _blendState;
+		OGLDepthState _depthState;
+		OGLCullState _cullState;
 		GameWindow& _window;
 	};
 }

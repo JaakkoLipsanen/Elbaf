@@ -1,10 +1,10 @@
-#include <Graphics\IVertexBuffer.h>
+#include <Graphics\VertexBuffer.h>
 #include <system_error>
 
-int IVertexBuffer::GetPrimitiveCount(PrimitiveType primitiveType)
+int VertexBuffer::GetPrimitiveCount(PrimitiveType primitiveType)
 {
 	int vertexCount = this->GetVertexCount();
-	switch (this->GetVertexCount())
+	switch (primitiveType)
 	{
 	case PrimitiveType::TriangleList:
 		return vertexCount / 3;

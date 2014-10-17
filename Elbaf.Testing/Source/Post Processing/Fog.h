@@ -12,7 +12,7 @@ class FogPostProcess : public PostProcess
 {
 
 public:
-	explicit FogPostProcess(IGraphicsContext& graphicsContext)
+	explicit FogPostProcess(GraphicsContext& graphicsContext)
 		: PostProcess(graphicsContext), _fogColor(Color::Purple), _fogRange(-1, -1) // fog color and range are set to correct values in LoadContent
 	{
 	}

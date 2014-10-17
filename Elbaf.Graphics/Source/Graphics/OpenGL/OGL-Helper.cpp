@@ -1,11 +1,11 @@
 #include "OGL-Helper.h"
 #include <Graphics\ClearOptions.h>
 #include <Graphics\CompareFunction.h>
-#include <Graphics\IGraphicsContext.h>
+#include <Graphics\GraphicsContext.h>
 #include <Graphics\VertexElement.h>
 #include <Graphics\PrimitiveType.h>
 #include <Graphics\TextureFormat.h>
-#include <Graphics\IBlendState.h>
+#include <Graphics\BlendState.h>
 #include <system_error>
 
 GLbitfield OGL::GetClearMask(ClearOptions const& clearOptions)

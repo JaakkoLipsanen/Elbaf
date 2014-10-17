@@ -141,8 +141,8 @@
     <ClCompile Include="..\Source\Graphics\Font.cpp" />
     <ClCompile Include="..\Source\Graphics\FontRenderer.cpp" />
     <ClCompile Include="..\Source\Graphics\GraphicsModule.cpp" />
-    <ClCompile Include="..\Source\Graphics\ITexture.cpp" />
-    <ClCompile Include="..\Source\Graphics\IVertexBuffer.cpp" />
+    <ClCompile Include="..\Source\Graphics\Texture.cpp" />
+    <ClCompile Include="..\Source\Graphics\VertexBuffer.cpp" />
     <ClCompile Include="..\Source\Graphics\OpenGL\BlendState.cpp" />
     <ClCompile Include="..\Source\Graphics\OpenGL\CullState.cpp" />
     <ClCompile Include="..\Source\Graphics\OpenGL\DepthState.cpp" />
@@ -151,9 +151,9 @@
     <ClCompile Include="..\Source\Graphics\OpenGL\GraphicsDevice.cpp" />
     <ClCompile Include="..\Source\Graphics\OpenGL\OGL-Helper.cpp" />
     <ClCompile Include="..\Source\Graphics\OpenGL\OGL-ShaderLoader.cpp" />
-    <ClCompile Include="..\Source\Graphics\OpenGL\Shader.cpp" />
-    <ClCompile Include="..\Source\Graphics\OpenGL\Texture2D.cpp" />
-    <ClCompile Include="..\Source\Graphics\OpenGL\VertexBuffer.cpp" />
+    <ClCompile Include="..\Source\Graphics\OpenGL\OGLShader.cpp" />
+    <ClCompile Include="..\Source\Graphics\OpenGL\OGLTexture2D.cpp" />
+    <ClCompile Include="..\Source\Graphics\OpenGL\OGLVertexBuffer.cpp" />
     <ClCompile Include="..\Source\Graphics\Image.cpp" />
     <ClCompile Include="..\Source\Graphics\VertexFormats.cpp" />
   </ItemGroup>
@@ -166,14 +166,14 @@
     <ClInclude Include="..\Include\Graphics\Font.h" />
     <ClInclude Include="..\Include\Graphics\FontRenderer.h" />
     <ClInclude Include="..\Include\Graphics\GraphicsModule.h" />
-    <ClInclude Include="..\Include\Graphics\IBlendState.h" />
-    <ClInclude Include="..\Include\Graphics\ICullState.h" />
-    <ClInclude Include="..\Include\Graphics\IDepthState.h" />
-    <ClInclude Include="..\Include\Graphics\IGraphicsContext.h" />
+    <ClInclude Include="..\Include\Graphics\BlendState.h" />
+    <ClInclude Include="..\Include\Graphics\CullState.h" />
+    <ClInclude Include="..\Include\Graphics\DepthState.h" />
+    <ClInclude Include="..\Include\Graphics\GraphicsContext.h" />
     <ClInclude Include="..\Include\Graphics\Image.h" />
-    <ClInclude Include="..\Include\Graphics\IShader.h" />
-    <ClInclude Include="..\Include\Graphics\ITexture.h" />
-    <ClInclude Include="..\Include\Graphics\IVertexBuffer.h" />
+    <ClInclude Include="..\Include\Graphics\Shader.h" />
+    <ClInclude Include="..\Include\Graphics\Texture.h" />
+    <ClInclude Include="..\Include\Graphics\VertexBuffer.h" />
     <ClInclude Include="..\Include\Graphics\PrimitiveType.h" />
     <ClInclude Include="..\Include\Graphics\RendererAPI.h" />
     <ClInclude Include="..\Include\Graphics\ShaderSource.h" />
@@ -192,9 +192,9 @@
     <ClInclude Include="..\Source\Graphics\OpenGL\OGL-Helper.h" />
     <ClInclude Include="..\Source\Graphics\OpenGL\OGL-ShaderLoader.h" />
     <ClInclude Include="..\Source\Graphics\OpenGL\OGL.h" />
-    <ClInclude Include="..\Source\Graphics\OpenGL\Shader.h" />
-    <ClInclude Include="..\Source\Graphics\OpenGL\Texture2D.h" />
-    <ClInclude Include="..\Source\Graphics\OpenGL\VertexBuffer.h" />
+    <ClInclude Include="..\Source\Graphics\OpenGL\OGLShader.h" />
+    <ClInclude Include="..\Source\Graphics\OpenGL\OGLTexture2D.h" />
+    <ClInclude Include="..\Source\Graphics\OpenGL\OGLVertexBuffer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

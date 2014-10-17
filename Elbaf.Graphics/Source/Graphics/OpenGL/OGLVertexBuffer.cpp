@@ -1,9 +1,9 @@
-#include <Graphics\OpenGL\VertexBuffer.h>
+#include <Graphics\OpenGL\OGLVertexBuffer.h>
 
 #include <Graphics\OpenGL\OGL-Helper.h>
 #include <Graphics\VertexDeclaration.h>
 
-std::unique_ptr<IVertexBuffer> OGL::VertexBuffer::CreateVertexBuffer(BufferType bufferType)
+std::unique_ptr<OGL::OGLVertexBuffer> OGL::OGLVertexBuffer::CreateVertexBuffer(BufferType bufferType)
 {
 	GLuint vertexArrayID;
 	glGenVertexArrays(1, &vertexArrayID);
@@ -13,11 +13,11 @@ std::unique_ptr<IVertexBuffer> OGL::VertexBuffer::CreateVertexBuffer(BufferType 
 	glGenBuffers(1, &vertexBufferID);
 	glBindBuffer(GL_ARRAY_BUFFER, vertexBufferID);
 
-	VertexBuffer* vertexBuffer = new VertexBuffer(vertexArrayID, vertexBufferID, bufferType);
-	return std::unique_ptr<VertexBuffer>(vertexBuffer);
+	OGLVertexBuffer* vertexBuffer = new OGLVertexBuffer(vertexArrayID, vertexBufferID, bufferType);
+	return std::unique_ptr<OGLVertexBuffer>(vertexBuffer);
 }
 
-void OGL::VertexBuffer::SetData(VertexDeclaration const& vertexDeclaration, void const* vertexData, int vertexCount, int sizeOfVertex)
+void OGL::OGLVertexBuffer::SetData(VertexDeclaration const& vertexDeclaration, void const* vertexData, int vertexCount, int sizeOfVertex)
 {
 	glBindVertexArray(_vertexArrayID); // ??? not needed pretty sure. "Bind the VAO to draw. Bind the VBO to modify the VBO." // update: i'll take that back. for some reason, without this, if I have multiple VAO's/vertex buffers and set data one one,
 	// the data will change on the other one too
@@ -42,22 +42,22 @@ void OGL::VertexBuffer::SetData(VertexDeclaration const& vertexDeclaration, void
 	_hasData = (_vertexCount == 0); // except if vertexCount == 0?
 }
 
-void OGL::VertexBuffer::Bind()
+void OGL::OGLVertexBuffer::Bind()
 {
 	glBindVertexArray(_vertexArrayID);
 }
 
-int OGL::VertexBuffer::GetVertexCount() const
+int OGL::OGLVertexBuffer::GetVertexCount() const
 {
 	return _vertexCount;
 }
 
-BufferType OGL::VertexBuffer::GetBufferType() const
+BufferType OGL::OGLVertexBuffer::GetBufferType() const
 {
 	return _bufferType;
 }
 
-OGL::VertexBuffer::~VertexBuffer()
+OGL::OGLVertexBuffer::~OGLVertexBuffer()
 {
 	glDeleteBuffers(1, &_vertexBufferID);
 	glDeleteVertexArrays(1, &_vertexArrayID);

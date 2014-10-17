@@ -1,5 +1,5 @@
 #pragma once
-#include <Graphics/IGraphicsContext.h>
+#include <Graphics/GraphicsContext.h>
 #include <vector>
 #include <Graphics/VertexFormats.h>
 #include <RenderTarget.h>
@@ -10,7 +10,7 @@ class PostProcessRenderer
 	friend class PostProcess;
 
 public:
-	explicit PostProcessRenderer(IGraphicsContext& graphicsContext);
+	explicit PostProcessRenderer(GraphicsContext& graphicsContext);
 
 	template<typename T>
 	T* Get()
@@ -33,11 +33,11 @@ public:
 	void DrawFullscreen(RenderTarget& r);
 
 private:
-	IGraphicsContext& _graphicsContext;
+	GraphicsContext& _graphicsContext;
 	std::vector<std::shared_ptr<PostProcess>> _postProcesses;
 
-	std::unique_ptr<IVertexBuffer> _quadVertexBuffer;
+	std::unique_ptr<VertexBuffer> _quadVertexBuffer;
 	std::unique_ptr<RenderTarget> _currentRenderTarget; // this always contains the scene/preveious post process
 	std::unique_ptr<RenderTarget> _backgroundRenderTarget;
-	std::unique_ptr<IShader> _passthroughShader;
+	std::unique_ptr<Shader> _passthroughShader;
 };

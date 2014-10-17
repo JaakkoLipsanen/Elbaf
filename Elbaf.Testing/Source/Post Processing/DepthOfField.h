@@ -1,7 +1,7 @@
 #pragma once
 #include "PostProcess.h"
 #include <Graphics/ShaderSource.h>
-#include <Graphics/IShader.h>
+#include <Graphics/Shader.h>
 #include <Engine/Screen.h>
 #include <Engine/ICamera.h>
 
@@ -127,7 +127,7 @@ protected:
 	}
 
 public:
-	explicit DepthOfFieldPostProcess(IGraphicsContext& graphicsContext)
+	explicit DepthOfFieldPostProcess(GraphicsContext& graphicsContext)
 		: PostProcess(graphicsContext)
 	{
 	}
