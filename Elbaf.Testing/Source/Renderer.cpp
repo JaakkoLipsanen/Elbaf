@@ -20,13 +20,15 @@
 #include <Post Processing/ColorAdjust.h>
 #include <Engine/Time.h>
 #include <Post Processing/SSAO.h>
+#include <glm/gtc/matrix_transform.inl>
 
+Matrix4x4 GetShadowMVP();
 Renderer::Renderer(IGraphicsContext& graphicsContext)
 	: _graphicsContext(graphicsContext), _postProcessRenderer(graphicsContext), _directionalLight(Vector::Normalize(Vector3f(0.2f, -1.f, -0.5f)))
 {
 	_terrainShader = graphicsContext.CreateShader(ShaderSource::FromFiles("Shaders/TerrainShader-vs.glsl", "Shaders/TerrainShader-fs.glsl"));
 	_normalShader = graphicsContext.CreateShader(ShaderSource::FromFiles("Shaders/DefaultShader-vs.glsl", "Shaders/DefaultShader-fs.glsl"));
-	_shadowPassthroughShader = graphicsContext.CreateShader(ShaderSource::FromFiles("Shaders/ShadowPassShader-vs.glsl", "Shaders/ShadowPassShader-fs.glsl"));
+	_depthPassShader = graphicsContext.CreateShader(ShaderSource::FromFiles("Shaders/DepthPass-vs.glsl", "Shaders/DepthPass-fs.glsl"));
 
 	_terrainShader->Bind();
 	_terrainShader->SetParameter("LightDirection", Vector::Normalize(Vector3f(0, -1, -0)));
@@ -49,7 +51,12 @@ Renderer::Renderer(IGraphicsContext& graphicsContext)
 
 	//_postProcessRenderer.AddPostProcess(std::make_shared<SSAO>(_graphicsContext));
 
-	_directionalLightShadowMap = RenderTarget::Create(2048, 2048, DepthBufferFormat::Depth16, { });
+	_directionalLightShadowMap = RenderTarget::Create(1024, 1024, DepthBufferFormat::Depth32, {});
+
+	_directionalLightShadowMap->BindRenderTarget();
+	_directionalLightShadowMap->BindDepthTexture();
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_FUNC, GL_LEQUAL); // doesnt change anything
+//	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_MODE, GL_COMPARE_R_TO_TEXTURE); // this does !!
 }
 
 Renderer::~Renderer() = default; 
@@ -81,19 +88,37 @@ void Renderer::PostUpdate()
 
 void Renderer::Render()
 {
-	this->RenderDirectionalLight();
+	this->RenderShadowMap();
+
 	_frameVertexCount = 0;
 	_postProcessRenderer.BeginRender();
 
 	// sorting every frame is pretty wasteful.. also std::sort should be fine, but I guess there could be some artifacts/glitches without stable sort..?
 	std::stable_sort(_renderObjects.begin(), _renderObjects.end(), [](const std::shared_ptr<const RenderObject>& left, const std::shared_ptr<const RenderObject>& right) { return left->RenderOrder < right->RenderOrder; });
 	this->RenderScene();
-	
+
 	_postProcessRenderer.Render(_camera);
+
+	/* TEMPORARY; DEBUG RENDER SHADOW MAP TO LOWER-LEFT PART OF THE SCREEN */
+	/*glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	glViewport(0, 0, 512, 512);
+
+	_postProcessRenderer.DrawFullscreen(*_directionalLightShadowMap);
+	glViewport(0, 0, 1920, 1080);*/
 }
 
 void Renderer::RenderScene()
 {
+	glm::mat4 biasMatrix(
+		0.5, 0.0, 0.0, 0.0,
+		0.0, 0.5, 0.0, 0.0,
+		0.0, 0.0, 0.5, 0.0,
+		0.5, 0.5, 0.5, 1.0
+		);
+
+	auto shadowMVP = biasMatrix * GetShadowMVP();
+
+	glViewport(0, 0, 1920, 1080);
 	_graphicsContext.Clear(Color::White);
 	auto projectionXview = _camera->GetProjection() * _camera->GetView();
 	for (auto& renderObject : _renderObjects)
@@ -105,7 +130,11 @@ void Renderer::RenderScene()
 		auto& shader = this->GetShader(renderObject->Material->MaterialType);
 		shader.Bind();
 		shader.SetParameter("MVP", projectionXview * Matrix::Translate(renderObject->Position) * Matrix::Scale(renderObject->Scale));
+		shader.SetParameter("ShadowMVP", shadowMVP * Matrix::Translate(renderObject->Position) * Matrix::Scale(renderObject->Scale));
 		shader.SetParameter("Tint", renderObject->Material->Tint.ToVector3f());
+
+		_directionalLightShadowMap->BindDepthTextureToSampler(1);
+		shader.SetTextureSampler("ShadowMap", 1);
 
 		renderObject->Material->Texture->BindToSampler(0);
 		renderObject->Mesh->VertexBuffer->Bind();
@@ -120,21 +149,39 @@ IShader& Renderer::GetShader(MaterialType materialType)
 	return (materialType == MaterialType::Terrain) ? *_terrainShader : *_normalShader;
 }
 
-void Renderer::RenderDirectionalLight()
+void Renderer::RenderShadowMap()
 {
-	auto inverseLightDirection = -_directionalLight.Direction;
-	Matrix4x4 lightMatrix;
-	return;
+	_directionalLightShadowMap->BindRenderTarget();
+	glViewport(0, 0, 1024, 1024);
 
-	_shadowPassthroughShader->Bind();
-//	_shadowPassthroughShader->SetParameter("MVP", Matrix::C);
+	_graphicsContext.GetDepthState().SetDepthTestEnabled(true);
+	_graphicsContext.GetDepthState().SetDepthWriteEnabled(true); //
+	_graphicsContext.GetCullState().SetCullingEnabled(true);
+
+	_graphicsContext.Clear(Color::White);
+
+	auto shadowMVP = GetShadowMVP();
+	_depthPassShader->Bind();
 	for (auto& renderObject : _renderObjects)
 	{
-
 		renderObject->Material->Texture->BindToSampler(0);
 		renderObject->Mesh->VertexBuffer->Bind();
 
-		_frameVertexCount += renderObject->Mesh->VertexBuffer->GetVertexCount();
+		_depthPassShader->SetParameter("MVP", shadowMVP  * Matrix::Translate(renderObject->Position) * Matrix::Scale(renderObject->Scale));
 		_graphicsContext.DrawPrimitives(PrimitiveType::TriangleList, 0, renderObject->Mesh->VertexBuffer->GetVertexCount());
 	}
+
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+}
+
+Matrix4x4 GetShadowMVP()
+{
+	glm::vec3 lightInvDir = glm::vec3(0.5f, 2, 2);
+
+	// Compute the MVP matrix from the light's point of view
+	glm::mat4 depthProjectionMatrix = glm::ortho<float>(-1000, 1000, -1000, 1000, -1000, 2000);
+	glm::mat4 depthViewMatrix = glm::lookAt(lightInvDir * 400, glm::vec3(0, 0, 0), glm::vec3(0, 1, 0));
+
+	glm::mat4 depthModelMatrix = glm::mat4(1.0);
+	return depthProjectionMatrix * depthViewMatrix * depthModelMatrix;
 }

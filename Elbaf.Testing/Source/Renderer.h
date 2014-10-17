@@ -84,12 +84,12 @@ private:
 	PostProcessRenderer _postProcessRenderer;
 	std::unique_ptr<IShader> _terrainShader;
 	std::unique_ptr<IShader> _normalShader;
-	std::unique_ptr<IShader> _shadowPassthroughShader;
+	std::unique_ptr<IShader> _depthPassShader;
 	DirectionalLight _directionalLight;
 	int _frameVertexCount;
 	std::unique_ptr<RenderTarget> _directionalLightShadowMap;
 
 	IShader& GetShader(MaterialType materialType);
-	void RenderDirectionalLight();
+	void RenderShadowMap();
 	void RenderScene();
 };

@@ -27,7 +27,7 @@ public:
 		{
 			for (int x = 0; x < Size + 1; x++)
 			{
-				grid[x + y * Size] = scaled_octave_noise_2d(24, 0.4f, 0.0015f, 0, 700, x * 4, y * 4) + Global::Random.NextFloat(-0.5f, 0.5f) * 2;
+				grid[x + y * Size] = scaled_octave_noise_2d(24, 0.4f, 0.0015f, 0, 160, x * 4, y * 4) + Global::Random.NextFloat(-0.5f, 0.5f) * 2;
 			}
 		}
 		sw.Stop();

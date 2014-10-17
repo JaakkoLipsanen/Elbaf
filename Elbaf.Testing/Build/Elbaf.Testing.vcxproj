@@ -131,8 +131,8 @@
   <ItemGroup>
     <None Include="Shaders\DefaultShader-fs.glsl" />
     <None Include="Shaders\DefaultShader-vs.glsl" />
-    <None Include="Shaders\ShadowPassShader-fs.glsl" />
-    <None Include="Shaders\ShadowPassShader-vs.glsl" />
+    <None Include="Shaders\DepthPass-fs.glsl" />
+    <None Include="Shaders\DepthPass-vs.glsl" />
     <None Include="Shaders\TerrainShader-fs.glsl" />
     <None Include="Shaders\TerrainShader-vs.glsl" />
   </ItemGroup>

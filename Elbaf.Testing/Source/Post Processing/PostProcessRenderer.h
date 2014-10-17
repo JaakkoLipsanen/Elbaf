@@ -29,6 +29,9 @@ public:
 	void BeginRender();
 	void Render(const ICamera* renderCamera);
 
+	// TODO: REMOVE
+	void DrawFullscreen(RenderTarget& r);
+
 private:
 	IGraphicsContext& _graphicsContext;
 	std::vector<std::shared_ptr<PostProcess>> _postProcesses;

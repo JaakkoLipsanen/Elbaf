@@ -82,11 +82,11 @@ void TestScene::CreateObjects()
 	_skybox->UseDepth = false;
 	_skybox->UseCulling = false;
 	_skybox->RenderOrder = -1000;
-
-	 _renderer->AddObject(_skybox);
+	
+ // _renderer->AddObject(_skybox);
 	 
 	auto cubeMesh = FloatingCube::CreateMesh(graphicsContext);
-	for (int i = 0; i < 50; i++)
+ /* for (int i = 0; i < 50; i++)
 	{
 		_floatingCubes.emplace_back(
 			graphicsContext,
@@ -99,5 +99,20 @@ void TestScene::CreateObjects()
 		_floatingCubes[_floatingCubes.size() - 1].SetRenderHandle(renderObject);
 
 		_renderer->AddObject(renderObject);
-	} 
+	}*/
+
+	for (int i = 0; i < 8; i++)
+	{
+		_floatingCubes.emplace_back(
+			graphicsContext,
+			Vector3f(Global::Random.NextFloat(-1000, 1000) * (Global::Random.NextBoolean() ? 1 : -1), Global::Random.NextFloat(80, 350), Global::Random.NextFloat(-1000, 1000) * (Global::Random.NextBoolean() ? 1 : -1)),
+			Vector3f::One * Global::Random.NextFloat(20, 160));
+
+		auto cubeMaterial = std::make_shared<Material>(blankPixel);
+		cubeMaterial->Tint = HsvColor(Global::Random.NextFloat(0, 360), 0.8f, 0.8f).ToRgb();
+		auto renderObject = std::make_shared<RenderObject>(cubeMesh, cubeMaterial, Vector3f::Zero);
+		_floatingCubes[_floatingCubes.size() - 1].SetRenderHandle(renderObject);
+
+		_renderer->AddObject(renderObject);
+	}
 }

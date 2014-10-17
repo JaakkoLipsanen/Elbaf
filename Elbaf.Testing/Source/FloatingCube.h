@@ -18,7 +18,8 @@ public:
 
 	void Update()
 	{
-		//_position = _initialPosition + Vector3f::UnitY * FlaiMath::Sin(_timeOffset + Time::GetTotalTime() * _floatingSpeedMultiplier) * _scale.Y * 0.5f * _floatingScaleMultiplier;
+		// floating cube floats up and down in a sin "curve"
+		_position = _initialPosition + Vector3f::UnitY * FlaiMath::Sin(_timeOffset + Time::GetTotalTime() * _floatingSpeedMultiplier) * _scale.Y * 0.5f * _floatingScaleMultiplier;
 		_renderObject->Position = _position;
 	}
 

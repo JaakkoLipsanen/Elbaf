@@ -39,6 +39,7 @@ inline GLenum DepthBufferFormatToGLenum(const DepthBufferFormat& depthBufferForm
 class RenderTarget
 {
 public:
+	// TODO: (To both render target and texture2D): add ability to change Sampling type (linear, near) and wrapping type (wrap, clamp)!
 	static std::unique_ptr<RenderTarget> Create(int width, int height, DepthBufferFormat depthFormat = DepthBufferFormat::Depth24Stencil8, std::vector<TextureFormat> colorFormats = { TextureFormat::RBG8 })
 	{
 		GLuint frameBufferID;
@@ -52,7 +53,7 @@ public:
 		for (int i = 0; i < colorFormats.size(); i++)
 		{
 			GLuint colorTextureID;
-			glGenTextures(1, &colorTextureID);
+			glGenTextures(1, &colorTextureID); // this could be optimized; "glGenTextures(colorFormats.size())"
 			glBindTexture(GL_TEXTURE_2D, colorTextureID);
 
 			GLenum format = OGL::TextureFormatToGLenum(colorFormats[i]);
@@ -60,6 +61,8 @@ public:
 
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 
 			glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + i, colorTextureID, 0);
 			drawBuffers.push_back(GL_COLOR_ATTACHMENT0 + i);
@@ -79,6 +82,8 @@ public:
 			glTexImage2D(GL_TEXTURE_2D, 0, DepthBufferFormatToGLenum(depthFormat), width, height, 0, GL_DEPTH_COMPONENT, GL_FLOAT, 0); // == last 0 == "empty buffer"
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 			glFramebufferTexture(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, depthTextureID, 0);
 		}
 

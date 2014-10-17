@@ -107,3 +107,14 @@ void PostProcessRenderer::Render(const ICamera* renderCamera)
 
 	_graphicsContext.DrawPrimitives(PrimitiveType::TriangleList, 0, _quadVertexBuffer->GetVertexCount());
 }
+
+// TODO: REMOVE
+void PostProcessRenderer::DrawFullscreen(RenderTarget& renderTarget)
+{
+	_passthroughShader->Bind();
+	renderTarget.BindDepthTextureToSampler(0);
+	_passthroughShader->SetTextureSampler("TextureSampler", 0);
+	_quadVertexBuffer->Bind();
+
+	_graphicsContext.DrawPrimitives(PrimitiveType::TriangleList, 0, _quadVertexBuffer->GetVertexCount());
+}
