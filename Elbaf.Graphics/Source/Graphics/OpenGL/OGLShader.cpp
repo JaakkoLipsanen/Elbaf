@@ -42,7 +42,7 @@ OGL::OGLShader::~OGLShader()
 
 std::unique_ptr<OGL::OGLShader> OGL::OGLShader::Load(const ShaderSource& shaderSource)
 {
-	GLuint programID = OGL::LoadShadersFromSource(shaderSource.VertexShader, shaderSource.FragmentShader);
+	GLuint programID = OGL::LoadShaderFromSource(shaderSource.GetParsedSource());
 	return std::unique_ptr<OGLShader>(new OGLShader(new Impl(programID)));
 }
 

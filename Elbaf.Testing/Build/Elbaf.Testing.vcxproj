@@ -135,6 +135,7 @@
     <None Include="Shaders\DepthPass-vs.glsl" />
     <None Include="Shaders\TerrainShader-fs.glsl" />
     <None Include="Shaders\TerrainShader-vs.glsl" />
+    <None Include="Shaders\TestShader.glsl" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Source\DefaultCamera.h" />

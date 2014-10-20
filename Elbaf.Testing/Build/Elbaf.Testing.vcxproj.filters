@@ -62,6 +62,9 @@
     <None Include="Shaders\DepthPass-vs.glsl">
       <Filter>Shaders</Filter>
     </None>
+    <None Include="Shaders\TestShader.glsl">
+      <Filter>Shaders</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Source\ICamera.h">

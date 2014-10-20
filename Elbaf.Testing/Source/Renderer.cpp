@@ -28,7 +28,7 @@ Renderer::Renderer(GraphicsContext& graphicsContext)
 {
 	_terrainShader = graphicsContext.CreateShader(ShaderSource::FromFiles("Shaders/TerrainShader-vs.glsl", "Shaders/TerrainShader-fs.glsl"));
 	_normalShader = graphicsContext.CreateShader(ShaderSource::FromFiles("Shaders/DefaultShader-vs.glsl", "Shaders/DefaultShader-fs.glsl"));
-	_depthPassShader = graphicsContext.CreateShader(ShaderSource::FromFiles("Shaders/DepthPass-vs.glsl", "Shaders/DepthPass-fs.glsl"));
+	_depthPassShader = graphicsContext.CreateShader(ShaderSource::FromFiles("Shaders/DepthPass-fs.glsl"));
 
 	_terrainShader->Bind();
 	_terrainShader->SetParameter("LightDirection", Vector::Normalize(Vector3f(0, -1, -0)));
