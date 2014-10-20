@@ -1,6 +1,6 @@
 #pragma once
-#include <Graphics/GraphicsContext.h>
 #include <vector>
+#include <Graphics/GraphicsContext.h>
 #include <Graphics/VertexFormats.h>
 #include <RenderTarget.h>
 
@@ -24,8 +24,9 @@ public:
 		return nullptr;
 	}
 
-	void Update();
+
 	std::shared_ptr<PostProcess> AddPostProcess(std::shared_ptr<PostProcess> postProcess);
+	void Update();
 	void BeginRender();
 	void Render(const ICamera* renderCamera);
 

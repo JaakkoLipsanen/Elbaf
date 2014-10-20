@@ -44,25 +44,13 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Shaders\DefaultShader-fs.glsl">
+    <None Include="Shaders\DepthPass.glsl">
       <Filter>Shaders</Filter>
     </None>
-    <None Include="Shaders\DefaultShader-vs.glsl">
+    <None Include="Shaders\DefaultShader.glsl">
       <Filter>Shaders</Filter>
     </None>
-    <None Include="Shaders\TerrainShader-vs.glsl">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="Shaders\TerrainShader-fs.glsl">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="Shaders\DepthPass-fs.glsl">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="Shaders\DepthPass-vs.glsl">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="Shaders\TestShader.glsl">
+    <None Include="Shaders\TerrainShader.glsl">
       <Filter>Shaders</Filter>
     </None>
   </ItemGroup>

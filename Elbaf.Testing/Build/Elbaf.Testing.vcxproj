@@ -129,13 +129,9 @@
     <ClCompile Include="..\Source\TestScene.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Shaders\DefaultShader-fs.glsl" />
-    <None Include="Shaders\DefaultShader-vs.glsl" />
-    <None Include="Shaders\DepthPass-fs.glsl" />
-    <None Include="Shaders\DepthPass-vs.glsl" />
-    <None Include="Shaders\TerrainShader-fs.glsl" />
-    <None Include="Shaders\TerrainShader-vs.glsl" />
-    <None Include="Shaders\TestShader.glsl" />
+    <None Include="Shaders\DefaultShader.glsl" />
+    <None Include="Shaders\DepthPass.glsl" />
+    <None Include="Shaders\TerrainShader.glsl" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Source\DefaultCamera.h" />

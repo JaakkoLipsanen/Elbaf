@@ -26,9 +26,9 @@ Matrix4x4 GetShadowMVP();
 Renderer::Renderer(GraphicsContext& graphicsContext)
 	: _graphicsContext(graphicsContext), _postProcessRenderer(graphicsContext), _directionalLight(Vector::Normalize(Vector3f(0.2f, -1.f, -0.5f)))
 {
-	_terrainShader = graphicsContext.CreateShader(ShaderSource::FromFiles("Shaders/TerrainShader-vs.glsl", "Shaders/TerrainShader-fs.glsl"));
-	_normalShader = graphicsContext.CreateShader(ShaderSource::FromFiles("Shaders/DefaultShader-vs.glsl", "Shaders/DefaultShader-fs.glsl"));
-	_depthPassShader = graphicsContext.CreateShader(ShaderSource::FromFiles("Shaders/DepthPass-fs.glsl"));
+	_terrainShader = graphicsContext.CreateShader(ShaderSource::FromFiles("Shaders/TerrainShader.glsl"));
+	_normalShader = graphicsContext.CreateShader(ShaderSource::FromFiles("Shaders/DefaultShader.glsl"));
+	_depthPassShader = graphicsContext.CreateShader(ShaderSource::FromFiles("Shaders/DepthPass.glsl"));
 
 	_terrainShader->Bind();
 	_terrainShader->SetParameter("LightDirection", Vector::Normalize(Vector3f(0, -1, -0)));
