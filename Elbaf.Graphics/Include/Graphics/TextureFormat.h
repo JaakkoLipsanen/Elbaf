@@ -2,6 +2,7 @@
 
 enum class TextureFormat
 {
+	None,
 	RBGA8,
 	RBG8,
 	Red8,
@@ -21,6 +22,9 @@ namespace TextureFormatHelper
 
 		case TextureFormat::Red8:
 			return 1;
+
+		case TextureFormat::None:
+			return 0;
 		}
 	}
 }

@@ -6,7 +6,7 @@ class ColorAdjustPostProcess : public PostProcess
 {
 public:
 	explicit ColorAdjustPostProcess(GraphicsContext& graphicsContext)
-		: PostProcess(graphicsContext), _hueShiftAmount(0), _saturationMultiplier(0.5f), _valueMultiplier(1), _dirty(true)
+		: PostProcess(graphicsContext), _hueShiftAmount(0), _saturationMultiplier(0.75f), _valueMultiplier(1), _dirty(true)
 	{
 	}
 

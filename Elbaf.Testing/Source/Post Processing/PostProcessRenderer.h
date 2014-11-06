@@ -2,7 +2,7 @@
 #include <vector>
 #include <Graphics/GraphicsContext.h>
 #include <Graphics/VertexFormats.h>
-#include <RenderTarget.h>
+#include <Graphics/RenderTarget.h>
 
 class ICamera;
 class PostProcessRenderer

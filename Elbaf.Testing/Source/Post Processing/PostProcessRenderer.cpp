@@ -10,6 +10,8 @@
 #include <Engine/ICamera.h>
 #include "Vignette.h"
 
+#include <Graphics/RenderTarget.h>
+
 PostProcessRenderer::PostProcessRenderer(GraphicsContext& graphicsContext)
 	: _graphicsContext(graphicsContext), _quadVertexBuffer(graphicsContext.CreateVertexBuffer(BufferType::Static))
 {
@@ -25,8 +27,8 @@ PostProcessRenderer::PostProcessRenderer(GraphicsContext& graphicsContext)
 	};
 
 	_quadVertexBuffer->SetVertexData(quadVertices, Array::Length(quadVertices));
-	_currentRenderTarget = RenderTarget::Create(1920, 1080, DepthBufferFormat::Depth24Stencil8);
-	_backgroundRenderTarget = RenderTarget::Create(1920, 1080, DepthBufferFormat::Depth24Stencil8);
+	_currentRenderTarget = _graphicsContext.CreateRenderTarget(1920, 1080, DepthBufferFormat::Depth24Stencil8);
+	_backgroundRenderTarget = _graphicsContext.CreateRenderTarget(1920, 1080, DepthBufferFormat::Depth24Stencil8);
 
 	static const std::string VertexShader = R"XXX(
 		#version 330 core
@@ -72,15 +74,14 @@ std::shared_ptr<PostProcess> PostProcessRenderer::AddPostProcess(std::shared_ptr
 
 void PostProcessRenderer::BeginRender()
 {
-	_currentRenderTarget->BindRenderTarget();
-	glViewport(0, 0, 1920, 1080);
+	_graphicsContext.BindRenderTarget(_currentRenderTarget.get());
 }
 
 void PostProcessRenderer::Render(const ICamera* renderCamera)
 {	
+	//_graphicsContext.BindRenderTarget();
 	RenderTarget& originalSceneRenderTarget = *_currentRenderTarget;
 	_graphicsContext.GetDepthState().SetDepthTestEnabled(false);
-	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	for (auto& postProcess : _postProcesses)
 	{
 		if (!postProcess->IsEnabled())
@@ -88,20 +89,20 @@ void PostProcessRenderer::Render(const ICamera* renderCamera)
 			continue;
 		}
 
-		_backgroundRenderTarget->BindRenderTarget();
+		_graphicsContext.BindRenderTarget(_backgroundRenderTarget.get());
 		_graphicsContext.Clear(ClearOptions::Color, Color::White);
 
-		_currentRenderTarget->BindColorTextureToSampler(0, 0);
+		_currentRenderTarget->GetColorTexture(0).BindToSampler(0);;
 		postProcess->ProcessInner(*_currentRenderTarget, *_backgroundRenderTarget, originalSceneRenderTarget, renderCamera);
 
 		_currentRenderTarget.swap(_backgroundRenderTarget);
 	}
 
-	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	_graphicsContext.BindRenderTarget(nullptr);
 	_graphicsContext.Clear(Color::Red);
 
 	_passthroughShader->Bind();
-	_currentRenderTarget->BindColorTextureToSampler(0, 0);
+	_currentRenderTarget->GetColorTexture(0).BindToSampler(0);;
 	_passthroughShader->SetTextureSampler("TextureSampler", 0);
 	_quadVertexBuffer->Bind();
 
@@ -112,7 +113,7 @@ void PostProcessRenderer::Render(const ICamera* renderCamera)
 void PostProcessRenderer::DrawFullscreen(RenderTarget& renderTarget)
 {
 	_passthroughShader->Bind();
-	renderTarget.BindDepthTextureToSampler(0);
+	renderTarget.GetDepthTexture().BindToSampler(0);
 	_passthroughShader->SetTextureSampler("TextureSampler", 0);
 	_quadVertexBuffer->Bind();
 

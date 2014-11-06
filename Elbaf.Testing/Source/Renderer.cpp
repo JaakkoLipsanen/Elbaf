@@ -8,10 +8,8 @@
 #include <Graphics/ShaderSource.h>
 #include <algorithm>
 
-#include <Graphics/OpenGL/OGL.h>
-#include <Graphics/OpenGL/OGL-Helper.h>
 #include <Graphics/VertexFormats.h>
-#include "RenderTarget.h"
+#include <Graphics/RenderTarget.h>
 #include "Post Processing/Vignette.h"
 #include "Post Processing/Fog.h"
 #include "Post Processing/Pixelizer.h"
@@ -51,11 +49,11 @@ Renderer::Renderer(GraphicsContext& graphicsContext)
 
 	//_postProcessRenderer.AddPostProcess(std::make_shared<SSAO>(_graphicsContext));
 
-	_directionalLightShadowMap = RenderTarget::Create(1024, 1024, DepthBufferFormat::Depth32, {});
+	_directionalLightShadowMap = _graphicsContext.CreateRenderTarget(2048, 2048, DepthBufferFormat::Depth16, {});
 
-	_directionalLightShadowMap->BindRenderTarget();
-	_directionalLightShadowMap->BindDepthTexture();
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_FUNC, GL_LEQUAL); // doesnt change anything
+	_graphicsContext.BindRenderTarget(_directionalLightShadowMap.get());
+	_directionalLightShadowMap->GetDepthTexture().Bind();
+	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_FUNC, GL_LEQUAL); // doesnt change anything
 //	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_MODE, GL_COMPARE_R_TO_TEXTURE); // this does !!
 }
 
@@ -126,7 +124,6 @@ void Renderer::RenderScene()
 
 	auto shadowMVP = biasMatrix * GetShadowMVP();
 
-	glViewport(0, 0, 1920, 1080);
 	_graphicsContext.Clear(Color::White);
 	auto projectionXview = _camera->GetProjection() * _camera->GetView();
 	for (auto& renderObject : _renderObjects)
@@ -141,7 +138,7 @@ void Renderer::RenderScene()
 		shader.SetParameter("ShadowMVP", shadowMVP * Matrix::Translate(renderObject->Position) * Matrix::Scale(renderObject->Scale));
 		shader.SetParameter("Tint", renderObject->Material->Tint.ToVector3f());
 
-		_directionalLightShadowMap->BindDepthTextureToSampler(1);
+		_directionalLightShadowMap->GetDepthTexture().BindToSampler(1);
 		shader.SetTextureSampler("ShadowMap", 1);
 
 		renderObject->Material->Texture->BindToSampler(0);
@@ -159,8 +156,7 @@ Shader& Renderer::GetShader(MaterialType materialType)
 
 void Renderer::RenderShadowMap()
 {
-	_directionalLightShadowMap->BindRenderTarget();
-	glViewport(0, 0, 1024, 1024);
+	_graphicsContext.BindRenderTarget(_directionalLightShadowMap.get());
 
 	_graphicsContext.GetDepthState().SetDepthTestEnabled(true);
 	_graphicsContext.GetDepthState().SetDepthWriteEnabled(true); //
@@ -179,7 +175,7 @@ void Renderer::RenderShadowMap()
 		_graphicsContext.DrawPrimitives(PrimitiveType::TriangleList, 0, renderObject->Mesh->VertexBuffer->GetVertexCount());
 	}
 
-	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	_graphicsContext.BindRenderTarget(nullptr);
 }
 
 Matrix4x4 GetShadowMVP()

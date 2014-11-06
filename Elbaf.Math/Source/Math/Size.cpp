@@ -13,6 +13,10 @@ Size::operator Vector2i() const
 	return Vector2i(this->Width, this->Height);
 }
 
+Vector2i Size::ToVector2i() const
+{
+	return *this;
+}
 
 Size::Size(int width, int height) : Width(width), Height(height)
 {

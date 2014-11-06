@@ -5,6 +5,7 @@
 #include <Graphics\OpenGL\BlendState.h>
 #include <Graphics\OpenGL\DepthState.h>
 #include <Graphics\OpenGL\CullState.h>
+#include <Graphics/RenderTarget.h>
 
 class BlendState;
 namespace OGL
@@ -32,7 +33,7 @@ namespace OGL
 		// clear
 		virtual void Clear(const Color& color) override;
 		virtual void Clear(const ClearOptions& clearOptions, const Color& color, float depth = 1, int stencilValue = 0) override;
-		
+
 		// miscp
 		virtual Size GetResolution() const override;
 		virtual void ChangeResolution(const Size& newSize) override;
@@ -45,6 +46,13 @@ namespace OGL
 		virtual std::unique_ptr<VertexBuffer> CreateVertexBuffer(BufferType bufferType) override;
 		virtual std::unique_ptr<Shader> CreateShader(const ShaderSource& shaderData) override;
 		virtual std::unique_ptr<BlendState> CreateBlendState() override;
+		virtual std::unique_ptr<RenderTarget> CreateRenderTarget(int width, int height, DepthBufferFormat depthFormat = DepthBufferFormat::Depth24Stencil8, std::vector<TextureFormat> colorFormats = { TextureFormat::RBG8 }) override;
+
+		// bind
+		virtual void BindRenderTarget(RenderTarget* renderTarget, bool updateViewport) override;
+
+		// 
+		virtual void SetViewport(Rectangle rectangle) override;
 
 		/* IMPLEMENTATION SPECIFIC */
 		OGLGraphicsContext(GameWindow& window);

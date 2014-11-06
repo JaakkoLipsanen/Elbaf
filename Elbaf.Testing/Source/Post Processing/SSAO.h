@@ -125,7 +125,7 @@ protected:
 		this->GetShader().Bind();
 
 		// bind depth texture to sampler 1
-		originalSceneRT.BindDepthTextureToSampler(1);
+		originalSceneRT.GetDepthTexture().BindToSampler(1);
 
 		this->GetShader().SetTextureSampler("TextureSampler", 0);
 		this->GetShader().SetTextureSampler("DepthSampler", 1);

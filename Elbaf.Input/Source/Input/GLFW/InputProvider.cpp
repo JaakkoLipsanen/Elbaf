@@ -135,7 +135,7 @@ static int KeyCodeToGLFWKey(KeyCode keyCode)
 	// magic value from GLFW docs. Basically map end of all contigous key values to KeyCode, then binary-search
 	static const Temp arr[] = {
 		CREATE(Space, 32), CREATE(Minus, 45), CREATE(D9, 57), CREATE(Z, 90),
-		CREATE(End, 269), CREATE(Pause, 284), CREATE(F12, 301), CREATE(RightSuper, 347) };
+		CREATE(End, 269), CREATE(Pause, 284), CREATE(F12, 301), CREATE(RightSuper, 347), CREATE(§, 49831) };
 
 	auto start = arr;
 	auto end = arr + Array::Length(arr);

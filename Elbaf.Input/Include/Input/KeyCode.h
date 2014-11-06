@@ -84,4 +84,6 @@ enum class KeyCode
 	RightControl,
 	RightAlt,
 	RightSuper,
+
+	§,
 };

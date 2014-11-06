@@ -35,9 +35,6 @@
     <ClCompile Include="..\Source\Graphics\Image.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\Source\Graphics\OpenGL\GraphicsContext.cpp">
-      <Filter>Source Files\OpenGL</Filter>
-    </ClCompile>
     <ClCompile Include="..\Source\Graphics\OpenGL\GraphicsDevice.cpp">
       <Filter>Source Files\OpenGL</Filter>
     </ClCompile>
@@ -72,6 +69,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\Source\Graphics\OpenGL\OGLVertexBuffer.cpp">
+      <Filter>Source Files\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Graphics\OpenGL\OGLRenderTarget.cpp">
+      <Filter>Source Files\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Graphics\OpenGL\OGLGraphicsContext.cpp">
       <Filter>Source Files\OpenGL</Filter>
     </ClCompile>
   </ItemGroup>
@@ -178,14 +181,20 @@
     <ClInclude Include="..\Include\Graphics\DepthState.h">
       <Filter>Public Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\Source\Graphics\OpenGL\GraphicsContext.h">
-      <Filter>Private Header Files\OpenGL</Filter>
-    </ClInclude>
     <ClInclude Include="..\Include\Graphics\CullState.h">
       <Filter>Public Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\Include\Graphics\BlendState.h">
       <Filter>Public Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Graphics\RenderTarget.h">
+      <Filter>Public Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Graphics\OpenGL\OGLRenderTarget.h">
+      <Filter>Private Header Files\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Graphics\OpenGL\OGLGraphicsContext.h">
+      <Filter>Private Header Files\OpenGL</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -3,7 +3,7 @@
 #include <Graphics\OpenGL\OGL-Helper.h>
 #include <Graphics\VertexDeclaration.h>
 
-std::unique_ptr<OGL::OGLVertexBuffer> OGL::OGLVertexBuffer::CreateVertexBuffer(BufferType bufferType)
+std::unique_ptr<OGL::OGLVertexBuffer> OGL::OGLVertexBuffer::Create(BufferType bufferType)
 {
 	GLuint vertexArrayID;
 	glGenVertexArrays(1, &vertexArrayID);

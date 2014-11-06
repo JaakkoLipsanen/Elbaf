@@ -1,5 +1,8 @@
 #pragma once
 #include <memory>
+#include <Graphics/TextureFormat.h>
+#include <vector>
+#include <Math/Rectangle.h>
 
 // move to own headers
 enum class CullMode
@@ -14,6 +17,16 @@ enum class CullFace
 	Back,
 	FrontAndBack,
 };
+
+enum class DepthBufferFormat
+{
+	None,
+	Depth16,
+	Depth24Stencil8,
+	Depth24,
+	Depth32,
+};
+
 
 enum class ClearOptions;
 enum class CompareFunction;
@@ -35,6 +48,7 @@ class Shader;
 class BlendState;
 class DepthState;
 class CullState;
+class RenderTarget;
 
 // todo: make DepthState, RasterizerState, StencilState etc? // TODO: MAKE THESE, BLENDSTATE ALREADY DONE
 // update: those would really really be great... however they would also add a lot of new classes that have to be implemented per API :(
@@ -68,8 +82,16 @@ public:
 	virtual void DrawPrimitives(PrimitiveType primitiveType, int firstIndex, int count) = 0;
 
 	// CREATE
+	virtual std::unique_ptr<RenderTarget> CreateRenderTarget(int width, int height, DepthBufferFormat depthFormat = DepthBufferFormat::Depth24Stencil8, std::vector<TextureFormat> colorFormats = { TextureFormat::RBG8 }) = 0;
 	virtual std::unique_ptr<Texture2D> CreateTexture2D(const Image& textureData) = 0;
 	virtual std::unique_ptr<VertexBuffer> CreateVertexBuffer(BufferType bufferType) = 0;
 	virtual std::unique_ptr<Shader> CreateShader(const ShaderSource& shaderData) = 0;
 	virtual std::unique_ptr<BlendState> CreateBlendState() = 0;
+
+	// BIND
+	virtual void BindRenderTarget(RenderTarget* renderTarget, bool updateViewport = true) = 0;
+	void BindRenderTarget(RenderTarget& renderTarget, bool updateViewport = true)  { this->BindRenderTarget(&renderTarget); }
+
+	//
+	virtual void SetViewport(Rectangle rectangle) = 0;
 };

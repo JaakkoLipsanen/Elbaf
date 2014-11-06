@@ -1,4 +1,5 @@
 #include "OGL-Helper.h"
+#include <system_error>
 #include <Graphics\ClearOptions.h>
 #include <Graphics\CompareFunction.h>
 #include <Graphics\GraphicsContext.h>
@@ -6,7 +7,8 @@
 #include <Graphics\PrimitiveType.h>
 #include <Graphics\TextureFormat.h>
 #include <Graphics\BlendState.h>
-#include <system_error>
+#include <Graphics/RenderTarget.h>
+#include <Graphics/GraphicsContext.h>
 
 GLbitfield OGL::GetClearMask(ClearOptions const& clearOptions)
 {
@@ -193,5 +195,24 @@ GLenum OGL::BlendFunctionToGLenum(BlendFunction blendFunction)
 
 	default:
 		throw std::logic_error("Unknown blend function");
+	}
+}
+
+GLenum OGL::DepthBufferFormatToGLenum(DepthBufferFormat const& depthBufferFormat)
+{
+	switch (depthBufferFormat)
+	{
+	case DepthBufferFormat::Depth16:
+		return GL_DEPTH_COMPONENT16;
+
+	case DepthBufferFormat::Depth24Stencil8:
+	case DepthBufferFormat::Depth24:
+		return GL_DEPTH_COMPONENT24;
+
+	case DepthBufferFormat::Depth32:
+		return GL_DEPTH_COMPONENT32;
+
+	default:
+		throw std::exception("DepthBufferFormat::None cannot be converted to GLenum");
 	}
 }

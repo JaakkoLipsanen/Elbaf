@@ -6,7 +6,7 @@
 #include <Diagnostics\Ensure.h>
 
 #include <Graphics\RendererAPI.h>
-#include <Graphics\OpenGL\GraphicsContext.h>
+#include <Graphics\OpenGL\OGLGraphicsContext.h>
 #include <Graphics\OpenGL\GameWindow.h>
 
 // move to own file? If I were to add more event's here, then I guess other OGL classes might want to access them

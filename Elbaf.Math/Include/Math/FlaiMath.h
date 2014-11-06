@@ -1,5 +1,6 @@
 #pragma once
 #include <Math/Fundamental.h>
+#include <Diagnostics/Ensure.h>
 
 namespace FlaiMath
 {
@@ -188,4 +189,9 @@ namespace FlaiMath
 		return (count % 2 == 0) ? mod : (step - mod);
 	}
 
+	template<typename T>
+	T Lerp(T from, T to, float amount)
+	{
+		return from + (to - from) * amount;
+	}
 }

@@ -1,6 +1,6 @@
 #pragma once
 #include <Graphics/GraphicsContext.h>
-#include "RenderTarget.h"
+#include <Graphics/RenderTarget.h>
 #include <string>
 
 class ICamera;

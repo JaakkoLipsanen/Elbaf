@@ -12,7 +12,6 @@
 #include <Engine/Screen.h>
 #include <memory>
 
-
 void TestScene::OnEntering()
 {
 	auto& graphicsContext = this->GetGame().GetGraphicsContext();

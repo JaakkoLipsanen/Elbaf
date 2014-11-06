@@ -4,6 +4,7 @@
 #include <Graphics/Shader.h>
 #include <Graphics/VertexBuffer.h>
 #include <Engine/ICamera.h>
+#include <Graphics/RenderTarget.h>
 
 static const std::string DefaultVertexShader = R"XXX(
 	#version 330 core
@@ -42,8 +43,8 @@ void PostProcess::Initialize(PostProcessRenderer& parentRenderer)
 void PostProcess::ProcessInner(RenderTarget& source, RenderTarget& destination, RenderTarget& originalSceneRT, const ICamera* renderCamera)
 {
 	_shader->Bind();
-	destination.BindRenderTarget();
-	source.BindColorTextureToSampler(0, 0);
+	_graphicsContext.BindRenderTarget(&destination);
+	source.GetColorTexture(0).BindToSampler(0);
 	_shader->SetTextureSampler("TextureSampler", 0);
 
 	this->GetFullscreenQuadBuffer().Bind();

@@ -1,6 +1,7 @@
 #pragma once
 #include <memory>
 #include <Math\Size.h>
+#include <Graphics/TextureFormat.h>
 
 struct Image;
 class ITexture
@@ -23,6 +24,8 @@ class Texture2D : public ITexture
 {
 public:
 	Size GetSize() const;
+	virtual TextureFormat GetTextureFormat() const = 0; // in ITexture vs Texture2D?
+
 	virtual int GetWidth() const = 0;
 	virtual int GetHeight() const = 0;
 

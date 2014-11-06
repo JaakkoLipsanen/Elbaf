@@ -13,6 +13,7 @@ struct Size
 	float GetAspectRatio() const;
 
 	operator Vector2i() const;
+	Vector2i ToVector2i() const;
 };
 
 inline std::ostream & operator << (std::ostream & stream, Size const& size)

@@ -121,11 +121,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\Source\DebugConsole.cpp" />
     <ClCompile Include="..\Source\DefaultCamera.cpp" />
     <ClCompile Include="..\Source\main.cpp" />
     <ClCompile Include="..\Source\Post Processing\PostProcess.cpp" />
     <ClCompile Include="..\Source\Post Processing\PostProcessRenderer.cpp" />
     <ClCompile Include="..\Source\Renderer.cpp" />
+    <ClCompile Include="..\Source\SpriteBatch.cpp" />
     <ClCompile Include="..\Source\TestScene.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -134,9 +136,9 @@
     <None Include="Shaders\TerrainShader.glsl" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\Source\DebugConsole.h" />
     <ClInclude Include="..\Source\DefaultCamera.h" />
     <ClInclude Include="..\Source\FloatingCube.h" />
-    <ClInclude Include="..\Source\ICamera.h" />
     <ClInclude Include="..\Source\NoiseGen.h" />
     <ClInclude Include="..\Source\Post Processing\ColorAdjust.h" />
     <ClInclude Include="..\Source\Post Processing\DepthOfField.h" />
@@ -147,8 +149,8 @@
     <ClInclude Include="..\Source\Post Processing\PostProcessRenderer.h" />
     <ClInclude Include="..\Source\Post Processing\SSAO.h" />
     <ClInclude Include="..\Source\Post Processing\Vignette.h" />
-    <ClInclude Include="..\Source\RenderTarget.h" />
     <ClInclude Include="..\Source\Skybox.h" />
+    <ClInclude Include="..\Source\SpriteBatch.h" />
     <ClInclude Include="..\Source\Terrain.h" />
     <ClInclude Include="..\Source\Renderer.h" />
     <ClInclude Include="..\Source\TestScene.h" />

@@ -9,6 +9,7 @@ enum class PrimitiveType;
 enum class TextureFormat;
 enum class BlendFactor;
 enum class BlendFunction;
+enum class DepthBufferFormat;
 
 namespace OGL
 {
@@ -23,4 +24,6 @@ namespace OGL
 
 	GLenum BlendFactorToGLenum(BlendFactor blendFactor);
 	GLenum BlendFunctionToGLenum(BlendFunction blendFunction);
+
+	GLenum DepthBufferFormatToGLenum(const DepthBufferFormat& depthBufferFormat);
 }

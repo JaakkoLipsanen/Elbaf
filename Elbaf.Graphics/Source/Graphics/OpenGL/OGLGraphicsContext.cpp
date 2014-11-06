@@ -1,4 +1,4 @@
-#include <Graphics\OpenGL\GraphicsContext.h>
+#include <Graphics\OpenGL\OGLGraphicsContext.h>
 
 #include <Math\Size.h>
 #include <Math\FlaiMath.h>
@@ -15,6 +15,7 @@
 #include <Graphics\OpenGL\OGLVertexBuffer.h>
 #include <Graphics\OpenGL\OGLShader.h>
 #include <Graphics\OpenGL\BlendState.h>
+#include <Graphics/OpenGL/OGLRenderTarget.h>
 
 class OGL::OGLGraphicsContext::Impl
 {
@@ -121,7 +122,7 @@ std::unique_ptr<Texture2D> OGL::OGLGraphicsContext::CreateTexture2D(const Image&
 
 std::unique_ptr<VertexBuffer> OGL::OGLGraphicsContext::CreateVertexBuffer(BufferType bufferType)
 {
-	return OGLVertexBuffer::CreateVertexBuffer(bufferType);
+	return OGLVertexBuffer::Create(bufferType);
 }
 
 std::unique_ptr<Shader> OGL::OGLGraphicsContext::CreateShader(const ShaderSource& shaderSource)
@@ -132,4 +133,40 @@ std::unique_ptr<Shader> OGL::OGLGraphicsContext::CreateShader(const ShaderSource
 std::unique_ptr<BlendState> OGL::OGLGraphicsContext::CreateBlendState()
 {
 	return std::unique_ptr<OGLBlendState>(new OGL::OGLBlendState);
+}
+
+std::unique_ptr<RenderTarget> OGL::OGLGraphicsContext::CreateRenderTarget(int width, int height, DepthBufferFormat depthFormat, std::vector<TextureFormat> colorFormats)
+{
+	return OGLRenderTarget::Create(*this, width, height, depthFormat, colorFormats);
+}
+
+void OGL::OGLGraphicsContext::BindRenderTarget(RenderTarget* renderTarget, bool updateViewport)
+{
+	GLuint framebufferID = 0; // 0 == "no framebuffer, render to backbuffer"
+	if (renderTarget != nullptr)
+	{
+		auto oglRenderTarget = dynamic_cast<OGLRenderTarget*>(renderTarget);
+		framebufferID = oglRenderTarget->GetInternalID();
+
+		if (updateViewport)
+		{
+			auto size = renderTarget->GetSize();
+			this->SetViewport({ 0, 0, size.Width, size.Height });
+		}
+	}
+	else // renderTarget == nullptr
+	{
+		if (updateViewport)	
+		{
+			auto screenSize = this->GetResolution();
+			this->SetViewport({ 0, 0, screenSize.Width, screenSize.Height });
+		}
+	}
+
+	glBindFramebuffer(GL_FRAMEBUFFER, framebufferID);
+}
+
+void OGL::OGLGraphicsContext::SetViewport(Rectangle rectangle)
+{
+	glViewport(rectangle.X, rectangle.Y, rectangle.Width, rectangle.Height);
 }

@@ -141,13 +141,14 @@
     <ClCompile Include="..\Source\Graphics\Font.cpp" />
     <ClCompile Include="..\Source\Graphics\FontRenderer.cpp" />
     <ClCompile Include="..\Source\Graphics\GraphicsModule.cpp" />
+    <ClCompile Include="..\Source\Graphics\OpenGL\OGLRenderTarget.cpp" />
     <ClCompile Include="..\Source\Graphics\Texture.cpp" />
     <ClCompile Include="..\Source\Graphics\VertexBuffer.cpp" />
     <ClCompile Include="..\Source\Graphics\OpenGL\BlendState.cpp" />
     <ClCompile Include="..\Source\Graphics\OpenGL\CullState.cpp" />
     <ClCompile Include="..\Source\Graphics\OpenGL\DepthState.cpp" />
     <ClCompile Include="..\Source\Graphics\OpenGL\GameWindow.cpp" />
-    <ClCompile Include="..\Source\Graphics\OpenGL\GraphicsContext.cpp" />
+    <ClCompile Include="..\Source\Graphics\OpenGL\OGLGraphicsContext.cpp" />
     <ClCompile Include="..\Source\Graphics\OpenGL\GraphicsDevice.cpp" />
     <ClCompile Include="..\Source\Graphics\OpenGL\OGL-Helper.cpp" />
     <ClCompile Include="..\Source\Graphics\OpenGL\OGL-ShaderLoader.cpp" />
@@ -171,6 +172,7 @@
     <ClInclude Include="..\Include\Graphics\DepthState.h" />
     <ClInclude Include="..\Include\Graphics\GraphicsContext.h" />
     <ClInclude Include="..\Include\Graphics\Image.h" />
+    <ClInclude Include="..\Include\Graphics\RenderTarget.h" />
     <ClInclude Include="..\Include\Graphics\Shader.h" />
     <ClInclude Include="..\Include\Graphics\Texture.h" />
     <ClInclude Include="..\Include\Graphics\VertexBuffer.h" />
@@ -187,11 +189,12 @@
     <ClInclude Include="..\Source\Graphics\OpenGL\CullState.h" />
     <ClInclude Include="..\Source\Graphics\OpenGL\DepthState.h" />
     <ClInclude Include="..\Source\Graphics\OpenGL\GameWindow.h" />
-    <ClInclude Include="..\Source\Graphics\OpenGL\GraphicsContext.h" />
+    <ClInclude Include="..\Source\Graphics\OpenGL\OGLGraphicsContext.h" />
     <ClInclude Include="..\Source\Graphics\OpenGL\GraphicsDevice.h" />
     <ClInclude Include="..\Source\Graphics\OpenGL\OGL-Helper.h" />
     <ClInclude Include="..\Source\Graphics\OpenGL\OGL-ShaderLoader.h" />
     <ClInclude Include="..\Source\Graphics\OpenGL\OGL.h" />
+    <ClInclude Include="..\Source\Graphics\OpenGL\OGLRenderTarget.h" />
     <ClInclude Include="..\Source\Graphics\OpenGL\OGLShader.h" />
     <ClInclude Include="..\Source\Graphics\OpenGL\OGLTexture2D.h" />
     <ClInclude Include="..\Source\Graphics\OpenGL\OGLVertexBuffer.h" />
