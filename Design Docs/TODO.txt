@@ -63,3 +63,6 @@ missä Singletonit ovat read-onlyjä, eli niiden avulla ei voi muokata statea. HUO
 
 TODO: 
 3.10: Font Rendering & Loading
+
+
+TODO: Vector Fonts/Distance Field Textures: http://www.valvesoftware.com/publications/2007/SIGGRAPH2007_AlphaTestedMagnification.pdf http://stackoverflow.com/questions/5262951/what-is-state-of-the-art-for-text-rendering-in-opengl-as-of-version-4-1
