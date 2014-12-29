@@ -74,6 +74,9 @@
     <ClCompile Include="..\Source\Graphics\OpenGL\OGLGraphicsContext.cpp">
       <Filter>Source Files\OpenGL</Filter>
     </ClCompile>
+    <ClCompile Include="..\Source\Graphics\SpriteBatch.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Include\Graphics\TextureFormat.h">
@@ -189,6 +192,9 @@
     </ClInclude>
     <ClInclude Include="..\Source\Graphics\OpenGL\OGLGraphicsContext.h">
       <Filter>Private Header Files\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Graphics\SpriteBatch.h">
+      <Filter>Public Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

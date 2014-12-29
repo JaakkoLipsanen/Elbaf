@@ -1,5 +1,5 @@
 #include <DebugConsole.h>
-#include <SpriteBatch.h>
+#include <Graphics/SpriteBatch.h>
 #include <Engine/Game.h>
 #include <Math/FlaiMath.h>
 #include <Engine/Time.h>

@@ -127,7 +127,6 @@
     <ClCompile Include="..\Source\Post Processing\PostProcess.cpp" />
     <ClCompile Include="..\Source\Post Processing\PostProcessRenderer.cpp" />
     <ClCompile Include="..\Source\Renderer.cpp" />
-    <ClCompile Include="..\Source\SpriteBatch.cpp" />
     <ClCompile Include="..\Source\TestScene.cpp" />
   </ItemGroup>
   <ItemGroup>

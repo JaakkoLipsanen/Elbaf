@@ -10,7 +10,7 @@
 #include <Core/WindowDescription.h>
 #include <Engine/SceneModule.h>
 #include <functional>
-#include "SpriteBatch.h"
+#include <Graphics/SpriteBatch.h>
 #include <Graphics/TextureHelper.h>
 
 #include <DebugConsole.h>

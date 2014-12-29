@@ -141,6 +141,7 @@
     <ClCompile Include="..\Source\Graphics\Font.cpp" />
     <ClCompile Include="..\Source\Graphics\GraphicsModule.cpp" />
     <ClCompile Include="..\Source\Graphics\OpenGL\OGLRenderTarget.cpp" />
+    <ClCompile Include="..\Source\Graphics\SpriteBatch.cpp" />
     <ClCompile Include="..\Source\Graphics\Texture.cpp" />
     <ClCompile Include="..\Source\Graphics\VertexBuffer.cpp" />
     <ClCompile Include="..\Source\Graphics\OpenGL\BlendState.cpp" />
@@ -172,6 +173,7 @@
     <ClInclude Include="..\Include\Graphics\Image.h" />
     <ClInclude Include="..\Include\Graphics\RenderTarget.h" />
     <ClInclude Include="..\Include\Graphics\Shader.h" />
+    <ClInclude Include="..\Include\Graphics\SpriteBatch.h" />
     <ClInclude Include="..\Include\Graphics\Texture.h" />
     <ClInclude Include="..\Include\Graphics\VertexBuffer.h" />
     <ClInclude Include="..\Include\Graphics\PrimitiveType.h" />
