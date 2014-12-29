@@ -5,7 +5,6 @@
 #include "DefaultCamera.h"
 #include <FloatingCube.h>
 
-#include <Graphics/FontRenderer.h>
 #include <Graphics/Font.h>
 
 class TestScene : public Scene

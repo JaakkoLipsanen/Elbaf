@@ -53,9 +53,6 @@
     <ClCompile Include="..\Source\Graphics\Font.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\Source\Graphics\FontRenderer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\Source\Graphics\Texture.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -149,9 +146,6 @@
       <Filter>Private Header Files\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="..\Include\Graphics\Font.h">
-      <Filter>Public Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\Graphics\FontRenderer.h">
       <Filter>Public Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\Include\Graphics\TextureHelper.h">

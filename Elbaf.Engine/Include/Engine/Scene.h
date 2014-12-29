@@ -4,6 +4,7 @@ class Game;
 class SceneModule;
 
 // todo: intergrate CBES right into this class and expose the CBES API in here
+// > alternatively, make a "CbesScene" or something similar?
 class Scene
 {
 	friend class SceneModule;

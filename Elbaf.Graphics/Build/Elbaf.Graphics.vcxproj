@@ -139,7 +139,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\Source\Graphics\Font.cpp" />
-    <ClCompile Include="..\Source\Graphics\FontRenderer.cpp" />
     <ClCompile Include="..\Source\Graphics\GraphicsModule.cpp" />
     <ClCompile Include="..\Source\Graphics\OpenGL\OGLRenderTarget.cpp" />
     <ClCompile Include="..\Source\Graphics\Texture.cpp" />
@@ -165,7 +164,6 @@
     <ClInclude Include="..\Include\Graphics\CullStatePreset.h" />
     <ClInclude Include="..\Include\Graphics\DepthStatePreset.h" />
     <ClInclude Include="..\Include\Graphics\Font.h" />
-    <ClInclude Include="..\Include\Graphics\FontRenderer.h" />
     <ClInclude Include="..\Include\Graphics\GraphicsModule.h" />
     <ClInclude Include="..\Include\Graphics\BlendState.h" />
     <ClInclude Include="..\Include\Graphics\CullState.h" />

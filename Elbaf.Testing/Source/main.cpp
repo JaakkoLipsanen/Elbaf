@@ -4,7 +4,6 @@
 #include <Input\Mouse.h>
 #include <Graphics/OpenGL/OGL.h>
 #include <Graphics/Font.h>
-#include <Graphics/FontRenderer.h>
 #include "TestScene.h"
 #include <Core/CursorVisibility.h>
 #include <Content/Content.h>
