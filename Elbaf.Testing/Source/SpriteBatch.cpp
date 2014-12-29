@@ -12,11 +12,12 @@
 #include <Graphics/BlendState.h>
 #include <Graphics/CullState.h>
 #include <Graphics/DepthState.h>
+#include <Graphics/Font.h>
 
 struct SpriteVertex
 {
 	Vector2f Position;
-	Vector4f Color; // todo: just use Color and send the data to gpu as 3x Byte (normalized)? also, this should be 4-element (alpha)....
+	Vector4f Color; // todo: send the color as Vector4b (4-byte vector)?
 	Vector2f TextureCoordinate;
 
 	SpriteVertex(Vector2f position, ::Color color, Vector2f textureCoordinate) : Position(position), Color(color.ToVector4f()), TextureCoordinate(textureCoordinate)
@@ -53,7 +54,7 @@ static const std::string SpriteShaderSource = R"XXX(
 	
 	uniform mat4x4 ViewProjection;
 	
-	void FragmentShader() {
+	void main() {
 		gl_Position = ViewProjection * vec4(VertexPosition, 0, 1);
 
 		FragmentColor = VertexColor;
@@ -72,8 +73,8 @@ static const std::string SpriteShaderSource = R"XXX(
 	uniform sampler2D TextureSampler;
 	
 	void main() {
-		color = texture2D(TextureSampler, FragmentUV);
-		color *= FragmentColor;
+		color = FragmentColor;
+		color.rgba *= texture2D(TextureSampler, FragmentUV).r;
 	}
 
 	)XXX";
@@ -115,7 +116,7 @@ public:
 		this->SpriteShader->SetTextureSampler("TextureSampler", 0);
 		this->SpriteShader->SetParameter("ViewProjection", 
 			Matrix::Scale(1, -1, 1) * 
-			Matrix::Translate(-1.f, -1.0f, 0) *
+			Matrix::Translate(-1.0f, -1.0f, 0) *
 			Matrix::Scale(1.0f / this->GraphicsContext.GetResolution().Width * 2, 1.0f / this->GraphicsContext.GetResolution().Height * 2, 0));
 		
 		this->GraphicsContext.DrawPrimitives(PrimitiveType::TriangleList, 0, this->Vertices.size());
@@ -157,6 +158,11 @@ void SpriteBatch::Draw(Texture2D& texture, Vector2f position, Color color, float
 
 void SpriteBatch::Draw(Texture2D& texture, Vector2f position, Color color, float rotation, Vector2f scale, Vector2f origin)
 {
+	this->Draw(texture, position, color, rotation, scale, origin, Rectangle(0, 0, texture.GetWidth(), texture.GetHeight()));
+}
+
+void SpriteBatch::Draw(Texture2D& texture, Vector2f position, Color color, float rotation, Vector2f scale, Vector2f origin, Rectangle sourceRectangle)
+{
 	if (_pImpl->CurrentTexture != nullptr && _pImpl->CurrentTexture != &texture) // compare address
 	{
 		_pImpl->Flush();
@@ -165,10 +171,11 @@ void SpriteBatch::Draw(Texture2D& texture, Vector2f position, Color color, float
 	_pImpl->CurrentTexture = &texture;
 	Vector2f size = Vector2f(texture.GetSize().ToVector2i()) * scale;
 
-	SpriteVertex TL = SpriteVertex(position, color, Vector2f::Zero);
-	SpriteVertex TR = SpriteVertex(position + Vector2f::UnitX * size, color, Vector2f::UnitX);
-	SpriteVertex BL = SpriteVertex(position + Vector2f::UnitY * size, color, Vector2f::UnitY);
-	SpriteVertex BR = SpriteVertex(position + size, color, Vector2f::One);
+	RectangleF uvRectangle = static_cast<RectangleF>(sourceRectangle) / texture.GetSize().ToVector2i();
+	SpriteVertex TL = SpriteVertex(position, color, Vector2f(uvRectangle.MinX(), uvRectangle.MinY()));
+	SpriteVertex TR = SpriteVertex(position + Vector2f::UnitX * size, color, Vector2f(uvRectangle.MaxX(), uvRectangle.MinY())); // Vector2f::UnitX);
+	SpriteVertex BL = SpriteVertex(position + Vector2f::UnitY * size, color, Vector2f(uvRectangle.MinX(), uvRectangle.MaxY())); // Vector2f::UnitY);
+	SpriteVertex BR = SpriteVertex(position + size, color, Vector2f(uvRectangle.MaxX(), uvRectangle.MaxY())); // Vector2f::One);
 
 	_pImpl->Vertices.push_back(BL);
 	_pImpl->Vertices.push_back(TL);
@@ -177,4 +184,56 @@ void SpriteBatch::Draw(Texture2D& texture, Vector2f position, Color color, float
 	_pImpl->Vertices.push_back(BL);
 	_pImpl->Vertices.push_back(TR);
 	_pImpl->Vertices.push_back(BR);
+}
+
+void SpriteBatch::Draw(Texture2D& texture, RectangleF destinationRectangle, Color color)
+{
+	this->Draw(texture, destinationRectangle, color, Rectangle(0, 0, texture.GetWidth(), texture.GetHeight()));
+}
+
+void SpriteBatch::Draw(Texture2D& texture, RectangleF destinationRectangle, Color color, Rectangle sourceRectangle)
+{
+	Vector2f scale = static_cast<Vector2f>(sourceRectangle.Size().ToVector2i()) / static_cast<Vector2f>(texture.GetSize().ToVector2i());
+	this->Draw(texture, destinationRectangle.TopLeft(), color, 0.0f, scale, Vector2f::Zero, sourceRectangle);
+}
+
+void SpriteBatch::DrawText(Font& font, const std::string& text, Vector2f position, Color color, TextCorner originCorner)
+{
+	auto textArea = font.MeasureText(text);
+	if (originCorner == TextCorner::TopLeft || originCorner == TextCorner::TopRight)
+	{
+		position.Y += textArea.Height;
+	}
+
+	if (originCorner == TextCorner::TopRight || originCorner == TextCorner::BottomRight)
+	{
+		position.X -= textArea.Width;
+	}
+
+	if (originCorner == TextCorner::Center)
+	{
+		position += Vector2f(-textArea.Width, textArea.Height) / 2.0f;
+	}
+
+	auto& texture = font.GetTexture();
+	char previous = 0;
+	for (int i = 0; i < text.size(); i++)
+	{
+		char character = text[i];
+		if (!font.ContainsCharacter(character))
+		{
+			character = '?';
+		}
+
+		position.X += font.GetKerning(previous, character).X;
+
+		auto& characterDefinition = font.GetCharacterDefinition(character);
+		Vector2f topLeftPosition = position + Vector2f(characterDefinition.OffsetFromLeft,  -characterDefinition.OffsetFromTop);
+		RectangleF destinationRectangle(topLeftPosition.X, topLeftPosition.Y - characterDefinition.TextureUV.Height, characterDefinition.TextureUV.Width, characterDefinition.TextureUV.Height);
+
+		this->Draw(texture, destinationRectangle, color, characterDefinition.TextureUV);
+		
+		position += characterDefinition.Advance;
+		previous = text[i];
+	}
 }

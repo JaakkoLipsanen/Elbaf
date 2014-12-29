@@ -77,12 +77,12 @@ RectangleF::RectangleF(Rectangle const& rectangle)
 {
 }
 
-inline Vector2f RectangleF::Center() const
+Vector2f RectangleF::Center() const
 {
 	return Vector2f(this->X + (this->Width / 2.0f), this->Y + (this->Height / 2.0f));
 }
 
-inline ::SizeF RectangleF::Size() const
+::SizeF RectangleF::Size() const
 {
 	return ::SizeF(this->Width, this->Height);
 }

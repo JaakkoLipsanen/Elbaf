@@ -18,7 +18,7 @@ Vector2f Rectangle::Center() const
 	return Vector2f(this->X + (this->Width / 2.0f), this->Y + (this->Height / 2.0f));
 }
 
-::Size Rectangle::Size() const
+Size Rectangle::Size() const
 {
 	return ::Size(this->Width, this->Height);
 }
