@@ -18,9 +18,13 @@ public:
 protected:
 	virtual void OnEntering() { }
 	virtual void OnExiting() { }
+
 	virtual void PreUpdate() { }
+	virtual void Update() { }
 	virtual void PostUpdate() { }
+
 	virtual void PreRender() { }
+	virtual void Render() { }
 	virtual void PostRender() { }
 	
 	Game& GetGame();
@@ -31,8 +35,8 @@ private:
 	void Initialize(Game& game, SceneModule& sceneModule);
 	void Terminate();
 
-	void Update();
-	void Render();
+	void UpdateInternal();
+	void RenderInternal();
 
 	Game* _game;
 };

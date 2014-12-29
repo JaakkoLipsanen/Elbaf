@@ -17,12 +17,12 @@ void SceneModule::Terminate()
 void SceneModule::Update()
 {
 	Ensure::NotNull(_currentScene.get());
-	_currentScene->Update();
+	_currentScene->UpdateInternal();
 }
 
 void SceneModule::Render()
 {
-	_currentScene->Render();
+	_currentScene->RenderInternal();
 }
 
 void SceneModule::LoadScene(std::unique_ptr<Scene> scene)

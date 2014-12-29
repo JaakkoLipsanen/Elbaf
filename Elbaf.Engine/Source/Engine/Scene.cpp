@@ -19,16 +19,16 @@ void Scene::Terminate()
 	this->OnExiting();
 }
 
-void Scene::Update()
+void Scene::UpdateInternal()
 {
 	this->PreUpdate();
-	// 'Update'
+	this->Update();
 	this->PostUpdate();
 }
 
-void Scene::Render()
+void Scene::RenderInternal()
 {
 	this->PreRender();
-	// 'Render'
+	this->Render();
 	this->PostRender();
 }
