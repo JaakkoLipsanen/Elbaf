@@ -15,13 +15,15 @@ public:
 	Event<void()> EndFrame = Event<void()>();
 	Event<void()> Exiting = Event<void()>();
 
-	Game();
+	Game(std::string title = "Elbaf");
 	virtual ~Game();
 
 	void Run();
 	void Exit();
 	IGameWindow& GetWindow() const override;
 	GraphicsContext& GetGraphicsContext() const;
+
+	std::string GetTitle() const;
 
 	static Game& GetInstance();
 

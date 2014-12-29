@@ -15,7 +15,7 @@
 class Game::Impl
 {
 public:
-	explicit Impl(Game& game) : _game(game) { }
+	explicit Impl(Game& game, std::string title) : Title(title), _game(game) { }
 
 	bool IsRunning = false;
 	bool IsExiting = false;
@@ -24,6 +24,8 @@ public:
 	std::unique_ptr<TimeModule> TimeModule;
 	std::unique_ptr<SceneModule> SceneModule;
 	std::unique_ptr<ContentModule> ContentModule;
+
+	const std::string Title;
 
 	void Run()
 	{
@@ -54,7 +56,7 @@ private:
 
 	void InitializeModules()
 	{
-		WindowDescription description({ 1280, 720 }, "Game", false);
+		WindowDescription description({ 1280, 720 }, this->Title, false);
 		_game.SetupWindow(description);
 		this->GraphicsModule.reset(new ::GraphicsModule(_game, description));
 		this->InputModule.reset(new ::InputModule(_game));
@@ -113,7 +115,7 @@ private:
 	}
 };
 
-Game::Game() : _pImpl(new Game::Impl(*this)) { }
+Game::Game(std::string title) : _pImpl(new Game::Impl(*this, title)) { }
 Game::~Game() = default;
 
 void Game::Run()
@@ -134,6 +136,11 @@ IGameWindow& Game::GetWindow() const
 GraphicsContext& Game::GetGraphicsContext() const
 {
 	return _pImpl->GraphicsModule->GetGraphicsContext();
+}
+
+std::string Game::GetTitle() const
+{
+	return _pImpl->Title;
 }
 
 Game& Game::GetInstance()
