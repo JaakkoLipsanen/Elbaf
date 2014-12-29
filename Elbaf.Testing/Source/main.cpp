@@ -19,7 +19,7 @@
 class MyGame : public Game
 {
 	std::unique_ptr<Font> _font;
-	std::unique_ptr<FontRenderer> _fontRenderer;
+	//std::unique_ptr<FontRenderer> _fontRenderer;
 
 	std::unique_ptr<SpriteBatch> _batch;
 	std::unique_ptr<Texture2D> _blankPixel;
@@ -33,7 +33,7 @@ protected:
 	}
 
 public:
-	MyGame() : console(*this) { }
+	MyGame() : Game("Test"), console(*this) { }
 
 	virtual std::unique_ptr<Scene> CreateDefaultScene() override
 	{
@@ -47,7 +47,7 @@ public:
 		Mouse::SetPosition({ Screen::GetWidth() / 2, Screen::GetHeight() / 2 });
 
 		_font = Content::LoadFont(this->GetGraphicsContext(), "F:\\Users\\Jaakko\\Desktop\\ArvoRegular.ttf", 32);
-		_fontRenderer.reset(new FontRenderer(this->GetGraphicsContext()));
+//		_fontRenderer.reset(new FontRenderer(this->GetGraphicsContext()));
 
 		_batch.reset(new SpriteBatch(this->GetGraphicsContext()));
 		_blankPixel = TextureHelper::CreateBlankTexture(this->GetGraphicsContext());
@@ -57,7 +57,7 @@ public:
 
 	virtual void PostRender() override
 	{
-		_fontRenderer->DrawText2D(*_font.get(), "ELBAF", Vector2f::One * 8, Color::White * 0.5f);
+//		_fontRenderer->DrawText2D(*_font.get(), "ELBAF", Vector2f::One * 8, Color::White * 0.5f);
 
 		console.Update();
 		console.Render();

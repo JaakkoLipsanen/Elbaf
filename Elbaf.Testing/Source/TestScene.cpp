@@ -23,7 +23,7 @@ void TestScene::OnEntering()
 
 
 	_font = Content::LoadFont(this->GetGame().GetGraphicsContext(), "F:\\Users\\Jaakko\\Desktop\\ArvoRegular.ttf", 32);
-	_fontRenderer.reset(new FontRenderer(this->GetGame().GetGraphicsContext()));
+	//_fontRenderer.reset(new FontRenderer(this->GetGame().GetGraphicsContext()));
 }
 
 void TestScene::PostUpdate()
@@ -41,7 +41,7 @@ void TestScene::PostUpdate()
 void TestScene::PostRender()
 {
 	_renderer->Render();
-	_fontRenderer->DrawText2D(*_font, "Vertices: " + std::to_string(_renderer->GetFrameVertexCount()), Vector2f(Screen::GetSize().Width - 8, 8), Color::White * 0.5f, TextCorner::TopRight);
+	//_fontRenderer->DrawText2D(*_font, "Vertices: " + std::to_string(_renderer->GetFrameVertexCount()), Vector2f(Screen::GetSize().Width - 8, 8), Color::White * 0.5f, TextCorner::TopRight);
 }
 
 void TestScene::CreateObjects()

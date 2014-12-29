@@ -22,7 +22,7 @@ private:
 	std::vector<FloatingCube> _floatingCubes;
 
 	std::unique_ptr<Font> _font;
-	std::unique_ptr<FontRenderer> _fontRenderer;
+//	std::unique_ptr<FontRenderer> _fontRenderer;
 
 	void CreateObjects();
 };
