@@ -1,10 +1,9 @@
-#include "PostProcess.h"
-#include "PostProcessRenderer.h"
 #include <Graphics/ShaderSource.h>
 #include <Graphics/Shader.h>
 #include <Graphics/VertexBuffer.h>
-#include <Engine/ICamera.h>
 #include <Graphics/RenderTarget.h>
+#include <Graphics/Post Processing/PostProcess.h>
+#include <Graphics/Post Processing/PostProcessRenderer.h>
 
 static const std::string DefaultVertexShader = R"XXX(
 	#version 330 core

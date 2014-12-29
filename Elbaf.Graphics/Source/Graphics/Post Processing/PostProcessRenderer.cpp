@@ -1,16 +1,14 @@
-#include "PostProcessRenderer.h"
-#include "PostProcess.h"
+#include <Graphics/Post Processing/PostProcess.h>
+#include <Graphics/Post Processing/PostProcessRenderer.h>
 #include <Graphics/VertexBuffer.h>
 #include <Graphics/ShaderSource.h>
 #include <Graphics/Shader.h>
 #include <Graphics/DepthState.h>
-#include <Graphics/CullState.h>
 #include <Core/Array.h>
 #include <Graphics/ClearOptions.h>
-#include <Engine/ICamera.h>
-#include "Vignette.h"
 
 #include <Graphics/RenderTarget.h>
+#include <Graphics/VertexFormats.h>
 
 PostProcessRenderer::PostProcessRenderer(GraphicsContext& graphicsContext)
 	: _graphicsContext(graphicsContext), _quadVertexBuffer(graphicsContext.CreateVertexBuffer(BufferType::Static))

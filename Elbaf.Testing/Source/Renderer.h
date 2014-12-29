@@ -4,7 +4,7 @@
 #include <vector>
 #include <Engine/ICamera.h>
 #include <Core/Color.h>
-#include "Post Processing/PostProcessRenderer.h"
+#include <Graphics/Post Processing/PostProcessRenderer.h>
 
 // dont support custom shaders, just "fixed" shaders
 enum class MaterialType

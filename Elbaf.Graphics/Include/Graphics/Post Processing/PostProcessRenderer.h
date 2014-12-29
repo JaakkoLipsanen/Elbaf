@@ -1,8 +1,6 @@
 #pragma once
 #include <vector>
 #include <Graphics/GraphicsContext.h>
-#include <Graphics/VertexFormats.h>
-#include <Graphics/RenderTarget.h>
 
 class ICamera;
 class PostProcessRenderer
@@ -15,6 +13,8 @@ public:
 	template<typename T>
 	T* Get()
 	{
+		static_assert(std::is_base_of<PostProcess, T>::value, "Type must inherit from PostProcess!");
+
 		for (auto& postProcess : _postProcesses)
 		{
 			T* p = dynamic_cast<T*>(postProcess.get());

@@ -16,12 +16,6 @@
     <Filter Include="Shaders">
       <UniqueIdentifier>{d4b97bfd-2bd0-4abd-81d7-e7d5c54ea36e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Post Processing">
-      <UniqueIdentifier>{4c9f7313-fe5e-44a5-ad10-1e68b26a3bf5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Post Processing">
-      <UniqueIdentifier>{99757600-7ce0-4207-a223-9afdffa2a1ff}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Source\main.cpp">
@@ -32,12 +26,6 @@
     </ClCompile>
     <ClCompile Include="..\Source\TestScene.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Source\Post Processing\PostProcess.cpp">
-      <Filter>Source Files\Post Processing</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Source\Post Processing\PostProcessRenderer.cpp">
-      <Filter>Source Files\Post Processing</Filter>
     </ClCompile>
     <ClCompile Include="..\Source\Renderer.cpp">
       <Filter>Source Files</Filter>
@@ -73,35 +61,8 @@
     <ClInclude Include="..\Source\Skybox.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\Source\Post Processing\Fog.h">
-      <Filter>Header Files\Post Processing</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Source\Post Processing\Pixelizer.h">
-      <Filter>Header Files\Post Processing</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Source\Post Processing\PostProcess.h">
-      <Filter>Header Files\Post Processing</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Source\Post Processing\PostProcessRenderer.h">
-      <Filter>Header Files\Post Processing</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Source\Post Processing\Vignette.h">
-      <Filter>Header Files\Post Processing</Filter>
-    </ClInclude>
     <ClInclude Include="..\Source\FloatingCube.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Source\Post Processing\GaussianBlur.h">
-      <Filter>Header Files\Post Processing</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Source\Post Processing\DepthOfField.h">
-      <Filter>Header Files\Post Processing</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Source\Post Processing\ColorAdjust.h">
-      <Filter>Header Files\Post Processing</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Source\Post Processing\SSAO.h">
-      <Filter>Header Files\Post Processing</Filter>
     </ClInclude>
     <ClInclude Include="..\Source\Renderer.h">
       <Filter>Header Files</Filter>

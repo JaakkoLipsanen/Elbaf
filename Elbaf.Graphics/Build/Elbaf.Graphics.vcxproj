@@ -141,6 +141,8 @@
     <ClCompile Include="..\Source\Graphics\Font.cpp" />
     <ClCompile Include="..\Source\Graphics\GraphicsModule.cpp" />
     <ClCompile Include="..\Source\Graphics\OpenGL\OGLRenderTarget.cpp" />
+    <ClCompile Include="..\Source\Graphics\Post Processing\PostProcess.cpp" />
+    <ClCompile Include="..\Source\Graphics\Post Processing\PostProcessRenderer.cpp" />
     <ClCompile Include="..\Source\Graphics\SpriteBatch.cpp" />
     <ClCompile Include="..\Source\Graphics\Texture.cpp" />
     <ClCompile Include="..\Source\Graphics\VertexBuffer.cpp" />
@@ -171,6 +173,15 @@
     <ClInclude Include="..\Include\Graphics\DepthState.h" />
     <ClInclude Include="..\Include\Graphics\GraphicsContext.h" />
     <ClInclude Include="..\Include\Graphics\Image.h" />
+    <ClInclude Include="..\Include\Graphics\Post Processing\ColorAdjust.h" />
+    <ClInclude Include="..\Include\Graphics\Post Processing\DepthOfField.h" />
+    <ClInclude Include="..\Include\Graphics\Post Processing\Fog.h" />
+    <ClInclude Include="..\Include\Graphics\Post Processing\GaussianBlur.h" />
+    <ClInclude Include="..\Include\Graphics\Post Processing\Pixelizer.h" />
+    <ClInclude Include="..\Include\Graphics\Post Processing\PostProcess.h" />
+    <ClInclude Include="..\Include\Graphics\Post Processing\PostProcessRenderer.h" />
+    <ClInclude Include="..\Include\Graphics\Post Processing\SSAO.h" />
+    <ClInclude Include="..\Include\Graphics\Post Processing\Vignette.h" />
     <ClInclude Include="..\Include\Graphics\RenderTarget.h" />
     <ClInclude Include="..\Include\Graphics\Shader.h" />
     <ClInclude Include="..\Include\Graphics\SpriteBatch.h" />

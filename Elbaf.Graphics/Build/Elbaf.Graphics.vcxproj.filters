@@ -18,6 +18,12 @@
     <Filter Include="Private Header Files\OpenGL">
       <UniqueIdentifier>{fb1a2a8b-a2ad-4402-9664-5763e071543c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Post Processing">
+      <UniqueIdentifier>{56952b2c-b5fb-4c33-be8e-be528cfab5d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Public Header Files\Post Processing">
+      <UniqueIdentifier>{864fbe65-7d77-416e-9cc5-b67262a1e0bd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Source\Graphics\OpenGL\GameWindow.cpp">
@@ -76,6 +82,12 @@
     </ClCompile>
     <ClCompile Include="..\Source\Graphics\SpriteBatch.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Graphics\Post Processing\PostProcess.cpp">
+      <Filter>Source Files\Post Processing</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Graphics\Post Processing\PostProcessRenderer.cpp">
+      <Filter>Source Files\Post Processing</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -195,6 +207,33 @@
     </ClInclude>
     <ClInclude Include="..\Include\Graphics\SpriteBatch.h">
       <Filter>Public Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Graphics\Post Processing\GaussianBlur.h">
+      <Filter>Public Header Files\Post Processing</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Graphics\Post Processing\Pixelizer.h">
+      <Filter>Public Header Files\Post Processing</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Graphics\Post Processing\PostProcess.h">
+      <Filter>Public Header Files\Post Processing</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Graphics\Post Processing\PostProcessRenderer.h">
+      <Filter>Public Header Files\Post Processing</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Graphics\Post Processing\SSAO.h">
+      <Filter>Public Header Files\Post Processing</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Graphics\Post Processing\Vignette.h">
+      <Filter>Public Header Files\Post Processing</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Graphics\Post Processing\ColorAdjust.h">
+      <Filter>Public Header Files\Post Processing</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Graphics\Post Processing\DepthOfField.h">
+      <Filter>Public Header Files\Post Processing</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Graphics\Post Processing\Fog.h">
+      <Filter>Public Header Files\Post Processing</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

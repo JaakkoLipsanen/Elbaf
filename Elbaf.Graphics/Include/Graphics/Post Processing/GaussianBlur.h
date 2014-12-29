@@ -4,6 +4,7 @@
 #include <Graphics/Shader.h>
 #include <Engine/Screen.h>
 
+// this doesn't use the "gaussian matrix" or whatever it is; this is my version which, well, isn't actually *gaussian* blur :P
 class GaussianBlurPostProcess : public PostProcess
 {
 protected:

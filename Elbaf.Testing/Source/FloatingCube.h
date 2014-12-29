@@ -7,6 +7,7 @@
 #include <Graphics/VertexBuffer.h>
 #include <Core/Array.h>
 #include <Core/Global.h>
+#include <Graphics/VertexFormats.h>
 
 class FloatingCube
 {

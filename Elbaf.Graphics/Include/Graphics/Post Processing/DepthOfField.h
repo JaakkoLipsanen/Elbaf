@@ -5,6 +5,7 @@
 #include <Engine/Screen.h>
 #include <Engine/ICamera.h>
 
+// todo: this has some visual glitches, is pretty slow and overall not-too-good. I made this without any resources. read some resources on how to do this properly and implement it
 class DepthOfFieldPostProcess : public PostProcess
 {
 protected:

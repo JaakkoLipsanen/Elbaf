@@ -1,53 +1,20 @@
 #pragma once
 #include "PostProcess.h"
 #include <Graphics/ShaderSource.h>
-#include <Input/Input.h>
-#include <Input/KeyCode.h>
-#include <Math/Range.h>
 #include "DefaultCamera.h"
-#include <Diagnostics/Logger.h>
 #include <Math/FlaiMath.h>
-#include <Graphics/RenderTarget.h>
+#include <Graphics/Shader.h>
+#include <Graphics/PrimitiveType.h>
+#include <Graphics/VertexBuffer.h>
 
-class FogPostProcess : public PostProcess
+class SSAO : public PostProcess
 {
-
 public:
-	explicit FogPostProcess(GraphicsContext& graphicsContext)
-		: PostProcess(graphicsContext), _fogColor(Color::Purple), _fogRange(-1, -1) // fog color and range are set to correct values in LoadContent
+	explicit SSAO(GraphicsContext& graphicsContext)
+		: PostProcess(graphicsContext)
 	{
 	}
 
-	Color GetFogColor() const { return _fogColor; }
-	void SetFogColor(const Color& color)
-	{
-		if (_fogColor != color)
-		{
-			_fogColor = color;
-			_dirty = true;
-		}
-	}
-
-	Range<float> GetFogRange() const { return _fogRange; }
-	void SetFogRange(const Range<float>& range)
-	{
-		if (_fogRange != range)
-		{
-			_fogRange = range;
-			_dirty = true;
-		}
-	}
-
-	// "use color" == does fog use RGBA values or only A value?
-	bool GetUseColor() const { return _useColor; }
-	void SetUseColor(bool useColor)
-	{
-		if (_useColor != useColor)
-		{
-			_useColor = useColor;
-			_dirty = true;
-		}
-	}
 
 protected:
 	virtual ShaderSource CreateShader(std::string const& defaultVertexShader) override
@@ -65,10 +32,6 @@ protected:
 			uniform sampler2D DepthSampler; // depth reconstruction 
 			uniform bool UseColor;
 
-			uniform float FogStart;
-			uniform float FogEnd;
-			uniform vec4 FogColor;
-
 			// depth reconstruction 
 			uniform float zNear;
 			uniform float zFar;
@@ -77,12 +40,18 @@ protected:
 			uniform vec3 CameraDirection;
 			uniform vec2 NearPlaneSize;
 
-			void main() {
-				color = texture2D(TextureSampler, fragmentUV);
-						
-				float depthBufferZ =  texture2D(DepthSampler, fragmentUV).r;
-				if(depthBufferZ == 1) // if depth is "no"/default/cleared depth (which is 1 currently in Elbaf), then dont use fog
-					return;
+			
+			uniform int SampleRadius = 0;
+			uniform int SampleCount = 0;
+			uniform vec2 PixelSize;
+
+
+			float CalculatePixelDepthFromCamera(vec2 uv)
+			{
+				float depthBufferZ =  texture2D(DepthSampler, uv).r;
+	
+				//float depthBufferZ =  texture2D(DepthSampler, fragmentUV).r;
+				//if(depthBufferZ == 1) return 0;
 
 				depthBufferZ = 2.0 * depthBufferZ - 1.0; // [-1, 1] -> [0, 1]
 				float pixelZ = 2.0 * zNear * zFar / (zFar + zNear - depthBufferZ * (zFar - zNear)); // [zNear, zFar-zNear] // todo: concerns here. is it really [zNear, zFar-zNear]? 
@@ -106,17 +75,35 @@ protected:
 				// calculate the final position of the pixel in the world
 				vec3 pixelPositionInWorld = pixelPositionInNearPlane + normalize(pixelPositionInNearPlane - CameraPosition) * pixelZ * zLengthMultiplier;
 
-				float pixelDistanceFromCamera = distance(pixelPositionInWorld, CameraPosition);
-				float fogValue = clamp((pixelDistanceFromCamera - FogStart) / (FogEnd-FogStart), 0, 1);
+				return distance(pixelPositionInWorld, CameraPosition);
+			}
+			
 
-				if(UseColor)
+
+			float CalculateZBufferAvg(vec2 sampleAreaSize, vec2 uv)
+			{
+				float result = 0;
+				vec2 stepSize = sampleAreaSize / SampleCount;
+				for(int j = -SampleCount; j <= SampleCount; j++)
 				{
-					color = mix(color, FogColor, fogValue);
+					for(int i = -SampleCount; i <= SampleCount; i++)
+					{
+						result += CalculatePixelDepthFromCamera(uv + vec2(i, j) * stepSize);
+					}
 				}
-				else
-				{
-					color.a *= (1 - fogValue);
-				}
+
+				result /= float((SampleCount * 2 + 1) * (SampleCount * 2 + 1));
+				return result;
+			}
+
+			
+			void main() {
+				color = texture2D(TextureSampler, fragmentUV);
+				float distance = CalculatePixelDepthFromCamera(fragmentUV);
+				distance -= CalculateZBufferAvg(PixelSize * SampleRadius, fragmentUV);
+				distance = pow(abs(distance), 0.4);
+				distance = min(1, distance > 2 ? distance / 8.0f : 0);
+				color.rgb =  vec3(distance, distance, distance);
 			})XXX";
 
 		return ShaderSource::FromSource(defaultVertexShader, FogFragmentShader);
@@ -127,24 +114,11 @@ protected:
 		this->GetShader().Bind();
 		this->GetShader().SetTextureSampler("TextureSampler", 0);
 		this->GetShader().SetTextureSampler("DepthSampler", 1);
-
-		this->SetFogColor(Color(48, 48, 56));
-		this->SetFogRange(Range<float>(1500, 4000));
-		this->SetUseColor(false);
 	}
 
 	virtual void Process(RenderTarget& source, RenderTarget& destination, RenderTarget& originalSceneRT, const ICamera* renderCamera) override
 	{
 		this->GetShader().Bind();
-		if (_dirty)
-		{
-			this->GetShader().SetParameter("FogColor", _fogColor.ToVector4f());
-			this->GetShader().SetParameter("FogStart", _fogRange.Min);
-			this->GetShader().SetParameter("FogEnd", _fogRange.Max);
-			this->GetShader().SetParameter("UseColor", _useColor);
-			_dirty = false;
-		}
-
 
 		// bind depth texture to sampler 1
 		originalSceneRT.GetDepthTexture().BindToSampler(1);
@@ -157,34 +131,9 @@ protected:
 		this->GetShader().SetParameter("CameraPosition", renderCamera->GetPosition());
 		this->GetShader().SetParameter("CameraDirection", renderCamera->GetDirection());
 
-		struct Frustum
-		{
-			// todo: make const
-			Vector3f NearTopLeft;
-			Vector3f NearTopRight;
-			Vector3f NearBottomLeft;
-			Vector3f NearBottomRight;
-
-			Vector3f FarTopLeft;
-			Vector3f FarTTopRight;
-			Vector3f FarTBottomLeft;
-			Vector3f FarTBottomRight;
-
-			static Frustum Create(const DefaultCamera camera)
-			{
-				float nearPlaneHeight = 2 * tan(camera.GetVerticalFieldOfView() / 2.0f) * camera.GetNearZ();
-				float nearPlaneWidth = nearPlaneHeight * camera.GetAspectRatio();
-
-				float farPlaneHeight = 2 * tan(camera.GetVerticalFieldOfView() / 2.0) * camera.GetFarZ();
-				float farPlaneWidth = farPlaneHeight * camera.GetAspectRatio();
-
-				Vector3f centerNear = camera.GetPosition() + camera.GetDirection() * camera.GetNearZ();
-				Vector3f centerFar = camera.GetPosition() + camera.GetDirection() * camera.GetFarZ();
-
-				return Frustum();
-
-			}
-		};
+		this->GetShader().SetParameter("SampleRadius", 12);
+		this->GetShader().SetParameter("SampleCount", 3);
+		this->GetShader().SetParameter("PixelSize", Vector2f::One / Vector2f(Vector2i(Screen::GetSize())));
 
 		//Logger::LogMessage(renderCamera->GetDirection());
 		auto cam = dynamic_cast<const DefaultCamera*>(renderCamera);
@@ -193,10 +142,4 @@ protected:
 		this->GetShader().SetParameter("NearPlaneSize", Vector2f(height * 16.0f / 9.0f, height));
 		_graphicsContext.DrawPrimitives(PrimitiveType::TriangleList, 0, this->GetFullscreenQuadBuffer().GetVertexCount());
 	}
-
-private:
-	bool _useColor;
-	Range<float> _fogRange;
-	Color _fogColor;
-	bool _dirty;
 };

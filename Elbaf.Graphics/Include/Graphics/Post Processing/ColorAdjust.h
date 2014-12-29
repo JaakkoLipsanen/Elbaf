@@ -1,5 +1,5 @@
 #pragma once
-#include <Post Processing/PostProcess.h>
+#include <Graphics/Post Processing/PostProcess.h>
 #include <Graphics/ShaderSource.h>
 
 class ColorAdjustPostProcess : public PostProcess

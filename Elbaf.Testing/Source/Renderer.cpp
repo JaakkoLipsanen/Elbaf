@@ -10,15 +10,17 @@
 
 #include <Graphics/VertexFormats.h>
 #include <Graphics/RenderTarget.h>
-#include "Post Processing/Vignette.h"
-#include "Post Processing/Fog.h"
-#include "Post Processing/Pixelizer.h"
-#include <Post Processing/GaussianBlur.h>
-#include <Post Processing/DepthOfField.h>
-#include <Post Processing/ColorAdjust.h>
-#include <Engine/Time.h>
-#include <Post Processing/SSAO.h>
+#include <Graphics/Post Processing/Vignette.h>
+#include <Graphics/Post Processing/Fog.h>
+#include <Graphics/Post Processing/Pixelizer.h>
+#include <Graphics/Post Processing/GaussianBlur.h>
+#include <Graphics/Post Processing/ColorAdjust.h>
+#include <Graphics/Post Processing/DepthOfField.h>
+#include <Graphics/Post Processing/SSAO.h>
+
 #include <glm/gtc/matrix_transform.inl>
+#include <Input/Input.h>
+#include <Input/KeyCode.h>
 
 Matrix4x4 GetShadowMVP();
 Renderer::Renderer(GraphicsContext& graphicsContext)
@@ -72,7 +74,7 @@ void Renderer::PostUpdate()
 {
 	_postProcessRenderer.Update();
 
-	if (Input::IsNewKeyPress(KeyCode::Tab))
+	if (Input::IsNewKeyPress(KeyCode::LeftShift))
 	{
 		auto dof = _postProcessRenderer.Get<DepthOfFieldPostProcess>();
 		dof->SetEnabled(!dof->IsEnabled());
