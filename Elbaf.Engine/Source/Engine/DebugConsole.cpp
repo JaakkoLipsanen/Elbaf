@@ -1,4 +1,5 @@
-#include <DebugConsole.h>
+
+#include <Engine/DebugConsole.h>
 #include <Graphics/SpriteBatch.h>
 #include <Engine/Game.h>
 #include <Math/FlaiMath.h>
@@ -54,12 +55,21 @@ static ConsoleState AdvanceState(ConsoleState state)
 	}
 }
 
+static ConsoleState GetInitialState()
+{
+#if DEBUG
+	return ConsoleState::Peeking;
+#endif
+
+	return ConsoleState::Hidden;
+}
+
 class DebugConsole::Impl
 {
 public:
-	explicit Impl(Game& game) : 
-		Game(game), State(ConsoleState::Peeking)
-	{		
+	explicit Impl(Game& game) :
+		Game(game), State(GetInitialState())
+	{
 	}
 
 	Game& Game;

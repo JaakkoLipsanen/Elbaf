@@ -126,6 +126,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\Include\Engine\DebugConsole.h" />
     <ClInclude Include="..\Include\Engine\Game.h" />
     <ClInclude Include="..\Include\Engine\Graphics.h" />
     <ClInclude Include="..\Include\Engine\ICamera.h" />
@@ -138,6 +139,7 @@
     <ClInclude Include="..\Source\Engine\TimeModule.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\Source\Engine\DebugConsole.cpp" />
     <ClCompile Include="..\Source\Engine\Game.cpp" />
     <ClCompile Include="..\Source\Engine\Graphics.cpp" />
     <ClCompile Include="..\Source\Engine\Platform.cpp" />

@@ -30,9 +30,6 @@
     <ClCompile Include="..\Source\Renderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\Source\DebugConsole.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\DepthPass.glsl">
@@ -65,9 +62,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\Source\Renderer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Source\DebugConsole.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\Source\SpriteBatch.h">

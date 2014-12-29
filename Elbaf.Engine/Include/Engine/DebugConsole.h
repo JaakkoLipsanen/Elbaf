@@ -3,6 +3,7 @@
 
 class Game;
 
+// todo: "void AddCommand(name-string, callback-function);"
 class DebugConsole
 {
 public:

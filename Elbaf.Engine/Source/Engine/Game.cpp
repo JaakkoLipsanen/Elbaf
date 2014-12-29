@@ -12,10 +12,12 @@
 #include <Engine/SceneModule.h>
 #include <Content/ContentModule.h>
 
+#include <Engine/DebugConsole.h>
+
 class Game::Impl
 {
 public:
-	explicit Impl(Game& game, std::string title) : Title(title), _game(game) { }
+	explicit Impl(Game& game, std::string title) : Title(title), _game(game), _debugConsole(game) { }
 
 	bool IsRunning = false;
 	bool IsExiting = false;
@@ -35,6 +37,7 @@ public:
 		// initialize!
 		this->InitializeModules();
 		_game.Initialize();
+		_debugConsole.LoadContent();
 
 		// run!
 		Logger::LogMessage("Running Game..");
@@ -53,6 +56,7 @@ public:
 
 private:
 	Game& _game;
+	DebugConsole _debugConsole;
 
 	void InitializeModules()
 	{
@@ -89,6 +93,9 @@ private:
 		_game.PreRender();
 		this->SceneModule->Render(); // todo: should rendering happen in SceneModule::Update? that would be a "more correct" approach maybe...? 
 		_game.PostRender();
+
+		_debugConsole.Update();
+		_debugConsole.Render();
 
 		this->EndFrame();
 	}

@@ -82,7 +82,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>C:\Koodaus\OpenGL\Elbaf\Elbaf.Diagnostics\Include;C:\Koodaus\OpenGL\Elbaf\Elbaf.Math\Include;C:\Koodaus\OpenGL\Elbaf\Elbaf.Graphics\Source;C:\Koodaus\OpenGL\Elbaf\Elbaf.Graphics\Include;C:\Koodaus\OpenGL\Elbaf\Elbaf.Input\Include;C:\Koodaus\OpenGL\Elbaf\Elbaf.Engine\Include;C:\Koodaus\OpenGL\Elbaf\Elbaf.Content\Include;C:\Koodaus\OpenGL\Elbaf\Elbaf.Core\Include;C:\Koodaus\OpenGL\Elbaf\Libraries\glew\include;C:\Koodaus\OpenGL\Elbaf\Libraries\glfw\include;C:\Koodaus\OpenGL\Elbaf\Libraries\libpng\include;C:\Koodaus\OpenGL\Elbaf\Libraries\freetype\include;C:\Koodaus\OpenGL\Elbaf\Libraries\glm\include;C:\Koodaus\OpenGL\Elbaf\Elbaf.Testing\Source</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>OPENGL;GLEW_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>OPENGL;GLEW_STATIC;DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -111,7 +111,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>C:\Koodaus\OpenGL\Elbaf\Elbaf.Diagnostics\Include;C:\Koodaus\OpenGL\Elbaf\Elbaf.Math\Include;C:\Koodaus\OpenGL\Elbaf\Elbaf.Graphics\Source;C:\Koodaus\OpenGL\Elbaf\Elbaf.Graphics\Include;C:\Koodaus\OpenGL\Elbaf\Elbaf.Input\Include;C:\Koodaus\OpenGL\Elbaf\Elbaf.Engine\Include;C:\Koodaus\OpenGL\Elbaf\Elbaf.Content\Include;C:\Koodaus\OpenGL\Elbaf\Elbaf.Core\Include;C:\Koodaus\OpenGL\Elbaf\Libraries\glew\include;C:\Koodaus\OpenGL\Elbaf\Libraries\glfw\include;C:\Koodaus\OpenGL\Elbaf\Libraries\libpng\include;C:\Koodaus\OpenGL\Elbaf\Libraries\freetype\include;C:\Koodaus\OpenGL\Elbaf\Libraries\glm\include;C:\Koodaus\OpenGL\Elbaf\Elbaf.Testing\Source</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>OPENGL;GLEW_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>OPENGL;GLEW_STATIC;RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -121,7 +121,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\Source\DebugConsole.cpp" />
     <ClCompile Include="..\Source\DefaultCamera.cpp" />
     <ClCompile Include="..\Source\main.cpp" />
     <ClCompile Include="..\Source\Renderer.cpp" />
@@ -133,7 +132,6 @@
     <None Include="Shaders\TerrainShader.glsl" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Source\DebugConsole.h" />
     <ClInclude Include="..\Source\DefaultCamera.h" />
     <ClInclude Include="..\Source\FloatingCube.h" />
     <ClInclude Include="..\Source\NoiseGen.h" />
