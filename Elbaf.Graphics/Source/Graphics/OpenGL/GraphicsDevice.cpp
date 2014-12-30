@@ -46,7 +46,7 @@ public:
 
 	void OpenWindow(const WindowDescription& windowDescription)
 	{
-		this->Window.Open(windowDescription.Resolution, windowDescription.Title, windowDescription.IsFullScreen); // pass WindowDescription to Open?
+		this->Window.Open(windowDescription); // pass WindowDescription to Open?
 		OGL::GLFW::InitializeCallbacks(Window.GetGLFWwindow());
 		this->InitializeGLEW(); // glew must be initialized after opening window (= after creating glfw context)
 	}

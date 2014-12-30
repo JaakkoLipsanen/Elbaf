@@ -1,6 +1,7 @@
 #pragma once
 #include <Core\IGameWindow.h>
 
+struct WindowDescription;
 struct GLFWwindow;
 namespace OGL
 {
@@ -17,8 +18,10 @@ namespace OGL
 		// virtual void SetResolution(const Size& newSize) = 0; // this doesn't belong here. "SetSize" would
 		// void SetPosition(const Vector2i& position) = 0; ?
 		
+		virtual void SetPosition(Vector2i position) override;
+		
 		//not exposed by IGameWindow
-		void Open(const Size& size, const std::string& title, bool fullScreen);
+		void Open(const WindowDescription& description);
 		void Terminate(); 
 		GLFWwindow* GetGLFWwindow() const;
 

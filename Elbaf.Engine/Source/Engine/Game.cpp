@@ -60,7 +60,7 @@ private:
 
 	void InitializeModules()
 	{
-		WindowDescription description({ 1280, 720 }, this->Title, false);
+		WindowDescription description({ 1280, 720 }, this->Title, false, false);
 		_game.SetupWindow(description);
 		this->GraphicsModule.reset(new ::GraphicsModule(_game, description));
 		this->InputModule.reset(new ::InputModule(_game));

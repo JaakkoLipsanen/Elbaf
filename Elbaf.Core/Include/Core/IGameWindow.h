@@ -9,6 +9,7 @@ public:
 	virtual ~IGameWindow() {}
 
 	virtual void SetTitle(const std::string& title) = 0;
+	virtual void SetPosition(Vector2i position) = 0;
 	virtual bool IsOpen() const = 0;
 	virtual bool IsExiting() const = 0;
 

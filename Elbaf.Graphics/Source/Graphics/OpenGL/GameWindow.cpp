@@ -1,10 +1,10 @@
 #include <Graphics\OpenGL\GameWindow.h>
 
-#include <iostream>
 #include <Diagnostics\Ensure.h>
 #include <Graphics\OpenGL\OGL.h>
+#include <Core/WindowDescription.h>
 
-void OGL::GameWindow::Open(const Size& size, const std::string& title, bool fullScreen)
+void OGL::GameWindow::Open(const WindowDescription& description)
 {
 	Ensure::Null(_window, "Window is already opened!");
 
@@ -14,7 +14,10 @@ void OGL::GameWindow::Open(const Size& size, const std::string& title, bool full
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 4);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-	_window = glfwCreateWindow(size.Width, size.Height, title.c_str(), fullScreen ? glfwGetPrimaryMonitor() : nullptr, nullptr);
+	glfwWindowHint(GLFW_RESIZABLE, description.IsResizable);
+	glfwWindowHint(GLFW_DECORATED, description.HasBorders);
+
+	_window = glfwCreateWindow(description.Resolution.Width, description.Resolution.Height, description.Title.c_str(), description.IsFullScreen ? glfwGetPrimaryMonitor() : nullptr, nullptr);
 	glfwMakeContextCurrent(_window);
 }
 
@@ -37,6 +40,11 @@ bool OGL::GameWindow::IsExiting() const
 {
 	Ensure::NotNull(_window, "Window is not open!");
 	return glfwWindowShouldClose(_window) == GL_TRUE;
+}
+
+void OGL::GameWindow::SetPosition(Vector2i position)
+{
+	glfwSetWindowPos(_window, position.X, position.Y);
 }
 
 GLFWwindow* OGL::GameWindow::GetGLFWwindow() const

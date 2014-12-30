@@ -9,6 +9,8 @@
 #include <Graphics/SpriteBatch.h>
 #include <Graphics/TextureHelper.h>
 
+#include <Core/IGameWindow.h>
+
 class MyGame : public Game
 {
 	std::unique_ptr<Font> _font;
@@ -19,6 +21,7 @@ protected:
 	void SetupWindow(WindowDescription& description) override
 	{
 		description.Resolution = Size(1920, 1080);
+		description.HasBorders = false;
 	}
 
 public:
@@ -31,6 +34,8 @@ public:
 
 	virtual void Initialize() override
 	{
+		this->GetWindow().SetPosition(Vector2i(320, 160));
+
 		// Initialize mouse settings
 		Mouse::SetCursorVisibility(CursorVisibility::Disabled);
 		Mouse::SetPosition({ Screen::GetWidth() / 2, Screen::GetHeight() / 2 });
