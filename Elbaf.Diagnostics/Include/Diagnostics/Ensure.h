@@ -26,7 +26,7 @@ namespace Ensure
 	template<typename T>
 	void WithinRange(const T& value, const T& min, const T& max, const std::string& message) // inclusive min, exclusive max
 	{
-		if (value < min && value >= max)
+		if (value < min || value >= max)
 		{
 			throw std::invalid_argument(message);
 		}
