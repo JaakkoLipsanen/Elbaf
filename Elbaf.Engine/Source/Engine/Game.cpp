@@ -39,9 +39,11 @@ public:
 		_game.Initialize();
 		_debugConsole.LoadContent();
 
+		this->SceneModule->LoadScene(_game.CreateDefaultScene());
+
 		// run!
 		Logger::LogMessage("Running Game..");
-		while (!this->GraphicsModule->GetGameWindow().IsExiting() || this->IsExiting)
+		while (!this->GraphicsModule->GetGameWindow().IsExiting() && !this->IsExiting)
 		{
 			// todo: fps limiting or something? i mean 60fps lock etc. and fixedupdate?
 			this->Tick();
@@ -73,8 +75,6 @@ private:
 		this->TimeModule->Initialize();
 		this->SceneModule->Initialize();
 		this->ContentModule->Initialize();
-
-		this->SceneModule->LoadScene(_game.CreateDefaultScene());
 	}
 
 	void Tick()
