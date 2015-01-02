@@ -22,7 +22,10 @@ struct Color
 
 	Vector3f ToVector3f() const;
 	Vector4f ToVector4f() const;
-	static Color Lerp(const Color& from, const Color& to, float value);
+	uint32 ToPackedValue() const;
+	static Color Lerp(const Color& from, const Color& to, float amount);
+	static Color Slerp(const Color& from, const Color& to, float amount);
+	static Color MultiplyRGB(const Color& color, float multiplier);
 
 	// from XNA. Wrote a nice script that converted C# to C++ :)
 	static const Color Transparent;

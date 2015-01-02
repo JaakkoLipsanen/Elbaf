@@ -17,7 +17,7 @@ Color::Color(uint32 packedValue)
 }
 
 Color::Color(float r, float g, float b)
-	: R(byte(FlaiMath::Clamp(int(r * 255), 0, 255))), G(byte(FlaiMath::Clamp(int(g * 255), 0, 255))), B(byte(FlaiMath::Clamp(int(b * 255), 0, 255)))
+	: R(byte(FlaiMath::Clamp(int(r * 255), 0, 255))), G(byte(FlaiMath::Clamp(int(g * 255), 0, 255))), B(byte(FlaiMath::Clamp(int(b * 255), 0, 255))), A(255)
 {
 }
 
@@ -27,7 +27,7 @@ Color::Color(float r, float g, float b, float a)
 }
 
 Color::Color(int32 r, int32 g, int32 b)
-	: R(FlaiMath::Clamp(r, 0, 255)), G(FlaiMath::Clamp(g, 0, 255)), B(FlaiMath::Clamp(b, 0, 255))
+	: R(FlaiMath::Clamp(r, 0, 255)), G(FlaiMath::Clamp(g, 0, 255)), B(FlaiMath::Clamp(b, 0, 255)), A(255)
 {
 }
 
@@ -62,6 +62,26 @@ bool Color::operator!=(Color const& other) const
 Vector3f Color::ToVector3f() const
 {
 	return Vector3f(this->R / 255.0f, this->G / 255.0f, this->B / 255.0f);
+}
+
+uint32 Color:: ToPackedValue() const
+{
+	throw std::exception("Not implemented. See Flai.Unity.Graphics.ColorHelper for reference");
+}
+
+Color Color::Slerp(const Color& from, const Color& to, float amount)
+{
+	amount = FlaiMath::Clamp(amount, 0.0f, 1.0f);
+	return Color::Lerp(from, to, amount * amount * (3.0f - 2.0f * amount));
+}
+
+Color Color::MultiplyRGB(const Color& color, float multiplier)
+{
+	return Color(
+		static_cast<uint8>(FlaiMath::Clamp(color.R * multiplier, 0.0f, 255.0f)),
+		static_cast<uint8>(FlaiMath::Clamp(color.G * multiplier, 0.0f, 255.0f)),
+		static_cast<uint8>(FlaiMath::Clamp(color.B * multiplier, 0.0f, 255.0f)),
+		color.A);
 }
 
 Vector4f Color::ToVector4f() const
