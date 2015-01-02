@@ -9,6 +9,7 @@ class PostProcessRenderer
 
 public:
 	explicit PostProcessRenderer(GraphicsContext& graphicsContext);
+	~PostProcessRenderer();
 
 	template<typename T>
 	T* Get()

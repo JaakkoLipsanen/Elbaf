@@ -18,6 +18,9 @@ static const std::string DefaultVertexShader = R"XXX(
 	})XXX";
 
 
+PostProcess::PostProcess(GraphicsContext& graphicsContext) : _graphicsContext(graphicsContext), _enabled(true) { }
+PostProcess::~PostProcess() = default;
+
 VertexBuffer& PostProcess::GetFullscreenQuadBuffer()
 {
 	return *_parentRenderer->_quadVertexBuffer;

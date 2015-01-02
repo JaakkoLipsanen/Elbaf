@@ -10,6 +10,7 @@
 #include <Graphics/RenderTarget.h>
 #include <Graphics/VertexFormats.h>
 
+PostProcessRenderer::~PostProcessRenderer() = default;
 PostProcessRenderer::PostProcessRenderer(GraphicsContext& graphicsContext)
 	: _graphicsContext(graphicsContext), _quadVertexBuffer(graphicsContext.CreateVertexBuffer(BufferType::Static))
 {

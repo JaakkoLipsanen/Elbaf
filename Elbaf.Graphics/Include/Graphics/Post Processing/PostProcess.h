@@ -1,7 +1,5 @@
 #pragma once
 #include <Graphics/GraphicsContext.h>
-#include <Graphics/RenderTarget.h>
-#include <string>
 
 class ICamera;
 class PostProcess
@@ -9,7 +7,7 @@ class PostProcess
 	friend class PostProcessRenderer;
 
 public:
-	virtual ~PostProcess() { }
+	virtual ~PostProcess();
 
 	bool IsEnabled() const
 	{
@@ -22,7 +20,8 @@ public:
 	}
 
 protected:
-	explicit PostProcess(GraphicsContext& graphicsContext) : _graphicsContext(graphicsContext), _enabled(true) { }
+	explicit PostProcess(GraphicsContext& graphicsContext);
+
 	virtual void LoadContent() { }
 	virtual ShaderSource CreateShader(const std::string& defaultVertexShader) = 0;
 

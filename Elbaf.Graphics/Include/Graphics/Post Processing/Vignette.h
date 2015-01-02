@@ -9,6 +9,10 @@ protected:
 		static const std::string VignetteFragmentShader = R"XXX(
 			#version 330 core
 
+			uniform float Radius = 1;
+			uniform float Softness = 0.45;
+			uniform float Opacity = 0.5;
+
 			in vec2 fragmentUV;
 			layout(location = 0) out vec4 color;
 
@@ -16,11 +20,10 @@ protected:
 			void main() {
 				color = texture2D(TextureSampler, fragmentUV);
 
-				float distanceFromCenter = length(fragmentUV - vec2(0.5f, 0.5));
-				float normalized = max(0, distanceFromCenter - 0.25f);
-				normalized = pow(normalized, 2);
+				float distanceFromCenter = length(fragmentUV - vec2(0.5f, 0.5)) * 1.41;
+				float vignette = smoothstep(Radius, Radius - Softness, distanceFromCenter);
 
-				color.rgb *= 1 - normalized * 4f;
+				color.rgb = mix(color.rgb, color.rgb * vignette, Opacity);
 		
 			})XXX";
 
