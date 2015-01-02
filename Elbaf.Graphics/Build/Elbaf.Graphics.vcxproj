@@ -140,6 +140,7 @@
   <ItemGroup>
     <ClCompile Include="..\Source\Graphics\Font.cpp" />
     <ClCompile Include="..\Source\Graphics\GraphicsModule.cpp" />
+    <ClCompile Include="..\Source\Graphics\OpenGL\Monitor.cpp" />
     <ClCompile Include="..\Source\Graphics\OpenGL\OGLRenderTarget.cpp" />
     <ClCompile Include="..\Source\Graphics\Post Processing\PostProcess.cpp" />
     <ClCompile Include="..\Source\Graphics\Post Processing\PostProcessRenderer.cpp" />
@@ -173,6 +174,7 @@
     <ClInclude Include="..\Include\Graphics\DepthState.h" />
     <ClInclude Include="..\Include\Graphics\GraphicsContext.h" />
     <ClInclude Include="..\Include\Graphics\Image.h" />
+    <ClInclude Include="..\Include\Graphics\IMonitor.h" />
     <ClInclude Include="..\Include\Graphics\Post Processing\ColorAdjust.h" />
     <ClInclude Include="..\Include\Graphics\Post Processing\DepthOfField.h" />
     <ClInclude Include="..\Include\Graphics\Post Processing\Fog.h" />
@@ -200,6 +202,7 @@
     <ClInclude Include="..\Source\Graphics\OpenGL\CullState.h" />
     <ClInclude Include="..\Source\Graphics\OpenGL\DepthState.h" />
     <ClInclude Include="..\Source\Graphics\OpenGL\GameWindow.h" />
+    <ClInclude Include="..\Source\Graphics\OpenGL\Monitor.h" />
     <ClInclude Include="..\Source\Graphics\OpenGL\OGLGraphicsContext.h" />
     <ClInclude Include="..\Source\Graphics\OpenGL\GraphicsDevice.h" />
     <ClInclude Include="..\Source\Graphics\OpenGL\OGL-Helper.h" />

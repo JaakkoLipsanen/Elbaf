@@ -44,6 +44,9 @@
     <ClCompile Include="..\Source\Engine\DebugConsole.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\Source\Engine\Monitor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Include\Engine\Screen.h">
@@ -81,6 +84,9 @@
     </ClInclude>
     <ClInclude Include="..\Source\Engine\SceneModule.h">
       <Filter>Private Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Engine\Monitor.h">
+      <Filter>Public Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

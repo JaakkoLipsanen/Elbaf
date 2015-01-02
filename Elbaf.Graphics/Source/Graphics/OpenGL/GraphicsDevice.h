@@ -16,6 +16,10 @@ namespace OGL
 		virtual IGameWindow& GetGameWindow() override;
 		virtual GraphicsContext& GetContext() override;
 		virtual RendererAPI GetRendererAPI() const override;
+
+		std::unique_ptr<const IMonitor> GetPrimaryMonitor() const override;
+		std::vector<std::unique_ptr<const IMonitor>> GetAllMonitors() const override;
+
 		virtual void OpenWindow(const WindowDescription& windowDescription) override;
 		virtual void RunMessagePump() override;
 

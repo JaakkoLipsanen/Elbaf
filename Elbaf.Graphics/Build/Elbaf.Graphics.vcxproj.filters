@@ -89,6 +89,9 @@
     <ClCompile Include="..\Source\Graphics\Post Processing\PostProcessRenderer.cpp">
       <Filter>Source Files\Post Processing</Filter>
     </ClCompile>
+    <ClCompile Include="..\Source\Graphics\OpenGL\Monitor.cpp">
+      <Filter>Source Files\OpenGL</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Include\Graphics\TextureFormat.h">
@@ -234,6 +237,12 @@
     </ClInclude>
     <ClInclude Include="..\Include\Graphics\Post Processing\Fog.h">
       <Filter>Public Header Files\Post Processing</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Graphics\IMonitor.h">
+      <Filter>Public Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Graphics\OpenGL\Monitor.h">
+      <Filter>Private Header Files\OpenGL</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

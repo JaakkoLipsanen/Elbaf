@@ -49,6 +49,16 @@ void GraphicsModule::Terminate()
 	_graphicsDevice->Terminate();
 }
 
+std::unique_ptr<const IMonitor> GraphicsModule::GetPrimaryMonitor() const
+{
+	return _graphicsDevice->GetPrimaryMonitor();
+}
+
+std::vector<std::unique_ptr<const IMonitor>> GraphicsModule::GetAllMonitors() const
+{
+	return _graphicsDevice->GetAllMonitors();
+}
+
 IGameWindow& GraphicsModule::GetGameWindow() const
 {
 	return _graphicsDevice->GetGameWindow();

@@ -8,6 +8,7 @@
 #include <Graphics\RendererAPI.h>
 #include <Graphics\OpenGL\OGLGraphicsContext.h>
 #include <Graphics\OpenGL\GameWindow.h>
+#include "Monitor.h"
 
 // move to own file? If I were to add more event's here, then I guess other OGL classes might want to access them
 namespace OGL
@@ -100,6 +101,25 @@ IGameWindow& OGL::GraphicsDevice::GetGameWindow()
 GraphicsContext& OGL::GraphicsDevice::GetContext()
 {
 	return _pImpl->Context;
+}
+
+std::unique_ptr<const IMonitor> OGL::GraphicsDevice::GetPrimaryMonitor() const
+{
+	return std::unique_ptr<const IMonitor>(new OGL::Monitor(glfwGetPrimaryMonitor()));
+}
+
+std::vector<std::unique_ptr<const IMonitor>> OGL::GraphicsDevice::GetAllMonitors() const
+{
+	int count;
+	GLFWmonitor** monitors = glfwGetMonitors(&count);
+
+	std::vector<std::unique_ptr<const IMonitor>> allMonitors;
+	for (int i = 0; i < count; i++)
+	{
+		allMonitors.push_back(std::unique_ptr<const IMonitor>(new OGL::Monitor(monitors[i])));
+	}
+
+	return allMonitors;
 }
 
 RendererAPI OGL::GraphicsDevice::GetRendererAPI() const
