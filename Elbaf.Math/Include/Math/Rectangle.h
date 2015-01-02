@@ -12,6 +12,21 @@ struct Rectangle
 
 	Rectangle(int x, int y, int width, int height);
 
+	int Left() const;
+	int Right() const;
+	int Bottom() const;
+	int Top() const;
+
+	int MinX() const;
+	int MaxX() const;
+	int MinY() const;
+	int MaxY() const;
+
+	Vector2i TopLeft() const;
+	Vector2i TopRight() const;
+	Vector2i BottomLeft() const;
+	Vector2i BottomRight() const;
+
 	Vector2f Center() const;
 	Size Size() const;
 

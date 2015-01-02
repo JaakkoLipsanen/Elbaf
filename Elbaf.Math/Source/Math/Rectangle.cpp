@@ -5,6 +5,66 @@
 const Rectangle Rectangle::Empty = Rectangle(0, 0, 0, 0);
 const Rectangle Rectangle::MinMax = Rectangle(INT32_MIN / 2, INT32_MIN / 2, INT32_MAX, INT32_MAX);
 
+int Rectangle::Left() const
+{
+	return this->X;
+}
+
+int Rectangle::Right() const
+{
+	return this->X + this->Width;
+}
+
+int Rectangle::Bottom() const
+{
+	return this->Y;
+}
+
+int Rectangle::Top() const
+{
+	return this->Y + this->Height;
+}
+
+int Rectangle::MinX() const
+{
+	return this->X;
+}
+
+int Rectangle::MaxX() const
+{
+	return this->X + this->Width;
+}
+
+int Rectangle::MinY() const
+{
+	return this->Y;
+}
+
+int Rectangle::MaxY() const
+{
+	return this->Y + this->Height;
+}
+
+Vector2i Rectangle::TopLeft() const
+{
+	return Vector2i(this->Left(), this->Top());
+}
+
+Vector2i Rectangle::TopRight() const
+{
+	return Vector2i(this->Right(), this->Top());
+}
+
+Vector2i Rectangle::BottomLeft() const
+{
+	return Vector2i(this->Left(), this->Bottom());
+}
+
+Vector2i Rectangle::BottomRight() const
+{
+	return Vector2i(this->Right(), this->Bottom());
+}
+
 Rectangle::Rectangle(int x, int y, int width, int height) : X(x), Y(y)
 {
 	Ensure::True(width >= 0);
