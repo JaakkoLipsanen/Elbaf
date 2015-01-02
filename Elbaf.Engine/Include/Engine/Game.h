@@ -15,7 +15,7 @@ public:
 	Event<void()> EndFrame = Event<void()>();
 	Event<void()> Exiting = Event<void()>();
 
-	Game(std::string title = "Elbaf");
+	explicit Game(std::string title = "Elbaf");
 	virtual ~Game();
 
 	void Run();

@@ -1,8 +1,8 @@
 #pragma once
 #include <Math\Vector.h>
+#include <Input/KeyCode.h>
+#include <Input/MouseButton.h>
 
-enum class KeyCode;
-enum class MouseButton;
 class IInputModule;
 
 namespace Input

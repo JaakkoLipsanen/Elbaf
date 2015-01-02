@@ -75,12 +75,18 @@ SizeF Font::MeasureText(std::string const& text) const
 	float maxHeight = 0;
 	for (int i = 0; i < text.size(); i++)
 	{
-		if (i != 0)
+		char character = text[i];
+		if (!this->ContainsCharacter(character))
 		{
-			width += this->GetKerning(text[i - 1], text[i]).X;
+			character = '?';
 		}
 
-		auto& characterDefinition = this->GetCharacterDefinition(text[i]);
+		if (i != 0)
+		{
+			width += this->GetKerning(text[i - 1], character).X;
+		}
+
+		auto& characterDefinition = this->GetCharacterDefinition(character);
 		width += characterDefinition.Advance.X;
 		maxHeight = FlaiMath::Max(maxHeight, float(characterDefinition.TextureUV.Height)); // TODO: characterDefinition.OffsetFromTop is not being accounted for ATM!!
 	}

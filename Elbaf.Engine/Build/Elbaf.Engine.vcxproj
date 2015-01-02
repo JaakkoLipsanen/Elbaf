@@ -130,12 +130,13 @@
     <ClInclude Include="..\Include\Engine\Game.h" />
     <ClInclude Include="..\Include\Engine\Graphics.h" />
     <ClInclude Include="..\Include\Engine\ICamera.h" />
+    <ClInclude Include="..\Include\Engine\ISceneManager.h" />
     <ClInclude Include="..\Include\Engine\Scene.h" />
-    <ClInclude Include="..\Include\Engine\SceneModule.h" />
     <ClInclude Include="..\Include\Engine\Screen.h" />
     <ClInclude Include="..\Include\Engine\Stopwatch.h" />
     <ClInclude Include="..\Include\Engine\Time.h" />
     <ClInclude Include="..\Source\Engine\Platform.h" />
+    <ClInclude Include="..\Source\Engine\SceneModule.h" />
     <ClInclude Include="..\Source\Engine\TimeModule.h" />
   </ItemGroup>
   <ItemGroup>
