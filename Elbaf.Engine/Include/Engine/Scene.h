@@ -1,7 +1,7 @@
 #pragma once
 
+class ISceneManager;
 class Game;
-class SceneModule;
 
 // todo: intergrate CBES right into this class and expose the CBES API in here
 // > alternatively, make a "CbesScene" or something similar?
@@ -14,6 +14,8 @@ public:
 	virtual ~Scene();
 
 	// todo: GetGameObject, GetComponent etc etc?? or should they be in some inner class....?
+
+	ISceneManager& GetSceneManager();
 
 protected:
 	virtual void OnEntering() { }
@@ -39,4 +41,5 @@ private:
 	void RenderInternal();
 
 	Game* _game;
+	SceneModule* _sceneModule;
 };

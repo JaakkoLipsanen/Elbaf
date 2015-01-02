@@ -16,6 +16,11 @@ void SceneModule::Terminate()
 
 void SceneModule::Update()
 {
+	if (_nextSceneToLoad.get() != nullptr)
+	{
+		this->LoadNextScene();
+	}
+
 	Ensure::NotNull(_currentScene.get());
 	_currentScene->UpdateInternal();
 }
@@ -27,19 +32,28 @@ void SceneModule::Render()
 
 void SceneModule::LoadScene(std::unique_ptr<Scene> scene)
 {
-	if (_currentScene.get() != nullptr)
+	_nextSceneToLoad = std::move(scene);
+	if (_currentScene.get() == nullptr)
 	{
-		_currentScene->Terminate();
+		this->LoadNextScene();
 	}
-
-	Ensure::NotNull(scene.get());
-	_currentScene.reset(scene.release());
-
-	Game* game = static_cast<Game*>(&_engine);
-	_currentScene->Initialize(*game, *this);
 }
 
 Scene& SceneModule::GetCurrentScene()
 {
 	return *_currentScene;
+}
+
+void SceneModule::LoadNextScene()
+{
+	Ensure::NotNull(_nextSceneToLoad.get(), "Next scene is null");
+	if (_currentScene.get() != nullptr)
+	{
+		_currentScene->Terminate();
+	}
+
+	_currentScene.reset(_nextSceneToLoad.release());
+
+	Game* game = static_cast<Game*>(&_engine);
+	_currentScene->Initialize(*game, *this);
 }
