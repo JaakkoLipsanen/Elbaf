@@ -72,10 +72,13 @@ static const std::string SpriteShaderSource = R"XXX(
 	layout(location = 0) out vec4 color;
 
 	uniform sampler2D TextureSampler;
+	uniform bool IsRed8Format;
 	
 	void main() {
 		color = FragmentColor;
-		color.rgba *= texture2D(TextureSampler, FragmentUV).r;
+
+		// text has only the "r" channel (Red8 format). TODO: should font-textures be RGBA8 so this special case wouldn't be needed?
+		color.rgba *= IsRed8Format ? texture2D(TextureSampler, FragmentUV).rrrr : texture2D(TextureSampler, FragmentUV).rgba;
 	}
 
 	)XXX";
@@ -84,16 +87,18 @@ class SpriteBatch::Impl
 {
 public:
 	explicit Impl(GraphicsContext& graphicsContext) :
-		GraphicsContext(graphicsContext), HasBegun(false), SpriteShader(graphicsContext.CreateShader(ShaderSource::FromSource(SpriteShaderSource))), VertexBuffer(graphicsContext.CreateVertexBuffer(BufferType::Dynamic)), CurrentTexture(nullptr)
+		GraphicsContext(graphicsContext), VertexBuffer(graphicsContext.CreateVertexBuffer(BufferType::Dynamic)), SpriteShader(graphicsContext.CreateShader(ShaderSource::FromSource(SpriteShaderSource))), CurrentTexture(nullptr), IsRenderingText(false), HasBegun(false)
 	{
 	}
 
-	bool HasBegun;
+	GraphicsContext& GraphicsContext;
 	std::unique_ptr<VertexBuffer> VertexBuffer;
 	std::unique_ptr<Shader> SpriteShader;
 	std::vector<SpriteVertex> Vertices;
-	GraphicsContext& GraphicsContext;
 	Texture2D* CurrentTexture;
+
+	bool IsRenderingText;
+	bool HasBegun;
 
 	void Flush()
 	{
@@ -115,6 +120,7 @@ public:
 		this->SpriteShader->Bind();
 		this->CurrentTexture->BindToSampler(0);
 		this->SpriteShader->SetTextureSampler("TextureSampler", 0);
+		this->SpriteShader->SetParameter("IsRed8Format", this->IsRenderingText);
 		this->SpriteShader->SetParameter("ViewProjection", 
 			Matrix::Scale(1, -1, 1) * 
 			Matrix::Translate(-1.0f, -1.0f, 0) *
@@ -124,6 +130,7 @@ public:
 
 		this->Vertices.clear();
 		this->CurrentTexture = nullptr;
+		this->IsRenderingText = false;
 	}
 };
 
@@ -194,7 +201,7 @@ void SpriteBatch::Draw(Texture2D& texture, RectangleF destinationRectangle, Colo
 
 void SpriteBatch::Draw(Texture2D& texture, RectangleF destinationRectangle, Color color, Rectangle sourceRectangle)
 {
-	Vector2f scale = static_cast<Vector2f>(sourceRectangle.Size().ToVector2i()) / static_cast<Vector2f>(texture.GetSize().ToVector2i());
+	Vector2f scale = static_cast<Vector2f>(destinationRectangle.Size()) / static_cast<Vector2f>(texture.GetSize().ToVector2i());
 	this->Draw(texture, destinationRectangle.TopLeft(), color, 0.0f, scale, Vector2f::Zero, sourceRectangle);
 }
 
@@ -237,4 +244,7 @@ void SpriteBatch::DrawText(Font& font, const std::string& text, Vector2f positio
 		position += characterDefinition.Advance;
 		previous = text[i];
 	}
+
+	// the text's "Flush" will be called some time after this method has ended.
+	_pImpl->IsRenderingText = true;
 }

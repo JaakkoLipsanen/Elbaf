@@ -59,7 +59,7 @@ public:
 	// todo: load font from memory? FreeType supports this also
 	std::unique_ptr<Font> LoadFont(GraphicsContext& graphicsContext, const std::string& path, int fontSize, Range<char> characterRange = Range<char>(32, 122), int dpi = 0, bool useKerning = false) // todo: "face_index" (third parameter in FT_New_Face)? Some font formats allow multiple fonts to be embedded in a single file
 	{
-		Ensure::True(_library != NULL, "FontLoader: Cannot load font because FreeType was not initialized correctly");
+		Ensure::True(_library != nullptr, "FontLoader: Cannot load font because FreeType was not initialized correctly");
 		
 		FT_Face fontFace;
 		auto error = FT_New_Face(_library, path.c_str(), 0, &fontFace);

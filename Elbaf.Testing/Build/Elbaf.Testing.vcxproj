@@ -136,7 +136,6 @@
     <ClInclude Include="..\Source\FloatingCube.h" />
     <ClInclude Include="..\Source\NoiseGen.h" />
     <ClInclude Include="..\Source\Skybox.h" />
-    <ClInclude Include="..\Source\SpriteBatch.h" />
     <ClInclude Include="..\Source\Terrain.h" />
     <ClInclude Include="..\Source\Renderer.h" />
     <ClInclude Include="..\Source\TestScene.h" />
