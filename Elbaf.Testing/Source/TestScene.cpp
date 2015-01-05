@@ -54,8 +54,8 @@ void TestScene::CreateObjects()
 	terrainMaterial->Tint = Color::White; // Color(40, 40, 40);
 
 	Terrain terrain(graphicsContext);
+	terrain.Generate(0, 0);
 	Stopwatch sw("Terrain gen");
-	terrain.Generate();
 	sw.Stop();
 
 	for (int x = -1; x <= 1; x++)
