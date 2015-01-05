@@ -109,7 +109,6 @@ public:
 		}
 
 		this->GraphicsContext.GetDepthState().SetDepthTestEnabled(false);
-		this->GraphicsContext.GetDepthState().SetDepthTestEnabled(false);
 		this->GraphicsContext.GetBlendState().SetBlendEnabled(true);
 		this->GraphicsContext.GetCullState().SetCullingEnabled(false);
 

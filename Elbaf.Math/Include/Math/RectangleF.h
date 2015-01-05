@@ -1,9 +1,6 @@
 #pragma once
 
-#include <Diagnostics/Ensure.h>
 #include <Math/Vector.h>
-#include <climits>
-#include <Math/Size.h>
 #include <Math/SizeF.h>
 
 struct Rectangle;

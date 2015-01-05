@@ -1,5 +1,6 @@
 #include <Math/RectangleF.h>
 #include <Math/Rectangle.h>
+#include <Diagnostics/Ensure.h>
 
 const RectangleF RectangleF::Empty = RectangleF(0, 0, 0, 0);
 const RectangleF RectangleF::MinMax = RectangleF(FLT_MIN / 2, FLT_MIN / 2, FLT_MAX, FLT_MAX);
