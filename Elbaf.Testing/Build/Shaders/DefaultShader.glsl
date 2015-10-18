@@ -20,6 +20,7 @@ uniform int LightCount;
 uniform float AmbientLightAmount = 0.3f;
 uniform mat4 MVP;
 
+
 out vec4 fragmentColor;
 out vec2 fragmentUV;
 

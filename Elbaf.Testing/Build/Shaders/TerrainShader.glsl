@@ -1,77 +1,78 @@
 #(vertex-shader)
-#(name "Terrain VS")
 #version 440
 
-layout(location = 0) in vec3 vertexPosition;
-layout(location = 1) in vec4 vertexColor;
-layout(location = 3) in vec3 vertexNormal;
+#(name "Terrain VS")
+#(include "Shaders/ShadowHelper.vert")
+
+struct DirectionalLight
+{
+	vec3 Direction;
+	float Power; // [0, 1]
+	vec3 Color;
+};
+
+uniform vec3 AmbientLight = vec3(0.3, 0.3, 0.3);
+uniform DirectionalLight Light = { vec3(-0.2, -1., -0.5), 1, vec3(1, 1, 1) };
+
+
+
+
+
+layout(location = 0) in vec3 VertexPosition;
+layout(location = 1) in vec4 VertexColor;
+layout(location = 2) in vec2 VertexUV;
+layout(location = 3) in vec3 VertexNormal;
 
 uniform mat4 MVP;
+uniform mat4 M;
 uniform mat4 ShadowMVP;
 
-out vec4 fragmentColor;
-out vec4 fragShadowCoord; // shadow/light coordinate
+out vec4 FragmentColor;
+out vec2 FragmentUV;
+out vec3 FragmentShadowCoord; // shadow/light coordinate
+out vec3 FragmentLightColor;
 
-const vec3 LightDirection = vec3(0, -1, 0);
 void main(){
 
-	gl_Position =  MVP * vec4(vertexPosition, 1);
-	fragShadowCoord = ShadowMVP * vec4(vertexPosition, 1);
+	gl_Position =  MVP * vec4(VertexPosition, 1);
+	FragmentShadowCoord = CalculateShadowFragmentCoord(ShadowMVP, VertexPosition);
 
-	/* vertex shading */
-	vec3 l = normalize(LightDirection);
-	vec3 n = normalize(vertexNormal);
+	FragmentUV = VertexUV;
+	FragmentColor = VertexColor;
 
-	float d = dot(n, l);
-	d = sqrt(clamp(-d, 0, 1));
-	
-	fragmentColor = vertexColor * vec4(d, d, d, 1);
+
+	mat4 inverseTransposeWorld = transpose(inverse(M));
+	vec3 L = normalize(Light.Direction);
+	vec3 N = normalize((inverseTransposeWorld * vec4(VertexNormal, 0)).xyz); /// !!!!!!!!!!!! WHEN TRANSFORMING NORMAL, THE "W" COMPONENT MUST BE 0... forgot that..
+	float d = dot(N, L);
+	d = clamp(-d, 0, 1);
+
+	FragmentLightColor = min(vec3(1, 1, 1), AmbientLight + Light.Color * d * Light.Power); 
+
 }
 
 #(fragment-shader)
-#(name "Terrain FS")
 #version 440
 
-in vec4 fragmentColor;
-in vec4 fragShadowCoord;
+#(name "Terrain FS")
+#(include "Shaders/ShadowHelper.frag")
+
+in vec4 FragmentColor;
+in vec2 FragmentUV;
+in vec3 FragmentShadowCoord;
+in vec3 FragmentLightColor;
 
 layout(location = 0) out vec4 color;
 
-uniform vec3 Tint;
 uniform sampler2D ShadowMap;
-
-float GetShadowAmount(vec3 shadowCoord)
-{
-	// omni-directional. 4-direction could be okay too
-	const vec2 Offsets[] = { vec2(-1, 0), vec2(1, 0), vec2(0, -1), vec2(0, 1), vec2(-1, -1), vec2(-1, 1), vec2(1, -1), vec2(1, 1) };
-	const float ShadowDarkness = 0.5; // multiplier of color when the fragment is in shadow
-
-	vec2 uv = shadowCoord.xy; // "uv" == shadow map uv
-	if(uv.x <= 0 || uv.x >= 1 || uv.y <= 0 || uv.y >= 1)
-	{
-		// if the uv is out of bounds (outside [0, 1]), then the area is LIGHTED
-		return 1;
-	}
-
-	const float Bias = 0.005;
-	float fragmentZ = shadowCoord.z - Bias; // current fragment depth in SHADOW/LIGHT COORDINATES aka distance from shadowmap source
-
-	float totalLight = 0f;
-	for(int i = 0; i <  Offsets.length(); i++)
-	{
-		const float OffsetAmount = 0.001;
-		float shadowMapZ = texture(ShadowMap, shadowCoord.xy + Offsets[i] * OffsetAmount).r; // shadow map's z-value
-		totalLight += (shadowMapZ < fragmentZ) ? ShadowDarkness : 1;
-	}
-
-	return totalLight / Offsets.length();
-}
+uniform sampler2D Texture;
+uniform vec3 Tint;
 
 void main()
 {
-	// Output color = red 
-	color = fragmentColor;
+	color = texture(Texture, FragmentUV) * FragmentColor;
 	color.rgb *= Tint;
+	color.rgb *= FragmentLightColor;
 
-	color.rgb *= GetShadowAmount(fragShadowCoord.xyz);
+	color = ApplyShadow(color, ShadowMap, FragmentShadowCoord);
 }

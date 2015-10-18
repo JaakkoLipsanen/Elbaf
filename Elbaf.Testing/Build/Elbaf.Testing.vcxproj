@@ -129,6 +129,10 @@
   <ItemGroup>
     <None Include="Shaders\DefaultShader.glsl" />
     <None Include="Shaders\DepthPass.glsl" />
+    <None Include="Shaders\Shadow.frag" />
+    <None Include="Shaders\Shadow.vert" />
+    <None Include="Shaders\ShadowHelper.frag" />
+    <None Include="Shaders\ShadowHelper.vert" />
     <None Include="Shaders\TerrainShader.glsl" />
   </ItemGroup>
   <ItemGroup>

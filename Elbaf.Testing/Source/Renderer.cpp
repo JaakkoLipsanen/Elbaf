@@ -51,7 +51,7 @@ Renderer::Renderer(GraphicsContext& graphicsContext)
 
 	//_postProcessRenderer.AddPostProcess(std::make_shared<SSAO>(_graphicsContext));
 
-	_directionalLightShadowMap = _graphicsContext.CreateRenderTarget(2048, 2048, DepthBufferFormat::Depth16, {});
+	_directionalLightShadowMap = _graphicsContext.CreateRenderTarget(8192, 8192, DepthBufferFormat::Depth32, {});
 
 	_graphicsContext.BindRenderTarget(_directionalLightShadowMap.get());
 	_directionalLightShadowMap->GetDepthTexture().Bind();
@@ -136,8 +136,11 @@ void Renderer::RenderScene()
 
 		auto& shader = this->GetShader(renderObject->Material->MaterialType);
 		shader.Bind();
-		shader.SetParameter("MVP", projectionXview * Matrix::Translate(renderObject->Position) * Matrix::Scale(renderObject->Scale));
-		shader.SetParameter("ShadowMVP", shadowMVP * Matrix::Translate(renderObject->Position) * Matrix::Scale(renderObject->Scale));
+
+		auto modelMatrix = Matrix::Translate(renderObject->Position) * Matrix::Scale(renderObject->Scale);
+		shader.SetParameter("MVP", projectionXview * modelMatrix);
+		shader.SetParameter("ShadowMVP", shadowMVP * modelMatrix);
+		shader.SetParameter("M", modelMatrix);
 		shader.SetParameter("Tint", renderObject->Material->Tint.ToVector3f());
 
 		_directionalLightShadowMap->GetDepthTexture().BindToSampler(1);
@@ -182,11 +185,11 @@ void Renderer::RenderShadowMap()
 
 Matrix4x4 GetShadowMVP()
 {
-	glm::vec3 lightInvDir = -Vector::Normalize(Vector3f(0.2f, -1.f, -0.5f));
+	glm::vec3 lightInvDir = -Vector::Normalize(Vector3f(0.2f, -1.f, 0.5f));
 
 	// Compute the MVP matrix from the light's point of view
 	glm::mat4 depthProjectionMatrix = glm::ortho<float>(-1000, 1000, -1000, 1000, -1000, 2000);
-	glm::mat4 depthViewMatrix = glm::lookAt(lightInvDir * 400, glm::vec3(0, 0, 0), glm::vec3(0, 1, 0));
+	glm::mat4 depthViewMatrix = glm::lookAt(lightInvDir * 300, glm::vec3(0, 0, 0), glm::vec3(0, 1, 0));
 
 	glm::mat4 depthModelMatrix = glm::mat4(1.0);
 	return depthProjectionMatrix * depthViewMatrix * depthModelMatrix;

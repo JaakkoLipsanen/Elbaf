@@ -15,13 +15,11 @@ protected:
 	void PostRender() override;
 
 private:
+	void CreateObjects();
+
 	std::unique_ptr<Renderer> _renderer;
 	std::unique_ptr<DefaultCamera> _camera;
 	std::shared_ptr<RenderObject> _skybox;
-	std::vector<FloatingCube> _floatingCubes;
 
 	std::unique_ptr<Font> _font;
-//	std::unique_ptr<FontRenderer> _fontRenderer;
-
-	void CreateObjects();
 };

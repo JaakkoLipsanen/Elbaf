@@ -41,6 +41,18 @@
     <None Include="Shaders\TerrainShader.glsl">
       <Filter>Shaders</Filter>
     </None>
+    <None Include="Shaders\Shadow.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\ShadowHelper.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\Shadow.vert">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\ShadowHelper.vert">
+      <Filter>Shaders</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Source\DefaultCamera.h">
