@@ -13,7 +13,7 @@ static const float FarZ = 4000.0f;
 static const float VerticalFOV = 75;
 
 // from OGL tutorial mostly
-DefaultCamera::DefaultCamera() : _position(Vector3f::One * 100)
+DefaultCamera::DefaultCamera() : _position(Vector3f::One * 100), _enabled(true)
 {
 	_projection = Matrix::CreatePerspective(VerticalFOV, Screen::GetSize().GetAspectRatio(), NearZ, FarZ);
 	this->UpdateView();
@@ -51,6 +51,16 @@ float DefaultCamera::GetAspectRatio() const
 
 void DefaultCamera::Update()
 {
+	if (Input::IsNewKeyPress(KeyCode::F1))
+	{
+		_enabled = !_enabled;
+	}
+
+	if (!_enabled)
+	{
+		return;
+	}
+
 	Vector3f cross = Vector::Normalize(Vector::Cross(this->CalculateDirection(), Vector3f::UnitY));
 	const float DefaultMovementSpeed = 25.0f;
 	float MovementSpeed = DefaultMovementSpeed * (Input::IsKeyPressed(KeyCode::LeftShift) ? 20 : 1);

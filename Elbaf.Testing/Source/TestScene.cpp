@@ -22,7 +22,7 @@ void TestScene::OnEntering()
 	this->CreateObjects();
 
 
-	_font = Content::LoadFont(this->GetGame().GetGraphicsContext(), "F:\\Users\\Jaakko\\Desktop\\ArvoRegular.ttf", 32);
+	_font = Content::LoadFont(this->GetGame().GetGraphicsContext(), "Fonts/ArvoRegular.ttf", 32);
 	//_fontRenderer.reset(new FontRenderer(this->GetGame().GetGraphicsContext()));
 }
 
@@ -58,13 +58,13 @@ void TestScene::CreateObjects()
 	Stopwatch sw("Terrain gen");
 	sw.Stop();
 
-	for (int x = -1; x <= 1; x++)
+	for (int x = 0; x < 1; x++)
 	{
-		for (int y = -1; y <= 1; y++)
+		for (int y = 0; y < 1; y++)
 		{
 			auto terrainRenderObject = std::make_shared<RenderObject>(terrain.Mesh, terrainMaterial, Vector3f::Zero);
 			terrainRenderObject->Scale = Vector3f(4, 1, 4);
-			terrainRenderObject->Position = Vector3f(x, 0, y) * 4 * 256;
+			terrainRenderObject->Position = Vector3f(x, 0, y) * 4 * 256 -Vector3f(256, 0, 256) * 4;
 			_renderer->AddObject(terrainRenderObject);
 		}
 	}
@@ -73,7 +73,7 @@ void TestScene::CreateObjects()
 	Skybox skybox(graphicsContext);
 	skybox.Generate();
 
-	std::shared_ptr<Texture2D> skyTexture = std::move(Content::LoadTexture("F:/Users/Jaakko/Desktop/Skybox1.png"));
+	std::shared_ptr<Texture2D> skyTexture = std::move(Content::LoadTexture("Textures/Skybox.png"));
 	std::shared_ptr<Material> skyboxMaterial = std::make_shared<Material>(skyTexture);
 	skyboxMaterial->Tint = Color::White;
 
@@ -82,7 +82,7 @@ void TestScene::CreateObjects()
 	_skybox->UseCulling = false;
 	_skybox->RenderOrder = -1000;
 	
- // _renderer->AddObject(_skybox);
+  _renderer->AddObject(_skybox);
 	 
 	auto cubeMesh = FloatingCube::CreateMesh(graphicsContext);
  /* for (int i = 0; i < 50; i++)
@@ -100,12 +100,12 @@ void TestScene::CreateObjects()
 		_renderer->AddObject(renderObject);
 	}*/
 
-	for (int i = 0; i < 8; i++)
+	for (int i = 0; i < 24; i++)
 	{
 		_floatingCubes.emplace_back(
 			graphicsContext,
-			Vector3f(Global::Random.NextFloat(-1000, 1000) * (Global::Random.NextBoolean() ? 1 : -1), Global::Random.NextFloat(80, 350), Global::Random.NextFloat(-1000, 1000) * (Global::Random.NextBoolean() ? 1 : -1)),
-			Vector3f::One * Global::Random.NextFloat(20, 160));
+			Vector3f(Global::Random.NextFloat(-400, 400) * (Global::Random.NextBoolean() ? 1 : -1), Global::Random.NextFloat(150, 230), Global::Random.NextFloat(-400, 400) * (Global::Random.NextBoolean() ? 1 : -1)),
+			Vector3f::One * Global::Random.NextFloat(5, 20));
 
 		auto cubeMaterial = std::make_shared<Material>(blankPixel);
 		cubeMaterial->Tint = HsvColor(Global::Random.NextFloat(0, 360), 0.8f, 0.8f).ToRgb();

@@ -24,6 +24,7 @@ private:
 
 	Vector3f _position;
 	Vector2f _rotationAngle; // :| ?
+	bool _enabled;
 
 	void UpdateView();
 	Vector3f CalculateDirection() const;

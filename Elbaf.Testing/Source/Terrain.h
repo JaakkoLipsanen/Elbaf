@@ -19,15 +19,15 @@ public:
 	std::shared_ptr<Mesh> Mesh;
 	void Generate(int terrainX, int terrainY)
 	{
-		const int Size = 256;
-		float grid[(Size + 1) * (Size + 1)];
+		const int Size = 512;
+		float* grid = new float[(Size + 1) * (Size + 1)];
 		const float MaxHeight = 1;
 		Stopwatch sw("Noise gen");
 		for (int y = 0; y < Size + 1; y++)
 		{
 			for (int x = 0; x < Size + 1; x++)
 			{
-				grid[x + y * Size] = scaled_octave_noise_2d(24, 0.4f, 0.0015f, 0, 160, (terrainX * Size) + x * 4, (terrainY * Size) + y * 4) + Global::Random.NextFloat(-0.5f, 0.5f) * 2;
+				grid[x + y * Size] = scaled_octave_noise_2d(24, 0.4f, 0.0015f, 0, 160, (terrainX * Size) + x * 4, (terrainY * Size) + y * 4) + Global::Random.NextFloat(-0.5f, 0.5f) * 0.4f;
 			}
 		}
 		sw.Stop();
@@ -37,7 +37,7 @@ public:
 		{
 			for (int x = 0; x < Size; x++)
 			{
-				static const Color From = Color::Lerp(Color::DodgerBlue, Color::White, 0.5f); // Color(40, 40, 40);
+				static const Color From = Color::Lerp(Color::Green, Color::White, 0.5f); // Color(40, 40, 40);
 				static const Color To = From;
 
 				Vector3f blPos = { x, grid[x + y * Size], y };
@@ -65,6 +65,8 @@ public:
 			}
 		}
 		
+		// free the memory
+		delete[] grid;
 
 	    std::shared_ptr<VertexBuffer> x = _graphicsContext.CreateVertexBuffer(BufferType::Static);
 		this->Mesh.reset(new ::Mesh(x));

@@ -20,7 +20,7 @@ class MyGame : public Game
 protected:
 	void SetupWindow(WindowDescription& description) override
 	{
-		description.Resolution = Size(1920, 1080);
+		description.Resolution = Size(1280, 800);
 		description.HasBorders = false;
 	}
 
@@ -40,7 +40,7 @@ public:
 		Mouse::SetCursorVisibility(CursorVisibility::Disabled);
 		Mouse::SetPosition({ Screen::GetWidth() / 2, Screen::GetHeight() / 2 });
 
-		_font = Content::LoadFont(this->GetGraphicsContext(), "F:\\Users\\Jaakko\\Desktop\\ArvoRegular.ttf", 32);
+		_font = Content::LoadFont(this->GetGraphicsContext(), "Fonts/ArvoRegular.ttf", 32);
 
 		_batch.reset(new SpriteBatch(this->GetGraphicsContext()));
 		_blankPixel = TextureHelper::CreateBlankTexture(this->GetGraphicsContext());

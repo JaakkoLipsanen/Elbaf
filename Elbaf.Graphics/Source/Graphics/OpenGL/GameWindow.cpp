@@ -8,7 +8,7 @@ void OGL::GameWindow::Open(const WindowDescription& description)
 {
 	Ensure::Null(_window, "Window is already opened!");
 
-	const static int MultiSampleCount = 4; // todo: 4x not necessary maybe? also if I were to implement post-process AA, then making this changeable would be wise
+	const static int MultiSampleCount = 32; // todo: 4x not necessary maybe? also if I were to implement post-process AA, then making this changeable would be wise
 	glfwWindowHint(GLFW_SAMPLES, MultiSampleCount);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4); // OpenGL 4.4. Using an earlier could be wise, Mac OSX for example doesn't support this
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 4);
