@@ -1,4 +1,4 @@
-# Elbaf, an OpenGL and C++ game engine
+## Elbaf, an OpenGL and C++ game engine
 
 Elbaf is a project that I developed around late 2014 and early 2015. It is a game engine that is built from 'scratch' with C++ and OpenGL.
 The project is splitted in to different projects, that I call **modules**:
@@ -21,7 +21,7 @@ Every project has both *public* and *private* headers. Private headers are meant
 
 The modules expose their API usually in a class inheriting from *IModule*. For example, Elbaf.Content exposes the functionality in *ContentModule.h*/*Content.h*, Elbaf.Input exposes in *InputModule.h*/*Input.h*, Elbaf.Graphics in *GraphicsModule.h* etc.
 
-#### Current state of the project
+### Current state of the project
 The current state of the engine is that all main functionality works, such as loading assets, getting input, handling multiple scenes and rendering. 
 
 The *SpriteBatch* class in the Graphics module supports rendering 2D textures and fonts, and is perfectly usable for 2D games. I have developed a simple game Tetris game with Elbaf, [Tetris++](https://github.com/JaakkoLipsanen/Tetris.PlusPlus).
