@@ -1,6 +1,6 @@
 ## Elbaf, an OpenGL and C++ game engine
 
-Elbaf is a project that I developed around late 2014 and early 2015. It is a game engine that is built from "scratch" with C++ and OpenGL.
+Elbaf is a project that I worked on around late 2014 and early 2015. It is a game engine that is built from "scratch" with C++ and OpenGL.
 The project is splitted in to different projects, that I call **modules**:
 
 **Elbaf.Content** handles loading assets, such as textures and fonts
